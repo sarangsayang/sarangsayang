@@ -4,6 +4,7 @@ const nextConfig = {
         domains: [
             "placehold.co",
             "localhost",
+            "sarangsayang.up.railway.app"
         ]
     },
     transpilePackages: ['html-to-text']
