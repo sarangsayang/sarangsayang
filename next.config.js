@@ -1,4 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    images: {
+        domains: [
+            "placehold.co",
+            "localhost",
+        ]
+    },
+    transpilePackages: ['html-to-text']
+}
 
 module.exports = nextConfig

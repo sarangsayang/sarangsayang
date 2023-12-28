@@ -1,0 +1,53 @@
+import { trpc } from '@/trpc/client'
+import { Loader } from 'lucide-react'
+import React from 'react'
+
+interface TEDataPullProps {
+    vendorId: string
+}
+
+const TEDataPull = ({vendorId}: TEDataPullProps) => {
+    const leads = trpc.getSSLeads.useQuery({
+        vendorId: vendorId
+    }).data
+
+    const lastMonth = new Date().getMonth()
+    const currentYear = new Date().getFullYear()
+
+    const lastMonthData = trpc.getSSLeadsThisMonth.useQuery({
+      month: lastMonth,
+      year: currentYear,
+      vendorId: vendorId
+    })
+
+    const lastMonthNumbers = lastMonthData.data?.length
+
+    const thisMonthData = trpc.getSSLeadsThisMonth.useQuery({
+      month: lastMonth + 1,
+      year: currentYear,
+      vendorId: vendorId
+    })
+
+    const thisMonthNumbers = thisMonthData.data?.length
+
+    function findDifference(lastMonthNumbers: number, thisMonthNumbers: number) {
+      const difference = thisMonthNumbers - lastMonthNumbers
+      if (difference > 0) {
+        return <p className="text-xs text-lime-700">+{difference} from last month</p>
+      } else if  (difference < 0){
+        return <p className="text-xs text-rose-700">{difference} from last month</p>
+      } else {
+        return <p className="text-xs">Same number of likes from last month</p>
+      }
+    }
+
+  return (
+    <>
+        {leads ? (<div className="text-2xl font-bold">{leads.length}</div>) : (<Loader/>)}
+        {/* @ts-ignore */}
+        {findDifference(lastMonthNumbers, thisMonthNumbers)}
+    </>
+  )
+}
+
+export default TEDataPull

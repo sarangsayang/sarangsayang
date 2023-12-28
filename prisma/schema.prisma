@@ -1,0 +1,195 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URL")
+}
+
+type MediaSizes {
+  card      MediaSizesCard
+  tablet    MediaSizesTablet
+  thumbnail MediaSizesThumbnail
+}
+
+type MediaSizesCard {
+  filename String
+  filesize Int
+  height   Int
+  mimeType String
+  width    Int
+}
+
+type MediaSizesTablet {
+  filename String
+  filesize Int
+  height   Int
+  mimeType String
+  width    Int
+}
+
+type MediaSizesThumbnail {
+  filename String
+  filesize Int
+  height   Int
+  mimeType String
+  width    Int
+}
+
+type PayloadPreferencesUser {
+  relationTo String
+  value      String
+}
+
+type PayloadPreferencesValue {
+  columns PayloadPreferencesValueColumns[]
+  fields  PayloadPreferencesValueFields?
+  limit   String?
+  open    Boolean?
+  sort    String?
+}
+
+type PayloadPreferencesValueColumns {
+  accessor String
+  active   Boolean
+}
+
+type PayloadPreferencesValueFields {
+  images PayloadPreferencesValueFieldsImages
+}
+
+type PayloadPreferencesValueFieldsImages {
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  collapsed Json?
+}
+
+type VendorsImages {
+  id    String
+  image String
+}
+
+model media {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int        @map("__v")
+  createdAt DateTime   @db.Date
+  filename  String     @unique(map: "filename_1")
+  filesize  Int
+  height    Int
+  mimeType  String
+  sizes     MediaSizes
+  updatedAt DateTime   @db.Date
+  user      String?
+  width     Int
+
+  @@index([createdAt], map: "createdAt_1")
+  @@index([sizes.thumbnail.filename], map: "sizes.thumbnail.filename_1")
+  @@index([sizes.card.filename], map: "sizes.card.filename_1")
+  @@index([sizes.tablet.filename], map: "sizes.tablet.filename_1")
+}
+
+model packages {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  v              Int      @map("__v")
+  createdAt      DateTime @db.Date
+  name           String
+  packageDetails String
+  pax            Int?
+  price          Int
+  services       String[]
+  updatedAt      DateTime @db.Date
+  user           String
+
+  @@index([createdAt], map: "createdAt_1")
+}
+
+model payload_migrations {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  /// Field referred in an index, but found no data to define the type.
+  createdAt Json?
+
+  @@index([createdAt], map: "createdAt_1")
+  @@map("payload-migrations")
+}
+
+model payload_preferences {
+  id        String                 @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int                    @map("__v")
+  createdAt DateTime               @db.Date
+  key       String
+  updatedAt DateTime               @db.Date
+  user      PayloadPreferencesUser
+  /// Multiple data types found: PayloadPreferencesValue: 95%, Array(String): 5% out of 24 sampled entries
+  value     Json?
+
+  @@index([createdAt], map: "createdAt_1")
+  @@map("payload-preferences")
+}
+
+model users {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  v                 Int       @map("__v")
+  verificationToken String?   @map("_verificationToken")
+  verified          Boolean   @map("_verified")
+  createdAt         DateTime  @db.Date
+  email             String    @unique(map: "email_1")
+  hash              String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  lockUntil         Json?
+  loginAttempts     Int
+  packages          String[]
+  role              String
+  salt              String
+  updatedAt         DateTime  @db.Date
+  likes             likes[]
+  vendors           vendors[]
+
+  @@index([createdAt], map: "createdAt_1")
+}
+
+model vendors {
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  v          Int             @map("__v")
+  category   String
+  createdAt  DateTime        @db.Date
+  details    String
+  images     VendorsImages[]
+  location   String
+  name       String
+  packages   String[]
+  updatedAt  DateTime        @db.Date
+  venduserid String          @db.ObjectId
+  user       users           @relation(fields: [venduserid], references: [id])
+  likes      likes[]
+  leads      leads[]
+
+  @@index([createdAt], map: "createdAt_1")
+}
+
+model likes {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @db.Date
+  updatedAt DateTime @db.Date
+  vendorId  String   @db.ObjectId
+  vendor    vendors  @relation(fields: [vendorId], references: [id])
+  userId    String   @db.ObjectId
+  user      users    @relation(fields: [userId], references: [id])
+
+  @@index([createdAt], map: "createdAt_1")
+}
+
+model leads {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @db.Date
+  updatedAt DateTime @db.Date
+  vendorId  String   @db.ObjectId
+  vendor    vendors  @relation(fields: [vendorId], references: [id])
+  name      String
+  email     String
+  contact   String
+  message   String
+  source    String
+  status    String
+  priority  String
+  remarks   String
+}
