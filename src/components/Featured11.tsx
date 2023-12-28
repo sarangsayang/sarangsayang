@@ -31,7 +31,7 @@ const Featured11 = () => {
             <CarouselContent>
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -45,7 +45,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -59,7 +59,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -73,7 +73,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -87,7 +87,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -101,7 +101,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -115,7 +115,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -129,7 +129,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -143,7 +143,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -157,7 +157,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang
@@ -171,7 +171,7 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
                             <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
                                 SarangSayang

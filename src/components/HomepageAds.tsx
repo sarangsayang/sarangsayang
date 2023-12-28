@@ -23,7 +23,7 @@ const HomepageAds = () => {
         >
             <CarouselContent>
                 <CarouselItem className="flex items-center justify-center p-6">
-                    <Image src="https://placehold.co/1000x200" alt="ad1"/>
+                    <Image width={1000} height={200} src="https://placehold.co/1000x200" alt="ad1"/>
                 </CarouselItem>
             </CarouselContent>
             {/* <CarouselPrevious />

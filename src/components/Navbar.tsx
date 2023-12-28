@@ -27,7 +27,7 @@ const Navbar = async () => {
   
                 <div className='ml-4 flex lg:ml-0'>
                   <Link href='/'>
-                    <Image src='/logoSmall.jpg' alt='logo' className='w-10 h-10'/>
+                    <Image width={10} height={10} src='/logoSmall.jpg' alt='logo' className='w-10 h-10'/>
                   </Link>
                 </div>
   

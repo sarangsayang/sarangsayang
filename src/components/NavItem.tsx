@@ -95,6 +95,7 @@ const NavItem = ({
                       <div className='relative rounded-2xl bg-gray-100 group-hover:opacity-75 h-[250px]'>
                         <Link href={item.href} onClick={() => close()}>
                         <Image
+                          fill
                           src={item.imageSrc}
                           alt='product category image'
                           className='object-cover object-center h-full w-full rounded-2xl'
