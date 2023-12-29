@@ -13,7 +13,8 @@ export const getServerSideUser = async (
       headers: {
         Authorization: `JWT ${token}`,
       },
-      credentials: 'include'
+      credentials: 'include',
+      
     }
     )
     
