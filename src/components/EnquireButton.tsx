@@ -67,7 +67,7 @@ const EnquireButton = ({vendorId, userEmail}: EnquireButtonProps) => {
         toast.success('Enquiry Submitted!')
       }
 
-    const addLead = trpc.addLeads.useMutation()
+    const addLead = trpc.addLead.useMutation()
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

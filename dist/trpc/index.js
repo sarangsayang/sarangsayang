@@ -79,14 +79,94 @@ exports.appRouter = (0, trpc_1.router)({
     })).query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var resultsArray, i, currentMonth, currentYear, followingMonth, followingYear, results1, results2;
+            var payload, resultsArray, i, currentMonth, currentYear, followingMonth, followingYear, results1, results2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0:
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
                         resultsArray = [];
                         i = 12;
-                        _b.label = 1;
+                        _b.label = 2;
+                    case 2:
+                        if (!(i > -1)) return [3 /*break*/, 6];
+                        currentMonth = input.month - i;
+                        currentYear = input.year;
+                        followingMonth = currentMonth + 1;
+                        followingYear = input.year;
+                        if (currentMonth === 0) {
+                            currentMonth = 12;
+                            currentYear = currentYear - 1;
+                        }
+                        else if (currentMonth < 0) {
+                            currentMonth = currentMonth + 12;
+                            currentYear = currentYear - 1;
+                            followingMonth = currentMonth + 1;
+                        }
+                        if (followingMonth > 12) {
+                            followingMonth = followingMonth - 12;
+                            followingYear = followingYear + 1;
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: 'leads',
+                                where: {
+                                    vendor: input.vendorId,
+                                    createdAt: {
+                                        greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
+                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
+                                    }
+                                }
+                            })];
+                    case 3:
+                        results1 = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'leads',
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId
+                                    },
+                                    source: { equals: 'Sarang Sayang' },
+                                    createdAt: {
+                                        greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
+                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
+                                    }
+                                }
+                            })];
+                    case 4:
+                        results2 = _b.sent();
+                        resultsArray.push({
+                            month: currentMonth,
+                            year: currentYear,
+                            data: results1.docs.length,
+                            ss: results2.docs.length
+                        });
+                        _b.label = 5;
+                    case 5:
+                        i = i - 1;
+                        return [3 /*break*/, 2];
+                    case 6: return [2 /*return*/, resultsArray];
+                }
+            });
+        });
+    }),
+    getVendorLikes12M: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        year: zod_1.z.number(),
+        month: zod_1.z.number(),
+        vendorId: zod_1.z.string()
+    })).query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, resultsArray, i, currentMonth, currentYear, followingMonth, followingYear, results;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
+                        payload = _b.sent();
+                        resultsArray = [];
+                        i = 12;
+                        _b.label = 2;
+                    case 2:
                         if (!(i > -1)) return [3 /*break*/, 5];
                         currentMonth = input.month - i;
                         currentYear = input.year;
@@ -105,99 +185,28 @@ exports.appRouter = (0, trpc_1.router)({
                             followingMonth = followingMonth - 12;
                             followingYear = followingYear + 1;
                         }
-                        return [4 /*yield*/, prisma.leads.findMany({
+                        return [4 /*yield*/, payload.find({
+                                collection: 'likes',
                                 where: {
-                                    vendorId: input.vendorId,
+                                    vendor: input.vendorId,
                                     createdAt: {
-                                        gte: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
-                                        lt: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
-                                    }
-                                }
-                            })];
-                    case 2:
-                        results1 = _b.sent();
-                        return [4 /*yield*/, prisma.leads.findMany({
-                                where: {
-                                    vendorId: input.vendorId,
-                                    source: 'Sarang Sayang',
-                                    createdAt: {
-                                        gte: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
-                                        lt: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
+                                        greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
+                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
                                     }
                                 }
                             })];
                     case 3:
-                        results2 = _b.sent();
-                        resultsArray.push({
-                            month: currentMonth,
-                            year: currentYear,
-                            data: results1.length,
-                            ss: results2.length
-                        });
-                        _b.label = 4;
-                    case 4:
-                        i = i - 1;
-                        return [3 /*break*/, 1];
-                    case 5: return [2 /*return*/, resultsArray];
-                }
-            });
-        });
-    }),
-    getVendorLikes12M: trpc_1.publicProcedure
-        .input(zod_1.z.object({
-        year: zod_1.z.number(),
-        month: zod_1.z.number(),
-        vendorId: zod_1.z.string()
-    })).query(function (_a) {
-        var input = _a.input;
-        return __awaiter(void 0, void 0, void 0, function () {
-            var resultsArray, i, currentMonth, currentYear, followingMonth, followingYear, results;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        resultsArray = [];
-                        i = 12;
-                        _b.label = 1;
-                    case 1:
-                        if (!(i > -1)) return [3 /*break*/, 4];
-                        currentMonth = input.month - i;
-                        currentYear = input.year;
-                        followingMonth = currentMonth + 1;
-                        followingYear = input.year;
-                        if (currentMonth === 0) {
-                            currentMonth = 12;
-                            currentYear = currentYear - 1;
-                        }
-                        else if (currentMonth < 0) {
-                            currentMonth = currentMonth + 12;
-                            currentYear = currentYear - 1;
-                            followingMonth = currentMonth + 1;
-                        }
-                        if (followingMonth > 12) {
-                            followingMonth = followingMonth - 12;
-                            followingYear = followingYear + 1;
-                        }
-                        return [4 /*yield*/, prisma.likes.findMany({
-                                where: {
-                                    vendorId: input.vendorId,
-                                    createdAt: {
-                                        gte: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
-                                        lt: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
-                                    }
-                                }
-                            })];
-                    case 2:
                         results = _b.sent();
                         resultsArray.push({
                             month: currentMonth,
                             year: currentYear,
-                            data: results.length
+                            data: results.docs.length
                         });
-                        _b.label = 3;
-                    case 3:
+                        _b.label = 4;
+                    case 4:
                         i = i - 1;
-                        return [3 /*break*/, 1];
-                    case 4: return [2 /*return*/, resultsArray];
+                        return [3 /*break*/, 2];
+                    case 5: return [2 /*return*/, resultsArray];
                 }
             });
         });
@@ -210,22 +219,25 @@ exports.appRouter = (0, trpc_1.router)({
     })).query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var ltDate;
+            var payload, ltDate;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0:
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
                         ltDate = input.month === 12 ? (new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))) : (new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z")));
-                        return [4 /*yield*/, prisma.leads.findMany({
+                        return [4 /*yield*/, payload.find({
+                                collection: 'leads',
                                 where: {
-                                    vendorId: input.vendorId,
+                                    vendor: input.vendorId,
                                     source: 'Sarang Sayang',
                                     createdAt: {
-                                        gte: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
-                                        lt: ltDate
+                                        greater_than_equal: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
+                                        less_than: ltDate
                                     }
                                 }
                             })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -238,21 +250,24 @@ exports.appRouter = (0, trpc_1.router)({
     })).query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var ltDate;
+            var payload, ltDate;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0:
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
                         ltDate = input.month === 12 ? (new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))) : (new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z")));
-                        return [4 /*yield*/, prisma.likes.findMany({
+                        return [4 /*yield*/, payload.find({
+                                collection: 'likes',
                                 where: {
-                                    vendorId: input.vendorId,
+                                    vendor: input.vendorId,
                                     createdAt: {
-                                        gte: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
-                                        lt: ltDate
+                                        greater_than_equal: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
+                                        less_than: ltDate
                                     }
                                 }
                             })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -265,21 +280,24 @@ exports.appRouter = (0, trpc_1.router)({
     })).query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var ltDate;
+            var payload, ltDate;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0:
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
                         ltDate = input.month === 12 ? (new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))) : (new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z")));
-                        return [4 /*yield*/, prisma.leads.findMany({
+                        return [4 /*yield*/, payload.find({
+                                collection: 'leads',
                                 where: {
                                     vendorId: input.vendorId,
                                     createdAt: {
-                                        gte: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
-                                        lt: ltDate
+                                        greater_than_equal: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
+                                        less_than: ltDate
                                     }
                                 }
                             })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -290,14 +308,22 @@ exports.appRouter = (0, trpc_1.router)({
     })).query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.users.findFirst({
-                            where: {
-                                id: input.vendUserId
-                            }
-                        })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'vendors',
+                                where: {
+                                    venduserid: {
+                                        equals: input.vendUserId,
+                                    }
+                                },
+                                limit: 1
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -309,14 +335,22 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.vendors.findFirst({
-                            where: {
-                                venduserid: input.userId
-                            }
-                        })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'vendors',
+                                where: {
+                                    venduserid: {
+                                        equals: input.userId,
+                                    }
+                                },
+                                limit: 1
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -328,17 +362,21 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.leads.findMany({
-                            where: {
-                                vendorId: input.vendorId
-                            },
-                            orderBy: {
-                                createdAt: 'desc'
-                            }
-                        })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'leads',
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    }
+                                }
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -350,20 +388,29 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.leads.findMany({
-                            where: {
-                                vendorId: input.vendorId,
-                                source: 'Sarang Sayang'
-                            }
-                        })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'leads',
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    source: {
+                                        equals: 'Sarang Sayang'
+                                    }
+                                }
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
     }),
-    addLeads: trpc_1.publicProcedure
+    addLead: trpc_1.publicProcedure
         .input(zod_1.z.object({
         name: zod_1.z.string(),
         email: zod_1.z.string(),
@@ -377,24 +424,27 @@ exports.appRouter = (0, trpc_1.router)({
     })).mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.leads.create({
-                            data: {
-                                createdAt: new Date(),
-                                updatedAt: new Date(),
-                                name: input.name,
-                                email: input.email,
-                                contact: input.contact,
-                                message: input.message,
-                                source: input.source,
-                                status: input.status,
-                                priority: input.priority,
-                                remarks: input.remarks,
-                                vendorId: input.vendorId,
-                            }
-                        })];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: 'leads',
+                                data: {
+                                    name: input.name,
+                                    email: input.email,
+                                    contact: input.contact,
+                                    message: input.message,
+                                    source: input.source,
+                                    status: input.status,
+                                    priority: input.priority,
+                                    remarks: input.remarks,
+                                    vendor: input.vendorId,
+                                }
+                            })];
+                    case 2:
                         _b.sent();
                         return [2 /*return*/];
                 }
@@ -408,14 +458,19 @@ exports.appRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.leads.delete({
-                            where: {
-                                id: input.leadId
-                            }
-                        })];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.delete({
+                                collection: 'leads',
+                                where: {
+                                    id: input.leadId
+                                }
+                            })];
+                    case 2:
                         _b.sent();
                         return [2 /*return*/];
                 }
@@ -429,14 +484,22 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.leads.findUnique({
-                            where: {
-                                id: input.id
-                            }
-                        })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'leads',
+                                where: {
+                                    id: {
+                                        equals: input.id,
+                                    }
+                                },
+                                limit: 1
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -455,25 +518,30 @@ exports.appRouter = (0, trpc_1.router)({
     })).mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.leads.update({
-                            where: {
-                                id: input.id
-                            },
-                            data: {
-                                updatedAt: new Date(),
-                                name: input.name,
-                                email: input.email,
-                                contact: input.contact,
-                                message: input.message,
-                                source: input.source,
-                                status: input.status,
-                                priority: input.priority,
-                                remarks: input.remarks
-                            }
-                        })];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.update({
+                                collection: 'leads',
+                                where: {
+                                    id: input.id
+                                },
+                                data: {
+                                    updatedAt: new Date(),
+                                    name: input.name,
+                                    email: input.email,
+                                    contact: input.contact,
+                                    message: input.message,
+                                    source: input.source,
+                                    status: input.status,
+                                    priority: input.priority,
+                                    remarks: input.remarks
+                                }
+                            })];
+                    case 2:
                         _b.sent();
                         return [2 /*return*/];
                 }
@@ -487,14 +555,22 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.vendors.findUnique({
-                            where: {
-                                id: input.id
-                            }
-                        })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'vendors',
+                                where: {
+                                    id: {
+                                        equals: input.id,
+                                    }
+                                },
+                                limit: 1
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -506,12 +582,21 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.likes.findMany({ where: {
-                                userId: input.userId
-                            } })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'likes',
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    }
+                                }
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -523,12 +608,21 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.likes.findMany({ where: {
-                                vendorId: input.vendorId
-                            } })];
-                    case 1: return [2 /*return*/, _b.sent()];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'likes',
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    }
+                                }
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -541,18 +635,24 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var like;
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.likes.findFirst({
-                            where: {
-                                vendorId: input.vendorId,
-                                userId: input.userId
-                            }
-                        })];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
-                        like = _b.sent();
-                        return [2 /*return*/, like];
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'likes',
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    },
+                                    vendor: {
+                                        equals: input.vendorId
+                                    }
+                                }
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -565,17 +665,20 @@ exports.appRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.likes.create({
-                            data: {
-                                vendorId: input.vendorId,
-                                userId: input.userId,
-                                createdAt: new Date(),
-                                updatedAt: new Date(),
-                            },
-                        })];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: 'likes',
+                                data: {
+                                    vendor: input.vendorId,
+                                    user: input.userId
+                                }
+                            })];
+                    case 2:
                         _b.sent();
                         return [2 /*return*/];
                 }
@@ -588,14 +691,19 @@ exports.appRouter = (0, trpc_1.router)({
     })).mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, prisma.likes.delete({
-                            where: {
-                                id: input.likeId
-                            }
-                        })];
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.delete({
+                                collection: 'likes',
+                                where: {
+                                    id: input.likeId
+                                }
+                            })];
+                    case 2:
                         _b.sent();
                         return [2 /*return*/];
                 }

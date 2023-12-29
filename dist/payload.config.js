@@ -13,12 +13,14 @@ var Users_1 = require("./app/collections/Users");
 var Vendors_1 = require("./app/collections/Vendors/Vendors");
 var Packages_1 = require("./app/collections/Packages");
 var Media_1 = require("./app/collections/Media");
+var Likes_1 = require("./app/collections/Likes");
+var Leads_1 = require("./app/collections/Leads");
 dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, '../.env'),
 });
 exports.default = (0, config_1.buildConfig)({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users_1.Users, Vendors_1.Vendors, Packages_1.Packages, Media_1.Media],
+    collections: [Users_1.Users, Vendors_1.Vendors, Packages_1.Packages, Media_1.Media, Likes_1.Likes, Leads_1.Leads],
     routes: {
         admin: '/backstage',
     },
