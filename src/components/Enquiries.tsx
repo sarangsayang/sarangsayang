@@ -14,7 +14,7 @@ const Enquiries = ({ user }: { user: User }) => {
   return (
     
     <Sheet>
-        {vendor ? <EnquiriesContentCont vendorId={vendor.id} role={user.role}/> : <Loader />}
+        {vendor ? <EnquiriesContentCont vendorId={vendor.docs[0].id} role={user.role}/> : <Loader />}
     </Sheet>
   )
 }

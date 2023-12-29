@@ -14,21 +14,23 @@ interface CRMDataPullProps {
 }
 
 function getLead(string: string) {
-    const lead = trpc.getLead.useQuery({
+    const getLead = trpc.getLead.useQuery({
         id: string
     })
 
-    if (lead.status === 'loading') {
+    if (getLead.status === 'loading') {
         return <Loader />
-    } else if (lead.status === 'success' && lead.data) {
-        return <CRMEditLead lead={lead.data} />
+    } else if (getLead.status === 'success' && getLead.data) {
+        return <CRMEditLead lead={getLead.data.docs[0]} />
     }
 }
 
 const CRMDataPull = ({vendorId, role}: CRMDataPullProps) => {
-    const leads = trpc.getLeads.useQuery({
+    const getLeads = trpc.getLeads.useQuery({
         vendorId: vendorId
-    }).data
+    })
+
+    const leads = getLeads.data?.docs
 
     const removeLead = trpc.removeLead.useMutation()
 
@@ -79,6 +81,7 @@ const CRMDataPull = ({vendorId, role}: CRMDataPullProps) => {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
+        {/* @ts-ignore */}
         {leads?.map((lead) => (
           lead.source === 'Sarang Sayang' && !isSuperVendor ? 
             <TableRow key={lead.createdAt}>

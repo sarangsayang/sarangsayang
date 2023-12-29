@@ -8,6 +8,8 @@ import { Users } from './app/collections/Users'
 import { Vendors } from './app/collections/Vendors/Vendors'
 import { Packages } from './app/collections/Packages'
 import { Media } from './app/collections/Media'
+import { Likes } from './app/collections/Likes'
+import { Leads } from './app/collections/Leads'
 
 dotenv.config({
     path: path.resolve(__dirname, '../.env'),
@@ -15,7 +17,7 @@ dotenv.config({
 
 export default buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users, Vendors, Packages, Media], 
+    collections: [Users, Vendors, Packages, Media, Likes, Leads], 
     routes: {
         admin: '/backstage',
     },

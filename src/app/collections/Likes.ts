@@ -1,47 +1,19 @@
-import { Access, CollectionConfig } from "payload/types";
-
-const yourOwn: Access = ({ req: { user } }) => {
-    if (user.role === 'admin') return true;
-
-    return {
-        user: {
-            equals: user?.id,
-        },
-    };
-}
+import { CollectionConfig } from "payload/types";
 
 export const Likes: CollectionConfig = {
     slug: 'likes',
     admin: {
-        useAsTitle: 'Your Likes',
-        description: 'A summary of all your likes on Sarang Sayang',
+        hidden: ({ user }) => user.role !== 'admin'
     },
     access: {
-        read: yourOwn,
-        update: ({ req }) => req.user.role === 'admin',
-        create: ({ req }) => req.user.role === 'admin',
-        delete: ({ req }) => req.user.role === 'admin',
+        read: () => true,
+        create: () => true,
+        delete: () => true,
     },
     fields: [
         {
-            name: '_isLiked',
-            type: 'checkbox',
-            access: {
-                read: ({ req }) => req.user.role === 'admin',
-                create: () => false,
-                update: () => false,
-            },
-            admin: {
-                hidden: true,
-            },
-            required: true,
-        },
-        {
             name: 'user',
             type: 'relationship',
-            admin: {
-              hidden: true,
-            },
             relationTo: 'users',
             required: true,
             hasMany: false,
@@ -51,7 +23,7 @@ export const Likes: CollectionConfig = {
             type: 'relationship',
             relationTo: 'vendors',
             required: true,
-            hasMany: true,
+            hasMany: false,
         },
 
     ]

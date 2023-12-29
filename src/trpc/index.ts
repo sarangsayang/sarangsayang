@@ -4,16 +4,13 @@ import { getPayloadClient } from '../get-payload'
 import { authRouter } from './auth-router'
 import { publicProcedure, router } from './trpc'
 
-
-
 import { PrismaClient } from '@prisma/client'
+import payload from 'payload'
 const prisma = new PrismaClient()
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
 }
-
-
 
 export const appRouter = router({
   auth: authRouter,
@@ -24,6 +21,7 @@ export const appRouter = router({
       month: z.number(),
       vendorId: z.string()
     })).query(async ({input}) => {
+      const payload = await getPayloadClient()
       const resultsArray = []
 
       for (let i = 12; i > -1; i= i-1) {
@@ -47,23 +45,27 @@ export const appRouter = router({
             followingYear = followingYear + 1
           }
         
-        const results1 = await prisma.leads.findMany({
+        const results1 = await payload.find({
+          collection: 'leads',
           where: {
-            vendorId: input.vendorId,
+            vendor: input.vendorId,
             createdAt: {
-                gte: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
-                lt: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
+              greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
+              less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
             }
           }
         })
 
-        const results2 = await prisma.leads.findMany({
+        const results2 = await payload.find({
+          collection: 'leads',
           where: {
-            vendorId: input.vendorId,
-            source: 'Sarang Sayang',
+            vendor: {
+              equals: input.vendorId
+            },
+            source: {equals: 'Sarang Sayang'},
             createdAt: {
-                gte: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
-                lt: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
+              greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
+              less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
             }
           }
         })
@@ -71,8 +73,8 @@ export const appRouter = router({
         resultsArray.push({
           month: currentMonth,
           year: currentYear,
-          data: results1.length,
-          ss: results2.length
+          data: results1.docs.length,
+          ss: results2.docs.length
         })
       }
 
@@ -85,6 +87,7 @@ export const appRouter = router({
       month: z.number(),
       vendorId: z.string()
     })).query(async ({input}) => {
+      const payload = await getPayloadClient()
       const resultsArray = []
 
       for (let i = 12; i > -1; i= i-1) {
@@ -108,12 +111,13 @@ export const appRouter = router({
             followingYear = followingYear + 1
           }
         
-        const results = await prisma.likes.findMany({
+        const results = await payload.find({
+          collection: 'likes',
           where: {
-            vendorId: input.vendorId,
+            vendor: input.vendorId,
             createdAt: {
-                gte: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
-                lt: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
+              greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
+              less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
             }
           }
         })
@@ -121,7 +125,7 @@ export const appRouter = router({
         resultsArray.push({
           month: currentMonth,
           year: currentYear,
-          data: results.length
+          data: results.docs.length
         })
       }
 
@@ -134,14 +138,17 @@ export const appRouter = router({
       month: z.number(),
       vendorId: z.string()
     })).query(async ({input}) => {
+      const payload = await getPayloadClient()
+
       const ltDate = input.month === 12 ? (new Date(`${input.year + 1}-01-01T00:00:00Z`)) : (new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`))
-      return await prisma.leads.findMany({
+      return await payload.find({
+        collection: 'leads',
         where: {
-          vendorId: input.vendorId,
+          vendor: input.vendorId,
           source: 'Sarang Sayang',
           createdAt: {
-            gte: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
-            lt: ltDate
+            greater_than_equal: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
+            less_than: ltDate
           }
         }
       })
@@ -153,13 +160,16 @@ export const appRouter = router({
       month: z.number(),
       vendorId: z.string()
     })).query(async ({input}) => {
+      const payload = await getPayloadClient()
+
       const ltDate = input.month === 12 ? (new Date(`${input.year + 1}-01-01T00:00:00Z`)) : (new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`))
-      return await prisma.likes.findMany({
+      return await payload.find({
+        collection: 'likes',
         where: {
-          vendorId: input.vendorId,
+          vendor: input.vendorId,
           createdAt: {
-            gte: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
-            lt: ltDate
+            greater_than_equal: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
+            less_than: ltDate
           }
         }
       })
@@ -171,13 +181,16 @@ export const appRouter = router({
       month: z.number(),
       vendorId: z.string()
     })).query(async ({input}) => {
+      const payload = await getPayloadClient()
+
       const ltDate = input.month === 12 ? (new Date(`${input.year + 1}-01-01T00:00:00Z`)) : (new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`))
-      return await prisma.leads.findMany({
+      return await payload.find({
+        collection: 'leads',
         where: {
           vendorId: input.vendorId,
           createdAt: {
-            gte: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
-            lt: ltDate
+            greater_than_equal: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
+            less_than: ltDate
           }
         }
       })
@@ -187,10 +200,16 @@ export const appRouter = router({
     .input(z.object({
       vendUserId: z.string()
     })).query(async ({input}) => {
-      return await prisma.users.findFirst({
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'vendors',
         where: {
-          id: input.vendUserId
-        }
+          venduserid: {
+            equals: input.vendUserId,
+          }
+        },
+        limit: 1
       })
     }) ,
 
@@ -199,10 +218,16 @@ export const appRouter = router({
       userId: z.string()
     }))
     .query(async ({input}) => {
-      return await prisma.vendors.findFirst({
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'vendors',
         where: {
-          venduserid: input.userId
-        }
+          venduserid: {
+            equals: input.userId,
+          }
+        },
+        limit: 1
       })
     }),
 
@@ -211,30 +236,39 @@ export const appRouter = router({
       vendorId: z.string()
     }))
     .query(async ({input}) => {
-      return await prisma.leads.findMany({
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'leads',
         where: {
-          vendorId: input.vendorId
-        },
-        orderBy: {
-          createdAt: 'desc'
+          vendor: {
+            equals: input.vendorId,
+          }
         }
       })
     }),
 
-    getSSLeads: publicProcedure
+  getSSLeads: publicProcedure
     .input(z.object({
       vendorId: z.string()
     }))
     .query(async ({input}) => {
-      return await prisma.leads.findMany({
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'leads',
         where: {
-          vendorId: input.vendorId,
-          source: 'Sarang Sayang'
+          vendor: {
+            equals: input.vendorId,
+          },
+          source: {
+            equals: 'Sarang Sayang'
+          }
         }
       })
     }),
 
-  addLeads: publicProcedure
+  addLead: publicProcedure
     .input(z.object({
       name: z.string(),
       email: z.string(),
@@ -246,10 +280,11 @@ export const appRouter = router({
       remarks: z.string(),
       vendorId: z.string()
     })).mutation(async ({input}) => {
-      await prisma.leads.create({
+      const payload = await getPayloadClient()
+
+      await payload.create({
+        collection: 'leads',
         data: {
-          createdAt: new Date(),
-          updatedAt: new Date(),
           name: input.name,
           email: input.email,
           contact: input.contact,
@@ -258,7 +293,7 @@ export const appRouter = router({
           status: input.status,
           priority: input.priority,
           remarks: input.remarks,
-          vendorId: input.vendorId,  
+          vendor: input.vendorId,  
         }
       }) 
     }),
@@ -268,7 +303,10 @@ export const appRouter = router({
       leadId: z.string()
     }))
     .mutation(async ({ input }) => {
-      await prisma.leads.delete({
+      const payload = await getPayloadClient()
+
+      await payload.delete({
+        collection: 'leads',
         where: {
           id: input.leadId
         }
@@ -280,10 +318,16 @@ export const appRouter = router({
       id: z.string()
     }))
     .query(async ({input}) => {
-      return await prisma.leads.findUnique({
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'leads',
         where: {
-          id: input.id
-        }
+          id: {
+            equals: input.id,
+          }
+        },
+        limit: 1
       })
     }),
 
@@ -299,7 +343,10 @@ export const appRouter = router({
       priority: z.string(),
       remarks: z.string()
     })).mutation(async ({ input }) => {
-      await prisma.leads.update({
+      const payload = await getPayloadClient()
+
+      await payload.update({
+        collection: 'leads',
         where: {
           id: input.id
         },
@@ -322,10 +369,16 @@ export const appRouter = router({
       id: z.string()
     }))
     .query(async ({input}) => {
-      return await prisma.vendors.findUnique({
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'vendors',
         where: {
-          id: input.id
-        }
+          id: {
+            equals: input.id,
+          }
+        },
+        limit: 1
       })
     }),
 
@@ -334,11 +387,16 @@ export const appRouter = router({
       userId: z.string()
     }))
     .query(async ({input}) => {
-      return await prisma.likes.findMany(
-        {where: {
-          userId: input.userId
-        }}
-      )
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'likes',
+        where: {
+          user: {
+            equals: input.userId,
+          }
+        }
+      })
   }),
 
   getLikesFromVendId: publicProcedure
@@ -346,11 +404,16 @@ export const appRouter = router({
       vendorId: z.string()
     }))
     .query(async ({input}) => {
-      return await prisma.likes.findMany(
-        {where: {
-          vendorId: input.vendorId
-        }}
-      )
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'likes',
+        where: {
+          vendor: {
+            equals: input.vendorId,
+          }
+        }
+      })
   }),
 
   isLiked: publicProcedure
@@ -359,13 +422,19 @@ export const appRouter = router({
       userId: z.string()
     }))
     .query(async ({input}) => {
-      const like = await prisma.likes.findFirst({
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'likes',
         where: {
-          vendorId: input.vendorId,
-          userId: input.userId
+          user: {
+            equals: input.userId,
+          },
+          vendor: {
+            equals: input.vendorId
+          }
         }
       })
-      return like
     }),
 
   addLike: publicProcedure
@@ -374,13 +443,14 @@ export const appRouter = router({
       userId: z.string()
     }))
     .mutation(async ({ input }) => {
-      await prisma.likes.create({
+      const payload = await getPayloadClient()
+
+      await payload.create({
+        collection: 'likes',
         data: {
-          vendorId: input.vendorId,
-          userId: input.userId,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
+          vendor: input.vendorId,
+          user: input.userId
+        }
       })
   }),
 
@@ -388,7 +458,10 @@ export const appRouter = router({
   .input(z.object({
     likeId: z.string(),
   })).mutation(async ({ input }) => {
-    await prisma.likes.delete({
+    const payload = await getPayloadClient()
+
+    await payload.delete({
+      collection: 'likes',
       where: {
         id: input.likeId
       }

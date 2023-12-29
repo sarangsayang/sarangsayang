@@ -20,7 +20,7 @@ interface Lead {
 }
 
 const EnquiriesDataPull = ({leads, itemCount, role}: EnquiriesDataPullProps) => {
-    const isSuperVendor = role === 'supervendor'
+    const isSuperVendor = role !== 'vendor'
   return (
     <>
         <SheetHeader className='space-y-2.5 pr-6'>

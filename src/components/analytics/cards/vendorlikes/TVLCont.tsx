@@ -10,21 +10,21 @@ interface TotalVendorLikesProps {
 }
 
 const TotalVendorLikes = ({userId} : TotalVendorLikesProps) => {
-    const vendorId = trpc.getVendorId.useQuery({
+    const getVendorId = trpc.getVendorId.useQuery({
         userId: userId
-    }).data
+    })
+    const vendorId = getVendorId.data?.docs[0].id
 
-    const vendor = vendorId ? vendorId.id : console.log('Loading Vendor ID')
   return (
     <>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 h-20">
             <CardTitle className="text-sm font-medium">
                 Total Vendor Likes
             </CardTitle>
             <BookHeart />
         </CardHeader>
         <CardContent>
-        {vendor ? <TVLDataPull vendorId={vendor} /> : null}
+        {vendorId ? <TVLDataPull vendorId={vendorId} /> : null}
         </CardContent>
     </>
   )

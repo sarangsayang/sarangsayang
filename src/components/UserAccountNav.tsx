@@ -49,6 +49,9 @@ const UserAccountNav = ({ user }: { user: User }) => {
             <p className='font-medium text-sm text-black'>
               {user.email}
             </p>
+            <p className='font-medium text-sm text-black'>
+              {vendor.data ? vendor.data.docs[0].name : 'no have'}
+            </p>
           </div>
         </div>
 
@@ -65,7 +68,7 @@ const UserAccountNav = ({ user }: { user: User }) => {
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <Link href={`/backstage/collections/vendors/${vendor.data.id}`}>Update Vendor Profile</Link>
+              <Link href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}>Update Vendor Profile</Link>
             </DropdownMenuItem>
           </>
         ) : null}

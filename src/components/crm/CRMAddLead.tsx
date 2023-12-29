@@ -63,7 +63,8 @@ const CRMAddLead = ({vendorId}: CRMAddLeadProps) => {
     setRemarks('')
   }
 
-  const addLead = trpc.addLeads.useMutation()
+  const addLead = trpc.addLead.useMutation()
+  
   return (
     <TableRow>
         {/* Form */}

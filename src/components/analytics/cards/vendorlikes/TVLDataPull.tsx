@@ -7,9 +7,11 @@ interface TotalVendorLikesProps {
 }
 
 const TVLDataPull = ({vendorId}: TotalVendorLikesProps) => {
-    const likes = trpc.getLikesFromVendId.useQuery({
+    const getLikes = trpc.getLikesFromVendId.useQuery({
         vendorId: vendorId
-    }).data
+    })
+
+    const likes = getLikes.data?.docs
 
     const lastMonth = new Date().getMonth()
     const currentYear = new Date().getFullYear()
@@ -20,7 +22,7 @@ const TVLDataPull = ({vendorId}: TotalVendorLikesProps) => {
       vendorId: vendorId
     })
 
-    const lastMonthNumbers = lastMonthData.data?.length
+    const lastMonthNumbers = lastMonthData.data?.docs.length
 
     const thisMonthData = trpc.getVendorLikesThisMonth.useQuery({
       month: lastMonth + 1,
@@ -28,16 +30,16 @@ const TVLDataPull = ({vendorId}: TotalVendorLikesProps) => {
       vendorId: vendorId
     })
 
-    const thisMonthNumbers = thisMonthData.data?.length
+    const thisMonthNumbers = thisMonthData.data?.docs.length
 
     function findDifference(lastMonthNumbers: number, thisMonthNumbers: number) {
       const difference = thisMonthNumbers - lastMonthNumbers
       if (difference > 0) {
-        return <p className="text-xs text-lime-700">+{difference} from last month</p>
+        return <p className="text-xs text-lime-700 mt-4">+{difference} from last month</p>
       } else if  (difference < 0){
-        return <p className="text-xs text-rose-700">{difference} from last month</p>
+        return <p className="text-xs text-rose-700 mt-4">{difference} from last month</p>
       } else {
-        return <p className="text-xs">Same number of likes from last month</p>
+        return null
       }
     }
 

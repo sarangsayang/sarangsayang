@@ -16,30 +16,27 @@ const LikeButton = ({
 }) => {
     const addLike = trpc.addLike.useMutation()
     const removeLike = trpc.removeLike.useMutation()
-    const query = trpc.isLiked.useQuery({
+    const getQuery = trpc.isLiked.useQuery({
         vendorId: vendor.id,
         userId: user
-    }).data
+    })
+
+    const query = getQuery.data?.docs
+
+    
 
     const isLiked = () => {
-        if (user) {
-            return query
+        if (user && query) {
+            if (query.length === 1) {
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }
     }
 
-    const likeId = () => {
-        if (user) {
-            if (query) {
-                return query
-            } else {
-                return {id: ''}
-            }
-        } else {
-            return {id: ''}
-        }
-    }
     const heartcolor = isLiked() ? "text-blue-500 group-hover:text-blue-600'" : "text-gray-400 group-hover:text-gray-500'"
 
     //useEffect(() => {heartcolor}, [isLiked()])
@@ -49,9 +46,9 @@ const LikeButton = ({
         <>
             <Heart 
                 onClick={() => {
-                    if (isLiked()) {
+                    if (isLiked() && query) {
                         removeLike.mutate({
-                            likeId: likeId().id
+                            likeId: query[0].id
                         })
                     } else {
                         addLike.mutate({

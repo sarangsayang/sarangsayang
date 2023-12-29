@@ -6,7 +6,7 @@ export const getServerSideUser = async (
   cookies: NextRequest['cookies'] | ReadonlyRequestCookies
 ) => {
   const token = cookies.get('payload-token')?.value
-
+  
   const meRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`,
     {
@@ -14,8 +14,8 @@ export const getServerSideUser = async (
         Authorization: `JWT ${token}`,
       },
     }
-  )
-
+    )
+    
   const { user } = (await meRes.json()) as {
     user: User | null
   }

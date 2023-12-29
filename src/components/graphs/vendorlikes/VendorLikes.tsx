@@ -22,19 +22,20 @@ const VendorLikes = ({vendorId}: VendorLikesProps) => {
         month: currentMonth,
         year: currentYear,
         vendorId: vendorId
-    }).data
+    })
 
   return (
     <>
       <CardHeader>
             <CardTitle>Vendor Likes</CardTitle>
             {currentMonthData.data ? <CardDescription>
-                Your vendor collected {currentMonthData.data.length} likes this month.
+                Your vendor collected {currentMonthData.data.docs.length} likes this month.
             </CardDescription> : null}
         </CardHeader>
         <CardContent>
           <div className="h-[500px] mt-7">
-            {graphData ? <BarGraph data={graphData}/> : null}
+            {/* @ts-ignore */}
+            {graphData.data ? <BarGraph data={graphData.data}/> : null}
           </div>
         </CardContent>
     </>

@@ -22,8 +22,11 @@ const Likes = ({ user }: { user: User }) => {
 
     const getLikes = trpc.getLikes.useQuery({
         userId: user.id
-    }).data || []
-    const itemCount = getLikes.length  
+    })
+
+    const likes = getLikes.data?.docs || []
+
+    const itemCount = likes.length
 
     const [isMounted, setIsMounted] = useState<boolean>(false)
 
@@ -50,7 +53,8 @@ const Likes = ({ user }: { user: User }) => {
                     <>
                         <div className='flex w-full flex-col pr-6'>
                             <ScrollArea>
-                                {getLikes.map(( like ) => (<LikeItem key={like.id} vendorId={like.vendorId} likeId={like.id}/>))}
+                                {/* @ts-ignore */}
+                                {likes.map(( like ) => (<LikeItem key={like.id} vendorId={like.vendor.id} likeId={like.id}/>))}
                             </ScrollArea>
                         </div>
                     </>

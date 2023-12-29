@@ -10,21 +10,21 @@ interface SSContProps {
 }
 
 const SSCont = ({userId} : SSContProps) => {
-    const vendorId = trpc.getVendorId.useQuery({
+    const getVendorId = trpc.getVendorId.useQuery({
         userId: userId
-    }).data
+    })
 
-    const vendor = vendorId ? vendorId.id : console.log('Loading Vendor ID')
+    const vendorId = getVendorId.data?.docs[0].id
   return (
     <>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 h-20">
             <CardTitle className="text-sm font-medium">
                 Sarang Sayang Enquiries
             </CardTitle>
             <FolderHeart />
         </CardHeader>
         <CardContent>
-            {vendor ? <SSDataPull vendorId={vendor} /> : null}
+            {vendorId ? <SSDataPull vendorId={vendorId} /> : null}
         </CardContent>
     </>
   )

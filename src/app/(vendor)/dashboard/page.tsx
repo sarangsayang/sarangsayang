@@ -38,7 +38,7 @@ export default async function Dashboard() {
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {/* Total Page Visits */}
                     <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 h-20">
                             <CardTitle className="text-sm font-medium">
                                 Total Page Visits
                             </CardTitle>
@@ -46,7 +46,7 @@ export default async function Dashboard() {
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">2000</div>
-                            <p className="text-xs text-lime-700">
+                            <p className="text-xs text-lime-700 mt-4">
                                 +20.1% from last month
                             </p>
                         </CardContent>

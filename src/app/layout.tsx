@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /></head>
+      {/* <head><meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" /></head> */}
       <body className={cn('relative h-full font-sans antialiased', inter.className) }>
         <main className='relative flex flex-col min-h-screen'>
             <div className='flex-grow flex-1'>

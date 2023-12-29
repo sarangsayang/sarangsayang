@@ -11,11 +11,11 @@ interface CRMContProps {
 }
 
 const CRMCont = ({userId, role}: CRMContProps) => {
-    const vendorId = trpc.getVendorId.useQuery({
+    const getVendorId = trpc.getVendorId.useQuery({
         userId: userId
-    }).data
+    })
 
-    const vendor = vendorId ? vendorId.id : console.log('Loading Vendor ID')
+    const vendorId = getVendorId.data?.docs[0].id
 
   return (
     <>
@@ -35,8 +35,8 @@ const CRMCont = ({userId, role}: CRMContProps) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {vendor ? <CRMAddLead vendorId={vendor} /> : null}
-                {vendor ? <CRMDataPull vendorId={vendor} role={role} /> : null}
+                {vendorId ? <CRMAddLead vendorId={vendorId} /> : null}
+                {vendorId ? <CRMDataPull vendorId={vendorId} role={role} /> : null}
             </TableBody>
         </Table>
     </>

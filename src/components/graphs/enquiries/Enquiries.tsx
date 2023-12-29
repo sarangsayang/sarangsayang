@@ -22,7 +22,7 @@ const Enquiries = ({vendorId}: EnquiriesProps) => {
         month: currentMonth,
         year: currentYear,
         vendorId: vendorId
-    }).data
+    })
 
   return (
     <>
@@ -30,13 +30,14 @@ const Enquiries = ({vendorId}: EnquiriesProps) => {
             <CardTitle>Enquiries</CardTitle>
             <CardDescription>
             {currentMonthData.data ? <CardDescription>
-                Your vendor collected {currentMonthData.data.length} enquiries this month.
+                Your vendor collected {currentMonthData.data.docs.length} enquiries this month.
             </CardDescription> : null}
             </CardDescription>
         </CardHeader>
         <CardContent>
         <div className="h-[500px] mt-7">
-            {graphData ? <BarGraph2 data={graphData}/> : null}
+            {/* @ts-ignore */}
+            {graphData.data ? <BarGraph2 data={graphData.data}/> : null}
           </div>
         </CardContent>
     </>

@@ -15,20 +15,22 @@ interface GraphProps {
 const Graphs = ({userId}: GraphProps) => {
     const vendor = trpc.getVendorId.useQuery({
         userId: userId
-    }).data
+    })
+
+    const vendorId = vendor.data?.docs[0].id
 
   return (
     <>
         <Card>
-            {vendor ? <PageVisits vendorId={vendor.id}/> : <Loader className='py-4'/>}
+            {vendorId ? <PageVisits vendorId={vendorId}/> : <Loader className='py-4'/>}
         </Card>
 
         <Card>
-            {vendor ? <VendorLikes vendorId={vendor.id}/> : <Loader className='py-4'/>}
+            {vendorId ? <VendorLikes vendorId={vendorId}/> : <Loader className='py-4'/>}
         </Card>
 
         <Card>
-            {vendor ? <Enquiries vendorId={vendor.id}/> : <Loader className='py-4'/>}
+            {vendor ? <Enquiries vendorId={vendorId}/> : <Loader className='py-4'/>}
         </Card>
     </>
   )
