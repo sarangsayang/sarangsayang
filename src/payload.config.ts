@@ -42,5 +42,6 @@ export default buildConfig({
     },
     csrf: [
       'https://sarangsayang.up.railway.app'
-    ]
+    ],
+    cors: '*'
 })
