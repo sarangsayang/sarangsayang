@@ -14,7 +14,7 @@ export const getServerSideUser = async (
         Authorization: `JWT ${token}`,
       },
       credentials: 'include',
-      
+      mode: 'cors'
     }
     )
     
