@@ -57,6 +57,9 @@ export default async function Home() {
           <p className='mt-6 text-lg max-w-prose text-muted-foreground'>
             Welcome to Sarang Sayang, a platform for all things malay weddings.
           </p>
+          <p className='mt-6 text-lg max-w-prose text-muted-foreground'>
+            {user?.id}
+          </p>
           <div className='flex flex-col sm:flex-row gap-4 mt-10'>
             <Link
               href='/vendors'
