@@ -184,8 +184,8 @@ const Featured11 = () => {
                 </CarouselItem>
 
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden md:grid"/>
+            <CarouselNext className="hidden md:grid"/>
         </Carousel>
     </section>
   )
