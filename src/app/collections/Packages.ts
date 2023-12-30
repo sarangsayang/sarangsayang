@@ -135,7 +135,6 @@ export const Packages: CollectionConfig = {
             min: 0,
             max: 100000,
             type: 'number',
-            required: true,
         }
     ]
 }
