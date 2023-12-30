@@ -1,12 +1,8 @@
-import { date, z } from 'zod'
+import { z } from 'zod'
 import { QueryValidator } from '../lib/validators/query-validator'
 import { getPayloadClient } from '../get-payload'
 import { authRouter } from './auth-router'
 import { publicProcedure, router } from './trpc'
-
-import { PrismaClient } from '@prisma/client'
-import payload from 'payload'
-const prisma = new PrismaClient()
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;

@@ -64,8 +64,6 @@ var query_validator_1 = require("../lib/validators/query-validator");
 var get_payload_1 = require("../get-payload");
 var auth_router_1 = require("./auth-router");
 var trpc_1 = require("./trpc");
-var client_1 = require("@prisma/client");
-var prisma = new client_1.PrismaClient();
 function formatWithLeadingZero(num) {
     return num < 10 ? "0" + num : num;
 }
