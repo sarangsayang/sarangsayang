@@ -70,7 +70,7 @@ export default async function Home() {
         </div>
         <Featured11 />
         <HomepageAds />
-        <ProductReel user={user?.id} title='Brand New' query={{sort: 'desc', limit: 4}}/>
+        <ProductReel user={user?.id} title='Brand New' query={{sort: 'asc', limit: 4}}/>
       </MaxWidthWrapper>
 
       <section className='border-t border-gray-200 bg-gray-50'>
