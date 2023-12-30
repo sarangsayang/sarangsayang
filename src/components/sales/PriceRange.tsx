@@ -7,6 +7,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import { trpc } from "@/trpc/client"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { TabsContent } from "@radix-ui/react-tabs"
+import Link from "next/link"
+import { Button } from "../ui/button"
 
 interface PriceRangeProps {
     userRole: string,
@@ -231,6 +233,9 @@ const PriceRange = ({userRole, userId}: PriceRangeProps) => {
                                 {annually ? <p className="text-sm font-light text-center text-gray-400 mt-3">All yearly plans are non-refundable.</p> : <p className="text-sm font-light text-center text-gray-400 mt-3">Monthly plans can be cancelled at any time.</p> }
                             </div>
                             
+                            <Button asChild>
+                                <Link href={'#'}>Test</Link>
+                            </Button>
                         </section>
                     </div>
                 </div>
