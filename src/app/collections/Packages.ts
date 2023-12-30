@@ -122,7 +122,7 @@ export const Packages: CollectionConfig = {
         {
             name: 'packageDetails',
             label: 'Package Details',
-            type: 'textarea',
+            type: 'richText',
         },
         {
             name: 'pax',
