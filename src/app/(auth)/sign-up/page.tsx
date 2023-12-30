@@ -72,7 +72,7 @@ const Page = () => {
                 <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]'>
                     <div className='flex flex-col items-center space-y-2 text-center'>
                         <Link href='/'>
-                            <Image width={20} height={20} src='/logoSmall.jpg' alt='logo' className='w-20 h-20'/>
+                            <Image width={20} height={20} src='/logo.jpg' alt='logo' className='w-20 h-20'/>
                         </Link>
                         <h1 className='text-2xl font-semibold tracking-tight'>
                             Create an account

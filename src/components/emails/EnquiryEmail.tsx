@@ -21,7 +21,7 @@ import {
         <Container style={container}>
           <Section style={box}>
             <Img
-              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/logoSmall.jpg`}
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/logo.jpg`}
               width="49"
               height="21"
               alt="Stripe"
