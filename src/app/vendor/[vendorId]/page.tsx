@@ -173,7 +173,7 @@ const Page = async ({ params }: PageProps) => {
           </TableHeader>
           <TableBody>
             {/* @ts-ignore */}
-            {packageList > 0 ? 
+            {packageList.length > 0 ? 
               // @ts-ignore
               packageList.map((packageItem) => (
                 <TableRow key={packageItem.name}>
