@@ -12,6 +12,8 @@ export interface Config {
     vendors: Vendor;
     packages: Package;
     media: Media;
+    likes: Like;
+    leads: Lead;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -21,7 +23,7 @@ export interface User {
   id: string;
   vendor?: (string | null) | Vendor;
   packages?: (string | Package)[] | null;
-  role: 'admin' | 'user' | 'vendor' | 'supervendor';
+  role: 'admin' | 'user' | 'vendor' | 'supervendor' | 'platinum' | 'elite';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -54,10 +56,12 @@ export interface Vendor {
   details?: string | null;
   location?: string | null;
   packages?: (string | Package)[] | null;
-  images: {
-    image: string | Media;
-    id?: string | null;
-  }[];
+  images?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -80,9 +84,13 @@ export interface Package {
         | 'misc'
       )[]
     | null;
-  packageDetails?: string | null;
+  packageDetails?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
   pax?: number | null;
-  price: number;
+  price?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -123,6 +131,27 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+export interface Like {
+  id: string;
+  user: string | User;
+  vendor: string | Vendor;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Lead {
+  id: string;
+  vendor: string | Vendor;
+  name: string;
+  email: string;
+  contact: string;
+  message?: string | null;
+  source: string;
+  status: 'not contacted' | 'warm' | 'hot' | 'cold' | 'lnr' | 'not interested' | 'contract signed';
+  priority: 'low' | 'medium' | 'high';
+  remarks?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface PayloadPreference {
   id: string;
