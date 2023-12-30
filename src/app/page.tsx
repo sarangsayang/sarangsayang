@@ -48,6 +48,7 @@ export default async function Home() {
       <MaxWidthWrapper>
         <div className='pt-16 mx-auto text-center flex flex-col items-center max-w-3xl'>
           {/* <p>test</p> */}
+          
           <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
             Singapore&apos;s largest{' '}
             <span className='text-blue-400'>
