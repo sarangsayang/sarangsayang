@@ -180,7 +180,7 @@ exports.Packages = {
         {
             name: 'packageDetails',
             label: 'Package Details',
-            type: 'textarea',
+            type: 'richText',
         },
         {
             name: 'pax',
@@ -193,7 +193,6 @@ exports.Packages = {
             min: 0,
             max: 100000,
             type: 'number',
-            required: true,
         }
     ]
 };

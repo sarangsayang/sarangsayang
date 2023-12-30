@@ -40,11 +40,11 @@ const ProductListing = ({
     ({ value }) => value === vendor.category
   )?.label
 
-  const validUrls = vendor.images
+  const validUrls = vendor.images ? vendor.images
     .map(({ image }) =>
       typeof image === 'string' ? image : image.url
     )
-    .filter(Boolean) as string[]
+    .filter(Boolean) as string[] : []
 
   if (isVisible && vendor) {
     return (

@@ -43,4 +43,8 @@ exports.default = (0, config_1.buildConfig)({
     typescript: {
         outputFile: path_1.default.resolve(__dirname, 'payload-types.ts'),
     },
+    csrf: [
+        'https://sarangsayang.up.railway.app'
+    ],
+    cors: '*'
 });

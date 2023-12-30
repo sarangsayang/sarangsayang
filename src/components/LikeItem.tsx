@@ -32,7 +32,7 @@ const LikeItem = ({ vendorId, likeId }: LikeItemProps) => {
         <div className='flex items-start justify-between gap-4'>
           <div className='flex items-center space-x-4'>
           <div className='relative aspect-square h-16 w-16 min-w-fit overflow-hidden rounded'>
-            {typeof validVendor.images[0].image !== 'string' && validVendor.images[0].image.url ? (
+            {validVendor.images && typeof validVendor.images[0].image !== 'string' && validVendor.images[0].image.url ? (
               <Image
                 src={validVendor.images[0].image.url}
                 alt={validVendor.name}

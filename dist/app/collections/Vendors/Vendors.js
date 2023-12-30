@@ -172,7 +172,6 @@ exports.Vendors = {
             label: 'Product images',
             minRows: 1,
             maxRows: 4,
-            required: true,
             labels: {
                 singular: 'Image',
                 plural: 'Images',
