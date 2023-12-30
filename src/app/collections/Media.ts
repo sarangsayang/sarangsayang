@@ -42,8 +42,8 @@ export const Media: CollectionConfig = {
         hidden: ({ user }) => user.role !== 'admin',
     },
     upload: {
-        staticURL: `${process.env.RAILWAY_VOLUME_MOUNT_PATH}`,
-        staticDir: `${process.env.RAILWAY_VOLUME_NAME}`,
+        staticURL: '/media',
+        staticDir: 'media',
         imageSizes: [
             {
                 name: 'thumbnail',
