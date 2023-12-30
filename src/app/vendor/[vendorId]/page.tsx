@@ -173,20 +173,23 @@ const Page = async ({ params }: PageProps) => {
           </TableHeader>
           <TableBody>
             {/* @ts-ignore */}
-            {packageList.map((packageItem) => (
-              <TableRow key={packageItem.name}>
-                <TableCell className='font-medium'>{packageItem.name}</TableCell>
-                <TableCell>
-                  {packageItem.services.map((service: string) => (
-                    <div key={service}>
-                      <p>{capitalizeFirstLetter(service)}</p>
-                    </div>
-                  ))}
-                </TableCell>
-                <TableCell>{packageItem.packageDetails}</TableCell>
-                <TableCell className="text-right">{formatPrice(packageItem.price)}</TableCell>
-              </TableRow>
-            ))}
+            {packageList > 0 ? 
+              // @ts-ignore
+              packageList.map((packageItem) => (
+                <TableRow key={packageItem.name}>
+                  <TableCell className='font-medium'>{packageItem.name}</TableCell>
+                  <TableCell>
+                    {packageItem.services.map((service: string) => (
+                      <div key={service}>
+                        <p>{capitalizeFirstLetter(service)}</p>
+                      </div>
+                    ))}
+                  </TableCell>
+                  <TableCell>{packageItem.packageDetails}</TableCell>
+                  <TableCell className="text-right">{formatPrice(packageItem.price)}</TableCell>
+                </TableRow>
+              )) : null
+            }
             
           </TableBody>
         </Table>
