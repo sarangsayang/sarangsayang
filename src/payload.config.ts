@@ -20,7 +20,7 @@ dotenv.config({
 
 const adapter = gcsAdapter({
   options: {
-    keyFilename: './gcs-credentials.json'
+    credentials: JSON.parse(process.env.GCS_CREDENTIALS || "{}")
   },
   bucket: process.env.GCS_BUCKET || ''
 })
@@ -59,6 +59,7 @@ export default buildConfig({
         collections: {
           'media': {
             adapter: adapter
+
           }
         }
       })
