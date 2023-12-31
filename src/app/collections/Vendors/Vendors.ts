@@ -4,8 +4,8 @@ import { Access, CollectionConfig } from 'payload/types'
 import { User, Vendor } from '../../../payload-types'
 
 const addUser: BeforeChangeHook = ({ req, data }) => {
-  const user = req.user as User | null
-  return { ...data, venduserid: user?.id }
+  const user = req.user as User
+  return { ...data, venduserid: user.id }
 }
 
 const yourOwnVendor: Access = async ({req}) => {
