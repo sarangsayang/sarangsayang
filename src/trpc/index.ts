@@ -303,9 +303,7 @@ export const appRouter = router({
 
       await payload.delete({
         collection: 'leads',
-        where: {
-          id: input.leadId
-        }
+        id: input.leadId
       })
     }),
 
@@ -458,9 +456,7 @@ export const appRouter = router({
 
     await payload.delete({
       collection: 'likes',
-      where: {
-        id: input.likeId
-      }
+      id: input.likeId
     })
   }),
 
