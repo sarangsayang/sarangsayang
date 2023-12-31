@@ -57,7 +57,7 @@ export const Vendors: CollectionConfig = {
         access: {
           read: () => true,
           create: ({ req }) => req.user.role === 'admin',
-          update: ({ req }) => req.user.role === 'admin',
+          update: () => true,
         },
         required: true,
         hasMany: false,
