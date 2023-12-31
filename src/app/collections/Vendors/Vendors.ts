@@ -1,13 +1,12 @@
-import { BeforeChangeHook } from 'payload/dist/collections/config/types'
+import { AfterChangeHook, BeforeChangeHook } from 'payload/dist/collections/config/types'
 import { VENDOR_CATEGORIES } from '../../../config'
 import { Access, CollectionConfig } from 'payload/types'
-import { User } from '../../../payload-types'
+import { User, Vendor } from '../../../payload-types'
 
 const addUser: BeforeChangeHook = ({ req, data }) => {
   const user = req.user as User | null
-  return { ...data, user: user?.id }
+  return { ...data, venduserid: user?.id }
 }
-
 
 const yourOwnVendor: Access = async ({req}) => {
   const user = req.user as User | null
