@@ -10,10 +10,20 @@ import { Packages } from './app/collections/Packages'
 import { Media } from './app/collections/Media'
 import { Likes } from './app/collections/Likes'
 import { Leads } from './app/collections/Leads'
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
+import { gcsAdapter } from '@payloadcms/plugin-cloud-storage/gcs';
+
 
 dotenv.config({
     path: path.resolve(__dirname, '../.env'),
   })
+
+const adapter = gcsAdapter({
+  options: {
+    keyFilename: './gcs-credentials.json'
+  },
+  bucket: process.env.GCS_BUCKET || ''
+})
 
 export default buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
@@ -43,5 +53,14 @@ export default buildConfig({
     csrf: [
       'https://sarangsayang.up.railway.app'
     ],
-    cors: '*'
+    cors: '*',
+    plugins: [
+      cloudStorage({
+        collections: {
+          'media': {
+            adapter: adapter
+          }
+        }
+      })
+    ]
 })

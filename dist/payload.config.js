@@ -15,8 +15,16 @@ var Packages_1 = require("./app/collections/Packages");
 var Media_1 = require("./app/collections/Media");
 var Likes_1 = require("./app/collections/Likes");
 var Leads_1 = require("./app/collections/Leads");
+var plugin_cloud_storage_1 = require("@payloadcms/plugin-cloud-storage");
+var gcs_1 = require("@payloadcms/plugin-cloud-storage/gcs");
 dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, '../.env'),
+});
+var adapter = (0, gcs_1.gcsAdapter)({
+    options: {
+        keyFilename: './gcs-credentials.json'
+    },
+    bucket: process.env.GCS_BUCKET || ''
 });
 exports.default = (0, config_1.buildConfig)({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
@@ -46,5 +54,14 @@ exports.default = (0, config_1.buildConfig)({
     csrf: [
         'https://sarangsayang.up.railway.app'
     ],
-    cors: '*'
+    cors: '*',
+    plugins: [
+        (0, plugin_cloud_storage_1.cloudStorage)({
+            collections: {
+                'media': {
+                    adapter: adapter
+                }
+            }
+        })
+    ]
 });

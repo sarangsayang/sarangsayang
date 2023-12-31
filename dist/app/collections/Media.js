@@ -108,6 +108,7 @@ exports.Media = {
     upload: {
         staticURL: '/media',
         staticDir: 'media',
+        disableLocalStorage: true,
         imageSizes: [
             {
                 name: 'thumbnail',
