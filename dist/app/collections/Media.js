@@ -79,23 +79,14 @@ exports.Media = {
         ],
     },
     access: {
-        read: function (_a) {
-            var req = _a.req;
-            return __awaiter(void 0, void 0, void 0, function () {
-                var referer;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0:
-                            referer = req.headers.referer;
-                            if (!req.user || !(referer === null || referer === void 0 ? void 0 : referer.includes('backstage'))) {
-                                return [2 /*return*/, true];
-                            }
-                            return [4 /*yield*/, isAdminOrHasAccessToImages()({ req: req })];
-                        case 1: return [2 /*return*/, _b.sent()];
-                    }
-                });
-            });
-        },
+        // read: async ({ req }) => {
+        //     const referer = req.headers.referer
+        //     if (!req.user || !referer?.includes('backstage')) {
+        //       return true
+        //     }
+        //     return await isAdminOrHasAccessToImages()({ req })
+        // },
+        read: function () { return true; },
         delete: isAdminOrHasAccessToImages(),
         update: isAdminOrHasAccessToImages(),
     },
