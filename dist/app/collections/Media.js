@@ -106,8 +106,8 @@ exports.Media = {
         },
     },
     upload: {
-        staticURL: "".concat(process.env.RAILWAY_VOLUME_MOUNT_PATH),
-        staticDir: "".concat(process.env.RAILWAY_VOLUME_NAME),
+        staticURL: '/media',
+        staticDir: 'media',
         imageSizes: [
             {
                 name: 'thumbnail',

@@ -52,7 +52,7 @@ var config_1 = require("../../../config");
 var addUser = function (_a) {
     var req = _a.req, data = _a.data;
     var user = req.user;
-    return __assign(__assign({}, data), { user: user === null || user === void 0 ? void 0 : user.id });
+    return __assign(__assign({}, data), { venduserid: user.id });
 };
 var yourOwnVendor = function (_a) {
     var req = _a.req;
@@ -113,19 +113,8 @@ exports.Vendors = {
             label: 'Vendor User ID',
             type: 'relationship',
             relationTo: 'users',
-            access: {
-                read: function (_a) {
-                    var req = _a.req;
-                    return req.user.role === 'admin';
-                },
-                create: function (_a) {
-                    var req = _a.req;
-                    return req.user.role === 'admin';
-                },
-                update: function (_a) {
-                    var req = _a.req;
-                    return req.user.role === 'admin';
-                },
+            admin: {
+                condition: function () { return false; },
             },
             required: true,
             hasMany: false,
