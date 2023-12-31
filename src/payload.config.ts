@@ -11,19 +11,24 @@ import { Media } from './app/collections/Media'
 import { Likes } from './app/collections/Likes'
 import { Leads } from './app/collections/Leads'
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
-import { gcsAdapter } from '@payloadcms/plugin-cloud-storage/gcs';
-
+import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
 
 dotenv.config({
     path: path.resolve(__dirname, '../.env'),
   })
 
-const adapter = gcsAdapter({
-  options: {
-    credentials: JSON.parse(process.env.GCS_CREDENTIALS || "{}")
+const adapter = s3Adapter({
+  config: {
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+    },
+    region: process.env.S3_REGION || '',
+    // ... Other S3 configuration
   },
-  bucket: process.env.GCS_BUCKET || ''
+  bucket: process.env.S3_BUCKET || '',
 })
+  
 
 export default buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
