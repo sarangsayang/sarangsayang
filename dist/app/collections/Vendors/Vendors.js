@@ -114,7 +114,10 @@ exports.Vendors = {
             type: 'relationship',
             relationTo: 'users',
             admin: {
-                condition: function () { return false; },
+                condition: function (_a) {
+                    var req = _a.req;
+                    return req.user.role === 'admin';
+                },
             },
             required: true,
             hasMany: false,
