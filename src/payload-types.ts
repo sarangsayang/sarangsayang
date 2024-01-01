@@ -53,7 +53,11 @@ export interface Vendor {
     | 'emcees'
     | 'honeymoon'
     | 'misc';
-  details?: string | null;
+  details?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
   location?: string | null;
   packages?: (string | Package)[] | null;
   images?:
@@ -67,7 +71,7 @@ export interface Vendor {
 }
 export interface Package {
   id: string;
-  user?: (string | null) | User;
+  vendor: string | Vendor;
   name: string;
   services?:
     | (

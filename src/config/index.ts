@@ -148,7 +148,7 @@ export const VENDOR_CATEGORIES = [
     icon: Hand
   },
   {
-    label: 'Make Up Artists',
+    label: 'Make Up Artist',
     value: 'mua',
     icon: SprayCan
   },

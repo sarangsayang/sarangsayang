@@ -91,14 +91,11 @@ export const Packages: CollectionConfig = {
     },
     fields: [
         {
-          name: 'user',
+          name: 'vendor',
           type: 'relationship',
-          relationTo: 'users',
+          relationTo: 'vendors',
           required: true,
           hasMany: false,
-          admin: {
-            condition: () => false,
-          },
         },
         {
             name: 'name',

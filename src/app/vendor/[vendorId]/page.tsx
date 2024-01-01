@@ -7,8 +7,7 @@ import { getPayloadClient } from '@/get-payload'
 import { formatPrice } from '@/lib/utils'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { BadgeCheck, Heart, Loader, MailQuestion, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button'
+import { CheckCheck, Heart, MapPin } from 'lucide-react';
 
 import { getServerSideUser } from '@/lib/payload-utils'
 import { cookies } from 'next/headers'
@@ -16,8 +15,12 @@ import LikeButton from '@/components/LikeButton'
 import { toast } from 'sonner'
 import { trpc } from '@/trpc/client'
 import Badge from '@/components/Badge'
-import { promise } from 'zod'
 import EnquireButton from '@/components/EnquireButton'
+
+import React, { Fragment } from "react";
+//@ts-ignore
+import escapeHtml from "escape-html";
+import { Text } from "slate";
 
 interface PageProps {
   params: {
@@ -56,7 +59,19 @@ const Page = async ({ params }: PageProps) => {
 
   const value = VENDOR_CATEGORIES.find(
     ({ value }) => value === product.category
-  )?.value
+  )?.label
+
+  const vendCatLabel = (string: string) => {
+    const category = VENDOR_CATEGORIES.find(
+        (cat) => cat.value === string
+      )
+
+      if (!category) {
+        return null
+      }
+
+      return category.label
+}
 
   const BREADCRUMBS = [
     { id: 1, name: 'Home', href: '/' },
@@ -70,28 +85,78 @@ const Page = async ({ params }: PageProps) => {
       image.url
     ) as string[]
 
-  const packageList = product.packages
+  const { docs: packages } = await payload.find({
+    collection: 'packages',
+    where: {
+      vendor: {
+        equals: vendorId,
+      },
+    },
+  })
 
-  function capitalizeFirstLetter(inputString: string) {
-    // Check if the inputString is not empty
-    if (inputString.length > 0) {
-      // Capitalize the first letter and concatenate the rest of the string
-      return inputString.charAt(0).toUpperCase() + inputString.slice(1);
-    } else {
-      // Return an empty string if the input is empty
-      return "";
+  //@ts-ignore
+  const serialize = (children) =>
+  //@ts-ignore
+  children.map((node, i) => {
+    if (Text.isText(node)) {
+      let text = (
+        <span dangerouslySetInnerHTML={{ __html: escapeHtml(node.text) }} />
+      );
+      //@ts-ignore
+      if (node.bold) {
+        text = <strong key={i}>{text}</strong>;
+      }
+      //@ts-ignore
+      if (node.code) {
+        text = <code key={i}>{text}</code>;
+      }
+      //@ts-ignore
+      if (node.italic) {
+        text = <em key={i}>{text}</em>;
+      }
+
+      // Handle other leaf types here...
+
+      return <Fragment key={i}>{text}</Fragment>;
     }
-  }
+
+    if (!node) {
+      return null;
+    }
+
+    switch (node.type) {
+      case "h1":
+        return <h1 key={i}>{serialize(node.children)}</h1>;
+      // Iterate through all headings here...
+      case "h6":
+        return <h6 key={i}>{serialize(node.children)}</h6>;
+      case "blockquote":
+        return <blockquote key={i}>{serialize(node.children)}</blockquote>;
+      case "ul":
+        return <ul key={i} className='list-disc leading-relaxed'>{serialize(node.children)}</ul>;
+      case "ol":
+        return <ol key={i}>{serialize(node.children)}</ol>;
+      case "li":
+        return <li key={i}>{serialize(node.children)}</li>;
+      case "link":
+        return (
+          <Link href={escapeHtml(node.url)} key={i} className='no-underline hover:underline text-blue-500'>
+            {serialize(node.children)}
+          </Link>
+        );
+
+      default:
+        return <p key={i}>{serialize(node.children)}</p>;
+    }
+  });
 
   return (
     <MaxWidthWrapper className='bg-white'>
-      <div className='bg-white grid grid-cols-1 md:grid-cols-2 py-10'>
-        <div className='align-self-center'>
-          <div className='aspect-square rounded-lg'>
-            <ImageSlider urls={validUrls} />
-          </div>
+      <div className='bg-white grid grid-cols-1 md:grid-cols-2 py-6 items-center'>
+        <div className='aspect-square rounded-lg'>
+          <ImageSlider urls={validUrls} />
         </div>
-        <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:gap-x-8 lg:px-8'>
+        <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:gap-x-8 lg:px-14'>
           {/* Product Details */}
           <div className='lg:max-w-lg lg:self-end'>
             <ol className='hidden md:flex items-center space-x-2 pb-10'>
@@ -123,8 +188,8 @@ const Page = async ({ params }: PageProps) => {
                     {product.name}
                     <span><Badge vendUserId={product.venduserid.id}/></span>
                   </h1>
-                  <p className='text-muted-foreground mt-3 flex gap-2 items-center'>
-                    <MapPin className='h-4 w-4'/>
+                  <p className='text-balance text-muted-foreground mt-3 flex gap-2 items-center'>
+                    <MapPin className='h-6 w-6 text-gray-400'/>
                     {product.location}
                   </p>
                 </div>
@@ -144,10 +209,8 @@ const Page = async ({ params }: PageProps) => {
                       )}
                   </div>
 
-                  <div className='mt-4 space-y-6'>
-                    <p className='text-base text-muted-foreground'>
-                      {product.details}
-                    </p>
+                  <div className='mt-4 space-y-6 text-base text-muted-foreground'>
+                    {serialize(product.details)}
                   </div>
 
                   {/* Enquire */}
@@ -161,39 +224,37 @@ const Page = async ({ params }: PageProps) => {
         </div>
       </div>
 
-      <div className=''>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[170px]">Packages</TableHead>
-              <TableHead className="w-[100px]">Services</TableHead>
-              <TableHead>Details</TableHead>
-              <TableHead className="text-right">Price</TableHead>
+      {packages.length > 0 ?                   
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[250px]">Packages</TableHead>
+            <TableHead className="w-[200px]">Services</TableHead>
+            <TableHead>Details</TableHead>
+            <TableHead className="text-right">Price</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {/* @ts-ignore */}
+          {packages.map((packageItem) => (
+            <TableRow key={packageItem.name}>
+              <TableCell className='font-semibold'>{packageItem.name}</TableCell>
+              <TableCell>
+                {packageItem.services.map((service: string) => (
+                  <div key={service} className='flex gap-3 items-center'>
+                    <CheckCheck className='w-4 h-4 text-lime-500'/>
+                    <p>{vendCatLabel(service)}</p>
+                  </div>
+                ))}
+              </TableCell>
+              <TableCell>{serialize(packageItem.packageDetails)}</TableCell>
+              <TableCell className="text-right">{packageItem.price ? formatPrice(packageItem.price) : <p className='text-slate-400 italic'>Price not disclosed</p>}</TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {/* @ts-ignore */}
-            {packageList.length > 0 ? 
-              // @ts-ignore
-              packageList.map((packageItem) => (
-                <TableRow key={packageItem.name}>
-                  <TableCell className='font-medium'>{packageItem.name}</TableCell>
-                  <TableCell>
-                    {packageItem.services.map((service: string) => (
-                      <div key={service}>
-                        <p>{capitalizeFirstLetter(service)}</p>
-                      </div>
-                    ))}
-                  </TableCell>
-                  <TableCell>{packageItem.packageDetails}</TableCell>
-                  <TableCell className="text-right">{formatPrice(packageItem.price)}</TableCell>
-                </TableRow>
-              )) : null
-            }
-            
-          </TableBody>
-        </Table>
-      </div>
+          ))}
+        </TableBody>
+      </Table>
+         : null
+      }
 
       <ProductReel
         href='/products'
