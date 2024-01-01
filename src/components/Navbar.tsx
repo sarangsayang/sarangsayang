@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { BookHeart } from 'lucide-react'
 import Enquiries from './Enquiries'
 import MobileNav from './MobileNav'
+import NormalUserAccountNav from './NormalUserAccountNav'
 
 
 const Navbar = async () => {
@@ -55,7 +56,7 @@ const Navbar = async () => {
                     )}
 
                     {user ? (
-                      <UserAccountNav user={user} />
+                      null
                     ) : (
                       <Link
                         href='/sign-up'
@@ -65,6 +66,10 @@ const Navbar = async () => {
                         Create account
                       </Link>
                     )}
+
+                    {user && user.role !== 'user' ? <UserAccountNav user={user} /> : null}
+
+                    {user && user.role === 'user' ? <NormalUserAccountNav user={user} /> : null}
 
                     {user ? (   
                       <span
