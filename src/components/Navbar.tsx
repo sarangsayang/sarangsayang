@@ -69,7 +69,7 @@ const Navbar = async () => {
 
                     {user && user.role !== 'user' ? <UserAccountNav user={user} /> : null}
 
-                    {user && user.role === 'user' ? <NormalUserAccountNav user={user} /> : null}
+                    {user && (user.role === 'user' || user.role === 'admin') ? <NormalUserAccountNav user={user} /> : null}
 
                     {user ? (   
                       <span
