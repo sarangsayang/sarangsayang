@@ -104,7 +104,7 @@ const Navbar = async () => {
                         />
                       </div> : null}
 
-                    {user && user?.role !== 'user' ? <Enquiries user={user}/> : null }
+                    {user && user.role !== 'user' && user.role !== 'admin' ? <Enquiries user={user}/> : null }
                   </div>
                 </div>
               </div>
