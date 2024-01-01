@@ -138,7 +138,7 @@ exports.VENDOR_CATEGORIES = [
         icon: lucide_react_1.Hand
     },
     {
-        label: 'Make Up Artists',
+        label: 'Make Up Artist',
         value: 'mua',
         icon: lucide_react_1.SprayCan
     },

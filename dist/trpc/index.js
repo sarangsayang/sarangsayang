@@ -464,9 +464,7 @@ exports.appRouter = (0, trpc_1.router)({
                         payload = _b.sent();
                         return [4 /*yield*/, payload.delete({
                                 collection: 'leads',
-                                where: {
-                                    id: input.leadId
-                                }
+                                id: input.leadId
                             })];
                     case 2:
                         _b.sent();
@@ -697,9 +695,7 @@ exports.appRouter = (0, trpc_1.router)({
                         payload = _b.sent();
                         return [4 /*yield*/, payload.delete({
                                 collection: 'likes',
-                                where: {
-                                    id: input.likeId
-                                }
+                                id: input.likeId
                             })];
                     case 2:
                         _b.sent();

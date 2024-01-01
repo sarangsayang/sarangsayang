@@ -137,7 +137,7 @@ exports.Vendors = {
         },
         {
             name: 'details',
-            type: 'textarea',
+            type: 'richText',
             label: 'Vendor Details',
             required: false,
         },

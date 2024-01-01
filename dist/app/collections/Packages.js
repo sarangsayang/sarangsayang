@@ -148,14 +148,11 @@ exports.Packages = {
     },
     fields: [
         {
-            name: 'user',
+            name: 'vendor',
             type: 'relationship',
-            relationTo: 'users',
+            relationTo: 'vendors',
             required: true,
             hasMany: false,
-            admin: {
-                condition: function () { return false; },
-            },
         },
         {
             name: 'name',
