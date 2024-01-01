@@ -39,7 +39,7 @@ export interface User {
 }
 export interface Vendor {
   id: string;
-  venduserid?: (string | null) | User;
+  venduserid: string | User;
   name: string;
   category:
     | 'venues'

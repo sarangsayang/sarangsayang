@@ -150,6 +150,8 @@ const Page = async ({ params }: PageProps) => {
     }
   });
 
+  console.log(product)
+
   return (
     <MaxWidthWrapper className='bg-white'>
       <div className='bg-white grid grid-cols-1 md:grid-cols-2 py-6 items-center'>
@@ -186,7 +188,7 @@ const Page = async ({ params }: PageProps) => {
                 <div className='mt-4'>
                   <h1 className='flex items-baseline gap-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
                     {product.name}
-                    <span><Badge vendUserId={product.venduserid.id}/></span>
+                    <span><Badge vendorRole={product.venduserid.role}/></span>
                   </h1>
                   <p className='text-balance text-muted-foreground mt-3 flex gap-2 items-center'>
                     <MapPin className='h-6 w-6 text-gray-400'/>

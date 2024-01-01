@@ -46,8 +46,8 @@ export const Vendors: CollectionConfig = {
         label: 'Vendor User ID',
         type: 'relationship',
         relationTo: 'users',
-        admin: {
-          condition: ({ req }) => req.user.role === 'admin',
+        access: {
+          update: ({ req }) => req.user.role === 'admin',
         },
         required: true,
         hasMany: false,

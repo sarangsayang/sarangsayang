@@ -1,21 +1,15 @@
-'use client'
-
-import { trpc } from '@/trpc/client'
 import { BadgeCheck } from 'lucide-react'
 
 interface BadgeProps {
-    vendUserId: string
+    vendorRole: string
 }
 
-const Badge = ({vendUserId}: BadgeProps) => {
-    const user = trpc.getVendUser.useQuery({
-        vendUserId: vendUserId
-      }).data
+const Badge = ({vendorRole}: BadgeProps) => {
 
   return (
     <>
-        {user && user.role === 'vendor' ? <BadgeCheck aria-hidden='true' className='h-6 w-6 flex-shrink-0 text-blue-400'/> : null}
-        {user && user.role === 'supervendor' ? <BadgeCheck aria-hidden='true' className='h-6 w-6 flex-shrink-0 text-yellow-400'/> : null}
+        {vendorRole === "vendor" ? <BadgeCheck aria-hidden='true' className='h-6 w-6 flex-shrink-0 text-blue-400'/> : null}
+        {vendorRole === "supervendor" ? <BadgeCheck aria-hidden='true' className='h-6 w-6 flex-shrink-0 text-yellow-400'/> : null}
     </>
   )
 }

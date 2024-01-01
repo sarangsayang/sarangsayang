@@ -94,8 +94,8 @@ exports.Vendors = {
             label: 'Vendor User ID',
             type: 'relationship',
             relationTo: 'users',
-            admin: {
-                condition: function (_a) {
+            access: {
+                update: function (_a) {
                     var req = _a.req;
                     return req.user.role === 'admin';
                 },

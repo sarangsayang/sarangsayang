@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { VENDOR_CATEGORIES } from '../config'
 import ImageSlider from './ImageSlider'
 import LikeButton from './LikeButton'
-import { Heart } from 'lucide-react'
+import { BadgeCheck, Heart } from 'lucide-react'
 import { toast } from 'sonner'
 import Badge from './Badge'
 
@@ -63,7 +63,7 @@ const ProductListing = ({
               <h3 className='flex items-center gap-2 mt-4 font-medium text-sm text-gray-700'>
                 {vendor.name}
                 {/* @ts-ignore */}
-                <span><Badge vendUserId={vendor.venduserid.id}/></span>
+                <span><Badge vendorRole={vendor.venduserid.role}/></span>
               </h3>
             </Link>
            : 
@@ -76,7 +76,7 @@ const ProductListing = ({
             <h3 className='flex items-center gap-2 mt-4 font-medium text-sm text-gray-700'>
               {vendor.name}
               {/* @ts-ignore */}
-              <span><Badge vendUserId={vendor.venduserid.id}/></span>
+              <span><Badge vendorRole={vendor.venduserid.role}/></span>
             </h3>
           </Link>
            }
