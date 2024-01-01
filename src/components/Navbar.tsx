@@ -67,7 +67,7 @@ const Navbar = async () => {
                       </Link>
                     )}
 
-                    {user && user.role !== 'user' ? <UserAccountNav user={user} /> : null}
+                    {user && user.role !== 'user' && user.role !== 'admin' ? <UserAccountNav user={user} /> : null}
 
                     {user && (user.role === 'user' || user.role === 'admin') ? <NormalUserAccountNav user={user} /> : null}
 
@@ -105,6 +105,7 @@ const Navbar = async () => {
                       </div> : null}
 
                     {user && user.role !== 'user' && user.role !== 'admin' ? <Enquiries user={user}/> : null }
+
                   </div>
                 </div>
               </div>
