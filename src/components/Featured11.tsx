@@ -9,6 +9,7 @@ import {
 } from "./ui/carousel"
 import Image from 'next/image'
 import Autoplay from "embla-carousel-autoplay"
+import Link from "next/link"
 
 const Featured11 = () => {
   return (
@@ -31,11 +32,11 @@ const Featured11 = () => {
             <CarouselContent>
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image unoptimized={true} width={800} height={300} className="object-cover max-w-[800px] max-h-[300px]" src="/featured/featVenue.jpeg" alt='featuredVenue'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
-                            <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
-                                SarangSayang
-                            </h3>
+                            <Link href={'/vendor/658fe5b634727ffddc6eb510'} className='flex items-center gap-1 font-medium text-sm text-gray-700 hover:underline'>
+                                Amaris D Arena
+                            </Link>
                             <p className='text-sm text-gray-500'>
                                 Venue
                             </p>
@@ -59,11 +60,11 @@ const Featured11 = () => {
 
                 <CarouselItem className="flex items-center justify-center p-6">
                     <div>
-                        <Image width={800} height={300} src="https://placehold.co/800x300" alt='SarangSayang'/>
+                        <Image unoptimized={true} width={800} height={300} className="object-cover max-w-[800px] max-h-[300px]" src="/featured/featBridal.jpeg" alt='featuredBridal'/>
                         <div className='mt-3 h-30 w-60 flex flex-col gap-2 items-start justify-center bg-white'>
-                            <h3 className='flex items-center gap-1 font-medium text-sm text-gray-700'>
-                                SarangSayang
-                            </h3>
+                            <Link href={'/vendor/65902c5432fec6b4e3fc1109'} className='flex items-center gap-1 font-medium text-sm text-gray-700'>
+                                Farzana Khan Bridal
+                            </Link>
                             <p className='text-sm text-gray-500'>
                                 Bridal
                             </p>
