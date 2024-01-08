@@ -56,6 +56,14 @@ export const Users: CollectionConfig = {
       hasMany: true,
     },
     {
+      name: 'stripe_customer_id',
+      required: false,
+      type: 'text',
+      admin: {
+        condition: () => false,
+      },
+    },
+    {
       name: 'role',
       defaultValue: 'user',
       required: true,

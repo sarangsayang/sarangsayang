@@ -1,6 +1,5 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import { getServerSideUser } from '@/lib/payload-utils'
-import { Loader } from 'lucide-react'
 import { cookies } from 'next/headers'
 
 export default async function Details() {

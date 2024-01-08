@@ -18,7 +18,7 @@ export default async function Wishlist() {
                   </p>
               </div>
           </div>
-          {user ? <CategorizedLikes userId={user.id} /> : <Loader />}
+          {user ? <CategorizedLikes userId={user.id} /> : <Loader className="animate-spin"/>}
       </MaxWidthWrapper>
   )
 }

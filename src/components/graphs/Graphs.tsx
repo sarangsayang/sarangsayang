@@ -22,15 +22,15 @@ const Graphs = ({userId}: GraphProps) => {
   return (
     <>
         <Card>
-            {vendorId ? <PageVisits vendorId={vendorId}/> : <Loader className='py-4'/>}
+            {vendorId ? <PageVisits vendorId={vendorId}/> : <Loader className='animate-spin'/>}
         </Card>
 
         <Card>
-            {vendorId ? <VendorLikes vendorId={vendorId}/> : <Loader className='py-4'/>}
+            {vendorId ? <VendorLikes vendorId={vendorId}/> : <Loader className='animate-spin'/>}
         </Card>
 
         <Card>
-            {vendor ? <Enquiries vendorId={vendorId}/> : <Loader className='py-4'/>}
+            {vendor ? <Enquiries vendorId={vendorId}/> : <Loader className='animate-spin'/>}
         </Card>
     </>
   )

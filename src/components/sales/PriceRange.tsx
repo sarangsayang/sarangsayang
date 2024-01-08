@@ -2,17 +2,22 @@
 
 import { useState } from "react"
 import { Switch } from "../ui/switch"
-import { BadgeCheck, CheckCircle, Crown } from "lucide-react"
+import { BadgeCheck, CheckCircle, Crown, MoveRight } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { trpc } from "@/trpc/client"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { TabsContent } from "@radix-ui/react-tabs"
-import Link from "next/link"
 import { Button } from "../ui/button"
+import { useRouter } from 'next/navigation'
+import Link from "next/link"
+
 
 interface PriceRangeProps {
     userRole: string,
-    userId: string
+    userId: string,
+    portal: string,
+    hasSub: boolean,
+    checkoutLink: string
 }
 
 interface PriceObject {
@@ -20,8 +25,10 @@ interface PriceObject {
     monthly5: number
 }
 
-const PriceRange = ({userRole, userId}: PriceRangeProps) => {
+const PriceRange = async ({userRole, userId, portal, hasSub, checkoutLink}: PriceRangeProps) => {
     const [annually, setAnnually] = useState(false)
+
+    const router = useRouter()
 
     const vendor = trpc.getVendorId.useQuery({
         userId: userId
@@ -52,8 +59,35 @@ const PriceRange = ({userRole, userId}: PriceRangeProps) => {
             return price.monthly5
         } else if (category === 'misc') {
             return price.monthly5
+        }       
+    }
+
+    function handleValidUpgrade(category: string) {
+        if (category === 'venues') {
+            return 'prod_PISZQFLWCfyPBj'
+        } else if (category === 'agents') {
+            return 'prod_PISZQFLWCfyPBj'
+        } else if (category === 'bridals') {
+            return 'prod_PISZQFLWCfyPBj'
+        } else if (category === 'photovideo') {
+            return 'prod_PISZQFLWCfyPBj'
+        } else if (category === 'catering') {
+            return 'prod_PISZQFLWCfyPBj'
+        } else if (category === 'decor') {
+            return 'prod_PISZQFLWCfyPBj'
+        } else if (category === 'henna') {
+            return 'prod_PKI6iJA0CtxBZT'
+        } else if (category === 'mua') {
+            return 'prod_PKI6iJA0CtxBZT'
+        } else if (category === 'emcees') {
+            return 'prod_PKI6iJA0CtxBZT'
+        } else if (category === 'honeymoon') {
+            return 'prod_PKI6iJA0CtxBZT'
+        } else if (category === 'misc') {
+            return 'prod_PKI6iJA0CtxBZT'
+        } else {
+            return 'prod_PISZQFLWCfyPBj'
         }
-            
     }
     
   return (
@@ -68,6 +102,11 @@ const PriceRange = ({userRole, userId}: PriceRangeProps) => {
             <p className="text-sm font-normal text-gray-400">
                 It start from here! Add ons are only available for Supervendors.
             </p>
+            <Button variant='ghost' className="mt-3">
+                <Link href={portal} className="flex gap-2 items-center">
+                    Manage Billing <MoveRight className='ml-1 h-4 w-4 transition-all text-muted-foreground'/>
+                </Link>
+            </Button>
         </div>
 
         <Tabs defaultValue="plans" className="w-full flex flex-col items-center mt-10">
@@ -233,8 +272,11 @@ const PriceRange = ({userRole, userId}: PriceRangeProps) => {
                                 {annually ? <p className="text-sm font-light text-center text-gray-400 mt-3">All yearly plans are non-refundable.</p> : <p className="text-sm font-light text-center text-gray-400 mt-3">Monthly plans can be cancelled at any time.</p> }
                             </div>
                             
-                            <Button asChild>
-                                <Link href={'#'}>Test</Link>
+                            <Button
+                                disabled={hasSub}
+                                className='w-full'
+                            >
+                                <Link href={checkoutLink}>Upgrade Now</Link>
                             </Button>
                         </section>
                     </div>
@@ -244,18 +286,7 @@ const PriceRange = ({userRole, userId}: PriceRangeProps) => {
             <TabsContent value="addon">
                 <div className="flex flex-col items-center justify-center mt-5 px-20 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
                     <div className="flex flex-col items-center gap-2">
-                        <div className="h-6">
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        {userRole != 'vendor' ? <Crown className="text-yellow-600"/> : null}
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>You are here!</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </div>
+                        <div className="h-6"></div>
                         <section className="flex flex-col w-full max-w-sm p-12 space-y-6 bg-white rounded-lg shadow-md">
                             {/* Price */}
                             <div className="flex-shrink-0 flex items-center gap-2">

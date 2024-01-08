@@ -45,7 +45,7 @@ const TEDataPull = ({vendorId}: TEDataPullProps) => {
 
   return (
     <>
-        {leads ? (<div className="text-2xl font-bold">{leads.length}</div>) : (<Loader/>)}
+        {leads ? (<div className="text-2xl font-bold">{leads.length}</div>) : (<Loader className="animate-spin"/>)}
         {/* @ts-ignore */}
         {findDifference(lastMonthNumbers, thisMonthNumbers)}
     </>

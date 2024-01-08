@@ -1,6 +1,6 @@
 import { trpc } from "@/trpc/client"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
-import { Loader, PencilRuler } from "lucide-react"
+import { PencilRuler } from "lucide-react"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { useState } from "react"

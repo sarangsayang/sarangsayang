@@ -19,7 +19,7 @@ const LikeItem = ({ vendorId, likeId }: LikeItemProps) => {
   const removeLike = trpc.removeLike.useMutation()
   
   if (vendor.status === 'loading') {
-    return <Loader />
+    return <Loader className="animate-spin"/>
   } else if (vendor.status === 'success') {
     const validVendor = vendor.data.docs[0] as Vendor
 

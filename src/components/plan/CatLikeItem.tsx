@@ -31,7 +31,7 @@ const CatLikeItem = ({category, data, icon, label}: CatLikeItemProps) => {
         }) 
 
         if (vendors.status === 'loading') {
-            <Loader />
+            <Loader className="animate-spin"/>
         } else if (vendors.status === 'success') {
             const vendor = vendors.data
             

@@ -64,6 +64,14 @@ exports.Users = {
             hasMany: true,
         },
         {
+            name: 'stripe_customer_id',
+            required: false,
+            type: 'text',
+            admin: {
+                condition: function () { return false; },
+            },
+        },
+        {
             name: 'role',
             defaultValue: 'user',
             required: true,

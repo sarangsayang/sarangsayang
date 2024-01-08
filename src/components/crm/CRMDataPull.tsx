@@ -19,7 +19,7 @@ function getLead(string: string) {
     })
 
     if (getLead.status === 'loading') {
-        return <Loader />
+        return <Loader className="animate-spin"/>
     } else if (getLead.status === 'success' && getLead.data) {
         return <CRMEditLead lead={getLead.data.docs[0]} />
     }

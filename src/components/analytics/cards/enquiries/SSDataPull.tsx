@@ -39,13 +39,13 @@ const TEDataPull = ({vendorId}: TEDataPullProps) => {
       } else if  (difference < 0){
         return <p className="text-xs text-rose-700 mt-4">{difference} from last month</p>
       } else {
-        return <p className="text-xs">Same number of likes from last month</p>
+        return null
       }
     }
 
   return (
     <>
-        {leads ? (<div className="text-2xl font-bold">{leads.length}</div>) : (<Loader/>)}
+        {leads ? (<div className="text-2xl font-bold">{leads.length}</div>) : (<Loader className="animate-spin"/>)}
         {/* @ts-ignore */}
         {findDifference(lastMonthNumbers, thisMonthNumbers)}
     </>

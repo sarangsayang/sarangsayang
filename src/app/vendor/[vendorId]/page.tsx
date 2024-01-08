@@ -210,10 +210,16 @@ const Page = async ({ params }: PageProps) => {
                         />
                       )}
                   </div>
-
-                  <div className='mt-4 space-y-6 text-base text-muted-foreground'>
-                    {serialize(product.details)}
-                  </div>
+                  {product.details ? 
+                    <div className='mt-4 space-y-6 text-base text-muted-foreground'>
+                      {serialize(product.details)}
+                    </div> 
+                  : 
+                    <div className='mt-4 space-y-6 text-base text-muted-foreground'>
+                      <p className='text-slate-400 italic'>Vendor details not disclosed.</p>
+                    </div>
+                  }
+                  
 
                   {/* Enquire */}
                   <div className='group inline-flex text-sm text-medium mt-10'>

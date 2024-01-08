@@ -45,7 +45,7 @@ const TVLDataPull = ({vendorId}: TotalVendorLikesProps) => {
 
   return (
     <>
-        {likes ? (<div className="text-2xl font-bold">{likes.length}</div>) : (<Loader/>)}
+        {likes ? (<div className="text-2xl font-bold">{likes.length}</div>) : (<Loader className="animate-spin"/>)}
         {/* @ts-ignore */}
         {findDifference(lastMonthNumbers, thisMonthNumbers)}
     </>

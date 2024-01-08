@@ -23,6 +23,7 @@ export interface User {
   id: string;
   vendor?: (string | null) | Vendor;
   packages?: (string | Package)[] | null;
+  stripe_customer_id?: string | null;
   role: 'admin' | 'user' | 'vendor' | 'supervendor' | 'platinum' | 'elite';
   updatedAt: string;
   createdAt: string;
