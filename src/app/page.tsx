@@ -23,7 +23,7 @@ export default async function Home() {
   const { user } = await getServerSideUser(nextCookies)
 
   return (
-    <>
+    <> 
       <MaxWidthWrapper>
         <div className='pt-16 mx-auto text-center flex flex-col items-center max-w-3xl'>
           <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
