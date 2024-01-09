@@ -153,7 +153,7 @@ export async function createCustomerIfNull() {
         await payload.update({
             collection: 'users',
             where: {
-                id: user?.id
+                id: {equals: user?.id}
             },
             data: {
                 stripe_customer_id: customer.id

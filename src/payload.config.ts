@@ -9,6 +9,7 @@ import { Vendors } from './app/collections/Vendors/Vendors'
 import { Packages } from './app/collections/Packages'
 import { Media } from './app/collections/Media'
 import { Likes } from './app/collections/Likes'
+import { LikesArchive } from './app/collections/LikesArchive'
 import { Leads } from './app/collections/Leads'
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
 import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
@@ -32,7 +33,7 @@ const adapter = s3Adapter({
 
 export default buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users, Vendors, Packages, Media, Likes, Leads], 
+    collections: [Users, Vendors, Packages, Media, Likes, Leads, LikesArchive], 
     routes: {
         admin: '/backstage',
     },

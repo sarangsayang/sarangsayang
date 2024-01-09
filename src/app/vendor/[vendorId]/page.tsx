@@ -7,13 +7,12 @@ import { getPayloadClient } from '@/get-payload'
 import { formatPrice } from '@/lib/utils'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { CheckCheck, Heart, MapPin } from 'lucide-react';
+import { CheckCheck, Facebook, Heart, Instagram, MapPin } from 'lucide-react';
 
 import { getServerSideUser } from '@/lib/payload-utils'
 import { cookies } from 'next/headers'
 import LikeButton from '@/components/LikeButton'
 import { toast } from 'sonner'
-import { trpc } from '@/trpc/client'
 import Badge from '@/components/Badge'
 import EnquireButton from '@/components/EnquireButton'
 
@@ -150,8 +149,6 @@ const Page = async ({ params }: PageProps) => {
     }
   });
 
-  console.log(product)
-
   return (
     <MaxWidthWrapper className='bg-white'>
       <div className='bg-white grid grid-cols-1 md:grid-cols-2 py-6 items-center'>
@@ -192,12 +189,14 @@ const Page = async ({ params }: PageProps) => {
                   </h1>
                   <p className='text-balance text-muted-foreground mt-3 flex gap-2 items-center'>
                     <MapPin className='h-6 w-6 text-gray-400'/>
-                    {product.location}
+                    {product.location ? product.location : <span className='text-slate-400 italic'>Vendor location not disclosed</span>}
                   </p>
                 </div>
 
                 <section className='mt-4'>
-                  <div className='flex items-center'>
+                  <div className='flex items-center gap-4'>
+                      {product.facebook ? <Link href={product.facebook}><Facebook className='h-6 w-6 flex-shrink-0 text-gray-400 cursor-pointer hover:text-gray-500'/></Link> : null}
+                      {product.instagram ? <Link href={product.instagram}><Instagram className='h-6 w-6 flex-shrink-0 text-gray-400 cursor-pointer hover:text-gray-500'/></Link> : null}
                       {user ? <LikeButton vendor={product} user={user.id}/> : (
                         <Heart
                         aria-hidden='true'

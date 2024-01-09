@@ -37,7 +37,7 @@ const LikeButton = ({
         }
     }
 
-    const heartcolor = isLiked() ? "text-blue-500 group-hover:text-blue-600'" : "text-gray-400 group-hover:text-gray-500'"
+    const heartcolor = isLiked() ? "text-blue-500 hover:text-blue-600" : "text-gray-400 hover:text-gray-500"
 
     //useEffect(() => {heartcolor}, [isLiked()])
 

@@ -77,13 +77,17 @@ exports.appRouter = (0, trpc_1.router)({
     })).query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, resultsArray, i, currentMonth, currentYear, followingMonth, followingYear, results1, results2;
+            var payload, resultsArray, currentEnqData, accuEnqData, currentSSData, accuSSData, i, currentMonth, currentYear, followingMonth, followingYear, results1, results2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
                         resultsArray = [];
+                        currentEnqData = 0;
+                        accuEnqData = 0;
+                        currentSSData = 0;
+                        accuSSData = 0;
                         i = 12;
                         _b.label = 2;
                     case 2:
@@ -100,6 +104,7 @@ exports.appRouter = (0, trpc_1.router)({
                             currentMonth = currentMonth + 12;
                             currentYear = currentYear - 1;
                             followingMonth = currentMonth + 1;
+                            followingYear = currentYear;
                         }
                         if (followingMonth > 12) {
                             followingMonth = followingMonth - 12;
@@ -108,7 +113,7 @@ exports.appRouter = (0, trpc_1.router)({
                         return [4 /*yield*/, payload.find({
                                 collection: 'leads',
                                 where: {
-                                    vendor: input.vendorId,
+                                    vendor: { equals: input.vendorId },
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
                                         less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
@@ -132,11 +137,15 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 4:
                         results2 = _b.sent();
+                        currentEnqData = results1.docs.length - accuEnqData;
+                        currentSSData = results2.docs.length - accuSSData;
+                        accuEnqData = accuEnqData + currentEnqData;
+                        accuSSData = accuSSData + currentSSData;
                         resultsArray.push({
                             month: currentMonth,
                             year: currentYear,
-                            data: results1.docs.length,
-                            ss: results2.docs.length
+                            data: currentEnqData,
+                            ss: currentSSData
                         });
                         _b.label = 5;
                     case 5:
@@ -155,13 +164,15 @@ exports.appRouter = (0, trpc_1.router)({
     })).query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, resultsArray, i, currentMonth, currentYear, followingMonth, followingYear, results;
+            var payload, resultsArray, currentData, accuData, i, currentMonth, currentYear, followingMonth, followingYear, results;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
                         resultsArray = [];
+                        currentData = 0;
+                        accuData = 0;
                         i = 12;
                         _b.label = 2;
                     case 2:
@@ -178,15 +189,16 @@ exports.appRouter = (0, trpc_1.router)({
                             currentMonth = currentMonth + 12;
                             currentYear = currentYear - 1;
                             followingMonth = currentMonth + 1;
+                            followingYear = currentYear;
                         }
                         if (followingMonth > 12) {
                             followingMonth = followingMonth - 12;
                             followingYear = followingYear + 1;
                         }
                         return [4 /*yield*/, payload.find({
-                                collection: 'likes',
+                                collection: 'likesArchive',
                                 where: {
-                                    vendor: input.vendorId,
+                                    vendor: { equals: input.vendorId },
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
                                         less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
@@ -195,16 +207,20 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 3:
                         results = _b.sent();
+                        currentData = results.docs.length - accuData;
+                        accuData = accuData + currentData;
                         resultsArray.push({
                             month: currentMonth,
                             year: currentYear,
-                            data: results.docs.length
+                            data: currentData
                         });
                         _b.label = 4;
                     case 4:
                         i = i - 1;
                         return [3 /*break*/, 2];
-                    case 5: return [2 /*return*/, resultsArray];
+                    case 5:
+                        console.log(resultsArray);
+                        return [2 /*return*/, resultsArray];
                 }
             });
         });
@@ -661,7 +677,7 @@ exports.appRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload;
+            var payload, alreadyLikedBefore;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -676,7 +692,27 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         _b.sent();
-                        return [2 /*return*/];
+                        return [4 /*yield*/, payload.find({
+                                collection: 'likesArchive',
+                                where: {
+                                    vendor: { equals: input.vendorId },
+                                    user: { equals: input.userId }
+                                }
+                            })];
+                    case 3:
+                        alreadyLikedBefore = _b.sent();
+                        if (!(alreadyLikedBefore.docs.length === 0)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.create({
+                                collection: 'likesArchive',
+                                data: {
+                                    vendor: input.vendorId,
+                                    user: input.userId
+                                }
+                            })];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5: return [2 /*return*/];
                 }
             });
         });

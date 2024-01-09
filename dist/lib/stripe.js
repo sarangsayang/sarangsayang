@@ -239,7 +239,7 @@ function createCustomerIfNull() {
                     return [4 /*yield*/, payload.update({
                             collection: 'users',
                             where: {
-                                id: user === null || user === void 0 ? void 0 : user.id
+                                id: { equals: user === null || user === void 0 ? void 0 : user.id }
                             },
                             data: {
                                 stripe_customer_id: customer.id

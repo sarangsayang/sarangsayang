@@ -80,6 +80,18 @@ export const Vendors: CollectionConfig = {
         required: false,
       },
       {
+        name: 'facebook',
+        label: 'Vendor Facebook Link',
+        type: 'text',
+        required: false,
+      },
+      {
+        name: 'instagram',
+        label: 'Vendor Instagram Link',
+        type: 'text',
+        required: false,
+      },
+      {
         name: 'packages',
         type: 'relationship',
         label: 'Vendor Package(s)',

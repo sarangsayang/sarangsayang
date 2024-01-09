@@ -14,6 +14,7 @@ var Vendors_1 = require("./app/collections/Vendors/Vendors");
 var Packages_1 = require("./app/collections/Packages");
 var Media_1 = require("./app/collections/Media");
 var Likes_1 = require("./app/collections/Likes");
+var LikesArchive_1 = require("./app/collections/LikesArchive");
 var Leads_1 = require("./app/collections/Leads");
 var plugin_cloud_storage_1 = require("@payloadcms/plugin-cloud-storage");
 var s3_1 = require("@payloadcms/plugin-cloud-storage/s3");
@@ -33,7 +34,7 @@ var adapter = (0, s3_1.s3Adapter)({
 });
 exports.default = (0, config_1.buildConfig)({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users_1.Users, Vendors_1.Vendors, Packages_1.Packages, Media_1.Media, Likes_1.Likes, Leads_1.Leads],
+    collections: [Users_1.Users, Vendors_1.Vendors, Packages_1.Packages, Media_1.Media, Likes_1.Likes, Leads_1.Leads, LikesArchive_1.LikesArchive],
     routes: {
         admin: '/backstage',
     },

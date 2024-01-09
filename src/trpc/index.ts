@@ -20,6 +20,12 @@ export const appRouter = router({
       const payload = await getPayloadClient()
       const resultsArray = []
 
+      let currentEnqData = 0
+      let accuEnqData = 0
+
+      let currentSSData = 0
+      let accuSSData = 0
+
       for (let i = 12; i > -1; i= i-1) {
         let currentMonth = input.month - i
         let currentYear = input.year
@@ -30,10 +36,12 @@ export const appRouter = router({
           if (currentMonth === 0) {
             currentMonth = 12
             currentYear = currentYear - 1
+
           } else if (currentMonth < 0) {
             currentMonth = currentMonth + 12
             currentYear = currentYear -1
             followingMonth = currentMonth + 1
+            followingYear = currentYear
           }
 
           if (followingMonth > 12) {
@@ -44,7 +52,7 @@ export const appRouter = router({
         const results1 = await payload.find({
           collection: 'leads',
           where: {
-            vendor: input.vendorId,
+            vendor: {equals: input.vendorId},
             createdAt: {
               greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
               less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
@@ -66,11 +74,17 @@ export const appRouter = router({
           }
         })
 
+        currentEnqData = results1.docs.length - accuEnqData
+        currentSSData = results2.docs.length - accuSSData
+
+        accuEnqData = accuEnqData + currentEnqData
+        accuSSData = accuSSData + currentSSData
+
         resultsArray.push({
           month: currentMonth,
           year: currentYear,
-          data: results1.docs.length,
-          ss: results2.docs.length
+          data: currentEnqData,
+          ss: currentSSData
         })
       }
 
@@ -85,6 +99,8 @@ export const appRouter = router({
     })).query(async ({input}) => {
       const payload = await getPayloadClient()
       const resultsArray = []
+      let currentData = 0
+      let accuData = 0
 
       for (let i = 12; i > -1; i= i-1) {
         let currentMonth = input.month - i
@@ -96,10 +112,12 @@ export const appRouter = router({
           if (currentMonth === 0) {
             currentMonth = 12
             currentYear = currentYear - 1
+
           } else if (currentMonth < 0) {
             currentMonth = currentMonth + 12
             currentYear = currentYear -1
             followingMonth = currentMonth + 1
+            followingYear = currentYear
           }
 
           if (followingMonth > 12) {
@@ -108,9 +126,9 @@ export const appRouter = router({
           }
         
         const results = await payload.find({
-          collection: 'likes',
+          collection: 'likesArchive',
           where: {
-            vendor: input.vendorId,
+            vendor: {equals: input.vendorId},
             createdAt: {
               greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
               less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
@@ -118,13 +136,17 @@ export const appRouter = router({
           }
         })
 
+        currentData = results.docs.length - accuData
+        accuData = accuData + currentData
+
         resultsArray.push({
           month: currentMonth,
           year: currentYear,
-          data: results.docs.length
+          data: currentData
         })
       }
 
+      console.log(resultsArray)
       return resultsArray
     }), 
 
@@ -446,6 +468,25 @@ export const appRouter = router({
           user: input.userId
         }
       })
+
+      const alreadyLikedBefore = await payload.find({
+        collection: 'likesArchive',
+        where: {
+          vendor: {equals: input.vendorId},
+          user: {equals: input.userId}
+        }
+      })
+
+      if (alreadyLikedBefore.docs.length === 0) {
+        await payload.create({
+          collection: 'likesArchive',
+          data: {
+            vendor: input.vendorId,
+            user: input.userId
+          }
+        })
+      }
+
   }),
 
   removeLike: publicProcedure

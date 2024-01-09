@@ -14,6 +14,7 @@ export interface Config {
     media: Media;
     likes: Like;
     leads: Lead;
+    likesArchive: LikesArchive;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -60,6 +61,8 @@ export interface Vendor {
       }[]
     | null;
   location?: string | null;
+  facebook?: string | null;
+  instagram?: string | null;
   packages?: (string | Package)[] | null;
   images?:
     | {
@@ -155,6 +158,13 @@ export interface Lead {
   status: 'not contacted' | 'warm' | 'hot' | 'cold' | 'lnr' | 'not interested' | 'contract signed';
   priority: 'low' | 'medium' | 'high';
   remarks?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface LikesArchive {
+  id: string;
+  user: string | User;
+  vendor: string | Vendor;
   updatedAt: string;
   createdAt: string;
 }

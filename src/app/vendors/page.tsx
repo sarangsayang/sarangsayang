@@ -6,6 +6,7 @@ import { ArrowDownAZ, ArrowUpAZ } from 'lucide-react'
 
 import { getServerSideUser } from '@/lib/payload-utils'
 import { cookies } from 'next/headers'
+import Link from 'next/link'
 
 type Param = string | string[] | undefined
 
@@ -32,7 +33,7 @@ const ProductsPage = async ({
 
   return (
     <MaxWidthWrapper>
-      {/* <div className='mt-10 flex justify-end'>
+      <div className='mt-10 flex justify-end'>
         <Select>
           <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Sort By" />
@@ -42,7 +43,7 @@ const ProductsPage = async ({
             <SelectItem value="desc"><p className='flex flex-row gap-3'><span><ArrowDownAZ className='w-5 h-5'/></span>Descending</p></SelectItem>
           </SelectContent>
         </Select>
-      </div> */}
+      </div>
 
       <ProductReel
         title={label ?? 'Vendors'}
