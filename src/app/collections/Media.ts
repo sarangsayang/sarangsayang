@@ -26,16 +26,15 @@ export const Media: CollectionConfig = {
         ],
     },
     access: {
-        // read: async ({ req }) => {
-        //     const referer = req.headers.referer
+        read: async ({ req }) => {
+            const referer = req.headers.referer
       
-        //     if (!req.user || !referer?.includes('backstage')) {
-        //       return true
-        //     }
+            if (!req.user || !referer?.includes('backstage')) {
+              return true
+            }
       
-        //     return await isAdminOrHasAccessToImages()({ req })
-        // },
-        read: () => true,
+            return await isAdminOrHasAccessToImages()({ req })
+        },
         delete: isAdminOrHasAccessToImages(),
         update: isAdminOrHasAccessToImages(),
     },  
