@@ -13,6 +13,8 @@ import { LikesArchive } from './app/collections/LikesArchive'
 import { Leads } from './app/collections/Leads'
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
 import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
+import { Plans } from './app/collections/Plans/Plans'
+import { FeaturedVendors } from './app/collections/FeaturedVendors'
 
 dotenv.config({
     path: path.resolve(__dirname, '../.env'),
@@ -33,7 +35,7 @@ const adapter = s3Adapter({
 
 export default buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users, Vendors, Packages, Media, Likes, Leads, LikesArchive], 
+    collections: [Users, Vendors, Packages, Media, Likes, Leads, LikesArchive, Plans, FeaturedVendors], 
     routes: {
         admin: '/backstage',
     },

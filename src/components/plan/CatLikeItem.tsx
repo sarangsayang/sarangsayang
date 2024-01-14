@@ -1,68 +1,105 @@
-'use client'
+"use client";
 
-import { trpc } from "@/trpc/client"
-import { Loader } from "lucide-react"
-import Link from "next/link"
+import { trpc } from "@/trpc/client";
+import { Loader } from "lucide-react";
+import Link from "next/link";
+import { Vendor } from "@/payload-types";
+import Image from "next/image";
+import ImageSlider from "../ImageSlider";
+import Badge from "../Badge";
 
 interface CatLikeItemProps {
-    category: string
-    data: Data[]
-    icon: any
-    label: string
+  category: string;
+  data: Data[];
+  icon: any;
+  label: string;
 }
 
 interface Data {
-    vendorId: string
+  vendor: Vendor;
 }
 
-const CatLikeItem = ({category, data, icon, label}: CatLikeItemProps) => {
-    let results = (
-        <p className="text-slate-600 italic">No likes found!</p>
-    )
+const CatLikeItem = ({ category, data, icon, label }: CatLikeItemProps) => {
+  const results = [];
 
-    let itemCount = 0
-    data.forEach((data) => {
-        const vendorId = data.vendorId
+  let itemCount = 0;
 
-        
+  for (let i = 0; i < data.length; i++) {
+    const vendorId = data[i].vendor.id;
 
-        const vendors = trpc.getVendor.useQuery({
-            id: vendorId
-        }) 
+    const vendors = trpc.getVendor.useQuery({
+      id: vendorId,
+    });
 
-        if (vendors.status === 'loading') {
-            <Loader className="animate-spin"/>
-        } else if (vendors.status === 'success') {
-            const vendor = vendors.data
-            
+    if (vendors.status === "loading") {
+      <Loader className="animate-spin" />;
+    } else if (vendors.status === "success") {
+      const vendor = vendors.data.docs;
 
-            if (vendor?.category === category) {
-                results = (
-                <Link href={`/vendor/${vendor.id}`}>
-                    <p className="hover:text-gray-700">{vendor.name}</p>
-                </Link>
-                )
-                itemCount++
-                
-            }
+      for (let x = 0; x < vendor.length; x++) {
+        if (vendor[x].category === category) {
+          results.push(vendor[x]);
+          itemCount++;
         }
-    })
+      }
+    }
+  }
 
-    return (
-        <>
-            <div className='md:flex md:items-center md:justify-between mb-4 '>
-                <div className='max-w-2xl px-4 lg:max-w-4xl lg:px-0'>
-                    <h3 className='flex items-center gap-3 text-xl font-semibold text-gray-900 sm:text-3xl'>
-                        <span>{icon}</span> {label}
+  function getImagesArray(images: object[]) {
+    const validUrls = images
+      //@ts-ignore
+      .map(({ image }) => (typeof image === "string" ? image : image.url))
+      .filter(Boolean) as string[];
+
+    return validUrls;
+  }
+
+  return (
+    <>
+      <div className="md:flex md:items-center md:justify-between mb-4 w-full">
+        <div className=" flex items-center justify-between w-full">
+          <h3 className="flex items-center gap-3 text-xl font-semibold text-gray-900 sm:text-3xl">
+            <span>{icon}</span> {label}
+          </h3>
+          <p className="text-md font-light text-right">
+            {itemCount}{" "}
+            {itemCount === 1 ? (
+              <span>{"vendor found"}</span>
+            ) : (
+              <span>{"vendors found"}</span>
+            )}
+          </p>
+        </div>
+      </div>
+      {results.length === 0 ? (
+        <p className="text-slate-600 italic">No likes found!</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {results.map((vendor) => (
+            <div className="space-y-3 pt-6" key={vendor.id}>
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col w-full px-6">
+                  <Link
+                    href={`/vendor/${vendor.id}`}
+                    className="cursor-pointer"
+                  >
+                    <ImageSlider urls={getImagesArray(vendor.images)} />
+                    <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
+                      {vendor.name}
+                      {/* @ts-ignore */}
+                      <span>
+                        <Badge vendorRole={vendor.venduserid.role} />
+                      </span>
                     </h3>
-                    <p className="text-md font-light mt-1">
-                        {itemCount} {itemCount === 1 ? (<span>{"vendor found"}</span>) : (<span>{"vendors found"}</span>)}
-                    </p>
+                  </Link>
                 </div>
+              </div>
             </div>
-            {results}
-        </>
-    )
-}
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
 
-export default CatLikeItem
+export default CatLikeItem;

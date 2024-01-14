@@ -5,7 +5,8 @@ const nextConfig = {
         domains: [
             "placehold.co",
             "localhost",
-            "sarangsayang.up.railway.app"
+            "sarangsayang.up.railway.app",
+            "i.giphy.com"
         ]
     },
     transpilePackages: ['html-to-text']

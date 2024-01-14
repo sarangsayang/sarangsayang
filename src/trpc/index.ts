@@ -11,6 +11,200 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  updatePlan: publicProcedure
+    .input(z.object({
+      id: z.string(),
+      brideName: z.string().optional(),
+      groomName: z.string().optional(),
+      weddingDate: z.string().optional(),
+      venue: z.string().optional(),
+      agent: z.string().optional(),
+      bridal: z.string().optional(),
+      photovideo: z.string().optional(),
+      catering: z.string().optional(),
+      decor: z.string().optional(),
+      henna: z.string().optional(),
+      mua: z.string().optional(),
+      emcee: z.string().optional(),
+      honeymoon: z.string().optional(),
+      misc: z.string().optional(),
+    })).mutation(async ({input}) => {
+      const payload = await getPayloadClient()
+      
+      if (input.brideName) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            brideName: input.brideName
+          }
+        })
+      } else if (input.groomName) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            groomName: input.groomName
+          }
+        })
+      } else if (input.weddingDate) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            weddingDate: input.weddingDate
+          }
+        })
+      } else if (input.venue) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            venue: input.venue
+          }
+        })
+      } else if (input.agent) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            agent: input.agent
+          }
+        })
+      } else if (input.bridal) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            bridal: input.bridal
+          }
+        })
+      } else if (input.photovideo) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            photovideo: input.photovideo
+          }
+        })
+      } else if (input.catering) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            catering: input.catering
+          }
+        })
+      } else if (input.decor) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            decor: input.decor
+          }
+        })
+      } else if (input.henna) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            henna: input.henna
+          }
+        })
+      } else if (input.mua) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            mua: input.mua
+          }
+        })
+      } else if (input.emcee) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            emcee: input.emcee
+          }
+        })
+      } else if (input.honeymoon) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            honeymoon: input.honeymoon
+          }
+        })
+      } else if (input.misc) {
+        await payload.update({
+          collection: 'plans',
+          where: {
+            id: {equals: input.id}
+          },
+          data: {
+            misc: input.misc
+          }
+        })
+      }
+      
+    }) ,
+
+  createPlan: publicProcedure
+    .input(z.object({
+      userId: z.string()
+    })).mutation(async ({input}) => {
+      const payload = await getPayloadClient()
+
+      await payload.create({
+        collection: 'plans',
+        data: {
+          user: input.userId
+        }
+      })
+    }),
+
+  getPlan: publicProcedure
+    .input(z.object({
+      userId: z.string()
+    })).query(async ({input}) => {
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'plans',
+        where: {
+          user: {
+            equals: input.userId,
+          }
+        }
+      })
+    }),
+
   getEnquiries12M: publicProcedure
     .input(z.object({
       year: z.number(),
@@ -501,6 +695,77 @@ export const appRouter = router({
     })
   }),
 
+  getTopVendor: publicProcedure
+    .input(z.object({
+      category: z.string()
+    })).query(async ({input}) => {
+      const payload = await getPayloadClient()
+
+      const results = await payload.find({
+        collection: 'featured',
+        where: {
+          id: '65a3e090f66a58e7b5eb9542'
+        }
+      })
+
+      if (input.category === 'venues') {
+        return {
+          top: results.docs[0].top1Venue,
+          top4: results.docs[0].top4Venues
+        }
+      } else if (input.category === 'agents') {
+        return {
+          top: results.docs[0].top1Agent,
+          top4: results.docs[0].top4Agents
+        }
+      } else if (input.category === 'bridals') {
+        return {
+          top: results.docs[0].top1Bridal,
+          top4: results.docs[0].top4Bridals
+        }
+      } else if (input.category === 'photovideo') {
+        return {
+          top: results.docs[0].top1Photovideo,
+          top4: results.docs[0].top4Photovideo
+        }
+      } else if (input.category === 'catering') {
+        return {
+          top: results.docs[0].top1Catering,
+          top4: results.docs[0].top4Catering
+        }
+      } else if (input.category === 'decor') {
+        return {
+          top: results.docs[0].top1Decor,
+          top4: results.docs[0].top4Decor
+        }
+      } else if (input.category === 'henna') {
+        return {
+          top: results.docs[0].top1Henna,
+          top4: results.docs[0].top4Henna
+        }
+      } else if (input.category === 'mua') {
+        return {
+          top: results.docs[0].top1Mua,
+          top4: results.docs[0].top4Mua
+        }
+      } else if (input.category === 'emcees') {
+        return {
+          top: results.docs[0].top1Emcee,
+          top4: results.docs[0].top4Emcees
+        }
+      } else if (input.category === 'honeymoon') {
+        return {
+          top: results.docs[0].top1Honeymoon,
+          top4: results.docs[0].top4Honeymoon
+        }
+      } else if (input.category === 'misc') {
+        return {
+          top: results.docs[0].top1Misc,
+          top4: results.docs[0].top4Misc
+        }
+      }
+    }),
+
   getInfiniteProducts: publicProcedure
     .input(
       z.object({
@@ -517,13 +782,19 @@ export const appRouter = router({
 
       const parsedQueryOpts: Record<
         string,
-        { equals: string }
+        { equals?: string, contains?: string }
       > = {}
 
       Object.entries(queryOpts).forEach(([key, value]) => {
-        parsedQueryOpts[key] = {
-          equals: value,
-        }
+        if (key === 'search') {
+          parsedQueryOpts['name'] = {
+            contains: value
+          }
+        } else {
+            parsedQueryOpts[key] = {
+              equals: value,
+            }
+          }
       })
 
       const page = cursor || 1

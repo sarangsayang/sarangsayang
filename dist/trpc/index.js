@@ -69,6 +69,282 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    updatePlan: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+        brideName: zod_1.z.string().optional(),
+        groomName: zod_1.z.string().optional(),
+        weddingDate: zod_1.z.string().optional(),
+        venue: zod_1.z.string().optional(),
+        agent: zod_1.z.string().optional(),
+        bridal: zod_1.z.string().optional(),
+        photovideo: zod_1.z.string().optional(),
+        catering: zod_1.z.string().optional(),
+        decor: zod_1.z.string().optional(),
+        henna: zod_1.z.string().optional(),
+        mua: zod_1.z.string().optional(),
+        emcee: zod_1.z.string().optional(),
+        honeymoon: zod_1.z.string().optional(),
+        misc: zod_1.z.string().optional(),
+    })).mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!input.brideName) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    brideName: input.brideName
+                                }
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 3:
+                        if (!input.groomName) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    groomName: input.groomName
+                                }
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 5:
+                        if (!input.weddingDate) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    weddingDate: input.weddingDate
+                                }
+                            })];
+                    case 6:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 7:
+                        if (!input.venue) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    venue: input.venue
+                                }
+                            })];
+                    case 8:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 9:
+                        if (!input.agent) return [3 /*break*/, 11];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    agent: input.agent
+                                }
+                            })];
+                    case 10:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 11:
+                        if (!input.bridal) return [3 /*break*/, 13];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    bridal: input.bridal
+                                }
+                            })];
+                    case 12:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 13:
+                        if (!input.photovideo) return [3 /*break*/, 15];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    photovideo: input.photovideo
+                                }
+                            })];
+                    case 14:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 15:
+                        if (!input.catering) return [3 /*break*/, 17];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    catering: input.catering
+                                }
+                            })];
+                    case 16:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 17:
+                        if (!input.decor) return [3 /*break*/, 19];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    decor: input.decor
+                                }
+                            })];
+                    case 18:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 19:
+                        if (!input.henna) return [3 /*break*/, 21];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    henna: input.henna
+                                }
+                            })];
+                    case 20:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 21:
+                        if (!input.mua) return [3 /*break*/, 23];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    mua: input.mua
+                                }
+                            })];
+                    case 22:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 23:
+                        if (!input.emcee) return [3 /*break*/, 25];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    emcee: input.emcee
+                                }
+                            })];
+                    case 24:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 25:
+                        if (!input.honeymoon) return [3 /*break*/, 27];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    honeymoon: input.honeymoon
+                                }
+                            })];
+                    case 26:
+                        _b.sent();
+                        return [3 /*break*/, 29];
+                    case 27:
+                        if (!input.misc) return [3 /*break*/, 29];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'plans',
+                                where: {
+                                    id: { equals: input.id }
+                                },
+                                data: {
+                                    misc: input.misc
+                                }
+                            })];
+                    case 28:
+                        _b.sent();
+                        _b.label = 29;
+                    case 29: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    createPlan: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        userId: zod_1.z.string()
+    })).mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: 'plans',
+                                data: {
+                                    user: input.userId
+                                }
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getPlan: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        userId: zod_1.z.string()
+    })).query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'plans',
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    }
+                                }
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
     getEnquiries12M: trpc_1.publicProcedure
         .input(zod_1.z.object({
         year: zod_1.z.number(),
@@ -740,6 +1016,97 @@ exports.appRouter = (0, trpc_1.router)({
             });
         });
     }),
+    getTopVendor: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        category: zod_1.z.string()
+    })).query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'featured',
+                                where: {
+                                    id: '65a3e090f66a58e7b5eb9542'
+                                }
+                            })];
+                    case 2:
+                        results = _b.sent();
+                        if (input.category === 'venues') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Venue,
+                                    top4: results.docs[0].top4Venues
+                                }];
+                        }
+                        else if (input.category === 'agents') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Agent,
+                                    top4: results.docs[0].top4Agents
+                                }];
+                        }
+                        else if (input.category === 'bridals') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Bridal,
+                                    top4: results.docs[0].top4Bridals
+                                }];
+                        }
+                        else if (input.category === 'photovideo') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Photovideo,
+                                    top4: results.docs[0].top4Photovideo
+                                }];
+                        }
+                        else if (input.category === 'catering') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Catering,
+                                    top4: results.docs[0].top4Catering
+                                }];
+                        }
+                        else if (input.category === 'decor') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Decor,
+                                    top4: results.docs[0].top4Decor
+                                }];
+                        }
+                        else if (input.category === 'henna') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Henna,
+                                    top4: results.docs[0].top4Henna
+                                }];
+                        }
+                        else if (input.category === 'mua') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Mua,
+                                    top4: results.docs[0].top4Mua
+                                }];
+                        }
+                        else if (input.category === 'emcees') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Emcee,
+                                    top4: results.docs[0].top4Emcees
+                                }];
+                        }
+                        else if (input.category === 'honeymoon') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Honeymoon,
+                                    top4: results.docs[0].top4Honeymoon
+                                }];
+                        }
+                        else if (input.category === 'misc') {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Misc,
+                                    top4: results.docs[0].top4Misc
+                                }];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
     getInfiniteProducts: trpc_1.publicProcedure
         .input(zod_1.z.object({
         limit: zod_1.z.number().min(1).max(100),
@@ -761,9 +1128,16 @@ exports.appRouter = (0, trpc_1.router)({
                         parsedQueryOpts = {};
                         Object.entries(queryOpts).forEach(function (_a) {
                             var key = _a[0], value = _a[1];
-                            parsedQueryOpts[key] = {
-                                equals: value,
-                            };
+                            if (key === 'search') {
+                                parsedQueryOpts['name'] = {
+                                    contains: value
+                                };
+                            }
+                            else {
+                                parsedQueryOpts[key] = {
+                                    equals: value,
+                                };
+                            }
                         });
                         page = cursor || 1;
                         return [4 /*yield*/, payload.find({

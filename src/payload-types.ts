@@ -15,6 +15,8 @@ export interface Config {
     likes: Like;
     leads: Lead;
     likesArchive: LikesArchive;
+    plans: Plan;
+    featured: Featured;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -165,6 +167,108 @@ export interface LikesArchive {
   id: string;
   user: string | User;
   vendor: string | Vendor;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Plan {
+  id: string;
+  user: (string | User)[];
+  brideName?: string | null;
+  groomName?: string | null;
+  weddingDate?: string | null;
+  venue?: (string | null) | Vendor;
+  agent?: (string | null) | Vendor;
+  bridal?: (string | null) | Vendor;
+  photovideo?: (string | null) | Vendor;
+  catering?: (string | null) | Vendor;
+  decor?: (string | null) | Vendor;
+  henna?: (string | null) | Vendor;
+  mua?: (string | null) | Vendor;
+  emcee?: (string | null) | Vendor;
+  honeymoon?: (string | null) | Vendor;
+  misc?: (string | null) | Vendor;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Featured {
+  id: string;
+  top1Venue?: (string | null) | Vendor;
+  top4Venues?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Agent?: (string | null) | Vendor;
+  top4Agents?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Bridal?: (string | null) | Vendor;
+  top4Bridals?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Photovideo?: (string | null) | Vendor;
+  top4Photovideo?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Catering?: (string | null) | Vendor;
+  top4Catering?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Decor?: (string | null) | Vendor;
+  top4Decor?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Henna?: (string | null) | Vendor;
+  top4Henna?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Mua?: (string | null) | Vendor;
+  top4Mua?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Emcee?: (string | null) | Vendor;
+  top4Emcees?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Honeymoon?: (string | null) | Vendor;
+  top4Honeymoon?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Misc?: (string | null) | Vendor;
+  top4Misc?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }

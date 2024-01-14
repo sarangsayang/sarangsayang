@@ -1,65 +1,63 @@
-import MaxWidthWrapper from '../../components/MaxWidthWrapper'
-import ProductReel from '@/components/ProductReel'
-import { VENDOR_CATEGORIES } from '../../config'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { ArrowDownAZ, ArrowUpAZ } from 'lucide-react'
+import MaxWidthWrapper from "../../components/MaxWidthWrapper";
+import ProductReel from "@/components/ProductReel";
+import { VENDOR_CATEGORIES } from "../../config";
 
-import { getServerSideUser } from '@/lib/payload-utils'
-import { cookies } from 'next/headers'
-import Link from 'next/link'
+import { getServerSideUser } from "@/lib/payload-utils";
+import { cookies } from "next/headers";
+import Filter from "@/components/Filter";
+import Search from "@/components/Search";
+import FeaturedReel from "@/components/FeaturedReel";
 
-type Param = string | string[] | undefined
+type Param = string | string[] | undefined;
 
 interface ProductsPageProps {
-  searchParams: { [key: string]: Param }
+  searchParams: { [key: string]: Param };
 }
 
 const parse = (param: Param) => {
-  return typeof param === 'string' ? param : undefined
-}
+  return typeof param === "string" ? param : undefined;
+};
 
-const ProductsPage = async ({
-  searchParams,
-}: ProductsPageProps) => {
-  const nextCookies = cookies()
-  const { user } = await getServerSideUser(nextCookies)
+const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
+  const nextCookies = cookies();
+  const { user } = await getServerSideUser(nextCookies);
 
-  const sort = parse(searchParams.sort)
-  const category = parse(searchParams.category)
+  const sort = parse(searchParams.sort);
+  const search = parse(searchParams.search);
+  const category = parse(searchParams.category);
 
   const label = VENDOR_CATEGORIES.find(
     ({ value }) => value === category
-  )?.label
+  )?.label;
 
   return (
     <MaxWidthWrapper>
-      <div className='mt-10 flex justify-end'>
-        <Select>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Sort By" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="asc"><p className='flex flex-row gap-3'><span><ArrowUpAZ className='w-5 h-5'/></span>Ascending</p></SelectItem>
-            <SelectItem value="desc"><p className='flex flex-row gap-3'><span><ArrowDownAZ className='w-5 h-5'/></span>Descending</p></SelectItem>
-          </SelectContent>
-        </Select>
+      {category && user ? (
+        <FeaturedReel
+          title={label ?? "Vendors"}
+          category={category}
+          user={user.id}
+        />
+      ) : null}
+      <div className="mt-12 flex items-center gap-3">
+        {category ? <Search search={search} category={category} /> : null}
+        {category ? <Filter sort={sort} category={category} /> : null}
       </div>
 
       <ProductReel
-        title={label ?? 'Vendors'}
-        href='#'
+        title={label ?? "Vendors"}
+        href="#"
         user={user?.id}
         query={{
           category,
+          search,
           limit: 40,
           sort:
-            sort === 'desc' || sort === 'asc'
-              ? sort
-              : undefined,
+            sort === "-createdAt" || sort === "createdAt" ? sort : undefined,
         }}
       />
     </MaxWidthWrapper>
-  )
-}
+  );
+};
 
-export default ProductsPage
+export default ProductsPage;
