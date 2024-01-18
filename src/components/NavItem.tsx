@@ -6,9 +6,7 @@ import { ChevronDown, LockKeyhole } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-
-import { motion } from "framer-motion";
-import { toast } from "sonner";
+import FeaturedImage from "./FeaturedImage";
 
 type Category = (typeof PRODUCT_CATEGORIES)[number];
 
@@ -18,7 +16,6 @@ interface NavItemProps {
   close: () => void;
   isOpen: boolean;
   isAnyOpen: boolean;
-  leftconstraint?: number;
   locked: boolean;
   signedIn: boolean;
   identifiedPlan: boolean;
@@ -59,7 +56,6 @@ const NavItem = ({
   handleOpen,
   close,
   isOpen,
-  leftconstraint,
   locked,
   signedIn,
   identifiedPlan,
@@ -92,44 +88,40 @@ const NavItem = ({
           />
 
           <div className="relative bg-white">
-            <div className="w-full px-8 h-[400px] flex items-center">
-              <motion.div
-                className="cursor-grab overflow-scroll flex flex-row"
-                whileTap={{ cursor: "grabbing" }}
-              >
-                <motion.div
-                  drag="x"
-                  dragConstraints={{ right: 0, left: leftconstraint }}
-                  className="flex"
-                >
+            <div className="w-full px-8  flex items-center">
+              <div className="overflow-scroll flex flex-row">
+                <div className="flex">
                   {category.featured.map((item) => (
-                    <motion.div
+                    <div
                       key={item.name}
-                      className="min-w-[15rem] p-[40px] group "
+                      className="min-w-[17rem] p-[40px] group"
                     >
-                      <div className="relative rounded-2xl bg-gray-100 group-hover:opacity-75 h-[250px]">
+                      <div className="relative rounded-2xl bg-gray-100 group-hover:opacity-75">
                         <Link href={item.href} onClick={() => close()}>
-                          <Image
-                            fill
-                            src={item.imageSrc}
-                            alt="product category image"
-                            className="object-cover object-center h-full w-full rounded-2xl"
-                          />
+                          {category.value === "discover" ? (
+                            //@ts-ignore
+                            <FeaturedImage category={item.value} />
+                          ) : (
+                            <Image
+                              width={900}
+                              height={900}
+                              src={item.imageSrc}
+                              alt="product category image"
+                              className="aspect-square rounded-2xl"
+                            />
+                          )}
                         </Link>
                       </div>
 
                       <div className="mt-6 block font-medium text-gray-900">
-                        {item.name}
-                      </div>
-                      <p className="mt-1 font-extralight" aria-hidden="true">
-                        <a href={item.href} className="hover:underline">
-                          Browse
+                        <a href={item.href} className="group-hover:underline">
+                          {item.name}
                         </a>
-                      </p>
-                    </motion.div>
+                      </div>
+                    </div>
                   ))}
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

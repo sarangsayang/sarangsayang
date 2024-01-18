@@ -41,6 +41,7 @@ exports.Users = {
             return user.role !== 'admin';
         },
         defaultColumns: ['id'],
+        useAsTitle: 'email',
     },
     fields: [
         {

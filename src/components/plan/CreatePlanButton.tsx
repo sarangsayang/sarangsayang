@@ -43,14 +43,14 @@ const CreatePlanButton = ({ userId }: DetailsPullProps) => {
       {identifiedPlan ? (
         <Button variant="ghost" asChild>
           <Link href="/plan/details">
-            Start Planning{" "}
+            Continue Planning{" "}
             <MoveRight className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
           </Link>
         </Button>
       ) : (
         <>
           <Button variant="ghost" onClick={() => handleClick(userId)}>
-            Start Planning{" "}
+            Unlock Wedding Planner{" "}
             <MoveRight className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
           </Button>
         </>

@@ -11,6 +11,74 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  editTodo: publicProcedure
+    .input(z.object({
+      planId: z.string(),
+      todo: z.string().optional(),
+      date: z.string().optional(),
+      check: z.boolean().optional()
+    })).mutation(async ({input}) => {
+      const payload = await getPayloadClient()
+
+      if (input.todo) {
+        await payload.update({
+          collection: 'todos',
+          where: {plan: {equals: input.planId}},
+          data: {
+            todo: input.todo
+          }
+        })
+      } else if (input.date) {
+        await payload.update({
+          collection: 'todos',
+          where: {plan: {equals: input.planId}},
+          data: {
+            date: input.date
+          }
+        })
+      } else if (input.check) {
+        await payload.update({
+          collection: 'todos',
+          where: {plan: {equals: input.planId}},
+          data: {
+            check: input.check
+          }
+        })
+      }
+
+      
+    }) ,
+
+  getTodo: publicProcedure
+    .input(z.object({
+      planId: z.string()
+    })).query(async ({input}) => {
+      const payload = await getPayloadClient()
+
+      return await payload.find({
+        collection: 'todos',
+        where: {plan: {equals: input.planId}}
+      })
+    }),
+
+  addTodo: publicProcedure
+    .input(z.object({
+      planId: z.string(),
+      todo: z.string(),
+      date: z.string()
+    })).mutation(async ({input}) => {
+      const payload = await getPayloadClient()
+
+      await payload.create({
+        collection: 'todos',
+        data: {
+          plan: input.planId,
+          todo: input.todo,
+          date: input.date
+        }
+      })
+    }),
+
   updatePlan: publicProcedure
     .input(z.object({
       id: z.string(),
@@ -605,7 +673,8 @@ export const appRouter = router({
           user: {
             equals: input.userId,
           }
-        }
+        },
+        pagination: false
       })
   }),
 

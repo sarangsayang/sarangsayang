@@ -149,6 +149,7 @@ const Page = async ({ params }: PageProps) => {
             <Link
               href={escapeHtml(node.url)}
               key={i}
+              target="_blank"
               className="no-underline hover:underline text-blue-500"
             >
               {serialize(node.children)}

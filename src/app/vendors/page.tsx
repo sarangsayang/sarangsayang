@@ -32,11 +32,11 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 
   return (
     <MaxWidthWrapper>
-      {category && user ? (
+      {category ? (
         <FeaturedReel
           title={label ?? "Vendors"}
           category={category}
-          user={user.id}
+          user={user?.id}
         />
       ) : null}
       <div className="mt-12 flex items-center gap-3">

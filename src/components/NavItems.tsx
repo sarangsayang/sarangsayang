@@ -77,7 +77,6 @@ const NavItems = ({ signedIn, userId }: NavItemsProps) => {
             isOpen={isOpen}
             key={category.value}
             isAnyOpen={isAnyOpen}
-            leftconstraint={category.leftconstraint}
             locked={category.locked}
             signedIn={signedIn}
             identifiedPlan={identifiedPlan}

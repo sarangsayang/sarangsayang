@@ -27,12 +27,12 @@ export default async function Home() {
             Welcome to Sarang Sayang, a platform for all things malay weddings.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-10">
-            <Link href="/vendors" className={buttonVariants()}>
-              Browse Trending
+            <Link href="/featuredvendors" className={buttonVariants()}>
+              Start Browsing
             </Link>
             {!user ? (
               <Button variant="ghost">
-                Start Planning{" "}
+                Unlock Wedding Planner{" "}
                 <LockKeyhole className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
               </Button>
             ) : (

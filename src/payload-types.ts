@@ -17,6 +17,7 @@ export interface Config {
     likesArchive: LikesArchive;
     plans: Plan;
     featured: Featured;
+    todos: Todo;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -269,6 +270,15 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Todo {
+  id: string;
+  plan: string | Plan;
+  todo: string;
+  date: string;
+  done?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }

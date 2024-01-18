@@ -13,12 +13,16 @@ const DetailsCont = ({ userId }: DetailsContProps) => {
     userId: userId,
   });
 
+  const likes = trpc.getLikes.useQuery({
+    userId: userId,
+  });
+
   const identifiedPlan = plan.data?.docs[0];
 
   return (
     <>
-      {identifiedPlan ? (
-        <DetailsPull plan={identifiedPlan} />
+      {identifiedPlan && likes.data ? (
+        <DetailsPull plan={identifiedPlan} likesData={likes.data.docs} />
       ) : (
         <Loader className="animate-spin" />
       )}

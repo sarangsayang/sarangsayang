@@ -69,6 +69,111 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    editTodo: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+        todo: zod_1.z.string().optional(),
+        date: zod_1.z.string().optional(),
+        check: zod_1.z.boolean().optional()
+    })).mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!input.todo) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'todos',
+                                where: { plan: { equals: input.planId } },
+                                data: {
+                                    todo: input.todo
+                                }
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 7];
+                    case 3:
+                        if (!input.date) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'todos',
+                                where: { plan: { equals: input.planId } },
+                                data: {
+                                    date: input.date
+                                }
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 7];
+                    case 5:
+                        if (!input.check) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.update({
+                                collection: 'todos',
+                                where: { plan: { equals: input.planId } },
+                                data: {
+                                    check: input.check
+                                }
+                            })];
+                    case 6:
+                        _b.sent();
+                        _b.label = 7;
+                    case 7: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getTodo: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string()
+    })).query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: 'todos',
+                                where: { plan: { equals: input.planId } }
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    addTodo: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+        todo: zod_1.z.string(),
+        date: zod_1.z.string()
+    })).mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: 'todos',
+                                data: {
+                                    plan: input.planId,
+                                    todo: input.todo,
+                                    date: input.date
+                                }
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
     updatePlan: trpc_1.publicProcedure
         .input(zod_1.z.object({
         id: zod_1.z.string(),
@@ -882,7 +987,8 @@ exports.appRouter = (0, trpc_1.router)({
                                     user: {
                                         equals: input.userId,
                                     }
-                                }
+                                },
+                                pagination: false
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
