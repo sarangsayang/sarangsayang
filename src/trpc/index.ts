@@ -1,8 +1,8 @@
-import { z } from 'zod'
-import { QueryValidator } from '../lib/validators/query-validator'
-import { getPayloadClient } from '../get-payload'
-import { authRouter } from './auth-router'
-import { publicProcedure, router } from './trpc'
+import { z } from "zod";
+import { QueryValidator } from "../lib/validators/query-validator";
+import { getPayloadClient } from "../get-payload";
+import { authRouter } from "./auth-router";
+import { publicProcedure, router } from "./trpc";
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
@@ -11,559 +11,702 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  removeTodo: publicProcedure
+    .input(
+      z.object({
+        todoId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.delete({
+        collection: "todos",
+        id: input.todoId,
+      });
+    }),
+
   editTodo: publicProcedure
-    .input(z.object({
-      planId: z.string(),
-      todo: z.string().optional(),
-      date: z.string().optional(),
-      check: z.boolean().optional()
-    })).mutation(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        id: z.string(),
+        todo: z.string().optional(),
+        date: z.string().optional(),
+        check: z.boolean().optional(),
+        remarks: z.string().optional()
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       if (input.todo) {
         await payload.update({
-          collection: 'todos',
-          where: {plan: {equals: input.planId}},
+          collection: "todos",
+          where: { id: { equals: input.id } },
           data: {
-            todo: input.todo
-          }
-        })
+            todo: input.todo,
+          },
+        });
       } else if (input.date) {
         await payload.update({
-          collection: 'todos',
-          where: {plan: {equals: input.planId}},
+          collection: "todos",
+          where: { id: { equals: input.id } },
           data: {
-            date: input.date
-          }
-        })
-      } else if (input.check) {
+            date: input.date,
+          },
+        });
+      } else if (input.check === true || input.check === false) {
         await payload.update({
-          collection: 'todos',
-          where: {plan: {equals: input.planId}},
+          collection: "todos",
+          where: { id: { equals: input.id } },
           data: {
-            check: input.check
-          }
-        })
+            done: input.check,
+          },
+        });
+      } else if (input.remarks) {
+        await payload.update({
+          collection: "todos",
+          where: { id: { equals: input.id } },
+          data: {
+            remarks: input.remarks,
+          },
+        });
       }
+    }),
 
-      
-    }) ,
-
-  getTodo: publicProcedure
-    .input(z.object({
-      planId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
+  getTodoByTodo: publicProcedure
+    .input(
+      z.object({
+        todo: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'todos',
-        where: {plan: {equals: input.planId}}
+        collection: "todos",
+        where: { todo: { equals: input.todo } },
+        pagination: false,
+      });
+    }),
+
+  getTodo: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
       })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "todos",
+        where: { plan: { equals: input.planId } },
+        pagination: false,
+        sort: 'createdAt'
+      });
     }),
 
   addTodo: publicProcedure
-    .input(z.object({
-      planId: z.string(),
-      todo: z.string(),
-      date: z.string()
-    })).mutation(async ({input}) => {
-      const payload = await getPayloadClient()
-
-      await payload.create({
-        collection: 'todos',
-        data: {
-          plan: input.planId,
-          todo: input.todo,
-          date: input.date
-        }
+    .input(
+      z.object({
+        planId: z.string(),
+        todo: z.string(),
+        date: z.string(),
+        remarks: z.string().optional(),
       })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      if (input.remarks) {
+        await payload.create({
+          collection: "todos",
+          data: {
+            plan: input.planId,
+            todo: input.todo,
+            date: input.date,
+            remarks: input.remarks,
+          },
+        });
+      } else {
+        await payload.create({
+          collection: "todos",
+          data: {
+            plan: input.planId,
+            todo: input.todo,
+            date: input.date,
+          },
+        });
+      }
     }),
 
   updatePlan: publicProcedure
-    .input(z.object({
-      id: z.string(),
-      brideName: z.string().optional(),
-      groomName: z.string().optional(),
-      weddingDate: z.string().optional(),
-      venue: z.string().optional(),
-      agent: z.string().optional(),
-      bridal: z.string().optional(),
-      photovideo: z.string().optional(),
-      catering: z.string().optional(),
-      decor: z.string().optional(),
-      henna: z.string().optional(),
-      mua: z.string().optional(),
-      emcee: z.string().optional(),
-      honeymoon: z.string().optional(),
-      misc: z.string().optional(),
-    })).mutation(async ({input}) => {
-      const payload = await getPayloadClient()
-      
+    .input(
+      z.object({
+        id: z.string(),
+        brideName: z.string().optional(),
+        groomName: z.string().optional(),
+        weddingDate: z.string().optional(),
+        venue: z.string().optional(),
+        agent: z.string().optional(),
+        bridal: z.string().optional(),
+        photovideo: z.string().optional(),
+        catering: z.string().optional(),
+        decor: z.string().optional(),
+        henna: z.string().optional(),
+        mua: z.string().optional(),
+        emcee: z.string().optional(),
+        honeymoon: z.string().optional(),
+        misc: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
       if (input.brideName) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            brideName: input.brideName
-          }
-        })
+            brideName: input.brideName,
+          },
+        });
       } else if (input.groomName) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            groomName: input.groomName
-          }
-        })
+            groomName: input.groomName,
+          },
+        });
       } else if (input.weddingDate) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            weddingDate: input.weddingDate
-          }
-        })
+            weddingDate: input.weddingDate,
+          },
+        });
       } else if (input.venue) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            venue: input.venue
-          }
-        })
+            venue: input.venue,
+          },
+        });
       } else if (input.agent) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            agent: input.agent
-          }
-        })
+            agent: input.agent,
+          },
+        });
       } else if (input.bridal) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            bridal: input.bridal
-          }
-        })
+            bridal: input.bridal,
+          },
+        });
       } else if (input.photovideo) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            photovideo: input.photovideo
-          }
-        })
+            photovideo: input.photovideo,
+          },
+        });
       } else if (input.catering) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            catering: input.catering
-          }
-        })
+            catering: input.catering,
+          },
+        });
       } else if (input.decor) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            decor: input.decor
-          }
-        })
+            decor: input.decor,
+          },
+        });
       } else if (input.henna) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            henna: input.henna
-          }
-        })
+            henna: input.henna,
+          },
+        });
       } else if (input.mua) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            mua: input.mua
-          }
-        })
+            mua: input.mua,
+          },
+        });
       } else if (input.emcee) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            emcee: input.emcee
-          }
-        })
+            emcee: input.emcee,
+          },
+        });
       } else if (input.honeymoon) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            honeymoon: input.honeymoon
-          }
-        })
+            honeymoon: input.honeymoon,
+          },
+        });
       } else if (input.misc) {
         await payload.update({
-          collection: 'plans',
+          collection: "plans",
           where: {
-            id: {equals: input.id}
+            id: { equals: input.id },
           },
           data: {
-            misc: input.misc
-          }
-        })
+            misc: input.misc,
+          },
+        });
       }
-      
-    }) ,
+    }),
 
   createPlan: publicProcedure
-    .input(z.object({
-      userId: z.string()
-    })).mutation(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       await payload.create({
-        collection: 'plans',
+        collection: "plans",
         data: {
-          user: input.userId
-        }
-      })
+          user: input.userId,
+        },
+      });
     }),
 
   getPlan: publicProcedure
-    .input(z.object({
-      userId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'plans',
+        collection: "plans",
         where: {
           user: {
             equals: input.userId,
-          }
-        }
-      })
+          },
+        },
+        pagination: false,
+      });
     }),
 
   getEnquiries12M: publicProcedure
-    .input(z.object({
-      year: z.number(),
-      month: z.number(),
-      vendorId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
-      const resultsArray = []
+    .input(
+      z.object({
+        year: z.number(),
+        month: z.number(),
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+      const resultsArray = [];
 
-      let currentEnqData = 0
-      let accuEnqData = 0
+      let currentEnqData = 0;
+      let accuEnqData = 0;
 
-      let currentSSData = 0
-      let accuSSData = 0
+      let currentSSData = 0;
+      let accuSSData = 0;
 
-      for (let i = 12; i > -1; i= i-1) {
-        let currentMonth = input.month - i
-        let currentYear = input.year
+      for (let i = 12; i > -1; i = i - 1) {
+        let currentMonth = input.month - i;
+        let currentYear = input.year;
 
-        let followingMonth = currentMonth + 1
-        let followingYear = input.year
+        let followingMonth = currentMonth + 1;
+        let followingYear = input.year;
 
-          if (currentMonth === 0) {
-            currentMonth = 12
-            currentYear = currentYear - 1
+        if (currentMonth === 0) {
+          currentMonth = 12;
+          currentYear = currentYear - 1;
+        } else if (currentMonth < 0) {
+          currentMonth = currentMonth + 12;
+          currentYear = currentYear - 1;
+          followingMonth = currentMonth + 1;
+          followingYear = currentYear;
+        }
 
-          } else if (currentMonth < 0) {
-            currentMonth = currentMonth + 12
-            currentYear = currentYear -1
-            followingMonth = currentMonth + 1
-            followingYear = currentYear
-          }
+        if (followingMonth > 12) {
+          followingMonth = followingMonth - 12;
+          followingYear = followingYear + 1;
+        }
 
-          if (followingMonth > 12) {
-            followingMonth = followingMonth - 12
-            followingYear = followingYear + 1
-          }
-        
         const results1 = await payload.find({
-          collection: 'leads',
+          collection: "leads",
           where: {
-            vendor: {equals: input.vendorId},
+            vendor: { equals: input.vendorId },
             createdAt: {
-              greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
-              less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
-            }
-          }
-        })
+              greater_than_equal: new Date(
+                `${currentYear}-${formatWithLeadingZero(
+                  currentMonth
+                )}-01T00:00:00Z`
+              ),
+              less_than: new Date(
+                `${followingYear}-${formatWithLeadingZero(
+                  followingMonth
+                )}-01T00:00:00Z`
+              ),
+            },
+          },
+          pagination: false,
+        });
 
         const results2 = await payload.find({
-          collection: 'leads',
+          collection: "leads",
           where: {
             vendor: {
-              equals: input.vendorId
+              equals: input.vendorId,
             },
-            source: {equals: 'Sarang Sayang'},
+            source: { equals: "Sarang Sayang" },
             createdAt: {
-              greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
-              less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
-            }
-          }
-        })
+              greater_than_equal: new Date(
+                `${currentYear}-${formatWithLeadingZero(
+                  currentMonth
+                )}-01T00:00:00Z`
+              ),
+              less_than: new Date(
+                `${followingYear}-${formatWithLeadingZero(
+                  followingMonth
+                )}-01T00:00:00Z`
+              ),
+            },
+          },
+          pagination: false,
+        });
 
-        currentEnqData = results1.docs.length - accuEnqData
-        currentSSData = results2.docs.length - accuSSData
+        currentEnqData = results1.docs.length - accuEnqData;
+        currentSSData = results2.docs.length - accuSSData;
 
-        accuEnqData = accuEnqData + currentEnqData
-        accuSSData = accuSSData + currentSSData
+        accuEnqData = accuEnqData + currentEnqData;
+        accuSSData = accuSSData + currentSSData;
 
         resultsArray.push({
           month: currentMonth,
           year: currentYear,
           data: currentEnqData,
-          ss: currentSSData
-        })
+          ss: currentSSData,
+        });
       }
 
-      return resultsArray
-    }), 
+      return resultsArray;
+    }),
 
   getVendorLikes12M: publicProcedure
-    .input(z.object({
-      year: z.number(),
-      month: z.number(),
-      vendorId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
-      const resultsArray = []
-      let currentData = 0
-      let accuData = 0
+    .input(
+      z.object({
+        year: z.number(),
+        month: z.number(),
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+      const resultsArray = [];
+      let currentData = 0;
+      let accuData = 0;
 
-      for (let i = 12; i > -1; i= i-1) {
-        let currentMonth = input.month - i
-        let currentYear = input.year
+      for (let i = 12; i > -1; i = i - 1) {
+        let currentMonth = input.month - i;
+        let currentYear = input.year;
 
-        let followingMonth = currentMonth + 1
-        let followingYear = input.year
+        let followingMonth = currentMonth + 1;
+        let followingYear = input.year;
 
-          if (currentMonth === 0) {
-            currentMonth = 12
-            currentYear = currentYear - 1
+        if (currentMonth === 0) {
+          currentMonth = 12;
+          currentYear = currentYear - 1;
+        } else if (currentMonth < 0) {
+          currentMonth = currentMonth + 12;
+          currentYear = currentYear - 1;
+          followingMonth = currentMonth + 1;
+          followingYear = currentYear;
+        }
 
-          } else if (currentMonth < 0) {
-            currentMonth = currentMonth + 12
-            currentYear = currentYear -1
-            followingMonth = currentMonth + 1
-            followingYear = currentYear
-          }
+        if (followingMonth > 12) {
+          followingMonth = followingMonth - 12;
+          followingYear = followingYear + 1;
+        }
 
-          if (followingMonth > 12) {
-            followingMonth = followingMonth - 12
-            followingYear = followingYear + 1
-          }
-        
         const results = await payload.find({
-          collection: 'likesArchive',
+          collection: "likesArchive",
           where: {
-            vendor: {equals: input.vendorId},
+            vendor: { equals: input.vendorId },
             createdAt: {
-              greater_than_equal: new Date(`${currentYear}-${formatWithLeadingZero(currentMonth)}-01T00:00:00Z`),
-              less_than: new Date(`${followingYear}-${formatWithLeadingZero(followingMonth)}-01T00:00:00Z`)
-            }
-          }
-        })
+              greater_than_equal: new Date(
+                `${currentYear}-${formatWithLeadingZero(
+                  currentMonth
+                )}-01T00:00:00Z`
+              ),
+              less_than: new Date(
+                `${followingYear}-${formatWithLeadingZero(
+                  followingMonth
+                )}-01T00:00:00Z`
+              ),
+            },
+          },
+          pagination: false,
+        });
 
-        currentData = results.docs.length - accuData
-        accuData = accuData + currentData
+        currentData = results.docs.length - accuData;
+        accuData = accuData + currentData;
 
         resultsArray.push({
           month: currentMonth,
           year: currentYear,
-          data: currentData
-        })
+          data: currentData,
+        });
       }
 
-      console.log(resultsArray)
-      return resultsArray
-    }), 
+      console.log(resultsArray);
+      return resultsArray;
+    }),
 
   getSSLeadsThisMonth: publicProcedure
-    .input(z.object({
-      year: z.number(),
-      month: z.number(),
-      vendorId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        year: z.number(),
+        month: z.number(),
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
-      const ltDate = input.month === 12 ? (new Date(`${input.year + 1}-01-01T00:00:00Z`)) : (new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`))
+      const ltDate =
+        input.month === 12
+          ? new Date(`${input.year + 1}-01-01T00:00:00Z`)
+          : new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`);
       return await payload.find({
-        collection: 'leads',
+        collection: "leads",
         where: {
           vendor: input.vendorId,
-          source: 'Sarang Sayang',
+          source: "Sarang Sayang",
           createdAt: {
-            greater_than_equal: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
-            less_than: ltDate
-          }
-        }
-      })
+            greater_than_equal: new Date(
+              `${input.year}-${input.month}-01T00:00:00Z`
+            ),
+            less_than: ltDate,
+          },
+        },
+        pagination: false,
+      });
     }),
 
   getVendorLikesThisMonth: publicProcedure
-    .input(z.object({
-      year: z.number(),
-      month: z.number(),
-      vendorId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        year: z.number(),
+        month: z.number(),
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
-      const ltDate = input.month === 12 ? (new Date(`${input.year + 1}-01-01T00:00:00Z`)) : (new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`))
+      const ltDate =
+        input.month === 12
+          ? new Date(`${input.year + 1}-01-01T00:00:00Z`)
+          : new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`);
       return await payload.find({
-        collection: 'likes',
+        collection: "likes",
         where: {
           vendor: input.vendorId,
           createdAt: {
-            greater_than_equal: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
-            less_than: ltDate
-          }
-        }
-      })
+            greater_than_equal: new Date(
+              `${input.year}-${input.month}-01T00:00:00Z`
+            ),
+            less_than: ltDate,
+          },
+        },
+        pagination: false,
+      });
     }),
 
   getEnquiriesThisMonth: publicProcedure
-    .input(z.object({
-      year: z.number(),
-      month: z.number(),
-      vendorId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        year: z.number(),
+        month: z.number(),
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
-      const ltDate = input.month === 12 ? (new Date(`${input.year + 1}-01-01T00:00:00Z`)) : (new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`))
+      const ltDate =
+        input.month === 12
+          ? new Date(`${input.year + 1}-01-01T00:00:00Z`)
+          : new Date(`${input.year}-${input.month + 1}-01T00:00:00Z`);
       return await payload.find({
-        collection: 'leads',
+        collection: "leads",
         where: {
           vendorId: input.vendorId,
           createdAt: {
-            greater_than_equal: new Date(`${input.year}-${input.month}-01T00:00:00Z`),
-            less_than: ltDate
-          }
-        }
-      })
+            greater_than_equal: new Date(
+              `${input.year}-${input.month}-01T00:00:00Z`
+            ),
+            less_than: ltDate,
+          },
+        },
+        pagination: false,
+      });
     }),
 
   getVendUser: publicProcedure
-    .input(z.object({
-      vendUserId: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        vendUserId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'vendors',
+        collection: "vendors",
         where: {
           venduserid: {
             equals: input.vendUserId,
-          }
+          },
         },
-        limit: 1
-      })
-    }) ,
+        limit: 1,
+      });
+    }),
 
   getVendorId: publicProcedure
-    .input(z.object({
-      userId: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'vendors',
+        collection: "vendors",
         where: {
           venduserid: {
             equals: input.userId,
-          }
+          },
         },
-        limit: 1
-      })
+        limit: 1,
+      });
     }),
 
   getLeads: publicProcedure
-    .input(z.object({
-      vendorId: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'leads',
+        collection: "leads",
         where: {
           vendor: {
             equals: input.vendorId,
-          }
-        }
-      })
+          },
+        },
+        pagination: false,
+      });
     }),
 
   getSSLeads: publicProcedure
-    .input(z.object({
-      vendorId: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'leads',
+        collection: "leads",
         where: {
           vendor: {
             equals: input.vendorId,
           },
           source: {
-            equals: 'Sarang Sayang'
-          }
-        }
-      })
+            equals: "Sarang Sayang",
+          },
+        },
+        pagination: false,
+      });
     }),
 
   addLead: publicProcedure
-    .input(z.object({
-      name: z.string(),
-      email: z.string(),
-      contact: z.string(),
-      message: z.string(),
-      source: z.string(),
-      status: z.string(),
-      priority: z.string(),
-      remarks: z.string(),
-      vendorId: z.string()
-    })).mutation(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        name: z.string(),
+        email: z.string(),
+        contact: z.string(),
+        message: z.string(),
+        source: z.string(),
+        status: z.string(),
+        priority: z.string(),
+        remarks: z.string(),
+        vendorId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       await payload.create({
-        collection: 'leads',
+        collection: "leads",
         data: {
           name: input.name,
           email: input.email,
@@ -573,62 +716,69 @@ export const appRouter = router({
           status: input.status,
           priority: input.priority,
           remarks: input.remarks,
-          vendor: input.vendorId,  
-        }
-      }) 
+          vendor: input.vendorId,
+        },
+      });
     }),
 
   removeLead: publicProcedure
-    .input(z.object({
-      leadId: z.string()
-    }))
+    .input(
+      z.object({
+        leadId: z.string(),
+      })
+    )
     .mutation(async ({ input }) => {
-      const payload = await getPayloadClient()
+      const payload = await getPayloadClient();
 
       await payload.delete({
-        collection: 'leads',
-        id: input.leadId
-      })
+        collection: "leads",
+        id: input.leadId,
+      });
     }),
 
   getLead: publicProcedure
-    .input(z.object({
-      id: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'leads',
+        collection: "leads",
         where: {
           id: {
             equals: input.id,
-          }
+          },
         },
-        limit: 1
-      })
+        limit: 1,
+      });
     }),
 
   updateLead: publicProcedure
-    .input(z.object({
-      id: z.string(),
-      name: z.string(),
-      email: z.string(),
-      contact: z.string(),
-      message: z.string(),
-      source: z.string(),
-      status: z.string(),
-      priority: z.string(),
-      remarks: z.string()
-    })).mutation(async ({ input }) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        email: z.string(),
+        contact: z.string(),
+        message: z.string(),
+        source: z.string(),
+        status: z.string(),
+        priority: z.string(),
+        remarks: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       await payload.update({
-        collection: 'leads',
+        collection: "leads",
         where: {
-          id: input.id
+          id: input.id,
         },
-        data : {
+        data: {
           updatedAt: new Date(),
           name: input.name,
           email: input.email,
@@ -637,201 +787,218 @@ export const appRouter = router({
           source: input.source,
           status: input.status,
           priority: input.priority,
-          remarks: input.remarks
-        }
-      })
+          remarks: input.remarks,
+        },
+      });
     }),
 
   getVendor: publicProcedure
-    .input(z.object({
-      id: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'vendors',
+        collection: "vendors",
         where: {
           id: {
             equals: input.id,
-          }
+          },
         },
-        limit: 1
-      })
+        limit: 1,
+      });
     }),
 
   getLikes: publicProcedure
-    .input(z.object({
-      userId: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'likes',
+        collection: "likes",
         where: {
           user: {
             equals: input.userId,
-          }
+          },
         },
-        pagination: false
-      })
-  }),
+        pagination: false,
+      });
+    }),
 
   getLikesFromVendId: publicProcedure
-    .input(z.object({
-      vendorId: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'likes',
+        collection: "likes",
         where: {
           vendor: {
             equals: input.vendorId,
-          }
-        }
-      })
-  }),
+          },
+        },
+        pagination: false,
+      });
+    }),
 
   isLiked: publicProcedure
-    .input(z.object({
-      vendorId: z.string(),
-      userId: z.string()
-    }))
-    .query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        vendorId: z.string(),
+        userId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       return await payload.find({
-        collection: 'likes',
+        collection: "likes",
         where: {
           user: {
             equals: input.userId,
           },
           vendor: {
-            equals: input.vendorId
-          }
-        }
-      })
+            equals: input.vendorId,
+          },
+        },
+        pagination: false,
+      });
     }),
 
   addLike: publicProcedure
-    .input(z.object({
-      vendorId: z.string(),
-      userId: z.string()
-    }))
+    .input(
+      z.object({
+        vendorId: z.string(),
+        userId: z.string(),
+      })
+    )
     .mutation(async ({ input }) => {
-      const payload = await getPayloadClient()
+      const payload = await getPayloadClient();
 
       await payload.create({
-        collection: 'likes',
+        collection: "likes",
         data: {
           vendor: input.vendorId,
-          user: input.userId
-        }
-      })
+          user: input.userId,
+        },
+      });
 
       const alreadyLikedBefore = await payload.find({
-        collection: 'likesArchive',
+        collection: "likesArchive",
         where: {
-          vendor: {equals: input.vendorId},
-          user: {equals: input.userId}
-        }
-      })
+          vendor: { equals: input.vendorId },
+          user: { equals: input.userId },
+        },
+      });
 
       if (alreadyLikedBefore.docs.length === 0) {
         await payload.create({
-          collection: 'likesArchive',
+          collection: "likesArchive",
           data: {
             vendor: input.vendorId,
-            user: input.userId
-          }
-        })
+            user: input.userId,
+          },
+        });
       }
-
-  }),
+    }),
 
   removeLike: publicProcedure
-  .input(z.object({
-    likeId: z.string(),
-  })).mutation(async ({ input }) => {
-    const payload = await getPayloadClient()
+    .input(
+      z.object({
+        likeId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
 
-    await payload.delete({
-      collection: 'likes',
-      id: input.likeId
-    })
-  }),
+      await payload.delete({
+        collection: "likes",
+        id: input.likeId,
+      });
+    }),
 
   getTopVendor: publicProcedure
-    .input(z.object({
-      category: z.string()
-    })).query(async ({input}) => {
-      const payload = await getPayloadClient()
+    .input(
+      z.object({
+        category: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
 
       const results = await payload.find({
-        collection: 'featured',
+        collection: "featured",
         where: {
-          id: '65a3e090f66a58e7b5eb9542'
-        }
-      })
+          id: "65a3e090f66a58e7b5eb9542",
+        },
+      });
 
-      if (input.category === 'venues') {
+      if (input.category === "venues") {
         return {
           top: results.docs[0].top1Venue,
-          top4: results.docs[0].top4Venues
-        }
-      } else if (input.category === 'agents') {
+          top4: results.docs[0].top4Venues,
+        };
+      } else if (input.category === "agents") {
         return {
           top: results.docs[0].top1Agent,
-          top4: results.docs[0].top4Agents
-        }
-      } else if (input.category === 'bridals') {
+          top4: results.docs[0].top4Agents,
+        };
+      } else if (input.category === "bridals") {
         return {
           top: results.docs[0].top1Bridal,
-          top4: results.docs[0].top4Bridals
-        }
-      } else if (input.category === 'photovideo') {
+          top4: results.docs[0].top4Bridals,
+        };
+      } else if (input.category === "photovideo") {
         return {
           top: results.docs[0].top1Photovideo,
-          top4: results.docs[0].top4Photovideo
-        }
-      } else if (input.category === 'catering') {
+          top4: results.docs[0].top4Photovideo,
+        };
+      } else if (input.category === "catering") {
         return {
           top: results.docs[0].top1Catering,
-          top4: results.docs[0].top4Catering
-        }
-      } else if (input.category === 'decor') {
+          top4: results.docs[0].top4Catering,
+        };
+      } else if (input.category === "decor") {
         return {
           top: results.docs[0].top1Decor,
-          top4: results.docs[0].top4Decor
-        }
-      } else if (input.category === 'henna') {
+          top4: results.docs[0].top4Decor,
+        };
+      } else if (input.category === "henna") {
         return {
           top: results.docs[0].top1Henna,
-          top4: results.docs[0].top4Henna
-        }
-      } else if (input.category === 'mua') {
+          top4: results.docs[0].top4Henna,
+        };
+      } else if (input.category === "mua") {
         return {
           top: results.docs[0].top1Mua,
-          top4: results.docs[0].top4Mua
-        }
-      } else if (input.category === 'emcees') {
+          top4: results.docs[0].top4Mua,
+        };
+      } else if (input.category === "emcees") {
         return {
           top: results.docs[0].top1Emcee,
-          top4: results.docs[0].top4Emcees
-        }
-      } else if (input.category === 'honeymoon') {
+          top4: results.docs[0].top4Emcees,
+        };
+      } else if (input.category === "honeymoon") {
         return {
           top: results.docs[0].top1Honeymoon,
-          top4: results.docs[0].top4Honeymoon
-        }
-      } else if (input.category === 'misc') {
+          top4: results.docs[0].top4Honeymoon,
+        };
+      } else if (input.category === "misc") {
         return {
           top: results.docs[0].top1Misc,
-          top4: results.docs[0].top4Misc
-        }
+          top4: results.docs[0].top4Misc,
+        };
       }
     }),
 
@@ -844,50 +1011,50 @@ export const appRouter = router({
       })
     )
     .query(async ({ input }) => {
-      const { query, cursor } = input
-      const { sort, limit, ...queryOpts } = query
+      const { query, cursor } = input;
+      const { sort, limit, ...queryOpts } = query;
 
-      const payload = await getPayloadClient()
+      const payload = await getPayloadClient();
 
       const parsedQueryOpts: Record<
         string,
-        { equals?: string, contains?: string }
-      > = {}
+        { equals?: string; contains?: string }
+      > = {};
 
       Object.entries(queryOpts).forEach(([key, value]) => {
-        if (key === 'search') {
-          parsedQueryOpts['name'] = {
-            contains: value
-          }
+        if (key === "search") {
+          parsedQueryOpts["name"] = {
+            contains: value,
+          };
         } else {
-            parsedQueryOpts[key] = {
-              equals: value,
-            }
-          }
-      })
+          parsedQueryOpts[key] = {
+            equals: value,
+          };
+        }
+      });
 
-      const page = cursor || 1
+      const page = cursor || 1;
 
       const {
         docs: items,
         hasNextPage,
         nextPage,
       } = await payload.find({
-        collection: 'vendors',
+        collection: "vendors",
         where: {
-          ...parsedQueryOpts
+          ...parsedQueryOpts,
         },
         sort,
         depth: 1,
         limit,
         page,
-      })
+      });
 
       return {
         items,
         nextPage: hasNextPage ? nextPage : null,
-      }
+      };
     }),
-})
-  
-export type AppRouter = typeof appRouter
+});
+
+export type AppRouter = typeof appRouter;

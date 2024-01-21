@@ -18,6 +18,7 @@ export interface Config {
     plans: Plan;
     featured: Featured;
     todos: Todo;
+    budget: Budget;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -277,8 +278,21 @@ export interface Todo {
   id: string;
   plan: string | Plan;
   todo: string;
+  remarks?: string | null;
   date: string;
-  done?: boolean | null;
+  done: boolean;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Budget {
+  id: string;
+  plan: string | Plan;
+  for: string;
+  cat: string;
+  details: string;
+  plannedCost?: number | null;
+  actualCost?: number | null;
+  amountPaid?: number | null;
   updatedAt: string;
   createdAt: string;
 }

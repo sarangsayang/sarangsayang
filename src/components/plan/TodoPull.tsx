@@ -1,16 +1,9 @@
 "use client";
 
-import { Checkbox } from "../ui/checkbox";
-import { Input } from "../ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { format, setDate } from "date-fns";
-import { CalendarIcon, Delete } from "lucide-react";
-import { date } from "zod";
-import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
 import { trpc } from "@/trpc/client";
 import { Todo } from "@/payload-types";
 import TodoEdit from "./TodoEdit";
+import TodoReq from "./TodoReq";
 
 interface TodoPullProp {
   planId: string;
@@ -21,22 +14,38 @@ const TodoPull = ({ planId }: TodoPullProp) => {
     planId: planId,
   });
 
-  const identifiedResults = results?.data;
-
   return (
-    <>
+    <div className="w-full grid grid-col-1 gap-4">
+      <TodoReq id={planId} Todo={"Engagement Date"} />
+      <TodoReq id={planId} Todo={"Get Engagement Rings"} />
+      <TodoReq id={planId} Todo={"Get Wedding Rings"} />
+      <TodoReq id={planId} Todo={"Set Duit Hantaran"} />
+      <TodoReq id={planId} Todo={"Get Honeymoon Package"} />
+      <TodoReq id={planId} Todo={"Nikah Date"} />
+      <TodoReq id={planId} Todo={"Sanding Date"} />
       {results.data
-        ? results.data.docs.map((todo: Todo) => (
-            <TodoEdit
-              key={todo.id}
-              id={todo.id}
-              pTodo={todo.todo}
-              pDate={todo.date}
-              pChecked={todo.done ? todo.done : false}
-            />
-          ))
+        ? results.data.docs.map((todo: Todo) =>
+            todo.todo !== "Engagement Date" &&
+            todo.todo !== "Get Engagement Rings" &&
+            todo.todo !== "Get Wedding Rings" &&
+            todo.todo !== "Set Duit Hantaran" &&
+            todo.todo !== "Get Honeymoon Package" &&
+            todo.todo !== "Nikah Date" &&
+            todo.todo !== "Sanding Date" ? (
+              <TodoEdit
+                key={todo.id}
+                todoId={todo.id}
+                //@ts-ignore
+                id={planId}
+                pTodo={todo.todo}
+                pDate={todo.date}
+                pChecked={todo.done}
+                pRemarks={todo.remarks || ""}
+              />
+            ) : null
+          )
         : null}
-    </>
+    </div>
   );
 };
 

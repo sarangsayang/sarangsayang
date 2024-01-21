@@ -98,7 +98,7 @@ exports.PRODUCT_CATEGORIES = [
             },
             {
                 name: 'Budget',
-                href: '/products?category=icons',
+                href: '/plan/budget',
                 imageSrc: "https://placehold.co/600x600",
             },
             {

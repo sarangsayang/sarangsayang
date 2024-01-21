@@ -1,7 +1,7 @@
 import { CollectionConfig } from "payload/types";
 
-export const Todos: CollectionConfig = {
-    slug: 'todos',
+export const Budget: CollectionConfig = {
+    slug: 'budget',
     admin: {
         hidden: ({ user }) => user.role !== 'admin'
     },
@@ -20,25 +20,34 @@ export const Todos: CollectionConfig = {
             hasMany: false,
         },
         {
-            name: 'todo',
+            name: 'for',
             type: 'text',
             required: true,
         },
         {
-            name: 'remarks',
+            name: 'cat',
             type: 'text',
+            required: true,
+        },
+        {
+            name: 'details',
+            type: 'text',
+            required: true,
+        },
+        {
+            name: 'plannedCost',
+            type: 'number',
             required: false,
         },
         {
-            name: 'date',
-            type: 'date',
-            required: true,
+            name: 'actualCost',
+            type: 'number',
+            required: false,
         },
         {
-            name: 'done',
-            type: 'checkbox',
-            defaultValue: false,
-            required: true
+            name: 'amountPaid',
+            type: 'number',
+            required: false,
         }
     ]
 }

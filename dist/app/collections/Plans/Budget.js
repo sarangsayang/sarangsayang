@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Todos = void 0;
-exports.Todos = {
-    slug: 'todos',
+exports.Budget = void 0;
+exports.Budget = {
+    slug: 'budget',
     admin: {
         hidden: function (_a) {
             var user = _a.user;
@@ -24,25 +24,34 @@ exports.Todos = {
             hasMany: false,
         },
         {
-            name: 'todo',
+            name: 'for',
             type: 'text',
             required: true,
         },
         {
-            name: 'remarks',
+            name: 'cat',
             type: 'text',
+            required: true,
+        },
+        {
+            name: 'details',
+            type: 'text',
+            required: true,
+        },
+        {
+            name: 'plannedCost',
+            type: 'number',
             required: false,
         },
         {
-            name: 'date',
-            type: 'date',
-            required: true,
+            name: 'actualCost',
+            type: 'number',
+            required: false,
         },
         {
-            name: 'done',
-            type: 'checkbox',
-            defaultValue: false,
-            required: true
+            name: 'amountPaid',
+            type: 'number',
+            required: false,
         }
     ]
 };

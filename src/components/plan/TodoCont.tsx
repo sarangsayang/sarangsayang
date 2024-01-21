@@ -22,9 +22,16 @@ interface DetailsContProps {
 const TodoCont = ({ userId }: DetailsContProps) => {
   const [date, setDate] = useState<Date>();
   const [todo, setTodo] = useState("");
+  const [remarks, setRemarks] = useState("");
 
   function handleTodoChange(event: ChangeEvent<HTMLInputElement>) {
     setTodo(event.target.value);
+  }
+
+  function handleRemarksChange(event: {
+    target: { value: SetStateAction<string> };
+  }) {
+    setRemarks(event.target.value);
   }
 
   const plan = trpc.getPlan.useQuery({
@@ -40,7 +47,9 @@ const TodoCont = ({ userId }: DetailsContProps) => {
       planId: identifiedPlan.id as string,
       date: date?.toISOString() as string,
       todo: todo as string,
+      remarks: remarks as string,
     });
+    setRemarks("");
     setDate(new Date());
     setTodo("");
   };
@@ -50,14 +59,14 @@ const TodoCont = ({ userId }: DetailsContProps) => {
       {identifiedPlan ? (
         <MaxWidthWrapper>
           <div className="grid grid-cols-10 py-3 mb-5 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
-            <div className="col-span-6 px-4">
+            <div className="col-span-3 px-4">
               <Input
                 placeholder="Add a new to do.."
                 value={todo}
                 onChange={(e) => handleTodoChange(e)}
               />
             </div>
-            <div className="col-span-3 flex justify-center items-center">
+            <div className="col-span-2 flex justify-center items-center">
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -80,6 +89,13 @@ const TodoCont = ({ userId }: DetailsContProps) => {
                   />
                 </PopoverContent>
               </Popover>
+            </div>
+            <div className="col-span-4 px-4">
+              <Input
+                placeholder="Remarks"
+                value={remarks}
+                onChange={(e) => handleRemarksChange(e)}
+              />
             </div>
             <div className="w-full flex justify-center items-center">
               <PlusCircle

@@ -21,6 +21,7 @@ var s3_1 = require("@payloadcms/plugin-cloud-storage/s3");
 var Plans_1 = require("./app/collections/Plans/Plans");
 var FeaturedVendors_1 = require("./app/collections/FeaturedVendors");
 var Todos_1 = require("./app/collections/Plans/Todos");
+var Budget_1 = require("./app/collections/Plans/Budget");
 dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, '../.env'),
 });
@@ -37,7 +38,7 @@ var adapter = (0, s3_1.s3Adapter)({
 });
 exports.default = (0, config_1.buildConfig)({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users_1.Users, Vendors_1.Vendors, Packages_1.Packages, Media_1.Media, Likes_1.Likes, Leads_1.Leads, LikesArchive_1.LikesArchive, Plans_1.Plans, FeaturedVendors_1.FeaturedVendors, Todos_1.Todos],
+    collections: [Users_1.Users, Vendors_1.Vendors, Packages_1.Packages, Media_1.Media, Likes_1.Likes, Leads_1.Leads, LikesArchive_1.LikesArchive, Plans_1.Plans, FeaturedVendors_1.FeaturedVendors, Todos_1.Todos, Budget_1.Budget],
     routes: {
         admin: '/backstage',
     },

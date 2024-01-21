@@ -69,13 +69,39 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    removeTodo: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        todoId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.delete({
+                                collection: "todos",
+                                id: input.todoId,
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
     editTodo: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        planId: zod_1.z.string(),
+        id: zod_1.z.string(),
         todo: zod_1.z.string().optional(),
         date: zod_1.z.string().optional(),
-        check: zod_1.z.boolean().optional()
-    })).mutation(function (_a) {
+        check: zod_1.z.boolean().optional(),
+        remarks: zod_1.z.string().optional()
+    }))
+        .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -86,48 +112,61 @@ exports.appRouter = (0, trpc_1.router)({
                         payload = _b.sent();
                         if (!input.todo) return [3 /*break*/, 3];
                         return [4 /*yield*/, payload.update({
-                                collection: 'todos',
-                                where: { plan: { equals: input.planId } },
+                                collection: "todos",
+                                where: { id: { equals: input.id } },
                                 data: {
-                                    todo: input.todo
-                                }
+                                    todo: input.todo,
+                                },
                             })];
                     case 2:
                         _b.sent();
-                        return [3 /*break*/, 7];
+                        return [3 /*break*/, 9];
                     case 3:
                         if (!input.date) return [3 /*break*/, 5];
                         return [4 /*yield*/, payload.update({
-                                collection: 'todos',
-                                where: { plan: { equals: input.planId } },
+                                collection: "todos",
+                                where: { id: { equals: input.id } },
                                 data: {
-                                    date: input.date
-                                }
+                                    date: input.date,
+                                },
                             })];
                     case 4:
                         _b.sent();
-                        return [3 /*break*/, 7];
+                        return [3 /*break*/, 9];
                     case 5:
-                        if (!input.check) return [3 /*break*/, 7];
+                        if (!(input.check === true || input.check === false)) return [3 /*break*/, 7];
                         return [4 /*yield*/, payload.update({
-                                collection: 'todos',
-                                where: { plan: { equals: input.planId } },
+                                collection: "todos",
+                                where: { id: { equals: input.id } },
                                 data: {
-                                    check: input.check
-                                }
+                                    done: input.check,
+                                },
                             })];
                     case 6:
                         _b.sent();
-                        _b.label = 7;
-                    case 7: return [2 /*return*/];
+                        return [3 /*break*/, 9];
+                    case 7:
+                        if (!input.remarks) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.update({
+                                collection: "todos",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    remarks: input.remarks,
+                                },
+                            })];
+                    case 8:
+                        _b.sent();
+                        _b.label = 9;
+                    case 9: return [2 /*return*/];
                 }
             });
         });
     }),
-    getTodo: trpc_1.publicProcedure
+    getTodoByTodo: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        planId: zod_1.z.string()
-    })).query(function (_a) {
+        todo: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -137,8 +176,33 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'todos',
-                                where: { plan: { equals: input.planId } }
+                                collection: "todos",
+                                where: { todo: { equals: input.todo } },
+                                pagination: false,
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    getTodo: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "todos",
+                                where: { plan: { equals: input.planId } },
+                                pagination: false,
+                                sort: 'createdAt'
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -149,8 +213,10 @@ exports.appRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         planId: zod_1.z.string(),
         todo: zod_1.z.string(),
-        date: zod_1.z.string()
-    })).mutation(function (_a) {
+        date: zod_1.z.string(),
+        remarks: zod_1.z.string().optional(),
+    }))
+        .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -159,17 +225,31 @@ exports.appRouter = (0, trpc_1.router)({
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
+                        if (!input.remarks) return [3 /*break*/, 3];
                         return [4 /*yield*/, payload.create({
-                                collection: 'todos',
+                                collection: "todos",
                                 data: {
                                     plan: input.planId,
                                     todo: input.todo,
-                                    date: input.date
-                                }
+                                    date: input.date,
+                                    remarks: input.remarks,
+                                },
                             })];
                     case 2:
                         _b.sent();
-                        return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, payload.create({
+                            collection: "todos",
+                            data: {
+                                plan: input.planId,
+                                todo: input.todo,
+                                date: input.date,
+                            },
+                        })];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -191,7 +271,8 @@ exports.appRouter = (0, trpc_1.router)({
         emcee: zod_1.z.string().optional(),
         honeymoon: zod_1.z.string().optional(),
         misc: zod_1.z.string().optional(),
-    })).mutation(function (_a) {
+    }))
+        .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -202,13 +283,13 @@ exports.appRouter = (0, trpc_1.router)({
                         payload = _b.sent();
                         if (!input.brideName) return [3 /*break*/, 3];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    brideName: input.brideName
-                                }
+                                    brideName: input.brideName,
+                                },
                             })];
                     case 2:
                         _b.sent();
@@ -216,13 +297,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 3:
                         if (!input.groomName) return [3 /*break*/, 5];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    groomName: input.groomName
-                                }
+                                    groomName: input.groomName,
+                                },
                             })];
                     case 4:
                         _b.sent();
@@ -230,13 +311,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 5:
                         if (!input.weddingDate) return [3 /*break*/, 7];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    weddingDate: input.weddingDate
-                                }
+                                    weddingDate: input.weddingDate,
+                                },
                             })];
                     case 6:
                         _b.sent();
@@ -244,13 +325,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 7:
                         if (!input.venue) return [3 /*break*/, 9];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    venue: input.venue
-                                }
+                                    venue: input.venue,
+                                },
                             })];
                     case 8:
                         _b.sent();
@@ -258,13 +339,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 9:
                         if (!input.agent) return [3 /*break*/, 11];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    agent: input.agent
-                                }
+                                    agent: input.agent,
+                                },
                             })];
                     case 10:
                         _b.sent();
@@ -272,13 +353,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 11:
                         if (!input.bridal) return [3 /*break*/, 13];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    bridal: input.bridal
-                                }
+                                    bridal: input.bridal,
+                                },
                             })];
                     case 12:
                         _b.sent();
@@ -286,13 +367,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 13:
                         if (!input.photovideo) return [3 /*break*/, 15];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    photovideo: input.photovideo
-                                }
+                                    photovideo: input.photovideo,
+                                },
                             })];
                     case 14:
                         _b.sent();
@@ -300,13 +381,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 15:
                         if (!input.catering) return [3 /*break*/, 17];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    catering: input.catering
-                                }
+                                    catering: input.catering,
+                                },
                             })];
                     case 16:
                         _b.sent();
@@ -314,13 +395,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 17:
                         if (!input.decor) return [3 /*break*/, 19];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    decor: input.decor
-                                }
+                                    decor: input.decor,
+                                },
                             })];
                     case 18:
                         _b.sent();
@@ -328,13 +409,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 19:
                         if (!input.henna) return [3 /*break*/, 21];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    henna: input.henna
-                                }
+                                    henna: input.henna,
+                                },
                             })];
                     case 20:
                         _b.sent();
@@ -342,13 +423,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 21:
                         if (!input.mua) return [3 /*break*/, 23];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    mua: input.mua
-                                }
+                                    mua: input.mua,
+                                },
                             })];
                     case 22:
                         _b.sent();
@@ -356,13 +437,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 23:
                         if (!input.emcee) return [3 /*break*/, 25];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    emcee: input.emcee
-                                }
+                                    emcee: input.emcee,
+                                },
                             })];
                     case 24:
                         _b.sent();
@@ -370,13 +451,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 25:
                         if (!input.honeymoon) return [3 /*break*/, 27];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    honeymoon: input.honeymoon
-                                }
+                                    honeymoon: input.honeymoon,
+                                },
                             })];
                     case 26:
                         _b.sent();
@@ -384,13 +465,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 27:
                         if (!input.misc) return [3 /*break*/, 29];
                         return [4 /*yield*/, payload.update({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
-                                    id: { equals: input.id }
+                                    id: { equals: input.id },
                                 },
                                 data: {
-                                    misc: input.misc
-                                }
+                                    misc: input.misc,
+                                },
                             })];
                     case 28:
                         _b.sent();
@@ -402,8 +483,9 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     createPlan: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        userId: zod_1.z.string()
-    })).mutation(function (_a) {
+        userId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -413,10 +495,10 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.create({
-                                collection: 'plans',
+                                collection: "plans",
                                 data: {
-                                    user: input.userId
-                                }
+                                    user: input.userId,
+                                },
                             })];
                     case 2:
                         _b.sent();
@@ -427,8 +509,9 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getPlan: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        userId: zod_1.z.string()
-    })).query(function (_a) {
+        userId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -438,12 +521,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'plans',
+                                collection: "plans",
                                 where: {
                                     user: {
                                         equals: input.userId,
-                                    }
-                                }
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -454,8 +538,9 @@ exports.appRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         year: zod_1.z.number(),
         month: zod_1.z.number(),
-        vendorId: zod_1.z.string()
-    })).query(function (_a) {
+        vendorId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload, resultsArray, currentEnqData, accuEnqData, currentSSData, accuSSData, i, currentMonth, currentYear, followingMonth, followingYear, results1, results2;
@@ -492,29 +577,31 @@ exports.appRouter = (0, trpc_1.router)({
                             followingYear = followingYear + 1;
                         }
                         return [4 /*yield*/, payload.find({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
                                     vendor: { equals: input.vendorId },
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
-                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
-                                    }
-                                }
+                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z")),
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 3:
                         results1 = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
                                     vendor: {
-                                        equals: input.vendorId
+                                        equals: input.vendorId,
                                     },
-                                    source: { equals: 'Sarang Sayang' },
+                                    source: { equals: "Sarang Sayang" },
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
-                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
-                                    }
-                                }
+                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z")),
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 4:
                         results2 = _b.sent();
@@ -526,7 +613,7 @@ exports.appRouter = (0, trpc_1.router)({
                             month: currentMonth,
                             year: currentYear,
                             data: currentEnqData,
-                            ss: currentSSData
+                            ss: currentSSData,
                         });
                         _b.label = 5;
                     case 5:
@@ -541,8 +628,9 @@ exports.appRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         year: zod_1.z.number(),
         month: zod_1.z.number(),
-        vendorId: zod_1.z.string()
-    })).query(function (_a) {
+        vendorId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload, resultsArray, currentData, accuData, i, currentMonth, currentYear, followingMonth, followingYear, results;
@@ -577,14 +665,15 @@ exports.appRouter = (0, trpc_1.router)({
                             followingYear = followingYear + 1;
                         }
                         return [4 /*yield*/, payload.find({
-                                collection: 'likesArchive',
+                                collection: "likesArchive",
                                 where: {
                                     vendor: { equals: input.vendorId },
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(currentYear, "-").concat(formatWithLeadingZero(currentMonth), "-01T00:00:00Z")),
-                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z"))
-                                    }
-                                }
+                                        less_than: new Date("".concat(followingYear, "-").concat(formatWithLeadingZero(followingMonth), "-01T00:00:00Z")),
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 3:
                         results = _b.sent();
@@ -593,7 +682,7 @@ exports.appRouter = (0, trpc_1.router)({
                         resultsArray.push({
                             month: currentMonth,
                             year: currentYear,
-                            data: currentData
+                            data: currentData,
                         });
                         _b.label = 4;
                     case 4:
@@ -610,8 +699,9 @@ exports.appRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         year: zod_1.z.number(),
         month: zod_1.z.number(),
-        vendorId: zod_1.z.string()
-    })).query(function (_a) {
+        vendorId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload, ltDate;
@@ -620,17 +710,20 @@ exports.appRouter = (0, trpc_1.router)({
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
-                        ltDate = input.month === 12 ? (new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))) : (new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z")));
+                        ltDate = input.month === 12
+                            ? new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))
+                            : new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z"));
                         return [4 /*yield*/, payload.find({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
                                     vendor: input.vendorId,
-                                    source: 'Sarang Sayang',
+                                    source: "Sarang Sayang",
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
-                                        less_than: ltDate
-                                    }
-                                }
+                                        less_than: ltDate,
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -641,8 +734,9 @@ exports.appRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         year: zod_1.z.number(),
         month: zod_1.z.number(),
-        vendorId: zod_1.z.string()
-    })).query(function (_a) {
+        vendorId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload, ltDate;
@@ -651,16 +745,19 @@ exports.appRouter = (0, trpc_1.router)({
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
-                        ltDate = input.month === 12 ? (new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))) : (new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z")));
+                        ltDate = input.month === 12
+                            ? new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))
+                            : new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z"));
                         return [4 /*yield*/, payload.find({
-                                collection: 'likes',
+                                collection: "likes",
                                 where: {
                                     vendor: input.vendorId,
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
-                                        less_than: ltDate
-                                    }
-                                }
+                                        less_than: ltDate,
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -671,8 +768,9 @@ exports.appRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         year: zod_1.z.number(),
         month: zod_1.z.number(),
-        vendorId: zod_1.z.string()
-    })).query(function (_a) {
+        vendorId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload, ltDate;
@@ -681,16 +779,19 @@ exports.appRouter = (0, trpc_1.router)({
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
-                        ltDate = input.month === 12 ? (new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))) : (new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z")));
+                        ltDate = input.month === 12
+                            ? new Date("".concat(input.year + 1, "-01-01T00:00:00Z"))
+                            : new Date("".concat(input.year, "-").concat(input.month + 1, "-01T00:00:00Z"));
                         return [4 /*yield*/, payload.find({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
                                     vendorId: input.vendorId,
                                     createdAt: {
                                         greater_than_equal: new Date("".concat(input.year, "-").concat(input.month, "-01T00:00:00Z")),
-                                        less_than: ltDate
-                                    }
-                                }
+                                        less_than: ltDate,
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -699,8 +800,9 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getVendUser: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        vendUserId: zod_1.z.string()
-    })).query(function (_a) {
+        vendUserId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -710,13 +812,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'vendors',
+                                collection: "vendors",
                                 where: {
                                     venduserid: {
                                         equals: input.vendUserId,
-                                    }
+                                    },
                                 },
-                                limit: 1
+                                limit: 1,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -725,7 +827,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getVendorId: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        userId: zod_1.z.string()
+        userId: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -737,13 +839,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'vendors',
+                                collection: "vendors",
                                 where: {
                                     venduserid: {
                                         equals: input.userId,
-                                    }
+                                    },
                                 },
-                                limit: 1
+                                limit: 1,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -752,7 +854,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getLeads: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        vendorId: zod_1.z.string()
+        vendorId: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -764,12 +866,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
                                     vendor: {
                                         equals: input.vendorId,
-                                    }
-                                }
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -778,7 +881,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getSSLeads: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        vendorId: zod_1.z.string()
+        vendorId: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -790,15 +893,16 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
                                     vendor: {
                                         equals: input.vendorId,
                                     },
                                     source: {
-                                        equals: 'Sarang Sayang'
-                                    }
-                                }
+                                        equals: "Sarang Sayang",
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -815,8 +919,9 @@ exports.appRouter = (0, trpc_1.router)({
         status: zod_1.z.string(),
         priority: zod_1.z.string(),
         remarks: zod_1.z.string(),
-        vendorId: zod_1.z.string()
-    })).mutation(function (_a) {
+        vendorId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -826,7 +931,7 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.create({
-                                collection: 'leads',
+                                collection: "leads",
                                 data: {
                                     name: input.name,
                                     email: input.email,
@@ -837,7 +942,7 @@ exports.appRouter = (0, trpc_1.router)({
                                     priority: input.priority,
                                     remarks: input.remarks,
                                     vendor: input.vendorId,
-                                }
+                                },
                             })];
                     case 2:
                         _b.sent();
@@ -848,7 +953,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     removeLead: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        leadId: zod_1.z.string()
+        leadId: zod_1.z.string(),
     }))
         .mutation(function (_a) {
         var input = _a.input;
@@ -860,8 +965,8 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.delete({
-                                collection: 'leads',
-                                id: input.leadId
+                                collection: "leads",
+                                id: input.leadId,
                             })];
                     case 2:
                         _b.sent();
@@ -872,7 +977,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getLead: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        id: zod_1.z.string()
+        id: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -884,13 +989,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
                                     id: {
                                         equals: input.id,
-                                    }
+                                    },
                                 },
-                                limit: 1
+                                limit: 1,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -907,8 +1012,9 @@ exports.appRouter = (0, trpc_1.router)({
         source: zod_1.z.string(),
         status: zod_1.z.string(),
         priority: zod_1.z.string(),
-        remarks: zod_1.z.string()
-    })).mutation(function (_a) {
+        remarks: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -918,9 +1024,9 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.update({
-                                collection: 'leads',
+                                collection: "leads",
                                 where: {
-                                    id: input.id
+                                    id: input.id,
                                 },
                                 data: {
                                     updatedAt: new Date(),
@@ -931,8 +1037,8 @@ exports.appRouter = (0, trpc_1.router)({
                                     source: input.source,
                                     status: input.status,
                                     priority: input.priority,
-                                    remarks: input.remarks
-                                }
+                                    remarks: input.remarks,
+                                },
                             })];
                     case 2:
                         _b.sent();
@@ -943,7 +1049,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getVendor: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        id: zod_1.z.string()
+        id: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -955,13 +1061,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'vendors',
+                                collection: "vendors",
                                 where: {
                                     id: {
                                         equals: input.id,
-                                    }
+                                    },
                                 },
-                                limit: 1
+                                limit: 1,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -970,7 +1076,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getLikes: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        userId: zod_1.z.string()
+        userId: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -982,13 +1088,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'likes',
+                                collection: "likes",
                                 where: {
                                     user: {
                                         equals: input.userId,
-                                    }
+                                    },
                                 },
-                                pagination: false
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -997,7 +1103,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getLikesFromVendId: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        vendorId: zod_1.z.string()
+        vendorId: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -1009,12 +1115,13 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'likes',
+                                collection: "likes",
                                 where: {
                                     vendor: {
                                         equals: input.vendorId,
-                                    }
-                                }
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -1024,7 +1131,7 @@ exports.appRouter = (0, trpc_1.router)({
     isLiked: trpc_1.publicProcedure
         .input(zod_1.z.object({
         vendorId: zod_1.z.string(),
-        userId: zod_1.z.string()
+        userId: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -1036,15 +1143,16 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'likes',
+                                collection: "likes",
                                 where: {
                                     user: {
                                         equals: input.userId,
                                     },
                                     vendor: {
-                                        equals: input.vendorId
-                                    }
-                                }
+                                        equals: input.vendorId,
+                                    },
+                                },
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -1054,7 +1162,7 @@ exports.appRouter = (0, trpc_1.router)({
     addLike: trpc_1.publicProcedure
         .input(zod_1.z.object({
         vendorId: zod_1.z.string(),
-        userId: zod_1.z.string()
+        userId: zod_1.z.string(),
     }))
         .mutation(function (_a) {
         var input = _a.input;
@@ -1066,30 +1174,30 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.create({
-                                collection: 'likes',
+                                collection: "likes",
                                 data: {
                                     vendor: input.vendorId,
-                                    user: input.userId
-                                }
+                                    user: input.userId,
+                                },
                             })];
                     case 2:
                         _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'likesArchive',
+                                collection: "likesArchive",
                                 where: {
                                     vendor: { equals: input.vendorId },
-                                    user: { equals: input.userId }
-                                }
+                                    user: { equals: input.userId },
+                                },
                             })];
                     case 3:
                         alreadyLikedBefore = _b.sent();
                         if (!(alreadyLikedBefore.docs.length === 0)) return [3 /*break*/, 5];
                         return [4 /*yield*/, payload.create({
-                                collection: 'likesArchive',
+                                collection: "likesArchive",
                                 data: {
                                     vendor: input.vendorId,
-                                    user: input.userId
-                                }
+                                    user: input.userId,
+                                },
                             })];
                     case 4:
                         _b.sent();
@@ -1102,7 +1210,8 @@ exports.appRouter = (0, trpc_1.router)({
     removeLike: trpc_1.publicProcedure
         .input(zod_1.z.object({
         likeId: zod_1.z.string(),
-    })).mutation(function (_a) {
+    }))
+        .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload;
@@ -1112,8 +1221,8 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.delete({
-                                collection: 'likes',
-                                id: input.likeId
+                                collection: "likes",
+                                id: input.likeId,
                             })];
                     case 2:
                         _b.sent();
@@ -1124,8 +1233,9 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getTopVendor: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        category: zod_1.z.string()
-    })).query(function (_a) {
+        category: zod_1.z.string(),
+    }))
+        .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
             var payload, results;
@@ -1135,77 +1245,77 @@ exports.appRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'featured',
+                                collection: "featured",
                                 where: {
-                                    id: '65a3e090f66a58e7b5eb9542'
-                                }
+                                    id: "65a3e090f66a58e7b5eb9542",
+                                },
                             })];
                     case 2:
                         results = _b.sent();
-                        if (input.category === 'venues') {
+                        if (input.category === "venues") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Venue,
-                                    top4: results.docs[0].top4Venues
+                                    top4: results.docs[0].top4Venues,
                                 }];
                         }
-                        else if (input.category === 'agents') {
+                        else if (input.category === "agents") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Agent,
-                                    top4: results.docs[0].top4Agents
+                                    top4: results.docs[0].top4Agents,
                                 }];
                         }
-                        else if (input.category === 'bridals') {
+                        else if (input.category === "bridals") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Bridal,
-                                    top4: results.docs[0].top4Bridals
+                                    top4: results.docs[0].top4Bridals,
                                 }];
                         }
-                        else if (input.category === 'photovideo') {
+                        else if (input.category === "photovideo") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Photovideo,
-                                    top4: results.docs[0].top4Photovideo
+                                    top4: results.docs[0].top4Photovideo,
                                 }];
                         }
-                        else if (input.category === 'catering') {
+                        else if (input.category === "catering") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Catering,
-                                    top4: results.docs[0].top4Catering
+                                    top4: results.docs[0].top4Catering,
                                 }];
                         }
-                        else if (input.category === 'decor') {
+                        else if (input.category === "decor") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Decor,
-                                    top4: results.docs[0].top4Decor
+                                    top4: results.docs[0].top4Decor,
                                 }];
                         }
-                        else if (input.category === 'henna') {
+                        else if (input.category === "henna") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Henna,
-                                    top4: results.docs[0].top4Henna
+                                    top4: results.docs[0].top4Henna,
                                 }];
                         }
-                        else if (input.category === 'mua') {
+                        else if (input.category === "mua") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Mua,
-                                    top4: results.docs[0].top4Mua
+                                    top4: results.docs[0].top4Mua,
                                 }];
                         }
-                        else if (input.category === 'emcees') {
+                        else if (input.category === "emcees") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Emcee,
-                                    top4: results.docs[0].top4Emcees
+                                    top4: results.docs[0].top4Emcees,
                                 }];
                         }
-                        else if (input.category === 'honeymoon') {
+                        else if (input.category === "honeymoon") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Honeymoon,
-                                    top4: results.docs[0].top4Honeymoon
+                                    top4: results.docs[0].top4Honeymoon,
                                 }];
                         }
-                        else if (input.category === 'misc') {
+                        else if (input.category === "misc") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Misc,
-                                    top4: results.docs[0].top4Misc
+                                    top4: results.docs[0].top4Misc,
                                 }];
                         }
                         return [2 /*return*/];
@@ -1234,9 +1344,9 @@ exports.appRouter = (0, trpc_1.router)({
                         parsedQueryOpts = {};
                         Object.entries(queryOpts).forEach(function (_a) {
                             var key = _a[0], value = _a[1];
-                            if (key === 'search') {
-                                parsedQueryOpts['name'] = {
-                                    contains: value
+                            if (key === "search") {
+                                parsedQueryOpts["name"] = {
+                                    contains: value,
                                 };
                             }
                             else {
@@ -1247,7 +1357,7 @@ exports.appRouter = (0, trpc_1.router)({
                         });
                         page = cursor || 1;
                         return [4 /*yield*/, payload.find({
-                                collection: 'vendors',
+                                collection: "vendors",
                                 where: __assign({}, parsedQueryOpts),
                                 sort: sort,
                                 depth: 1,

@@ -291,7 +291,15 @@ const Page = async ({ params }: PageProps) => {
                     </div>
                   ))}
                 </TableCell>
-                <TableCell>{serialize(packageItem.packageDetails)}</TableCell>
+                <TableCell>
+                  {packageItem.packageDetails ? (
+                    serialize(packageItem.packageDetails)
+                  ) : (
+                    <p className="text-slate-400 italic">
+                      Package details not disclosed
+                    </p>
+                  )}
+                </TableCell>
                 <TableCell className="text-right">
                   {packageItem.price ? (
                     formatPrice(packageItem.price)

@@ -4,33 +4,54 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { CalendarIcon, Delete } from "lucide-react";
+import { CalendarIcon, Check, CheckCircle, Circle, Delete } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import { format } from "date-fns";
 import { trpc } from "@/trpc/client";
+import { Checkbox } from "../ui/checkbox";
 
 interface TodoEditProps {
   id: string;
   pTodo: string;
   pDate: string;
   pChecked: boolean;
+  todoId: string;
+  pRemarks: string;
 }
 
-const TodoEdit = ({ id, pTodo, pDate, pChecked }: TodoEditProps) => {
+const TodoEdit = ({
+  id,
+  pTodo,
+  pDate,
+  pChecked,
+  todoId,
+  pRemarks,
+}: TodoEditProps) => {
   const [todo, setTodo] = useState(pTodo);
   const [date, setDate] = useState<Date>(new Date(pDate));
   const [checked, setChecked] = useState(pChecked);
+  const [remarks, setRemarks] = useState(pRemarks);
+  const [remarksButton, setRemarksButton] = useState("bg-emerald-200");
 
   const edit = trpc.editTodo.useMutation();
+  const del = trpc.removeTodo.useMutation();
+
+  const editRemarks = (event: { target: { value: string } }) => {
+    const text = event.target.value as string;
+
+    setRemarks(text);
+    setRemarksButton("bg-amber-200 ease-in-out duration-300");
+  };
 
   const editTodo = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setTodo(event.target.value);
+    const text = event.target.value as string;
+
+    setTodo(text);
     edit.mutate({
-      planId: id,
-      todo: todo,
+      id: todoId,
+      todo: text,
     });
   };
 
@@ -41,39 +62,69 @@ const TodoEdit = ({ id, pTodo, pDate, pChecked }: TodoEditProps) => {
     setDate(new Date(formattedDate));
 
     edit.mutate({
-      planId: id,
+      id: todoId,
       date: formattedDate,
     });
   };
 
-  const editChecked = (boolean: boolean) => {
-    if (boolean === true) {
-      setChecked(false);
-    } else if (boolean === false) {
-      setChecked(true);
-    }
+  const editChecked = () => {
+    console.log(checked);
 
-    edit.mutate({
-      planId: id,
-      check: checked,
-    });
+    if (checked) {
+      setChecked(false);
+
+      console.log("becomes:", checked);
+
+      edit.mutate({
+        id: todoId,
+        check: false,
+      });
+    } else if (!checked) {
+      setChecked(true);
+
+      console.log("becomes:", checked);
+
+      edit.mutate({
+        id: todoId,
+        check: true,
+      });
+    }
   };
 
   return (
     <div className="grid grid-cols-10">
-      <div className="col-span-6 px-4">
-        <Input value={todo} onChange={(e) => editTodo(e)} />
+      <div className="col-span-3 px-4 flex items-center">
+        {checked ? (
+          <Input value={todo} disabled className="bg-slate-200" />
+        ) : (
+          <Input value={todo} onChange={(e) => editTodo(e)} />
+        )}
       </div>
-      <div className="col-span-3 flex justify-center items-center">
+      <div className="col-span-2 flex justify-center items-center">
         <Popover>
           <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className="w-full justify-start text-left font-normal text-muted-foreground"
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {format(date, "PPP")}
-            </Button>
+            {checked ? (
+              <Button
+                variant={"outline"}
+                className="w-full justify-start text-left font-normal bg-slate-200"
+                disabled
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                <p className="text-ellipsis overflow-hidden">
+                  {format(date, "PPP")}
+                </p>
+              </Button>
+            ) : (
+              <Button
+                variant={"outline"}
+                className="w-full justify-start text-left font-normal"
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                <p className="text-ellipsis overflow-hidden">
+                  {format(date, "PPP")}
+                </p>
+              </Button>
+            )}
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
@@ -87,11 +138,57 @@ const TodoEdit = ({ id, pTodo, pDate, pChecked }: TodoEditProps) => {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="w-full flex justify-around items-center px-4">
-        <Delete className="text-red-400 w-5 h-5" />
-        <Checkbox
-          checked={checked}
-          onCheckedChange={(event) => editChecked(event as boolean)}
+      <div className="col-span-4 px-4 flex items-center">
+        {checked ? (
+          <div className="flex w-full max-w-sm items-center space-x-2">
+            <Input
+              placeholder="Remarks"
+              value={remarks}
+              disabled
+              className="bg-slate-200"
+            />
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-slate-300"
+              disabled
+            >
+              <Check className="h-4 px-2 text-slate-700" />
+            </Button>
+          </div>
+        ) : (
+          <div className="flex w-full max-w-sm items-center space-x-2">
+            <Input
+              placeholder="Remarks"
+              value={remarks}
+              onChange={(e) => editRemarks(e)}
+            />
+            <Button
+              variant="outline"
+              size="icon"
+              className={remarksButton}
+              onClick={() => {
+                edit.mutate({
+                  id: id,
+                  remarks: remarks,
+                });
+                setRemarksButton("bg-emerald-200 ease-in-out duration-300");
+              }}
+            >
+              <Check className="h-4 px-2" />
+            </Button>
+          </div>
+        )}
+      </div>
+      <div className="w-full h-full flex justify-around items-center">
+        <Checkbox checked={checked} onCheckedChange={editChecked} />
+        <Delete
+          className="text-red-400 w-5 h-5 cursor-pointer hover:text-red-600"
+          onClick={() =>
+            del.mutate({
+              todoId: todoId,
+            })
+          }
         />
       </div>
     </div>
