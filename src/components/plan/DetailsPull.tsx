@@ -9,7 +9,6 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import Image from "next/image";
-import moment from "moment";
 import {
   Select,
   SelectContent,
@@ -23,6 +22,7 @@ import { Package, Vendor } from "@/payload-types";
 import { categories } from "@/app/data/data";
 import { Checkbox } from "../ui/checkbox";
 import { VENDOR_CATEGORIES } from "@/config";
+import WeddingCountdown from "./WeddingCountdown";
 
 interface DetailsPullProps {
   plan: Plan;
@@ -101,8 +101,6 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
     new Date(plan.weddingDate)
   );
 
-  const duration = moment.duration(moment(weddingDate).diff(moment()));
-
   function handleBrideNameChange(event: {
     target: { value: React.SetStateAction<string> };
   }) {
@@ -128,6 +126,12 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
       weddingDate: formattedDate,
     });
   };
+
+  function addOneDay(date: string) {
+    const stringtodate = new Date(date);
+    stringtodate.setDate(stringtodate.getDate() + 1);
+    return stringtodate;
+  }
 
   const getShortlist = (category: string) => {
     if (category === "venues" && plan.venue) {
@@ -296,29 +300,26 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
           <div className="flex flex-col items-center justify-center py-6">
             <h2 className="font-semibold">Wedding Date</h2>
-            <div className="p-6 flex flex-col gap-1 items-center justify-center">
-              <p>{JSON.stringify({ weddingDate })}</p>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
-                  <h1 className="font-semibold text-3xl">
-                    {Math.floor(duration.asYears())}
-                  </h1>
-                  <p className="font-light text-sm">Years Left</p>
-                </div>
-                <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
-                  <h1 className="font-semibold text-3xl">
-                    {Math.floor(duration.asMonths()) % 12}
-                  </h1>
-                  <p className="font-light text-sm">Months Left</p>
-                </div>
-                <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
-                  <h1 className="font-semibold text-3xl">
-                    {Math.floor(duration.asDays()) % 30}
-                  </h1>
-                  <p className="font-light text-sm">Days Left</p>
+            {plan.weddingDate ? (
+              <WeddingCountdown date={addOneDay(plan.weddingDate)} />
+            ) : (
+              <div className="p-6 flex flex-col gap-1 items-center justify-center">
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
+                    <h1 className="font-semibold text-3xl">-</h1>
+                    <p className="font-light text-sm">Years Left</p>
+                  </div>
+                  <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
+                    <h1 className="font-semibold text-3xl">-</h1>
+                    <p className="font-light text-sm">Months Left</p>
+                  </div>
+                  <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
+                    <h1 className="font-semibold text-3xl">-</h1>
+                    <p className="font-light text-sm">Days Left</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <Image
               src="https://i.giphy.com/media/gaJPlAdO21ns6Z2M3e/giphy-downsized.gif"
               alt="WeddingExcited"
@@ -334,7 +335,8 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
               selected={weddingDate}
               // @ts-ignore
               onSelect={handleWeddingDateChange}
-              className="rounded-md border my-3 bg-slate-50"
+              className="rounded-md border p-10 my-3 bg-slate-50"
+              initialFocus
             />
           </div>
         </div>

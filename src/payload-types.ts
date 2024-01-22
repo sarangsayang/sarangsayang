@@ -19,6 +19,8 @@ export interface Config {
     featured: Featured;
     todos: Todo;
     budget: Budget;
+    guests: Guest;
+    itinerary: Itinerary;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -293,6 +295,28 @@ export interface Budget {
   plannedCost?: number | null;
   actualCost?: number | null;
   amountPaid?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Guest {
+  id: string;
+  plan: string | Plan;
+  group: string;
+  name: string;
+  pax: number;
+  attendance: string;
+  sent: boolean;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Itinerary {
+  id: string;
+  plan: string | Plan;
+  time: number;
+  location: string;
+  event: string;
+  involved: string;
+  details: string;
   updatedAt: string;
   createdAt: string;
 }

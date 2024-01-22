@@ -17,6 +17,8 @@ import { Plans } from './app/collections/Plans/Plans'
 import { FeaturedVendors } from './app/collections/FeaturedVendors'
 import { Todos } from './app/collections/Plans/Todos'
 import { Budget } from './app/collections/Plans/Budget'
+import { Guests } from './app/collections/Plans/Guests'
+import { Itinerary } from './app/collections/Plans/Itinerary'
 
 dotenv.config({
     path: path.resolve(__dirname, '../.env'),
@@ -37,7 +39,7 @@ const adapter = s3Adapter({
 
 export default buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users, Vendors, Packages, Media, Likes, Leads, LikesArchive, Plans, FeaturedVendors, Todos, Budget], 
+    collections: [Users, Vendors, Packages, Media, Likes, Leads, LikesArchive, Plans, FeaturedVendors, Todos, Budget, Guests, Itinerary], 
     routes: {
         admin: '/backstage',
     },

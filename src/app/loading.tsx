@@ -8,8 +8,6 @@ const Loading = () => {
   const [progress, setProgress] = useState(13);
 
   useEffect(() => {
-    //const timer = setTimeout(() => setProgress(100), 500)
-    //return () => clearTimeout(timer)
     setProgress(100);
   }, []);
 

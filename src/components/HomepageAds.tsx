@@ -1,36 +1,41 @@
-'use client'
+"use client";
 
-import Image from "next/image"
-import { 
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious
-} from "./ui/carousel"
+import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel";
 
-import Autoplay from "embla-carousel-autoplay"
+import Autoplay from "embla-carousel-autoplay";
 
 const HomepageAds = () => {
   return (
-    <section className='pt-12'>
-        <Carousel 
-            // plugins={[
-            //     Autoplay({
-            //         delay: 5000,
-            //     }),
-            // ]}
-        >
-            <CarouselContent>
-                <CarouselItem className="flex items-center justify-center p-6">
-                    <Image width={1000} height={200} src="https://placehold.co/1000x200" alt="ad1"/>
-                </CarouselItem>
-            </CarouselContent>
-            {/* <CarouselPrevious />
+    <section className="pt-1">
+      <Carousel
+      // plugins={[
+      //     Autoplay({
+      //         delay: 5000,
+      //     }),
+      // ]}
+      >
+        <CarouselContent>
+          <CarouselItem className="flex items-center justify-center p-6">
+            <Image
+              width={1100}
+              height={200}
+              src="https://placehold.co/1100x200"
+              alt="ad1"
+            />
+          </CarouselItem>
+        </CarouselContent>
+        {/* <CarouselPrevious />
             <CarouselNext /> */}
-        </Carousel>
+      </Carousel>
     </section>
-  )
-}
+  );
+};
 
-export default HomepageAds
+export default HomepageAds;

@@ -26,7 +26,7 @@ const FeaturedImage = ({ category }: FeaturedImageProps) => {
               <Image
                 width={200}
                 height={200}
-                src={results.data.top.images[0].image.url}
+                src={results.data.top.images[1].image.url}
                 alt="product category image"
                 className="aspect-square rounded-2xl object-cover object-center"
               />

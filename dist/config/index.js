@@ -103,12 +103,12 @@ exports.PRODUCT_CATEGORIES = [
             },
             {
                 name: 'Guest List',
-                href: '/products?category=icons',
+                href: '/plan/guests',
                 imageSrc: "https://placehold.co/600x600",
             },
             {
                 name: 'Itinerary',
-                href: '/products?category=icons',
+                href: '/plan/itinerary',
                 imageSrc: "https://placehold.co/600x600",
             }
         ],

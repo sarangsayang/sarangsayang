@@ -68,12 +68,8 @@ const TodoEdit = ({
   };
 
   const editChecked = () => {
-    console.log(checked);
-
     if (checked) {
       setChecked(false);
-
-      console.log("becomes:", checked);
 
       edit.mutate({
         id: todoId,
@@ -81,8 +77,6 @@ const TodoEdit = ({
       });
     } else if (!checked) {
       setChecked(true);
-
-      console.log("becomes:", checked);
 
       edit.mutate({
         id: todoId,

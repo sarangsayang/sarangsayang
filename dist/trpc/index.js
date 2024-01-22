@@ -69,6 +69,516 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    removeItinerary: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.delete({
+                                collection: "itinerary",
+                                id: input.id,
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    editItinerary: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+        time: zod_1.z.number().optional(),
+        location: zod_1.z.string().optional(),
+        event: zod_1.z.string().optional(),
+        involved: zod_1.z.string().optional(),
+        details: zod_1.z.string().optional(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!input.time) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.update({
+                                collection: "itinerary",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    time: input.time,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 3:
+                        if (!input.location) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "itinerary",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    location: input.location,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 5:
+                        if (!input.event) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.update({
+                                collection: "itinerary",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    event: input.event,
+                                },
+                            })];
+                    case 6:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 7:
+                        if (!input.involved) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.update({
+                                collection: "itinerary",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    involved: input.involved,
+                                },
+                            })];
+                    case 8:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 9:
+                        if (!input.details) return [3 /*break*/, 11];
+                        return [4 /*yield*/, payload.update({
+                                collection: "itinerary",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    details: input.details,
+                                },
+                            })];
+                    case 10:
+                        _b.sent();
+                        _b.label = 11;
+                    case 11: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getItinerary: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "itinerary",
+                                where: { plan: { equals: input.planId } },
+                                pagination: false,
+                                sort: "time",
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    addItinerary: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+        time: zod_1.z.number().optional(),
+        location: zod_1.z.string().optional(),
+        event: zod_1.z.string().optional(),
+        involved: zod_1.z.string().optional(),
+        details: zod_1.z.string().optional(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: "itinerary",
+                                data: {
+                                    plan: input.planId,
+                                    time: input.time,
+                                    location: input.location || "-",
+                                    event: input.event || "-",
+                                    involved: input.involved || "-",
+                                    details: input.details || "-",
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    removeGuest: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.delete({
+                                collection: "guests",
+                                id: input.id,
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    editGuests: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+        group: zod_1.z.string().optional(),
+        name: zod_1.z.string().optional(),
+        pax: zod_1.z.number().optional(),
+        attendance: zod_1.z.string().optional(),
+        sent: zod_1.z.boolean().optional(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!input.group) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.update({
+                                collection: "guests",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    group: input.group,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 3:
+                        if (!input.name) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "guests",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    name: input.name,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 5:
+                        if (!input.pax) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.update({
+                                collection: "guests",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    pax: input.pax,
+                                },
+                            })];
+                    case 6:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 7:
+                        if (!input.attendance) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.update({
+                                collection: "guests",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    attendance: input.attendance,
+                                },
+                            })];
+                    case 8:
+                        _b.sent();
+                        return [3 /*break*/, 11];
+                    case 9:
+                        if (!(input.sent === true || input.sent === false)) return [3 /*break*/, 11];
+                        return [4 /*yield*/, payload.update({
+                                collection: "guests",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    sent: input.sent,
+                                },
+                            })];
+                    case 10:
+                        _b.sent();
+                        _b.label = 11;
+                    case 11: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getGuests: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "guests",
+                                where: { plan: { equals: input.planId } },
+                                pagination: false,
+                                sort: "createdAt",
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    addGuest: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+        group: zod_1.z.string(),
+        name: zod_1.z.string(),
+        pax: zod_1.z.number(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: "guests",
+                                data: {
+                                    plan: input.planId,
+                                    group: input.group,
+                                    name: input.name,
+                                    pax: input.pax,
+                                    attendance: "Waiting Confirmation",
+                                    sent: false,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    removeBudget: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.delete({
+                                collection: "budget",
+                                id: input.id,
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    editBudget: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+        for: zod_1.z.string().optional(),
+        cat: zod_1.z.string().optional(),
+        details: zod_1.z.string().optional(),
+        plannedCost: zod_1.z.number().optional(),
+        actualCost: zod_1.z.number().optional(),
+        amountPaid: zod_1.z.number().optional(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!input.for) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.update({
+                                collection: "budget",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    for: input.for,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 13];
+                    case 3:
+                        if (!input.cat) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "budget",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    cat: input.cat,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 13];
+                    case 5:
+                        if (!input.details) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.update({
+                                collection: "budget",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    details: input.details,
+                                },
+                            })];
+                    case 6:
+                        _b.sent();
+                        return [3 /*break*/, 13];
+                    case 7:
+                        if (!input.plannedCost) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.update({
+                                collection: "budget",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    plannedCost: input.plannedCost,
+                                },
+                            })];
+                    case 8:
+                        _b.sent();
+                        return [3 /*break*/, 13];
+                    case 9:
+                        if (!input.actualCost) return [3 /*break*/, 11];
+                        return [4 /*yield*/, payload.update({
+                                collection: "budget",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    actualCost: input.actualCost,
+                                },
+                            })];
+                    case 10:
+                        _b.sent();
+                        return [3 /*break*/, 13];
+                    case 11:
+                        if (!input.amountPaid) return [3 /*break*/, 13];
+                        return [4 /*yield*/, payload.update({
+                                collection: "budget",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    amountPaid: input.amountPaid,
+                                },
+                            })];
+                    case 12:
+                        _b.sent();
+                        _b.label = 13;
+                    case 13: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    addBudget: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+        for: zod_1.z.string(),
+        cat: zod_1.z.string(),
+        details: zod_1.z.string(),
+        plannedCost: zod_1.z.number(),
+        actualCost: zod_1.z.number(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: "budget",
+                                data: {
+                                    plan: input.planId,
+                                    for: input.for,
+                                    cat: input.cat,
+                                    details: input.details,
+                                    plannedCost: input.plannedCost,
+                                    actualCost: input.actualCost,
+                                    amountPaid: 0,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getBudget: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "budget",
+                                where: { plan: { equals: input.planId } },
+                                pagination: false,
+                                sort: "createdAt",
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
     removeTodo: trpc_1.publicProcedure
         .input(zod_1.z.object({
         todoId: zod_1.z.string(),
@@ -99,7 +609,7 @@ exports.appRouter = (0, trpc_1.router)({
         todo: zod_1.z.string().optional(),
         date: zod_1.z.string().optional(),
         check: zod_1.z.boolean().optional(),
-        remarks: zod_1.z.string().optional()
+        remarks: zod_1.z.string().optional(),
     }))
         .mutation(function (_a) {
         var input = _a.input;
@@ -202,7 +712,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "todos",
                                 where: { plan: { equals: input.planId } },
                                 pagination: false,
-                                sort: 'createdAt'
+                                sort: "createdAt",
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }

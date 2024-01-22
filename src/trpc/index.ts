@@ -11,6 +11,362 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  removeItinerary: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.delete({
+        collection: "itinerary",
+        id: input.id,
+      });
+    }),
+
+  editItinerary: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        time: z.number().optional(),
+        location: z.string().optional(),
+        event: z.string().optional(),
+        involved: z.string().optional(),
+        details: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      if (input.time) {
+        await payload.update({
+          collection: "itinerary",
+          where: { id: { equals: input.id } },
+          data: {
+            time: input.time,
+          },
+        });
+      } else if (input.location) {
+        await payload.update({
+          collection: "itinerary",
+          where: { id: { equals: input.id } },
+          data: {
+            location: input.location,
+          },
+        });
+      } else if (input.event) {
+        await payload.update({
+          collection: "itinerary",
+          where: { id: { equals: input.id } },
+          data: {
+            event: input.event,
+          },
+        });
+      } else if (input.involved) {
+        await payload.update({
+          collection: "itinerary",
+          where: { id: { equals: input.id } },
+          data: {
+            involved: input.involved,
+          },
+        });
+      } else if (input.details) {
+        await payload.update({
+          collection: "itinerary",
+          where: { id: { equals: input.id } },
+          data: {
+            details: input.details,
+          },
+        });
+      }
+    }),
+
+  getItinerary: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "itinerary",
+        where: { plan: { equals: input.planId } },
+        pagination: false,
+        sort: "time",
+      });
+    }),
+
+  addItinerary: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
+        time: z.number().optional(),
+        location: z.string().optional(),
+        event: z.string().optional(),
+        involved: z.string().optional(),
+        details: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.create({
+        collection: "itinerary",
+        data: {
+          plan: input.planId,
+          time: input.time,
+          location: input.location || "-",
+          event: input.event || "-",
+          involved: input.involved || "-",
+          details: input.details || "-",
+        },
+      });
+    }),
+
+  removeGuest: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.delete({
+        collection: "guests",
+        id: input.id,
+      });
+    }),
+
+  editGuests: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        group: z.string().optional(),
+        name: z.string().optional(),
+        pax: z.number().optional(),
+        attendance: z.string().optional(),
+        sent: z.boolean().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      if (input.group) {
+        await payload.update({
+          collection: "guests",
+          where: { id: { equals: input.id } },
+          data: {
+            group: input.group,
+          },
+        });
+      } else if (input.name) {
+        await payload.update({
+          collection: "guests",
+          where: { id: { equals: input.id } },
+          data: {
+            name: input.name,
+          },
+        });
+      } else if (input.pax) {
+        await payload.update({
+          collection: "guests",
+          where: { id: { equals: input.id } },
+          data: {
+            pax: input.pax,
+          },
+        });
+      } else if (input.attendance) {
+        await payload.update({
+          collection: "guests",
+          where: { id: { equals: input.id } },
+          data: {
+            attendance: input.attendance,
+          },
+        });
+      } else if (input.sent === true || input.sent === false) {
+        await payload.update({
+          collection: "guests",
+          where: { id: { equals: input.id } },
+          data: {
+            sent: input.sent,
+          },
+        });
+      }
+    }),
+
+  getGuests: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "guests",
+        where: { plan: { equals: input.planId } },
+        pagination: false,
+        sort: "createdAt",
+      });
+    }),
+
+  addGuest: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
+        group: z.string(),
+        name: z.string(),
+        pax: z.number(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.create({
+        collection: "guests",
+        data: {
+          plan: input.planId,
+          group: input.group,
+          name: input.name,
+          pax: input.pax,
+          attendance: "Waiting Confirmation",
+          sent: false,
+        },
+      });
+    }),
+
+  removeBudget: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.delete({
+        collection: "budget",
+        id: input.id,
+      });
+    }),
+
+  editBudget: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        for: z.string().optional(),
+        cat: z.string().optional(),
+        details: z.string().optional(),
+        plannedCost: z.number().optional(),
+        actualCost: z.number().optional(),
+        amountPaid: z.number().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      if (input.for) {
+        await payload.update({
+          collection: "budget",
+          where: { id: { equals: input.id } },
+          data: {
+            for: input.for,
+          },
+        });
+      } else if (input.cat) {
+        await payload.update({
+          collection: "budget",
+          where: { id: { equals: input.id } },
+          data: {
+            cat: input.cat,
+          },
+        });
+      } else if (input.details) {
+        await payload.update({
+          collection: "budget",
+          where: { id: { equals: input.id } },
+          data: {
+            details: input.details,
+          },
+        });
+      } else if (input.plannedCost) {
+        await payload.update({
+          collection: "budget",
+          where: { id: { equals: input.id } },
+          data: {
+            plannedCost: input.plannedCost,
+          },
+        });
+      } else if (input.actualCost) {
+        await payload.update({
+          collection: "budget",
+          where: { id: { equals: input.id } },
+          data: {
+            actualCost: input.actualCost,
+          },
+        });
+      } else if (input.amountPaid) {
+        await payload.update({
+          collection: "budget",
+          where: { id: { equals: input.id } },
+          data: {
+            amountPaid: input.amountPaid,
+          },
+        });
+      }
+    }),
+
+  addBudget: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
+        for: z.string(),
+        cat: z.string(),
+        details: z.string(),
+        plannedCost: z.number(),
+        actualCost: z.number(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.create({
+        collection: "budget",
+        data: {
+          plan: input.planId,
+          for: input.for,
+          cat: input.cat,
+          details: input.details,
+          plannedCost: input.plannedCost,
+          actualCost: input.actualCost,
+          amountPaid: 0,
+        },
+      });
+    }),
+
+  getBudget: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "budget",
+        where: { plan: { equals: input.planId } },
+        pagination: false,
+        sort: "createdAt",
+      });
+    }),
+
   removeTodo: publicProcedure
     .input(
       z.object({
@@ -33,7 +389,7 @@ export const appRouter = router({
         todo: z.string().optional(),
         date: z.string().optional(),
         check: z.boolean().optional(),
-        remarks: z.string().optional()
+        remarks: z.string().optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -103,7 +459,7 @@ export const appRouter = router({
         collection: "todos",
         where: { plan: { equals: input.planId } },
         pagination: false,
-        sort: 'createdAt'
+        sort: "createdAt",
       });
     }),
 

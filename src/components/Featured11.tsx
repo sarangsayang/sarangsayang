@@ -10,17 +10,23 @@ import {
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
+import { VENDOR_CATEGORIES } from "@/config";
+import { categories } from "@/app/data/data";
+import Featured11Pull from "./Featured11Pull";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Featured11 = () => {
   return (
     <section className="pt-12">
-      <div className="md:flex md:items-center md:justify-between mb-4">
-        <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
-          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-            Featured Vendors
-          </h1>
+      <MaxWidthWrapper>
+        <div className="md:flex md:items-center md:justify-between mb-4">
+          <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
+            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+              Featured Vendors
+            </h1>
+          </div>
         </div>
-      </div>
+      </MaxWidthWrapper>
 
       <Carousel
         plugins={[
@@ -30,7 +36,14 @@ const Featured11 = () => {
         ]}
       >
         <CarouselContent>
-          <CarouselItem className="flex items-center justify-center p-6">
+          {VENDOR_CATEGORIES.map((category) => (
+            <Featured11Pull
+              label={category.label}
+              category={category.value}
+              key={category.value}
+            />
+          ))}
+          {/* <CarouselItem className="flex items-center justify-center p-6">
             <div className="group">
               <Link href={"/vendor/65a09ae79cd6475e4b36af23"}>
                 <Image
@@ -235,10 +248,12 @@ const Featured11 = () => {
                 <p className="text-sm text-gray-500">Misc</p>
               </div>
             </div>
-          </CarouselItem>
+          </CarouselItem> */}
         </CarouselContent>
-        <CarouselPrevious className="hidden md:grid" />
-        <CarouselNext className="hidden md:grid" />
+        {/* <MaxWidthWrapper>
+          <CarouselPrevious className="hidden md:grid" />
+          <CarouselNext className="hidden md:grid" />
+        </MaxWidthWrapper> */}
       </Carousel>
     </section>
   );
