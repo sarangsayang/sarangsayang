@@ -21,6 +21,8 @@ export interface Config {
     budget: Budget;
     guests: Guest;
     itinerary: Itinerary;
+    chats: Chat;
+    message: Message;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -317,6 +319,22 @@ export interface Itinerary {
   event: string;
   involved: string;
   details: string;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Chat {
+  id: string;
+  vendor: string | Vendor;
+  user: string | User;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Message {
+  id: string;
+  chat: string | Chat;
+  from: string;
+  message: string;
+  read: boolean;
   updatedAt: string;
   createdAt: string;
 }

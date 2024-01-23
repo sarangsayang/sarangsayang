@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 const UserAccountNav = ({ user }: { user: User }) => {
   const { signOut } = useAuth();
 
-  const isVendor = user?.role === "vendor";
+  const isVendor = user?.role === "vendor" || user?.role === "supervendor";
 
   const vendor = trpc.getVendorId.useQuery({
     userId: user.id,

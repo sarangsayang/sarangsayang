@@ -27,6 +27,7 @@ import React, { Fragment } from "react";
 //@ts-ignore
 import escapeHtml from "escape-html";
 import { Text } from "slate";
+import DirectChat from "@/components/chat/DirectChat";
 
 interface PageProps {
   params: {
@@ -243,9 +244,15 @@ const Page = async ({ params }: PageProps) => {
                 {/* Enquire */}
                 <div className="group flex items-center gap-8 text-sm text-medium mt-10">
                   {user ? (
-                    <EnquireButton
-                      vendorId={product.id}
-                      userEmail={user.email}
+                    // <EnquireButton
+                    //   vendorId={product.id}
+                    //   userEmail={user.email}
+                    // />
+                    <DirectChat
+                      vendor={product}
+                      user={user}
+                      image={validUrls[0]}
+                      label="Chat Now"
                     />
                   ) : null}
                   {user ? (

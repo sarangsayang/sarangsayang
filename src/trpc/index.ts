@@ -11,6 +11,308 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  userRead: publicProcedure
+    .input(z.object({ chatId: z.string() }))
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const allmsg = await payload.find({
+        collection: "message",
+        where: {
+          chat: {
+            equals: input.chatId,
+          },
+        },
+      });
+
+      for (let i = 0; i < allmsg.docs.length; i++) {
+        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor") {
+          await payload.update({
+            collection: "message",
+            where: {
+              id: {
+                equals: allmsg.docs[i].id,
+              },
+            },
+            data: {
+              read: true,
+            },
+          });
+        }
+      }
+    }),
+
+  userGetAllUnread: publicProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      let results = 0;
+
+      const chat = await payload.find({
+        collection: "chats",
+        where: {
+          user: {
+            equals: input.userId,
+          },
+        },
+      });
+
+      const allmsg = await payload.find({
+        collection: "message",
+        where: {
+          chat: {
+            equals: chat.docs[0].id,
+          },
+        },
+      });
+
+      for (let i = 0; i < allmsg.docs.length; i++) {
+        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor") {
+          results++;
+        }
+      }
+
+      return results;
+    }),
+
+  userGetUnread: publicProcedure
+    .input(z.object({ chatId: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      let results = 0;
+
+      const allmsg = await payload.find({
+        collection: "message",
+        where: {
+          chat: {
+            equals: input.chatId,
+          },
+        },
+        pagination: false,
+        sort: "-createdAt",
+      });
+
+      for (let i = 0; i < allmsg.docs.length; i++) {
+        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor") {
+          results++;
+        }
+      }
+
+      return results;
+    }),
+
+  vendorRead: publicProcedure
+    .input(z.object({ chatId: z.string() }))
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const allmsg = await payload.find({
+        collection: "message",
+        where: {
+          chat: {
+            equals: input.chatId,
+          },
+        },
+      });
+
+      for (let i = 0; i < allmsg.docs.length; i++) {
+        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "user") {
+          await payload.update({
+            collection: "message",
+            where: {
+              id: {
+                equals: allmsg.docs[i].id,
+              },
+            },
+            data: {
+              read: true,
+            },
+          });
+        }
+      }
+    }),
+
+  getAllUnread: publicProcedure
+    .input(z.object({ vendorId: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      let results = 0;
+
+      const chat = await payload.find({
+        collection: "chats",
+        where: {
+          vendor: {
+            equals: input.vendorId,
+          },
+        },
+      });
+
+      const allmsg = await payload.find({
+        collection: "message",
+        where: {
+          chat: {
+            equals: chat.docs[0].id,
+          },
+        },
+      });
+
+      for (let i = 0; i < allmsg.docs.length; i++) {
+        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "user") {
+          results++;
+        }
+      }
+
+      return results;
+    }),
+
+  getUnread: publicProcedure
+    .input(z.object({ chatId: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      let results = 0;
+
+      const allmsg = await payload.find({
+        collection: "message",
+        where: {
+          chat: {
+            equals: input.chatId,
+          },
+        },
+        pagination: false,
+        sort: "-createdAt",
+      });
+
+      for (let i = 0; i < allmsg.docs.length; i++) {
+        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "user") {
+          results++;
+        }
+      }
+
+      return results;
+    }),
+
+  getMessages: publicProcedure
+    .input(
+      z.object({
+        chatId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "message",
+        where: {
+          user: {
+            chat: input.chatId,
+          },
+        },
+        pagination: false,
+        sort: "-createdAt",
+      });
+    }),
+
+  addMessage: publicProcedure
+    .input(
+      z.object({
+        chatId: z.string(),
+        from: z.string(),
+        message: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.create({
+        collection: "message",
+        data: {
+          chat: input.chatId,
+          from: input.from,
+          message: input.message,
+          read: false,
+        },
+      });
+    }),
+
+  createChat: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        vendorId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.create({
+        collection: "chats",
+        data: {
+          user: input.userId,
+          vendor: input.vendorId,
+        },
+      });
+    }),
+
+  getAllChats: publicProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "chats",
+        where: {
+          user: {
+            equals: input.userId,
+          },
+        },
+        pagination: false,
+      });
+    }),
+
+  getVendorChats: publicProcedure
+    .input(z.object({ vendorId: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "chats",
+        where: {
+          vendor: {
+            equals: input.vendorId,
+          },
+        },
+        pagination: false,
+      });
+    }),
+
+  getChat: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "chats",
+        where: {
+          user: {
+            equals: input.userId,
+          },
+          vendor: {
+            equals: input.vendorId,
+          },
+        },
+        pagination: false,
+      });
+    }),
+
   removeItinerary: publicProcedure
     .input(
       z.object({

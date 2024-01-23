@@ -69,6 +69,422 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    userRead: trpc_1.publicProcedure
+        .input(zod_1.z.object({ chatId: zod_1.z.string() }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, allmsg, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: {
+                                        equals: input.chatId,
+                                    },
+                                },
+                            })];
+                    case 2:
+                        allmsg = _b.sent();
+                        i = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(i < allmsg.docs.length)) return [3 /*break*/, 6];
+                        if (!(allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor")) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "message",
+                                where: {
+                                    id: {
+                                        equals: allmsg.docs[i].id,
+                                    },
+                                },
+                                data: {
+                                    read: true,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5:
+                        i++;
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    userGetAllUnread: trpc_1.publicProcedure
+        .input(zod_1.z.object({ userId: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results, chat, allmsg, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        results = 0;
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    },
+                                },
+                            })];
+                    case 2:
+                        chat = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: {
+                                        equals: chat.docs[0].id,
+                                    },
+                                },
+                            })];
+                    case 3:
+                        allmsg = _b.sent();
+                        for (i = 0; i < allmsg.docs.length; i++) {
+                            if (allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor") {
+                                results++;
+                            }
+                        }
+                        return [2 /*return*/, results];
+                }
+            });
+        });
+    }),
+    userGetUnread: trpc_1.publicProcedure
+        .input(zod_1.z.object({ chatId: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results, allmsg, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        results = 0;
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: {
+                                        equals: input.chatId,
+                                    },
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 2:
+                        allmsg = _b.sent();
+                        for (i = 0; i < allmsg.docs.length; i++) {
+                            if (allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor") {
+                                results++;
+                            }
+                        }
+                        return [2 /*return*/, results];
+                }
+            });
+        });
+    }),
+    vendorRead: trpc_1.publicProcedure
+        .input(zod_1.z.object({ chatId: zod_1.z.string() }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, allmsg, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: {
+                                        equals: input.chatId,
+                                    },
+                                },
+                            })];
+                    case 2:
+                        allmsg = _b.sent();
+                        i = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(i < allmsg.docs.length)) return [3 /*break*/, 6];
+                        if (!(allmsg.docs[i].read === false && allmsg.docs[i].from === "user")) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "message",
+                                where: {
+                                    id: {
+                                        equals: allmsg.docs[i].id,
+                                    },
+                                },
+                                data: {
+                                    read: true,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5:
+                        i++;
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getAllUnread: trpc_1.publicProcedure
+        .input(zod_1.z.object({ vendorId: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results, chat, allmsg, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        results = 0;
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                },
+                            })];
+                    case 2:
+                        chat = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: {
+                                        equals: chat.docs[0].id,
+                                    },
+                                },
+                            })];
+                    case 3:
+                        allmsg = _b.sent();
+                        for (i = 0; i < allmsg.docs.length; i++) {
+                            if (allmsg.docs[i].read === false && allmsg.docs[i].from === "user") {
+                                results++;
+                            }
+                        }
+                        return [2 /*return*/, results];
+                }
+            });
+        });
+    }),
+    getUnread: trpc_1.publicProcedure
+        .input(zod_1.z.object({ chatId: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results, allmsg, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        results = 0;
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: {
+                                        equals: input.chatId,
+                                    },
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 2:
+                        allmsg = _b.sent();
+                        for (i = 0; i < allmsg.docs.length; i++) {
+                            if (allmsg.docs[i].read === false && allmsg.docs[i].from === "user") {
+                                results++;
+                            }
+                        }
+                        return [2 /*return*/, results];
+                }
+            });
+        });
+    }),
+    getMessages: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        chatId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    user: {
+                                        chat: input.chatId,
+                                    },
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    addMessage: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        chatId: zod_1.z.string(),
+        from: zod_1.z.string(),
+        message: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: "message",
+                                data: {
+                                    chat: input.chatId,
+                                    from: input.from,
+                                    message: input.message,
+                                    read: false,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    createChat: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        userId: zod_1.z.string(),
+        vendorId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: "chats",
+                                data: {
+                                    user: input.userId,
+                                    vendor: input.vendorId,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getAllChats: trpc_1.publicProcedure
+        .input(zod_1.z.object({ userId: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    },
+                                },
+                                pagination: false,
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    getVendorChats: trpc_1.publicProcedure
+        .input(zod_1.z.object({ vendorId: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                },
+                                pagination: false,
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    getChat: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        userId: zod_1.z.string(),
+        vendorId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    },
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                },
+                                pagination: false,
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
     removeItinerary: trpc_1.publicProcedure
         .input(zod_1.z.object({
         id: zod_1.z.string(),

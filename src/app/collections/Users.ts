@@ -1,26 +1,26 @@
-import { PrimaryActionEmailHtml } from '../../components/emails/PrimaryActionEmail'
-import { Access, CollectionConfig } from 'payload/types'
+import { PrimaryActionEmailHtml } from "../../components/emails/PrimaryActionEmail";
+import { Access, CollectionConfig } from "payload/types";
 
 const adminsAndUser: Access = ({ req: { user } }) => {
-  if (user.role === 'admin') return true
+  if (user.role === "admin") return true;
 
   return {
     id: {
       equals: user.id,
     },
-  }
-}
+  };
+};
 
 export const Users: CollectionConfig = {
-  slug: 'users',
+  slug: "users",
   auth: {
     verify: {
       generateEmailHTML: ({ token }) => {
         return PrimaryActionEmailHtml({
           actionLabel: "verify your account",
           buttonText: "Verify Account",
-          href: `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}`
-        })
+          href: `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}`,
+        });
       },
     },
   },
@@ -28,58 +28,58 @@ export const Users: CollectionConfig = {
     read: adminsAndUser,
     create: () => true,
     update: adminsAndUser,
-    delete: ({ req }) => req.user.role === 'admin',
+    delete: ({ req }) => req.user.role === "admin",
   },
   admin: {
-    hidden: ({ user }) => user.role !== 'admin',
-    defaultColumns: ['id'],
-    useAsTitle: 'email',
+    hidden: ({ user }) => user.role !== "admin",
+    defaultColumns: ["id"],
+    useAsTitle: "email",
   },
   fields: [
     {
-      name: 'vendor',
-      label: 'Vendor',
+      name: "vendor",
+      label: "Vendor",
       admin: {
         condition: () => false,
       },
-      type: 'relationship',
-      relationTo: 'vendors',
+      type: "relationship",
+      relationTo: "vendors",
       hasMany: false,
     },
     {
-      name: 'packages',
-      label: 'Packages',
+      name: "packages",
+      label: "Packages",
       admin: {
         condition: () => false,
       },
-      type: 'relationship',
-      relationTo: 'packages',
+      type: "relationship",
+      relationTo: "packages",
       hasMany: true,
     },
     {
-      name: 'stripe_customer_id',
+      name: "stripe_customer_id",
       required: false,
-      type: 'text',
+      type: "text",
       admin: {
         condition: () => false,
       },
     },
     {
-      name: 'role',
-      defaultValue: 'user',
+      name: "role",
+      defaultValue: "user",
       required: true,
       access: {
-        update: ({ req }) => req.user.role === 'admin'
+        update: ({ req }) => req.user.role === "admin",
       },
-      type: 'select',
+      type: "select",
       options: [
-        { label: 'Admin', value: 'admin' },
-        { label: 'User', value: 'user' },
-        { label: 'Vendor', value: 'vendor' },
-        { label: 'Standard Supervendor', value: 'supervendor' },
-        { label: 'Platinum Supervendor', value: 'platinum' },
-        { label: 'Elite Supervendor', value: 'elite' },
+        { label: "Admin", value: "admin" },
+        { label: "User", value: "user" },
+        { label: "Vendor", value: "vendor" },
+        { label: "Standard Supervendor", value: "supervendor" },
+        { label: "Platinum Supervendor", value: "platinum" },
+        { label: "Elite Supervendor", value: "elite" },
       ],
     },
   ],
-}
+};

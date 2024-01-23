@@ -44,7 +44,7 @@ const Likes = ({ user }: { user: User }) => {
           {isMounted ? itemCount : 0}
         </span>
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
+      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg">
         <SheetHeader className="space-y-2.5 pr-6">
           <SheetTitle>Wishlist ({itemCount})</SheetTitle>
         </SheetHeader>
@@ -66,17 +66,14 @@ const Likes = ({ user }: { user: User }) => {
             </div>
           </>
         ) : (
-          <div className="flex h-full flex-col items-center justify-center space-y-1">
-            <div
-              aria-hidden="true"
-              className="relative mb-4 h-60 w-60 text-muted-foreground"
-            >
-              <Image
-                src="/hippo-empty-cart.png"
-                fill
-                alt="empty shopping cart hippo"
-              />
-            </div>
+          <div className="flex h-full flex-col items-center justify-center space-y-6 px-4">
+            <Image
+              src="https://i.giphy.com/media/OSuaE6AknuRc7syZXp/giphy-downsized.gif"
+              alt="NothingHere"
+              width={480}
+              height={360}
+              className="px-4"
+            />
             <div className="text-xl font-semibold">Your heart is empty..</div>
             <SheetTrigger asChild>
               <Link

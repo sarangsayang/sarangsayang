@@ -8,11 +8,12 @@ import { cookies } from "next/headers";
 import UserAccountNav from "./UserAccountNav";
 import Image from "next/image";
 
-import { BookHeart } from "lucide-react";
+import { BookHeart, MessageCircle } from "lucide-react";
 import Enquiries from "./Enquiries";
 import MobileNav from "./MobileNav";
 import NormalUserAccountNav from "./NormalUserAccountNav";
 import BecomeAVendor from "./BecomeAVendor";
+import Chats from "./Chats";
 
 const Navbar = async () => {
   const nextCookies = cookies();
@@ -123,6 +124,21 @@ const Navbar = async () => {
                   {user && user.role !== "user" && user.role !== "admin" ? (
                     <Enquiries user={user} />
                   ) : null}
+
+                  <div className="flex lg:ml-6">
+                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                  </div>
+
+                  {user ? (
+                    <Chats user={user} />
+                  ) : (
+                    <div className="ml-4 flow-root lg:ml-6">
+                      <MessageCircle
+                        aria-hidden="true"
+                        className="h-6 w-6 flex-shrink-0 text-gray-400"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

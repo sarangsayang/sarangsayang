@@ -24,33 +24,51 @@ var Todos_1 = require("./app/collections/Plans/Todos");
 var Budget_1 = require("./app/collections/Plans/Budget");
 var Guests_1 = require("./app/collections/Plans/Guests");
 var Itinerary_1 = require("./app/collections/Plans/Itinerary");
+var Chats_1 = require("./app/collections/Chat/Chats");
+var Message_1 = require("./app/collections/Chat/Message");
 dotenv_1.default.config({
-    path: path_1.default.resolve(__dirname, '../.env'),
+    path: path_1.default.resolve(__dirname, "../.env"),
 });
 var adapter = (0, s3_1.s3Adapter)({
     config: {
         credentials: {
-            accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-            secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+            accessKeyId: process.env.S3_ACCESS_KEY_ID || "",
+            secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || "",
         },
-        region: process.env.S3_REGION || '',
+        region: process.env.S3_REGION || "",
         // ... Other S3 configuration
     },
-    bucket: process.env.S3_BUCKET || '',
+    bucket: process.env.S3_BUCKET || "",
 });
 exports.default = (0, config_1.buildConfig)({
-    serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users_1.Users, Vendors_1.Vendors, Packages_1.Packages, Media_1.Media, Likes_1.Likes, Leads_1.Leads, LikesArchive_1.LikesArchive, Plans_1.Plans, FeaturedVendors_1.FeaturedVendors, Todos_1.Todos, Budget_1.Budget, Guests_1.Guests, Itinerary_1.Itinerary],
+    serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
+    collections: [
+        Users_1.Users,
+        Vendors_1.Vendors,
+        Packages_1.Packages,
+        Media_1.Media,
+        Likes_1.Likes,
+        Leads_1.Leads,
+        LikesArchive_1.LikesArchive,
+        Plans_1.Plans,
+        FeaturedVendors_1.FeaturedVendors,
+        Todos_1.Todos,
+        Budget_1.Budget,
+        Guests_1.Guests,
+        Itinerary_1.Itinerary,
+        Chats_1.Chats,
+        Message_1.Message,
+    ],
     routes: {
-        admin: '/backstage',
+        admin: "/backstage",
     },
     admin: {
-        user: 'users',
+        user: "users",
         bundler: (0, bundler_webpack_1.webpackBundler)(),
         meta: {
-            titleSuffix: '- SarangSayang',
-            favicon: '/favicon.ico',
-            ogImage: '/thumbnail.jpg',
+            titleSuffix: "- SarangSayang",
+            favicon: "/favicon.ico",
+            ogImage: "/thumbnail.jpg",
         },
     },
     rateLimit: {
@@ -61,19 +79,17 @@ exports.default = (0, config_1.buildConfig)({
         url: process.env.MONGODB_URL,
     }),
     typescript: {
-        outputFile: path_1.default.resolve(__dirname, 'payload-types.ts'),
+        outputFile: path_1.default.resolve(__dirname, "payload-types.ts"),
     },
-    csrf: [
-        'https://sarangsayang.up.railway.app'
-    ],
-    cors: '*',
+    csrf: ["https://sarangsayang.up.railway.app"],
+    cors: "*",
     plugins: [
         (0, plugin_cloud_storage_1.cloudStorage)({
             collections: {
-                'media': {
-                    adapter: adapter
-                }
-            }
-        })
-    ]
+                media: {
+                    adapter: adapter,
+                },
+            },
+        }),
+    ],
 });

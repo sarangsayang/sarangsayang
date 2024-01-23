@@ -1,31 +1,57 @@
-'use client'
+"use client";
 
-import EnquiriesTrigger from './EnquiriesTrigger'
-import EnquiriesDataPull from './EnquiriesDataPull'
-import { trpc } from '@/trpc/client'
-import { SheetContent, SheetTrigger } from './ui/sheet'
-
+import EnquiriesTrigger from "./EnquiriesTrigger";
+import EnquiriesDataPull from "./EnquiriesDataPull";
+import { trpc } from "@/trpc/client";
+import { SheetContent, SheetTrigger } from "./ui/sheet";
+import { Chat } from "@/payload-types";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 interface EnquiriesContentContProps {
-    vendorId: string, 
-    role: string
+  vendorId: string;
+  role: string;
 }
 
-const EnquiriesContentCont = ({vendorId, role}: EnquiriesContentContProps) => {
-    const leads = trpc.getLeads.useQuery({
-        vendorId: vendorId
-    })
+const EnquiriesContentCont = ({
+  vendorId,
+  role,
+}: EnquiriesContentContProps) => {
+  const vendorChats = trpc.getVendorChats.useQuery({
+    vendorId: vendorId,
+  });
+
+  const results = vendorChats.data?.docs as Chat[];
+
+  const allUnread = trpc.getAllUnread.useQuery({
+    vendorId: vendorId,
+  });
+
+  const unread = allUnread.data || 0;
 
   return (
     <>
-        <SheetTrigger className='group -m-2 flex items-center p-2'>
-            {leads && leads.data ? <EnquiriesTrigger leads={leads.data.docs} itemCount={leads.data.docs.length}/> : null}
-        </SheetTrigger>
-        <SheetContent className='flex w-full flex-col pr-0 sm:max-w-lg'>
-            {leads && leads.data ? <EnquiriesDataPull leads={leads.data.docs} itemCount={leads.data.docs.length} role={role}/> : null}
-        </SheetContent>
+      <SheetTrigger className="group -m-2 flex items-center p-2">
+        {results ? (
+          <EnquiriesTrigger itemCount={results.length} unread={unread} />
+        ) : null}
+      </SheetTrigger>
+      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg">
+        {results ? (
+          <EnquiriesDataPull
+            chats={results}
+            itemCount={results.length}
+            role={role}
+          />
+        ) : null}
+        {role === "vendor" ? (
+          <Button asChild className="bg-yellow-500 hover:bg-yellow-600">
+            <Link href="/status">Upgrade</Link>
+          </Button>
+        ) : null}
+      </SheetContent>
     </>
-  )
-}
+  );
+};
 
-export default EnquiriesContentCont
+export default EnquiriesContentCont;
