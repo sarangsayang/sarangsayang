@@ -15,23 +15,25 @@ import { categories } from "@/app/data/data";
 import Featured11Pull from "./Featured11Pull";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 
-const Featured11 = () => {
+interface Featured11Props {
+  user?: string;
+}
+
+const Featured11 = ({ user }: Featured11Props) => {
   return (
     <section className="pt-12">
-      <MaxWidthWrapper>
-        <div className="md:flex md:items-center md:justify-between mb-4">
-          <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
-            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-              Featured Vendors
-            </h1>
-          </div>
+      <div className="md:flex md:items-center md:justify-between mb-4">
+        <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+            Featured Vendors
+          </h1>
         </div>
-      </MaxWidthWrapper>
+      </div>
 
       <Carousel
         plugins={[
           Autoplay({
-            delay: 5000,
+            delay: 3000,
           }),
         ]}
       >
@@ -41,6 +43,7 @@ const Featured11 = () => {
               label={category.label}
               category={category.value}
               key={category.value}
+              user={user}
             />
           ))}
           {/* <CarouselItem className="flex items-center justify-center p-6">
@@ -250,10 +253,8 @@ const Featured11 = () => {
             </div>
           </CarouselItem> */}
         </CarouselContent>
-        {/* <MaxWidthWrapper>
-          <CarouselPrevious className="hidden md:grid" />
-          <CarouselNext className="hidden md:grid" />
-        </MaxWidthWrapper> */}
+        <CarouselPrevious className="hidden md:grid" />
+        <CarouselNext className="hidden md:grid" />
       </Carousel>
     </section>
   );

@@ -40,10 +40,8 @@ export default async function Home() {
             )}
           </div>
         </div>
-      </MaxWidthWrapper>
-      <Featured11 />
-      <HomepageAds />
-      <MaxWidthWrapper>
+        <Featured11 user={user?.id} />
+        <HomepageAds />
         <ProductReel user={user?.id} title="Brand New" query={{ limit: 4 }} />
       </MaxWidthWrapper>
 
