@@ -212,7 +212,7 @@ export const appRouter = router({
           },
         },
         pagination: false,
-        sort: "-createdAt",
+        sort: "createdAt",
       });
     }),
 

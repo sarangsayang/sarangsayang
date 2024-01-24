@@ -338,7 +338,7 @@ exports.appRouter = (0, trpc_1.router)({
                                     },
                                 },
                                 pagination: false,
-                                sort: "-createdAt",
+                                sort: "createdAt",
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }

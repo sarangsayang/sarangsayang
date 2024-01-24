@@ -3,7 +3,7 @@
 import { User } from "@/payload-types";
 import { Sheet } from "./ui/sheet";
 import { trpc } from "@/trpc/client";
-import { Loader } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import EnquiriesContentCont from "./EnquiriesContentCont";
 
 const Enquiries = ({ user }: { user: User }) => {
@@ -16,7 +16,7 @@ const Enquiries = ({ user }: { user: User }) => {
       {vendor ? (
         <EnquiriesContentCont vendorId={vendor.docs[0].id} role={user.role} />
       ) : (
-        <Loader className="animate-spin" />
+        <Loader2 className="animate-spin text-blue-400" />
       )}
     </Sheet>
   );

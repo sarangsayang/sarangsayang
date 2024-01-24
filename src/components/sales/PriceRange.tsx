@@ -28,7 +28,7 @@ interface PriceObject {
   monthly5: number;
 }
 
-const PriceRange = async ({
+const PriceRange = ({
   userRole,
   userId,
   portal,
@@ -47,15 +47,15 @@ const PriceRange = async ({
     if (category === "venues") {
       return price.monthly;
     } else if (category === "agents") {
-      return price.monthly;
+      return price.monthly5;
     } else if (category === "bridals") {
-      return price.monthly;
+      return price.monthly5;
     } else if (category === "photovideo") {
-      return price.monthly;
+      return price.monthly5;
     } else if (category === "catering") {
-      return price.monthly;
+      return price.monthly5;
     } else if (category === "decor") {
-      return price.monthly;
+      return price.monthly5;
     } else if (category === "henna") {
       return price.monthly5;
     } else if (category === "mua") {
@@ -66,34 +66,6 @@ const PriceRange = async ({
       return price.monthly5;
     } else if (category === "misc") {
       return price.monthly5;
-    }
-  }
-
-  function handleValidUpgrade(category: string) {
-    if (category === "venues") {
-      return "prod_PISZQFLWCfyPBj";
-    } else if (category === "agents") {
-      return "prod_PISZQFLWCfyPBj";
-    } else if (category === "bridals") {
-      return "prod_PISZQFLWCfyPBj";
-    } else if (category === "photovideo") {
-      return "prod_PISZQFLWCfyPBj";
-    } else if (category === "catering") {
-      return "prod_PISZQFLWCfyPBj";
-    } else if (category === "decor") {
-      return "prod_PISZQFLWCfyPBj";
-    } else if (category === "henna") {
-      return "prod_PKI6iJA0CtxBZT";
-    } else if (category === "mua") {
-      return "prod_PKI6iJA0CtxBZT";
-    } else if (category === "emcees") {
-      return "prod_PKI6iJA0CtxBZT";
-    } else if (category === "honeymoon") {
-      return "prod_PKI6iJA0CtxBZT";
-    } else if (category === "misc") {
-      return "prod_PKI6iJA0CtxBZT";
-    } else {
-      return "prod_PISZQFLWCfyPBj";
     }
   }
 

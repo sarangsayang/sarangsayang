@@ -43,7 +43,7 @@ const VendorChat = ({ chat, user }: DirectChatProps) => {
           }
         >
           <MessageCircle className="mr-2 h-4 w-4" />{" "}
-          {results + " unread messages"}
+          {results + " Unread Messages"}
         </Button>
       </DrawerTrigger>
       <DrawerContent className="py-2">

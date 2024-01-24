@@ -7,6 +7,7 @@ import { SheetContent, SheetTrigger } from "./ui/sheet";
 import { Chat } from "@/payload-types";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 interface EnquiriesContentContProps {
   vendorId: string;
@@ -31,10 +32,12 @@ const EnquiriesContentCont = ({
 
   return (
     <>
-      <SheetTrigger className="group -m-2 flex items-center p-2">
+      <SheetTrigger className="group flex items-center">
         {results ? (
-          <EnquiriesTrigger itemCount={results.length} unread={unread} />
-        ) : null}
+          <EnquiriesTrigger unread={unread} />
+        ) : (
+          <Loader2 className="animate-spin text-blue-400" />
+        )}
       </SheetTrigger>
       <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg">
         {results ? (

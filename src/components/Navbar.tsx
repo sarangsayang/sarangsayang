@@ -104,7 +104,7 @@ const Navbar = async () => {
                   {user ? (
                     <Likes user={user} />
                   ) : (
-                    <div className="ml-4 flow-root lg:ml-6">
+                    <div className="flow-root lg:ml-6">
                       <BookHeart
                         aria-hidden="true"
                         className="h-6 w-6 flex-shrink-0 text-gray-400"
@@ -132,7 +132,7 @@ const Navbar = async () => {
                   {user ? (
                     <Chats user={user} />
                   ) : (
-                    <div className="ml-4 flow-root lg:ml-6">
+                    <div className="flow-root lg:ml-6">
                       <MessageCircle
                         aria-hidden="true"
                         className="h-6 w-6 flex-shrink-0 text-gray-400"

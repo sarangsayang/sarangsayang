@@ -31,7 +31,7 @@ const Chats = ({ user }: { user: User }) => {
   const unread = allUnread.data;
   return (
     <Sheet>
-      <SheetTrigger className="group -m-2 flex items-center p-2">
+      <SheetTrigger className="group flex items-center">
         <MessageCircle
           aria-hidden="true"
           className={cn(

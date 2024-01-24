@@ -55,7 +55,7 @@ const ChatItem = ({ chat, vendor, user }: ChatItemProps) => {
             user={user}
             // @ts-ignore
             image={vendor.images[0].image.url}
-            label={results + " unread messages"}
+            label={results + " Unread Messages"}
             unread={results}
           />
         </div>

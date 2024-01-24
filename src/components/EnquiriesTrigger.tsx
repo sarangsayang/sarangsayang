@@ -6,25 +6,19 @@ import { Chat } from "@/payload-types";
 
 interface EnquiriesTriggerProps {
   unread: number;
-  itemCount: number;
 }
 
-const EnquiriesTrigger = ({ unread, itemCount }: EnquiriesTriggerProps) => {
-  const numberColor =
+const EnquiriesTrigger = ({ unread }: EnquiriesTriggerProps) => {
+  const iconColor =
     unread > 0
       ? "text-rose-500 group-hover:text-rose-600"
-      : "text-gray-700 group-hover:text-gray-800";
+      : "text-blue-400 group-hover:text-blue-500";
 
   return (
-    <>
-      <FolderSearch
-        aria-hidden="true"
-        className="h-6 w-6 flex-shrink-0 text-blue-400 group-hover:text-blue-500"
-      />
-      <span className={cn("ml-2 text-sm font-medium", numberColor)}>
-        {itemCount}
-      </span>
-    </>
+    <FolderSearch
+      aria-hidden="true"
+      className={cn("h-6 w-6 flex-shrink-0", iconColor)}
+    />
   );
 };
 

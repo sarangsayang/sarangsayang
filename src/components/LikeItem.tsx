@@ -4,6 +4,7 @@ import { trpc } from "@/trpc/client";
 import { ImageIcon, Loader, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { Skeleton } from "./ui/skeleton";
 
 interface LikeItemProps {
   vendorId: string;
@@ -18,7 +19,29 @@ const LikeItem = ({ vendorId, likeId }: LikeItemProps) => {
   const removeLike = trpc.removeLike.useMutation();
 
   if (vendor.status === "loading") {
-    return <Loader className="animate-spin" />;
+    return (
+      <div className="space-y-3 py-2">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center space-x-4">
+            <div className="relative aspect-square h-16 w-16 min-w-fit overflow-hidden rounded">
+              <Skeleton className="h-40 w-40" />
+            </div>
+            <div className="flex flex-col self-start">
+              <span className="line-clamp-1 text-sm font-medium mb-1">
+                <Skeleton className="h-4 w-[200px]" />
+              </span>
+
+              <span className="line-clamp-1 text-xs capitalize text-muted-foreground">
+                <Skeleton className="h-4 w-[100px]" />
+              </span>
+            </div>
+          </div>
+          <div className="text-xs text-muted-foreground">
+            <Skeleton className="h-4 w-[50px]" />
+          </div>
+        </div>
+      </div>
+    );
   } else if (vendor.status === "success") {
     const validVendor = vendor.data.docs[0] as Vendor;
 
@@ -34,12 +57,14 @@ const LikeItem = ({ vendorId, likeId }: LikeItemProps) => {
               {validVendor.images &&
               typeof validVendor.images[0].image !== "string" &&
               validVendor.images[0].image.url ? (
-                <Image
-                  src={validVendor.images[0].image.url}
-                  alt={validVendor.name}
-                  fill
-                  className="absolute object-cover"
-                />
+                <Link href={`/vendor/${validVendor.id}`}>
+                  <Image
+                    src={validVendor.images[0].image.url}
+                    alt={validVendor.name}
+                    fill
+                    className="absolute object-cover"
+                  />
+                </Link>
               ) : (
                 <div className="flex h-full items-center justify-center bg-secondary">
                   <ImageIcon
@@ -51,7 +76,7 @@ const LikeItem = ({ vendorId, likeId }: LikeItemProps) => {
             </div>
             <div className="flex flex-col self-start">
               <Link href={`/vendor/${validVendor.id}`}>
-                <span className="line-clamp-1 text-sm font-medium mb-1">
+                <span className="line-clamp-1 text-sm font-medium mb-1 hover:underline">
                   {validVendor.name}
                 </span>
               </Link>

@@ -46,46 +46,46 @@ var headers_1 = require("next/headers");
 var payload_utils_1 = require("../lib/payload-utils");
 var get_payload_1 = require("../get-payload");
 function handleValidUpgradeMonthly(category) {
-    if (category === 'venues') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR';
+    if (category === "venues") {
+        return "price_1OTreDJFw5rSN4LFVAgBRlGR";
     }
-    else if (category === 'agents') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR';
+    else if (category === "agents") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'bridals') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR';
+    else if (category === "bridals") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'photovideo') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR';
+    else if (category === "photovideo") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'catering') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR';
+    else if (category === "catering") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'decor') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR';
+    else if (category === "decor") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'henna') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK';
+    else if (category === "henna") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'mua') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK';
+    else if (category === "mua") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'emcees') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK';
+    else if (category === "emcees") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'honeymoon') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK';
+    else if (category === "honeymoon") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
-    else if (category === 'misc') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK';
+    else if (category === "misc") {
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
     else {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR';
+        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
     }
 }
-exports.stripe = new stripe_1.default((_a = process.env.STRIPE_SECRET_KEY) !== null && _a !== void 0 ? _a : '', {
-    apiVersion: '2023-10-16',
-    typescript: true
+exports.stripe = new stripe_1.default((_a = process.env.STRIPE_SECRET_KEY) !== null && _a !== void 0 ? _a : "", {
+    apiVersion: "2023-10-16",
+    typescript: true,
 });
 function hasSubscription() {
     return __awaiter(this, void 0, void 0, function () {
@@ -102,21 +102,21 @@ function hasSubscription() {
                     payload = _a.sent();
                     if (!user) return [3 /*break*/, 8];
                     return [4 /*yield*/, exports.stripe.subscriptions.list({
-                            customer: String(user === null || user === void 0 ? void 0 : user.stripe_customer_id)
+                            customer: String(user === null || user === void 0 ? void 0 : user.stripe_customer_id),
                         })];
                 case 3:
                     subscriptions = _a.sent();
-                    if (!(subscriptions.data.length > 0 && user.role === 'vendor')) return [3 /*break*/, 5];
+                    if (!(subscriptions.data.length > 0 && user.role === "vendor")) return [3 /*break*/, 5];
                     return [4 /*yield*/, payload.update({
-                            collection: 'users',
+                            collection: "users",
                             data: {
-                                role: 'supervendor'
+                                role: "supervendor",
                             },
                             where: {
                                 id: {
                                     equals: user.id,
-                                }
-                            }
+                                },
+                            },
                         })];
                 case 4:
                     _a.sent();
@@ -124,15 +124,15 @@ function hasSubscription() {
                 case 5:
                     if (!(subscriptions.data.length === 0)) return [3 /*break*/, 7];
                     return [4 /*yield*/, payload.update({
-                            collection: 'users',
+                            collection: "users",
                             data: {
-                                role: 'vendor'
+                                role: "vendor",
                             },
                             where: {
                                 id: {
                                     equals: user.id,
-                                }
-                            }
+                                },
+                            },
                         })];
                 case 6:
                     _a.sent();
@@ -154,34 +154,30 @@ function createCheckoutLink(userId) {
                     return [4 /*yield*/, (0, payload_utils_1.getServerSideUser)(nextCookies)];
                 case 1:
                     user = (_a.sent()).user;
-                    return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()
-                        //Find user category
-                    ];
+                    return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                 case 2:
                     payload = _a.sent();
                     return [4 /*yield*/, payload.find({
-                            collection: 'vendors',
+                            collection: "vendors",
                             where: {
-                                venduserid: userId
-                            }
-                        })
-                        //checkout url
-                    ];
+                                venduserid: userId,
+                            },
+                        })];
                 case 3:
                     vendor = _a.sent();
                     if (!(user === null || user === void 0 ? void 0 : user.stripe_customer_id)) return [3 /*break*/, 5];
                     return [4 /*yield*/, exports.stripe.checkout.sessions.create({
                             success_url: "".concat(process.env.NEXT_PUBLIC_SERVER_URL, "/status"),
                             cancel_url: "".concat(process.env.NEXT_PUBLIC_SERVER_URL, "/status"),
-                            payment_method_types: ['card'],
+                            payment_method_types: ["card"],
                             customer: user.stripe_customer_id,
                             line_items: [
                                 {
                                     price: handleValidUpgradeMonthly(vendor.category),
-                                    quantity: 1
-                                }
+                                    quantity: 1,
+                                },
                             ],
-                            mode: "subscription"
+                            mode: "subscription",
                         })];
                 case 4:
                     checkout = _a.sent();
@@ -232,26 +228,26 @@ function createCustomerIfNull() {
                     payload = _a.sent();
                     if (!!(user === null || user === void 0 ? void 0 : user.stripe_customer_id)) return [3 /*break*/, 6];
                     return [4 /*yield*/, exports.stripe.customers.create({
-                            email: user === null || user === void 0 ? void 0 : user.email
+                            email: user === null || user === void 0 ? void 0 : user.email,
                         })];
                 case 3:
                     customer = _a.sent();
                     return [4 /*yield*/, payload.update({
-                            collection: 'users',
+                            collection: "users",
                             where: {
-                                id: { equals: user === null || user === void 0 ? void 0 : user.id }
+                                id: { equals: user === null || user === void 0 ? void 0 : user.id },
                             },
                             data: {
-                                stripe_customer_id: customer.id
-                            }
+                                stripe_customer_id: customer.id,
+                            },
                         })];
                 case 4:
                     _a.sent();
                     return [4 /*yield*/, payload.find({
-                            collection: 'users',
+                            collection: "users",
                             where: {
-                                email: user === null || user === void 0 ? void 0 : user.email
-                            }
+                                email: user === null || user === void 0 ? void 0 : user.email,
+                            },
                         })];
                 case 5:
                     validUser = _a.sent();

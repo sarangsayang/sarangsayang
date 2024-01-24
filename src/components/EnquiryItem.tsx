@@ -27,7 +27,7 @@ const EnquiryItem = ({ chat }: ChatItemProps) => {
         <div>
           <Button disabled className="bg-slate-500">
             <MessageCircle className="mr-2 h-4 w-4" />{" "}
-            {results + " unread messages"}
+            {results + " Unread Messages"}
           </Button>
         </div>
       </div>

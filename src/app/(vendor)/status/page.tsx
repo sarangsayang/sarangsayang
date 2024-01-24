@@ -36,18 +36,8 @@ export default async function Status() {
       };
     } else if (role === "supervendor") {
       return {
-        label: "Standard Supervendor",
+        label: "Supervendor",
         desc: `Congrats! You'll maintain being a Supervendor till your subscription ends`,
-      };
-    } else if (role === "platinum") {
-      return {
-        label: "Platinum Supervendor",
-        desc: `Fantastic!`,
-      };
-    } else if (role === "elite") {
-      return {
-        label: "Elite Supervendor",
-        desc: `Wow.. Awesome!`,
       };
     }
   }

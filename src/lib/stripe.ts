@@ -1,173 +1,164 @@
-import Stripe from 'stripe'
+import Stripe from "stripe";
 
-import { cookies } from "next/headers"
-import { getServerSideUser } from '../lib/payload-utils'
-import { getPayloadClient } from '../get-payload'
+import { cookies } from "next/headers";
+import { getServerSideUser } from "../lib/payload-utils";
+import { getPayloadClient } from "../get-payload";
 
 function handleValidUpgradeMonthly(category: string) {
-    if (category === 'venues') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR'
-    } else if (category === 'agents') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR'
-    } else if (category === 'bridals') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR'
-    } else if (category === 'photovideo') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR'
-    } else if (category === 'catering') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR'
-    } else if (category === 'decor') {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR'
-    } else if (category === 'henna') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK'
-    } else if (category === 'mua') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK'
-    } else if (category === 'emcees') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK'
-    } else if (category === 'honeymoon') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK'
-    } else if (category === 'misc') {
-        return 'price_1OVdWBJFw5rSN4LFaih3rPRK'
-    } else {
-        return 'price_1OTreDJFw5rSN4LFVAgBRlGR'
-    }
+  if (category === "venues") {
+    return "price_1OTreDJFw5rSN4LFVAgBRlGR";
+  } else if (category === "agents") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "bridals") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "photovideo") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "catering") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "decor") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "henna") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "mua") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "emcees") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "honeymoon") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else if (category === "misc") {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  } else {
+    return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+  }
 }
 
-export const stripe = new Stripe(
-    process.env.STRIPE_SECRET_KEY ?? '',
-    {
-        apiVersion: '2023-10-16',
-        typescript: true
-    }
-)
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
+  apiVersion: "2023-10-16",
+  typescript: true,
+});
 
 export async function hasSubscription() {
-    const nextCookies = cookies()
-    const { user } = await getServerSideUser(nextCookies)
-    const payload = await getPayloadClient()
+  const nextCookies = cookies();
+  const { user } = await getServerSideUser(nextCookies);
+  const payload = await getPayloadClient();
 
-    if (user) {
-        const subscriptions = await stripe.subscriptions.list({
-            customer: String(user?.stripe_customer_id)
-        })
+  if (user) {
+    const subscriptions = await stripe.subscriptions.list({
+      customer: String(user?.stripe_customer_id),
+    });
 
-        if (subscriptions.data.length > 0 && user.role === 'vendor') {
-            await payload.update({
-                collection: 'users',
-                data: {
-                    role: 'supervendor'
-                },
-                where: {
-                    id: {
-                      equals: user.id,
-                    }
-                }
-            })
-        }
-
-        if (subscriptions.data.length === 0) {
-            await payload.update({
-                collection: 'users',
-                data: {
-                    role: 'vendor'
-                },
-                where: {
-                    id: {
-                      equals: user.id,
-                    }
-                }
-            })
-        }
-
-        return subscriptions.data.length > 0;
-
+    if (subscriptions.data.length > 0 && user.role === "vendor") {
+      await payload.update({
+        collection: "users",
+        data: {
+          role: "supervendor",
+        },
+        where: {
+          id: {
+            equals: user.id,
+          },
+        },
+      });
     }
 
-    return false
+    if (subscriptions.data.length === 0) {
+      await payload.update({
+        collection: "users",
+        data: {
+          role: "vendor",
+        },
+        where: {
+          id: {
+            equals: user.id,
+          },
+        },
+      });
+    }
+
+    return subscriptions.data.length > 0;
+  }
+
+  return false;
 }
 
-
 export async function createCheckoutLink(userId: string) {
-    const nextCookies = cookies()
-    const { user } = await getServerSideUser(nextCookies)
-    
-    const payload = await getPayloadClient()
+  const nextCookies = cookies();
+  const { user } = await getServerSideUser(nextCookies);
 
-    //Find user category
-    const vendor = await payload.find({
-        collection: 'vendors',
-        where: {
-            venduserid: userId
-        }
-    })
+  const payload = await getPayloadClient();
 
-    //checkout url
-    if (user?.stripe_customer_id) {
-        const checkout = await stripe.checkout.sessions.create({
-            success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/status`,
-            cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/status`,
-            payment_method_types: ['card'],
-            customer: user.stripe_customer_id,
-            line_items: [
-                {
-                    price: handleValidUpgradeMonthly(vendor.category),
-                    quantity: 1
-                }
-            ],
-            mode: "subscription"
-        })
+  //Find user category
+  const vendor = await payload.find({
+    collection: "vendors",
+    where: {
+      venduserid: userId,
+    },
+  });
 
-        return checkout.url;
-    }
+  //checkout url
+  if (user?.stripe_customer_id) {
+    const checkout = await stripe.checkout.sessions.create({
+      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/status`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/status`,
+      payment_method_types: ["card"],
+      customer: user.stripe_customer_id,
+      line_items: [
+        {
+          price: handleValidUpgradeMonthly(vendor.category),
+          quantity: 1,
+        },
+      ],
+      mode: "subscription",
+    });
 
-
+    return checkout.url;
+  }
 }
 
 export async function generateCustomerPortalLink(customerId: string) {
-    try {
-        
-        const portalSession = await stripe.billingPortal.sessions.create({
-            customer: customerId,
-            return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/status`, 
-        });
+  try {
+    const portalSession = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/status`,
+    });
 
-        console.log()
+    console.log();
 
-        return portalSession.url;
-    } catch (error) {
-        console.log(error)
-        return undefined;
-    }
+    return portalSession.url;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
 }
 
 export async function createCustomerIfNull() {
-    const nextCookies = cookies()
-    const { user } = await getServerSideUser(nextCookies)
+  const nextCookies = cookies();
+  const { user } = await getServerSideUser(nextCookies);
 
-    const payload = await getPayloadClient()
+  const payload = await getPayloadClient();
 
-    if (!user?.stripe_customer_id) {
-        const customer = await stripe.customers.create({
-            email: user?.email
-        })
+  if (!user?.stripe_customer_id) {
+    const customer = await stripe.customers.create({
+      email: user?.email,
+    });
 
-        await payload.update({
-            collection: 'users',
-            where: {
-                id: {equals: user?.id}
-            },
-            data: {
-                stripe_customer_id: customer.id
-            }
-        })
+    await payload.update({
+      collection: "users",
+      where: {
+        id: { equals: user?.id },
+      },
+      data: {
+        stripe_customer_id: customer.id,
+      },
+    });
 
-        const validUser = await payload.find({
-            collection: 'users',
-            where: {
-                email: user?.email
-            }
-        })
+    const validUser = await payload.find({
+      collection: "users",
+      where: {
+        email: user?.email,
+      },
+    });
 
-        return validUser?.stripe_customer_id
-    }
-
+    return validUser?.stripe_customer_id;
+  }
 }

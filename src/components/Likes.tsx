@@ -27,22 +27,13 @@ const Likes = ({ user }: { user: User }) => {
 
   const itemCount = likes.length;
 
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   return (
     <Sheet>
-      <SheetTrigger className="group -m-2 flex items-center p-2">
+      <SheetTrigger className="group flex items-center">
         <BookHeart
           aria-hidden="true"
           className="h-6 w-6 flex-shrink-0 text-blue-400 group-hover:text-blue-500"
         />
-        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-          {isMounted ? itemCount : 0}
-        </span>
       </SheetTrigger>
       <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg">
         <SheetHeader className="space-y-2.5 pr-6">

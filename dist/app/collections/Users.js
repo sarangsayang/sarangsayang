@@ -88,8 +88,6 @@ exports.Users = {
                 { label: "User", value: "user" },
                 { label: "Vendor", value: "vendor" },
                 { label: "Standard Supervendor", value: "supervendor" },
-                { label: "Platinum Supervendor", value: "platinum" },
-                { label: "Elite Supervendor", value: "elite" },
             ],
         },
     ],
