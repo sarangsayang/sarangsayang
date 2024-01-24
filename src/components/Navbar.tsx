@@ -112,7 +112,7 @@ const Navbar = async () => {
                     </div>
                   )}
 
-                  {user && user?.role !== "user" ? (
+                  {user && user?.role !== "user" && user.role !== "admin" ? (
                     <div className="flex lg:ml-6">
                       <span
                         className="h-6 w-px bg-gray-200"
