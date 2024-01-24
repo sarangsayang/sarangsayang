@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Leads = void 0;
 exports.Leads = {
-    slug: 'leads',
+    slug: "leads",
     admin: {
         hidden: function (_a) {
             var user = _a.user;
-            return user.role !== 'admin';
-        }
+            return user.role !== "admin";
+        },
     },
     access: {
         read: function () { return true; },
@@ -16,73 +16,80 @@ exports.Leads = {
     },
     fields: [
         {
-            name: 'vendor',
-            type: 'relationship',
-            relationTo: 'vendors',
+            name: "vendor",
+            type: "relationship",
+            relationTo: "vendors",
             required: true,
             hasMany: false,
         },
         {
-            name: 'name',
-            label: 'Name',
-            type: 'text',
+            name: "name",
+            label: "Name",
+            type: "text",
             required: true,
         },
         {
-            name: 'email',
-            label: 'Email',
-            type: 'text',
+            name: "email",
+            label: "Email",
+            type: "text",
             required: true,
         },
         {
-            name: 'contact',
-            label: 'Contact',
-            type: 'text',
+            name: "contact",
+            label: "Contact",
+            type: "text",
             required: true,
         },
         {
-            name: 'message',
-            label: 'Message',
-            type: 'textarea',
+            name: "message",
+            label: "Message",
+            type: "textarea",
             required: false,
         },
         {
-            name: 'source',
-            label: 'Source',
-            type: 'text',
+            name: "source",
+            label: "Source",
+            type: "text",
             required: true,
         },
         {
-            name: 'status',
-            label: 'Status',
-            type: 'select',
-            required: true,
-            options: [
-                { label: 'Not Contacted', value: 'not contacted' },
-                { label: 'Warm', value: 'warm' },
-                { label: 'Hot', value: 'hot' },
-                { label: 'Cold', value: 'cold' },
-                { label: 'Lead Not Responding', value: 'lnr' },
-                { label: 'Not Interested', value: 'not interested' },
-                { label: 'Contract Signed (Closed)', value: 'contract signed' }
-            ]
-        },
-        {
-            name: 'priority',
-            label: 'Priority',
-            type: 'select',
+            name: "status",
+            label: "Status",
+            type: "select",
             required: true,
             options: [
-                { label: 'Low', value: 'low' },
-                { label: 'Medium', value: 'medium' },
-                { label: 'High', value: 'high' }
-            ]
+                { label: "Not Contacted", value: "not contacted" },
+                { label: "Warm", value: "warm" },
+                { label: "Hot", value: "hot" },
+                { label: "Cold", value: "cold" },
+                { label: "Lead Not Responding", value: "lnr" },
+                { label: "Not Interested", value: "not interested" },
+                { label: "Contract Signed (Closed)", value: "contract signed" },
+            ],
         },
         {
-            name: 'remarks',
-            label: 'Remarks',
-            type: 'textarea',
+            name: "priority",
+            label: "Priority",
+            type: "select",
+            required: true,
+            options: [
+                { label: "Low", value: "low" },
+                { label: "Medium", value: "medium" },
+                { label: "High", value: "high" },
+            ],
+        },
+        {
+            name: "remarks",
+            label: "Remarks",
+            type: "textarea",
             required: false,
-        }
-    ]
+        },
+        {
+            name: "chat",
+            type: "relationship",
+            relationTo: "chats",
+            required: false,
+            hasMany: false,
+        },
+    ],
 };

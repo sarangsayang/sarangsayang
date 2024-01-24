@@ -3,8 +3,6 @@
 import { Chat, User } from "@/payload-types";
 import React from "react";
 import { Label } from "./ui/label";
-import { Button } from "./ui/button";
-import { MessageCircle } from "lucide-react";
 import { trpc } from "@/trpc/client";
 import VendorChat from "./chat/VendorChat";
 
@@ -20,17 +18,21 @@ const EnquiryItemSupervendor = ({ chat, user }: ChatItemProps) => {
 
   const results = unread.data;
   return (
-    <div className="space-y-3 py-2">
-      <div className="w-full flex flex-row items-end justify-between">
-        <div>
-          <Label>Email</Label>
-          <h1>{user.email}</h1>
+    <>
+      {results ? (
+        <div className="space-y-3 py-2">
+          <div className="w-full flex flex-row items-end justify-between">
+            <div>
+              <Label>Email</Label>
+              <h1>{user.email}</h1>
+            </div>
+            <div>
+              <VendorChat chat={chat} user={user} />
+            </div>
+          </div>
         </div>
-        <div>
-          <VendorChat chat={chat} user={user} />
-        </div>
-      </div>
-    </div>
+      ) : null}
+    </>
   );
 };
 

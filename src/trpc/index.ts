@@ -255,6 +255,34 @@ export const appRouter = router({
           vendor: input.vendorId,
         },
       });
+
+      const getChat = await payload.find({
+        collection: "chats",
+        where: {
+          user: {
+            equals: input.userId,
+          },
+          vendor: {
+            equals: input.vendorId,
+          },
+        },
+      });
+
+      await payload.create({
+        collection: "leads",
+        data: {
+          name: "-",
+          email: getChat.docs[0].user.email,
+          contact: "-",
+          message: "-",
+          source: "Sarang Sayang",
+          status: "not contacted",
+          priority: "high",
+          remarks: "-",
+          vendor: input.vendorId,
+          chat: getChat.docs[0].id,
+        },
+      });
     }),
 
   getAllChats: publicProcedure

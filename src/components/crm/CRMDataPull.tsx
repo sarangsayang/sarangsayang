@@ -1,130 +1,181 @@
-import { trpc } from "@/trpc/client"
-import { TableCell, TableRow } from "../ui/table"
-import { Button } from "../ui/button"
-import { Delete, Loader } from "lucide-react"
-import { priorities, statuses } from "@/app/data/data"
-import { Sheet, SheetContent } from "../ui/sheet"
-import { useState } from "react"
-import CRMEditLead from "./CRMEditLead"
-import { Skeleton } from "../ui/skeleton"
+import { trpc } from "@/trpc/client";
+import { TableCell, TableRow } from "../ui/table";
+import { Delete, Loader } from "lucide-react";
+import { priorities, statuses } from "@/app/data/data";
+import { Sheet, SheetContent } from "../ui/sheet";
+import { useState } from "react";
+import CRMEditLead from "./CRMEditLead";
+import { Skeleton } from "../ui/skeleton";
+import { Lead } from "@/payload-types";
+import { format } from "date-fns";
 
 interface CRMDataPullProps {
-    vendorId: string
-    role: string
+  vendorId: string;
+  role: string;
 }
 
 function getLead(string: string) {
-    const getLead = trpc.getLead.useQuery({
-        id: string
-    })
+  const getLead = trpc.getLead.useQuery({
+    id: string,
+  });
 
-    if (getLead.status === 'loading') {
-        return <Loader className="animate-spin"/>
-    } else if (getLead.status === 'success' && getLead.data) {
-        return <CRMEditLead lead={getLead.data.docs[0]} />
-    }
+  if (getLead.status === "loading") {
+    return <Loader className="animate-spin" />;
+  } else if (getLead.status === "success" && getLead.data) {
+    return <CRMEditLead lead={getLead.data.docs[0]} />;
+  }
 }
 
-const CRMDataPull = ({vendorId, role}: CRMDataPullProps) => {
-    const getLeads = trpc.getLeads.useQuery({
-        vendorId: vendorId
-    })
+const CRMDataPull = ({ vendorId, role }: CRMDataPullProps) => {
+  const getLeads = trpc.getLeads.useQuery({
+    vendorId: vendorId,
+  });
 
-    const leads = getLeads.data?.docs
+  const leads = getLeads.data?.docs;
 
-    const removeLead = trpc.removeLead.useMutation()
+  const removeLead = trpc.removeLead.useMutation();
 
-    const statusAndIcon = (string: string) => {
-        const status = statuses.find(
-            (status) => status.value === string
-          )
-    
-          if (!status) {
-            return null
-          }
-    
-          return (
-            <div className="flex w-[100px] items-center gap-1">
-              {status.icon2}
-              <span>{status.label}</span>
-            </div>
-          )
+  const statusAndIcon = (string: string) => {
+    const status = statuses.find((status) => status.value === string);
+
+    if (!status) {
+      return null;
     }
 
-    const priorityAndIcon = (string: string) => {
-        const priority = priorities.find(
-            (priority) => priority.value === string
-          )
-    
-          if (!priority) {
-            return null
-          }
-    
-          return (
-            <div className="flex w-[100px] items-center gap-1">
-              {priority.icon2}
-              <span>{priority.label}</span>
-            </div>
-          )
+    return (
+      <div className="flex w-[100px] items-center gap-1">
+        {status.icon2}
+        <span>{status.label}</span>
+      </div>
+    );
+  };
+
+  const priorityAndIcon = (string: string) => {
+    const priority = priorities.find((priority) => priority.value === string);
+
+    if (!priority) {
+      return null;
     }
 
-    const [open, setOpen] = useState(false)
-    const [rowSelection, setRowSelection] = useState('')
+    return (
+      <div className="flex w-[100px] items-center gap-1">
+        {priority.icon2}
+        <span>{priority.label}</span>
+      </div>
+    );
+  };
 
-    function changeDateFormat(string: string) {
-        const dateString = string
-        const dateObject = dateString.substring(0,10)
-        return dateObject
-    }
+  const [open, setOpen] = useState(false);
+  const [rowSelection, setRowSelection] = useState("");
 
-    const isSuperVendor = role === 'supervendor'
+  function changeDateFormat(string: string) {
+    const dateString = string;
+    const dateObject = dateString.substring(0, 10);
+    return dateObject;
+  }
+
+  const isSuperVendor = role === "supervendor";
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-        {/* @ts-ignore */}
-        {leads?.map((lead) => (
-          lead.source === 'Sarang Sayang' && !isSuperVendor ? 
-            <TableRow key={lead.createdAt}>
-              <TableCell>{changeDateFormat(lead.createdAt)}</TableCell>
-              <TableCell><Skeleton className="w-[100px] h-[20px] rounded-full" /></TableCell>
-              <TableCell><Skeleton className="w-[100px] h-[20px] rounded-full" /></TableCell>
-              <TableCell><Skeleton className="w-[100px] h-[20px] rounded-full" /></TableCell>
-              <TableCell><Skeleton className="w-[100px] h-[20px] rounded-full" /></TableCell>
-              <TableCell>{lead.source}</TableCell>
-              <TableCell><Skeleton className="w-[100px] h-[20px] rounded-full" /></TableCell>
-              <TableCell><Skeleton className="w-[100px] h-[20px] rounded-full" /></TableCell>
-              <TableCell><Skeleton className="w-[100px] h-[20px] rounded-full" /></TableCell>
+      {/* @ts-ignore */}
+      {leads?.map((lead: Lead) =>
+        lead.source === "Sarang Sayang" ? (
+          isSuperVendor ? (
+            <TableRow
+              key={lead.createdAt}
+              className="cursor-pointer"
+              onClick={() => [
+                setOpen(true),
+                setRowSelection(""),
+                setRowSelection(lead.id),
+              ]}
+            >
+              <TableCell>{format(lead.createdAt, "dd/MM/yyyy")}</TableCell>
+              <TableCell>{lead.name}</TableCell>
+              <TableCell>{lead.email}</TableCell>
+              <TableCell>{lead.contact}</TableCell>
               <TableCell>
+                <p className="italic text-slate-500">Started Chat</p>
+              </TableCell>
+              <TableCell>{lead.source}</TableCell>
+              <TableCell>{statusAndIcon(lead.status)}</TableCell>
+              <TableCell>{priorityAndIcon(lead.priority)}</TableCell>
+              <TableCell>{lead.remarks}</TableCell>
+              <TableCell>
+                <Delete
+                  className="text-rose-400 hover:text-rose-300 cursor-pointer"
+                  onClick={() => {
+                    removeLead.mutate({
+                      leadId: lead.id,
+                    });
+                  }}
+                />
               </TableCell>
             </TableRow>
-           : 
-            <TableRow key={lead.createdAt} className="cursor-pointer" onClick={() => [setOpen(true), setRowSelection(''), setRowSelection(lead.id)]}>
-                <TableCell>{changeDateFormat(lead.createdAt)}</TableCell>
-                <TableCell>{lead.name}</TableCell>
-                <TableCell>{lead.email}</TableCell>
-                <TableCell>{lead.contact}</TableCell>
-                <TableCell>{lead.message}</TableCell>
-                <TableCell>{lead.source}</TableCell>
-                <TableCell>{statusAndIcon(lead.status)}</TableCell>
-                <TableCell>{priorityAndIcon(lead.priority)}</TableCell>
-                <TableCell>{lead.remarks}</TableCell>
-                <TableCell>
-                    <Button variant='ghost' onClick={() => {
-                        removeLead.mutate({
-                            leadId: lead.id
-                        })
-                    }}>
-                        <Delete className="text-rose-400"/>
-                    </Button>
-                </TableCell>
+          ) : (
+            <TableRow key={lead.createdAt}>
+              <TableCell>{format(lead.createdAt, "dd/MM/yyyy")}</TableCell>
+              <TableCell>
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+              </TableCell>
+              <TableCell>
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+              </TableCell>
+              <TableCell>
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+              </TableCell>
+              <TableCell>
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+              </TableCell>
+              <TableCell>{lead.source}</TableCell>
+              <TableCell>
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+              </TableCell>
+              <TableCell>
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+              </TableCell>
+              <TableCell>
+                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+              </TableCell>
+              <TableCell></TableCell>
             </TableRow>
-          
-        ))}
-        <SheetContent side={"bottom"}>
-            {getLead(rowSelection)}
-        </SheetContent>
+          )
+        ) : (
+          <TableRow
+            key={lead.createdAt}
+            className="cursor-pointer"
+            onClick={() => [
+              setOpen(true),
+              setRowSelection(""),
+              setRowSelection(lead.id),
+            ]}
+          >
+            <TableCell>{format(lead.createdAt, "dd/MM/yyyy")}</TableCell>
+            <TableCell>{lead.name}</TableCell>
+            <TableCell>{lead.email}</TableCell>
+            <TableCell>{lead.contact}</TableCell>
+            <TableCell>{lead.message}</TableCell>
+            <TableCell>{lead.source}</TableCell>
+            <TableCell>{statusAndIcon(lead.status)}</TableCell>
+            <TableCell>{priorityAndIcon(lead.priority)}</TableCell>
+            <TableCell>{lead.remarks}</TableCell>
+            <TableCell>
+              <Delete
+                className="text-rose-400 hover:text-rose-300 cursor-pointer"
+                onClick={() => {
+                  removeLead.mutate({
+                    leadId: lead.id,
+                  });
+                }}
+              />
+            </TableCell>
+          </TableRow>
+        )
+      )}
+      <SheetContent side={"bottom"}>{getLead(rowSelection)}</SheetContent>
     </Sheet>
-  )
-}
+  );
+};
 
-export default CRMDataPull
+export default CRMDataPull;

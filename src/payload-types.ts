@@ -166,6 +166,14 @@ export interface Lead {
   status: 'not contacted' | 'warm' | 'hot' | 'cold' | 'lnr' | 'not interested' | 'contract signed';
   priority: 'low' | 'medium' | 'high';
   remarks?: string | null;
+  chat?: (string | null) | Chat;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Chat {
+  id: string;
+  vendor: string | Vendor;
+  user: string | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -319,13 +327,6 @@ export interface Itinerary {
   event: string;
   involved: string;
   details: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Chat {
-  id: string;
-  vendor: string | Vendor;
-  user: string | User;
   updatedAt: string;
   createdAt: string;
 }

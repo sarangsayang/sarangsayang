@@ -384,7 +384,7 @@ exports.appRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload;
+            var payload, getChat;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -398,6 +398,36 @@ exports.appRouter = (0, trpc_1.router)({
                                 },
                             })];
                     case 2:
+                        _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    },
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                },
+                            })];
+                    case 3:
+                        getChat = _b.sent();
+                        return [4 /*yield*/, payload.create({
+                                collection: "leads",
+                                data: {
+                                    name: "-",
+                                    email: getChat.docs[0].user.email,
+                                    contact: "-",
+                                    message: "-",
+                                    source: "Sarang Sayang",
+                                    status: "not contacted",
+                                    priority: "high",
+                                    remarks: "-",
+                                    vendor: input.vendorId,
+                                    chat: getChat.docs[0].id,
+                                },
+                            })];
+                    case 4:
                         _b.sent();
                         return [2 /*return*/];
                 }
