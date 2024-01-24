@@ -39,7 +39,7 @@ const EnquiriesContentCont = ({
           <Loader2 className="animate-spin text-blue-400" />
         )}
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg">
+      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg bg-gradient-to-b from-cyan-100 bg-transparent">
         {results ? (
           <EnquiriesDataPull
             chats={results}
@@ -48,7 +48,10 @@ const EnquiriesContentCont = ({
           />
         ) : null}
         {role === "vendor" ? (
-          <Button asChild className="bg-yellow-500 hover:bg-yellow-600">
+          <Button
+            asChild
+            className="bg-yellow-300 hover:bg-yellow-400 text-black"
+          >
             <Link href="/status">Upgrade</Link>
           </Button>
         ) : null}
