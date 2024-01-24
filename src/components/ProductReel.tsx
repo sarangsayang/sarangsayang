@@ -211,11 +211,11 @@ const ProductReel = (props: ProductReelProps) => {
                   sendCTVEmail(ctvData);
                 }}
               >
-                <DialogHeader>
+                <DialogHeader className="mb-6">
                   <DialogTitle>Claim this vendor</DialogTitle>
                   <DialogDescription>
-                    Get access to valuable statistics and enquiries. Submit your
-                    vendor info and our team will contact you shortly.
+                    We&#39;re excited to have you on board. We&#39;ll email you
+                    soon!
                   </DialogDescription>
                 </DialogHeader>
                 <div className="flex items-center space-x-2 pb-4">
@@ -276,7 +276,7 @@ const ProductReel = (props: ProductReelProps) => {
                     </div>
                   </div>
                 </div>
-                <DialogFooter className="sm:justify-start">
+                <DialogFooter className="sm:justify-start mt-6">
                   <DialogClose asChild>
                     <Button type="submit" variant="secondary">
                       Submit
