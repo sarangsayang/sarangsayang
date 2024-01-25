@@ -201,6 +201,7 @@ export interface Plan {
   emcee?: (string | null) | Vendor;
   honeymoon?: (string | null) | Vendor;
   misc?: (string | null) | Vendor;
+  packages?: (string | Package)[] | null;
   updatedAt: string;
   createdAt: string;
 }

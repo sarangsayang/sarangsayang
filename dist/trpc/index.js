@@ -1210,6 +1210,95 @@ exports.appRouter = (0, trpc_1.router)({
             });
         });
     }),
+    planRemovePackage: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+        packageId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, plan, packages, packageIds, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "plans",
+                                where: {
+                                    id: { equals: input.id },
+                                },
+                            })];
+                    case 2:
+                        plan = _b.sent();
+                        packages = plan.docs[0].packages;
+                        packageIds = [];
+                        for (i = 0; i < packages.length; i++) {
+                            if (packages[i].id !== input.packageId) {
+                                packageIds.push(packages[i].id);
+                            }
+                        }
+                        return [4 /*yield*/, payload.update({
+                                collection: "plans",
+                                where: {
+                                    id: { equals: input.id },
+                                },
+                                data: {
+                                    packages: packageIds,
+                                },
+                            })];
+                    case 3:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    planAddPackage: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+        packageId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, plan, packages, packageIds, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "plans",
+                                where: {
+                                    id: { equals: input.id },
+                                },
+                            })];
+                    case 2:
+                        plan = _b.sent();
+                        packages = plan.docs[0].packages;
+                        packageIds = [];
+                        for (i = 0; i < packages.length; i++) {
+                            packageIds.push(packages[i].id);
+                        }
+                        packageIds.push(input.packageId);
+                        return [4 /*yield*/, payload.update({
+                                collection: "plans",
+                                where: {
+                                    id: { equals: input.id },
+                                },
+                                data: {
+                                    packages: packageIds,
+                                },
+                            })];
+                    case 3:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
     updatePlan: trpc_1.publicProcedure
         .input(zod_1.z.object({
         id: zod_1.z.string(),

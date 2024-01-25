@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Plans = void 0;
 exports.Plans = {
-    slug: 'plans',
+    slug: "plans",
     admin: {
         hidden: function (_a) {
             var user = _a.user;
-            return user.role !== 'admin';
-        }
+            return user.role !== "admin";
+        },
     },
     access: {
         read: function () { return true; },
@@ -16,117 +16,125 @@ exports.Plans = {
     },
     fields: [
         {
-            name: 'user',
-            type: 'relationship',
-            relationTo: 'users',
+            name: "user",
+            type: "relationship",
+            relationTo: "users",
             required: true,
             hasMany: true,
         },
         {
-            name: 'brideName',
-            label: 'Bride Name',
-            type: 'text',
+            name: "brideName",
+            label: "Bride Name",
+            type: "text",
             required: false,
         },
         {
-            name: 'groomName',
-            label: 'Groom Name',
-            type: 'text',
+            name: "groomName",
+            label: "Groom Name",
+            type: "text",
             required: false,
         },
         {
-            name: 'weddingDate',
-            label: 'Wedding Date',
-            type: 'date',
+            name: "weddingDate",
+            label: "Wedding Date",
+            type: "date",
             required: false,
         },
         {
-            name: 'venue',
-            label: 'Venue of Choice',
-            type: 'relationship',
+            name: "venue",
+            label: "Venue of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'agent',
-            label: 'Agent of Choice',
-            type: 'relationship',
+            name: "agent",
+            label: "Agent of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'bridal',
-            label: 'Bridal of Choice',
-            type: 'relationship',
+            name: "bridal",
+            label: "Bridal of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'photovideo',
-            label: 'PhotoVideo of Choice',
-            type: 'relationship',
+            name: "photovideo",
+            label: "PhotoVideo of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'catering',
-            label: 'Catering of Choice',
-            type: 'relationship',
+            name: "catering",
+            label: "Catering of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'decor',
-            label: 'Decor of Choice',
-            type: 'relationship',
+            name: "decor",
+            label: "Decor of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'henna',
-            label: 'Henna of Choice',
-            type: 'relationship',
+            name: "henna",
+            label: "Henna of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'mua',
-            label: 'MUA of Choice',
-            type: 'relationship',
+            name: "mua",
+            label: "MUA of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'emcee',
-            label: 'Emcee of Choice',
-            type: 'relationship',
+            name: "emcee",
+            label: "Emcee of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'honeymoon',
-            label: 'Honeymoon of Choice',
-            type: 'relationship',
+            name: "honeymoon",
+            label: "Honeymoon of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
+            relationTo: "vendors",
         },
         {
-            name: 'misc',
-            label: 'Misc of Choice',
-            type: 'relationship',
+            name: "misc",
+            label: "Misc of Choice",
+            type: "relationship",
             required: false,
             hasMany: false,
-            relationTo: 'vendors'
-        }
-    ]
+            relationTo: "vendors",
+        },
+        {
+            name: "packages",
+            type: "relationship",
+            label: "Vendor Package(s)",
+            required: false,
+            relationTo: "packages",
+            hasMany: true,
+        },
+    ],
 };

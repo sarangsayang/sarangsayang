@@ -3,6 +3,7 @@ import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
+import { Package } from "@/payload-types";
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
@@ -825,6 +826,80 @@ export const appRouter = router({
           },
         });
       }
+    }),
+
+  planRemovePackage: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        packageId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const plan = await payload.find({
+        collection: "plans",
+        where: {
+          id: { equals: input.id },
+        },
+      });
+
+      const packages = plan.docs[0].packages;
+      let packageIds = [];
+
+      for (let i = 0; i < packages.length; i++) {
+        if (packages[i].id !== input.packageId) {
+          packageIds.push(packages[i].id);
+        }
+      }
+
+      await payload.update({
+        collection: "plans",
+        where: {
+          id: { equals: input.id },
+        },
+        data: {
+          packages: packageIds,
+        },
+      });
+    }),
+
+  planAddPackage: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        packageId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const plan = await payload.find({
+        collection: "plans",
+        where: {
+          id: { equals: input.id },
+        },
+      });
+
+      const packages = plan.docs[0].packages;
+      let packageIds = [];
+
+      for (let i = 0; i < packages.length; i++) {
+        packageIds.push(packages[i].id);
+      }
+
+      packageIds.push(input.packageId);
+
+      await payload.update({
+        collection: "plans",
+        where: {
+          id: { equals: input.id },
+        },
+        data: {
+          packages: packageIds,
+        },
+      });
     }),
 
   updatePlan: publicProcedure

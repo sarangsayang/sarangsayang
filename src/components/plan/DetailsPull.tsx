@@ -6,7 +6,7 @@ import MaxWidthWrapper from "../MaxWidthWrapper";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import Image from "next/image";
 import {
@@ -18,46 +18,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Package, Vendor } from "@/payload-types";
+import { Package, Vendor, Plan, Like } from "@/payload-types";
 import { categories } from "@/app/data/data";
 import { Checkbox } from "../ui/checkbox";
 import { VENDOR_CATEGORIES } from "@/config";
 import WeddingCountdown from "./WeddingCountdown";
+import PackageCheckbox from "./PackageCheckbox";
 
 interface DetailsPullProps {
   plan: Plan;
-  likesData: Data[];
-}
-
-interface Data {
-  vendor: Vendor;
-}
-
-interface Plan {
-  id: string;
-  brideName: string;
-  groomName: string;
-  weddingDate: string;
-  rsvpDate: string;
-  inviDate: string;
-  venue: string;
-  agent: string;
-  bridal: string;
-  photovideo: string;
-  catering: string;
-  decor: string;
-  henna: string;
-  mua: string;
-  emcee: string;
-  honeymoon: string;
-  misc: string;
+  likesData: Like[];
 }
 
 const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
   const updatePlan = trpc.updatePlan.useMutation();
+  const updatePackage = trpc.planAddPackage.useMutation();
+  const deletePackage = trpc.planRemovePackage.useMutation();
 
-  const [brideName, setBrideName] = useState(plan.brideName);
-  const [groomName, setGroomName] = useState(plan.groomName);
+  const [brideName, setBrideName] = useState(plan.brideName || "");
+  const [groomName, setGroomName] = useState(plan.groomName || "");
   const [brideButton, setBrideButton] = useState("bg-emerald-200");
   const [groomButton, setGroomButton] = useState("bg-emerald-200");
   const [venue, setVenue] = useState(false);
@@ -71,34 +50,60 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
   const [honeymoon, setHoneymoon] = useState(false);
   const [misc, setMisc] = useState(false);
 
-  const setChecklist = (services: string[]) => {
-    for (let i = 0; i < services.length; i++) {
-      if (services[i] === "venues") {
-        setVenue(true);
-      } else if (services[i] === "bridals") {
-        setBridals(true);
-      } else if (services[i] === "photovideo") {
-        setPhotovideo(true);
-      } else if (services[i] === "catering") {
-        setCatering(true);
-      } else if (services[i] === "decor") {
-        setDecor(true);
-      } else if (services[i] === "henna") {
-        setHenna(true);
-      } else if (services[i] === "mua") {
-        setMua(true);
-      } else if (services[i] === "emcees") {
-        setEmcees(true);
-      } else if (services[i] === "honeymoon") {
-        setHoneymoon(true);
-      } else if (services[i] === "misc") {
-        setMisc(true);
+  const setChecklist = (packages: Package[]) => {
+    setVenue(false);
+    setBridals(false);
+    setPhotovideo(false);
+    setCatering(false);
+    setDecor(false);
+    setHenna(false);
+    setMua(false);
+    setEmcees(false);
+    setHoneymoon(false);
+    setMisc(false);
+    for (let i = 0; i < packages.length; i++) {
+      if (packages[i].services) {
+        //@ts-ignore
+        for (let x = 0; x < packages[i].services.length; x++) {
+          //@ts-ignore
+          if (packages[i].services[x] === "venues") {
+            setVenue(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "bridals") {
+            setBridals(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "photovideo") {
+            setPhotovideo(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "catering") {
+            setCatering(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "decor") {
+            setDecor(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "henna") {
+            setHenna(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "mua") {
+            setMua(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "emcees") {
+            setEmcees(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "honeymoon") {
+            setHoneymoon(true);
+            //@ts-ignore
+          } else if (packages[i].services[x] === "misc") {
+            setMisc(true);
+          }
+        }
       }
     }
   };
 
   const [weddingDate, setWeddingDate] = useState<Date>(
-    new Date(plan.weddingDate)
+    //@ts-ignore
+    new Date(plan.weddingDate) || new Date()
   );
 
   function handleBrideNameChange(event: {
@@ -240,6 +245,32 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
 
     return category.label;
   };
+
+  const checkForPkgSL = (sl: Package[], currentPkg: string) => {
+    for (let x = 0; x < sl.length; x++) {
+      if (sl[x].id === currentPkg) {
+        return (
+          <PackageCheckbox
+            slcheck={true}
+            planId={plan.id}
+            currentPkg={currentPkg}
+          />
+        );
+      }
+    }
+
+    return (
+      <PackageCheckbox
+        slcheck={false}
+        planId={plan.id}
+        currentPkg={currentPkg}
+      />
+    );
+  };
+
+  useEffect(() => {
+    setChecklist(plan.packages as Package[]);
+  }, [plan.packages]);
 
   return (
     <MaxWidthWrapper>
@@ -443,25 +474,24 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
                     <SelectValue placeholder="Shortlist a vendor" />
                   </SelectTrigger>
                   <SelectContent>
-                    {likesData.map((vendor) =>
-                      vendor.vendor.category === category.value ? (
-                        <SelectItem
-                          value={vendor.vendor.id}
-                          key={vendor.vendor.id}
-                        >
+                    {likesData.map((like) =>
+                      //@ts-ignore
+                      like.vendor.category === category.value ? (
+                        // @ts-ignore
+                        <SelectItem value={like.vendor.id} key={like.id}>
                           <div className="flex flex-row gap-4 items-center px-6">
                             <Image
                               //@ts-ignore
-                              src={vendor.vendor.images[0].image.url}
+                              src={like.vendor.images[0].image.url}
                               width={100}
                               height={100}
-                              alt={`${vendor.vendor.name}-image`}
+                              //@ts-ignore
+                              alt={`${like.vendor.name}-image`}
                               className="aspect-square"
                               style={{ objectFit: "cover" }}
                             />
-                            <p className="font-semibold">
-                              {vendor.vendor.name}
-                            </p>
+                            {/* @ts-ignore */}
+                            <p className="font-semibold">{like.vendor.name}</p>
                           </div>
                         </SelectItem>
                       ) : null
@@ -483,16 +513,25 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
                             key={listedPackage.name}
                           >
                             <div className="flex items-center col-span-2">
-                              {/* @ts-ignore */}
-                              {listedPackage.services ? (
+                              {plan.packages ? (
+                                checkForPkgSL(
+                                  plan.packages as Package[],
+                                  //@ts-ignore
+                                  listedPackage.id
+                                )
+                              ) : (
                                 <Checkbox
-                                  onClick={() =>
-                                    //@ts-ignore
-                                    setChecklist(listedPackage.services)
-                                  }
+                                  onClick={() => {
+                                    updatePackage.mutate({
+                                      id: plan.id,
+                                      //@ts-ignore
+                                      packageId: listedPackage.id,
+                                    });
+                                    setChecklist(plan.packages as Package[]);
+                                  }}
                                   className="mx-5"
                                 />
-                              ) : null}
+                              )}
                               <p className="font-medium w-[90%]">
                                 {/* @ts-ignore */}
                                 {listedPackage.name}
