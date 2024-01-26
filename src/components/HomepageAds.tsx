@@ -10,6 +10,7 @@ import {
 } from "./ui/carousel";
 
 import Autoplay from "embla-carousel-autoplay";
+import Link from "next/link";
 
 const HomepageAds = () => {
   return (
@@ -23,12 +24,12 @@ const HomepageAds = () => {
       >
         <CarouselContent>
           <CarouselItem className="flex items-center justify-center p-6">
-            <Image
-              width={1100}
-              height={200}
-              src="https://placehold.co/1100x200"
-              alt="ad1"
-            />
+            <Link
+              href={`https://open.spotify.com/show/3k1f239b4o0ais2Yt5OID2`}
+              target="_blank"
+            >
+              <Image width={1100} height={220} src="/ads/OI.jpg" alt="ad1" />
+            </Link>
           </CarouselItem>
         </CarouselContent>
         {/* <CarouselPrevious />
