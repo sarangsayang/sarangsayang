@@ -31,16 +31,12 @@ const VENDOR_CATEGORIES1 = [
     label: "Photo & Video",
     value: "photovideo",
   },
-  {
-    label: "Catering",
-    value: "catering",
-  },
 ];
 
 const VENDOR_CATEGORIES2 = [
   {
-    label: "Decor",
-    value: "decor",
+    label: "Catering",
+    value: "catering",
   },
   {
     label: "Henna",
@@ -49,10 +45,6 @@ const VENDOR_CATEGORIES2 = [
   {
     label: "Make Up Artist",
     value: "mua",
-  },
-  {
-    label: "Honeymoon",
-    value: "honeymoon",
   },
   {
     label: "Misc",
@@ -81,7 +73,7 @@ const Featured11 = ({ user }: Featured11Props) => {
       >
         <CarouselContent>
           <CarouselItem>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               {VENDOR_CATEGORIES1.map((category) => (
                 <Featured11Pull
                   label={category.label}
@@ -93,7 +85,7 @@ const Featured11 = ({ user }: Featured11Props) => {
             </div>
           </CarouselItem>
           <CarouselItem>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               {VENDOR_CATEGORIES2.map((category) => (
                 <Featured11Pull
                   label={category.label}
