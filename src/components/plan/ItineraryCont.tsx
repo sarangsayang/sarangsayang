@@ -7,6 +7,7 @@ import { ChangeEvent, SetStateAction, useState } from "react";
 import { Input } from "../ui/input";
 import ItineraryPull from "./ItineraryPull";
 import Image from "next/image";
+import WantToSync from "./WantToSync";
 
 interface ItineraryContProps {
   userId: string;
@@ -51,13 +52,13 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
     userId: userId,
   });
 
-  const identifiedPlan = plan.data?.docs[0];
+  const identifiedPlan = plan.data?.docs;
 
   const add = trpc.addItinerary.useMutation();
 
   return (
     <>
-      {identifiedPlan ? (
+      {identifiedPlan && identifiedPlan.length === 1 ? (
         <>
           <div className="w-full flex flex-row justify-center items-center p-4 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
             <Image
@@ -118,7 +119,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
               <PlusCircle
                 onClick={() => {
                   add.mutate({
-                    planId: identifiedPlan.id,
+                    planId: identifiedPlan[0].id,
                     time: time,
                     location: location,
                     event: event,
@@ -135,8 +136,10 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
               />
             </div>
           </div>
-          <ItineraryPull planId={identifiedPlan.id} />
+          <ItineraryPull planId={identifiedPlan[0].id} />
         </>
+      ) : identifiedPlan ? (
+        <WantToSync plans={identifiedPlan} userId={userId} />
       ) : (
         <Loader className="animate-spin" />
       )}

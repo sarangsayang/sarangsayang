@@ -25,6 +25,7 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
 
   const results = trpc.getTodoByTodo.useQuery({
     todo: Todo,
+    planId: id,
   });
 
   const submitTodo = (date: Date | Date[]) => {

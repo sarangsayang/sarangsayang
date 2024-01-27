@@ -9,19 +9,21 @@ const Trending = async () => {
   const nextCookies = cookies();
   const { user } = await getServerSideUser(nextCookies);
   return (
-    <MaxWidthWrapper>
+    <>
       {categories.map((category) => (
-        <div key={category.value}>
-          <FeaturedReel
-            title={category.label}
-            category={category.value}
-            user={user?.id}
-            featured={false}
-            href={`/vendors?category=${category.value}`}
-          />
+        <div key={category.value} className="bg-sky-100">
+          <MaxWidthWrapper>
+            <FeaturedReel
+              title={category.label}
+              category={category.value}
+              user={user?.id}
+              featured={false}
+              href={`/vendors?category=${category.value}`}
+            />
+          </MaxWidthWrapper>
         </div>
       ))}
-    </MaxWidthWrapper>
+    </>
   );
 };
 

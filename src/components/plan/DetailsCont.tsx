@@ -3,6 +3,7 @@
 import { trpc } from "@/trpc/client";
 import { Loader } from "lucide-react";
 import DetailsPull from "./DetailsPull";
+import WantToSync from "./WantToSync";
 
 interface DetailsContProps {
   userId: string;
@@ -17,12 +18,18 @@ const DetailsCont = ({ userId }: DetailsContProps) => {
     userId: userId,
   });
 
-  const identifiedPlan = plan.data?.docs[0];
+  const identifiedPlan = plan.data?.docs;
 
   return (
     <>
-      {identifiedPlan && likes.data ? (
-        <DetailsPull plan={identifiedPlan} likesData={likes.data.docs} />
+      {identifiedPlan && identifiedPlan.length === 1 && likes.data ? (
+        <DetailsPull
+          plan={identifiedPlan[0]}
+          likesData={likes.data.docs}
+          userId={userId}
+        />
+      ) : identifiedPlan ? (
+        <WantToSync plans={identifiedPlan} userId={userId} />
       ) : (
         <Loader className="animate-spin" />
       )}

@@ -8,8 +8,6 @@ export default async function Details() {
   const nextCookies = cookies();
   const { user } = await getServerSideUser(nextCookies);
 
-  //btw user2 has to be a ss user first pls implement the right conditions
-
   return (
     <MaxWidthWrapper className="flex-1 space-y-4 pt-6 py-20 ">
       <div className="flex items-center justify-between space-y-2 pb-8">

@@ -18,6 +18,7 @@ import { Label } from "../ui/label";
 import BudgetPull from "./BudgetPull";
 import Image from "next/image";
 import BudgetScoreboardCont from "./BudgetScoreboardCont";
+import WantToSync from "./WantToSync";
 
 interface BudgetProps {
   userId: string;
@@ -50,13 +51,13 @@ const BudgetCont = ({ userId }: BudgetProps) => {
 
   const add = trpc.addBudget.useMutation();
 
-  const identifiedPlan = plan.data?.docs[0];
+  const identifiedPlan = plan.data?.docs;
 
   return (
     <>
-      {identifiedPlan ? (
+      {identifiedPlan && identifiedPlan.length === 1 ? (
         <>
-          <BudgetScoreboardCont planId={identifiedPlan.id} />
+          <BudgetScoreboardCont planId={identifiedPlan[0].id} />
           <div className="w-full flex flex-row justify-center items-center p-4 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
             <Image
               src="https://i.giphy.com/media/26nfp8HGGHLPGY2KQ/giphy.gif"
@@ -191,7 +192,7 @@ const BudgetCont = ({ userId }: BudgetProps) => {
               <PlusCircle
                 onClick={() => {
                   add.mutate({
-                    planId: identifiedPlan.id,
+                    planId: identifiedPlan[0].id,
                     for: bfor,
                     cat: bcat,
                     details: bdetails,
@@ -208,8 +209,10 @@ const BudgetCont = ({ userId }: BudgetProps) => {
               />
             </div>
           </div>
-          <BudgetPull planId={identifiedPlan.id} />
+          <BudgetPull planId={identifiedPlan[0].id} />
         </>
+      ) : identifiedPlan ? (
+        <WantToSync plans={identifiedPlan} userId={userId} />
       ) : (
         <Loader className="animate-spin" />
       )}

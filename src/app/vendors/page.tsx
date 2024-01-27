@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import Filter from "@/components/Filter";
 import Search from "@/components/Search";
 import FeaturedReel from "@/components/FeaturedReel";
+import BadgeLegend from "@/components/BadgeLegend";
 
 type Param = string | string[] | undefined;
 
@@ -31,32 +32,38 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   )?.label;
 
   return (
-    <MaxWidthWrapper>
-      {category ? (
-        <FeaturedReel
-          title={label ?? "Vendors"}
-          category={category}
-          user={user?.id}
-        />
-      ) : null}
-      <div className="mt-12 flex items-center gap-3">
-        {category ? <Search search={search} category={category} /> : null}
-        {category ? <Filter sort={sort} category={category} /> : null}
+    <>
+      <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
+        <MaxWidthWrapper>
+          {category ? (
+            <FeaturedReel
+              title={label ?? "Vendors"}
+              category={category}
+              user={user?.id}
+            />
+          ) : null}
+        </MaxWidthWrapper>
       </div>
+      <MaxWidthWrapper>
+        <div className="mt-6 flex items-center gap-3">
+          {category ? <Search search={search} category={category} /> : null}
+          {category ? <Filter sort={sort} category={category} /> : null}
+        </div>
 
-      <ProductReel
-        title={label ?? "Vendors"}
-        href="#"
-        user={user?.id}
-        query={{
-          category,
-          search,
-          limit: 40,
-          sort:
-            sort === "-createdAt" || sort === "createdAt" ? sort : undefined,
-        }}
-      />
-    </MaxWidthWrapper>
+        <ProductReel
+          title={label ?? "Vendors"}
+          href="#"
+          user={user?.id}
+          query={{
+            category,
+            search,
+            limit: 40,
+            sort:
+              sort === "-createdAt" || sort === "createdAt" ? sort : undefined,
+          }}
+        />
+      </MaxWidthWrapper>
+    </>
   );
 };
 

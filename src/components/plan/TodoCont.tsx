@@ -14,6 +14,7 @@ import { date } from "zod";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { ChangeEvent, SetStateAction, useState } from "react";
+import WantToSync from "./WantToSync";
 
 interface DetailsContProps {
   userId: string;
@@ -38,13 +39,13 @@ const TodoCont = ({ userId }: DetailsContProps) => {
     userId: userId,
   });
 
-  const identifiedPlan = plan.data?.docs[0];
+  const identifiedPlan = plan.data?.docs;
 
   const addTodo = trpc.addTodo.useMutation();
 
   const submitTodo = () => {
     addTodo.mutate({
-      planId: identifiedPlan.id as string,
+      planId: identifiedPlan[0].id as string,
       date: date?.toISOString() as string,
       todo: todo as string,
       remarks: remarks as string,
@@ -56,7 +57,7 @@ const TodoCont = ({ userId }: DetailsContProps) => {
 
   return (
     <>
-      {identifiedPlan ? (
+      {identifiedPlan && identifiedPlan.length === 1 ? (
         <MaxWidthWrapper>
           <div className="grid grid-cols-10 py-3 mb-5 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
             <div className="col-span-3 px-4">
@@ -104,8 +105,10 @@ const TodoCont = ({ userId }: DetailsContProps) => {
               />
             </div>
           </div>
-          <TodoPull planId={identifiedPlan.id} />
+          <TodoPull planId={identifiedPlan[0].id} />
         </MaxWidthWrapper>
+      ) : identifiedPlan ? (
+        <WantToSync plans={identifiedPlan} userId={userId} />
       ) : (
         <Loader className="animate-spin" />
       )}

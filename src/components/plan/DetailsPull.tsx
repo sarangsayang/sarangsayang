@@ -24,16 +24,17 @@ import { Checkbox } from "../ui/checkbox";
 import { VENDOR_CATEGORIES } from "@/config";
 import WeddingCountdown from "./WeddingCountdown";
 import PackageCheckbox from "./PackageCheckbox";
+import SyncUsers from "./SyncUsers";
 
 interface DetailsPullProps {
   plan: Plan;
   likesData: Like[];
+  userId: string;
 }
 
-const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
+const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
   const updatePlan = trpc.updatePlan.useMutation();
   const updatePackage = trpc.planAddPackage.useMutation();
-  const deletePackage = trpc.planRemovePackage.useMutation();
 
   const [brideName, setBrideName] = useState(plan.brideName || "");
   const [groomName, setGroomName] = useState(plan.groomName || "");
@@ -269,67 +270,74 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
   };
 
   useEffect(() => {
-    setChecklist(plan.packages as Package[]);
+    if (plan.packages && plan.packages.length > 0) {
+      setChecklist(plan.packages as Package[]);
+    }
   }, [plan.packages]);
 
   return (
     <MaxWidthWrapper>
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2 rounded-lg p-7 bg-gradient-to-r from-pink-100 to-cyan-100">
-        <div className="p-6 flex flex-col justify-around">
-          <Label htmlFor="brideName">Bride&apos;s Name</Label>
-          <div className="flex w-full max-w-sm items-center space-x-2 mt-2">
-            <Input
-              id="brideName"
-              value={brideName}
-              className="text-center"
-              onChange={handleBrideNameChange}
-            />
-            <Button
-              variant="outline"
-              size="icon"
-              className={brideButton}
-              onClick={() => {
-                updatePlan.mutate({
-                  id: plan.id,
-                  brideName: brideName,
-                });
-                setBrideButton("bg-emerald-200 ease-in-out duration-300");
-              }}
-            >
-              <Check className="h-4" />
-            </Button>
+      <div className="w-full rounded-lg p-7 bg-gradient-to-r from-pink-100 to-cyan-100">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="p-6 flex flex-col justify-around">
+            <Label htmlFor="brideName">Bride&apos;s Name</Label>
+            <div className="flex w-full max-w-sm items-center space-x-2 mt-2">
+              <Input
+                id="brideName"
+                value={brideName}
+                className="text-center"
+                onChange={handleBrideNameChange}
+              />
+              <Button
+                variant="outline"
+                size="icon"
+                className={brideButton}
+                onClick={() => {
+                  updatePlan.mutate({
+                    id: plan.id,
+                    brideName: brideName,
+                  });
+                  setBrideButton("bg-emerald-200 ease-in-out duration-300");
+                }}
+              >
+                <Check className="h-4" />
+              </Button>
+            </div>
+          </div>
+          <div className="p-6 flex flex-col justify-around">
+            <Label htmlFor="groomName">Groom&apos;s Name</Label>
+            <div className="flex w-full max-w-sm items-center space-x-2 mt-2">
+              <Input
+                id="groomName"
+                value={groomName}
+                className="text-center"
+                onChange={handleGroomNameChange}
+              />
+              <Button
+                variant="outline"
+                size="icon"
+                className={groomButton}
+                onClick={() => {
+                  updatePlan.mutate({
+                    id: plan.id,
+                    groomName: groomName,
+                  });
+                  setGroomButton("bg-emerald-200 ease-in-out duration-300");
+                }}
+              >
+                <Check className="h-4" />
+              </Button>
+            </div>
           </div>
         </div>
-        <div className="p-6 flex flex-col justify-around">
-          <Label htmlFor="groomName">Groom&apos;s Name</Label>
-          <div className="flex w-full max-w-sm items-center space-x-2 mt-2">
-            <Input
-              id="groomName"
-              value={groomName}
-              className="text-center"
-              onChange={handleGroomNameChange}
-            />
-            <Button
-              variant="outline"
-              size="icon"
-              className={groomButton}
-              onClick={() => {
-                updatePlan.mutate({
-                  id: plan.id,
-                  groomName: groomName,
-                });
-                setGroomButton("bg-emerald-200 ease-in-out duration-300");
-              }}
-            >
-              <Check className="h-4" />
-            </Button>
-          </div>
+        <div>
+          <SyncUsers plan={plan} userId={userId} />
         </div>
       </div>
 
       <div className="mt-10 w-full rounded-lg p-6 bg-gradient-to-r from-pink-100 to-cyan-100">
         <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
-          <div className="flex flex-col items-center justify-center py-6">
+          <div className="flex flex-col items-center justify-center p-6">
             <h2 className="font-semibold">Wedding Date</h2>
             {plan.weddingDate ? (
               <WeddingCountdown date={addOneDay(plan.weddingDate)} />
@@ -513,7 +521,7 @@ const DetailsPull = ({ plan, likesData }: DetailsPullProps) => {
                             key={listedPackage.name}
                           >
                             <div className="flex items-center col-span-2">
-                              {plan.packages ? (
+                              {plan.packages && plan.packages.length > 0 ? (
                                 checkForPkgSL(
                                   plan.packages as Package[],
                                   //@ts-ignore

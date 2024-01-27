@@ -12,6 +12,81 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  deletePlan: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.delete({
+        collection: "plans",
+        where: {
+          id: { equals: input.id },
+        },
+      });
+    }),
+
+  removeUser2: publicProcedure
+    .input(
+      z.object({
+        user1: z.string(),
+        planId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.update({
+        collection: "plans",
+        where: {
+          id: { equals: input.planId },
+        },
+        data: {
+          user: input.user1,
+        },
+      });
+    }),
+
+  addUser2: publicProcedure
+    .input(
+      z.object({
+        user1: z.string(),
+        user2: z.string(),
+        planId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.update({
+        collection: "plans",
+        where: {
+          id: { equals: input.planId },
+        },
+        data: {
+          user: [input.user1, input.user2],
+        },
+      });
+    }),
+
+  checkUserExist: publicProcedure
+    .input(z.object({ email: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "users",
+        where: {
+          email: {
+            equals: input.email,
+          },
+        },
+      });
+    }),
+
   userRead: publicProcedure
     .input(z.object({ chatId: z.string() }))
     .mutation(async ({ input }) => {
@@ -208,8 +283,8 @@ export const appRouter = router({
       return await payload.find({
         collection: "message",
         where: {
-          user: {
-            chat: input.chatId,
+          chat: {
+            equals: input.chatId,
           },
         },
         pagination: false,
@@ -765,6 +840,7 @@ export const appRouter = router({
     .input(
       z.object({
         todo: z.string(),
+        planId: z.string(),
       })
     )
     .query(async ({ input }) => {
@@ -772,7 +848,7 @@ export const appRouter = router({
 
       return await payload.find({
         collection: "todos",
-        where: { todo: { equals: input.todo } },
+        where: { todo: { equals: input.todo }, plan: { equals: input.planId } },
         pagination: false,
       });
     }),

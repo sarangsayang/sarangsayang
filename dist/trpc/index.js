@@ -69,6 +69,117 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    deletePlan: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        id: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.delete({
+                                collection: "plans",
+                                where: {
+                                    id: { equals: input.id },
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    removeUser2: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        user1: zod_1.z.string(),
+        planId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.update({
+                                collection: "plans",
+                                where: {
+                                    id: { equals: input.planId },
+                                },
+                                data: {
+                                    user: input.user1,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    addUser2: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        user1: zod_1.z.string(),
+        user2: zod_1.z.string(),
+        planId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.update({
+                                collection: "plans",
+                                where: {
+                                    id: { equals: input.planId },
+                                },
+                                data: {
+                                    user: [input.user1, input.user2],
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    checkUserExist: trpc_1.publicProcedure
+        .input(zod_1.z.object({ email: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "users",
+                                where: {
+                                    email: {
+                                        equals: input.email,
+                                    },
+                                },
+                            })];
+                    case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
     userRead: trpc_1.publicProcedure
         .input(zod_1.z.object({ chatId: zod_1.z.string() }))
         .mutation(function (_a) {
@@ -333,8 +444,8 @@ exports.appRouter = (0, trpc_1.router)({
                         return [4 /*yield*/, payload.find({
                                 collection: "message",
                                 where: {
-                                    user: {
-                                        chat: input.chatId,
+                                    chat: {
+                                        equals: input.chatId,
                                     },
                                 },
                                 pagination: false,
@@ -1121,6 +1232,7 @@ exports.appRouter = (0, trpc_1.router)({
     getTodoByTodo: trpc_1.publicProcedure
         .input(zod_1.z.object({
         todo: zod_1.z.string(),
+        planId: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -1133,7 +1245,7 @@ exports.appRouter = (0, trpc_1.router)({
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
                                 collection: "todos",
-                                where: { todo: { equals: input.todo } },
+                                where: { todo: { equals: input.todo }, plan: { equals: input.planId } },
                                 pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];

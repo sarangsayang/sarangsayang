@@ -17,8 +17,8 @@ export default async function Home() {
 
   return (
     <>
-      <MaxWidthWrapper>
-        <div className="pt-16 mx-auto text-center flex flex-col items-center max-w-3xl">
+      <div className="mx-auto py-10 bg-[url('/hero.png')] bg-cover bg-center shadow-md">
+        <MaxWidthWrapper className="text-center flex flex-col items-center h-[270px]">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Singapore&apos;s largest{" "}
             <span className="text-blue-400">malay wedding directory</span>.
@@ -39,17 +39,13 @@ export default async function Home() {
               <CreatePlanButton userId={user.id} />
             )}
           </div>
-        </div>
+        </MaxWidthWrapper>
+      </div>
+      <MaxWidthWrapper>
         <Featured11 user={user?.id} />
         <HomepageAds />
         <ProductReel user={user?.id} title="Brand New" query={{ limit: 4 }} />
       </MaxWidthWrapper>
-
-      <section className="border-t border-gray-200 bg-gray-50">
-        <MaxWidthWrapper className="py-20">
-          <BadgeLegend />
-        </MaxWidthWrapper>
-      </section>
     </>
   );
 }

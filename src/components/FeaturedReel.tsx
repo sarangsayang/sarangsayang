@@ -27,7 +27,7 @@ const FeaturedReel = ({
   });
 
   return (
-    <section className="pt-12">
+    <section className="py-12">
       <div className="md:flex md:items-center md:justify-between mb-4">
         <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
           {featured === false ? (
@@ -60,15 +60,26 @@ const FeaturedReel = ({
       <div className="relative">
         <div className="mt-6 flex items-center w-full">
           <div className="w-full grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-10 lg:gap-x-8">
-            <ProductListing vendor={results.data?.top} index={0} user={user} />
-            {/* @ts-ignore */}
-            {results.data?.top4.map((product) => (
+            <div className="bg-white p-6 rounded-sm shadow-md">
               <ProductListing
-                key={product.vendor.id}
-                index={product.vendor.id}
-                vendor={product.vendor}
+                vendor={results.data?.top}
+                index={0}
                 user={user}
               />
+            </div>
+
+            {/* @ts-ignore */}
+            {results.data?.top4.map((product) => (
+              <div
+                className="bg-white p-6 rounded-sm shadow-md"
+                key={product.vendor.id}
+              >
+                <ProductListing
+                  index={product.vendor.id}
+                  vendor={product.vendor}
+                  user={user}
+                />
+              </div>
             ))}
           </div>
         </div>

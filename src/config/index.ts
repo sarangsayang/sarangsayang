@@ -68,12 +68,6 @@ export const PRODUCT_CATEGORIES = [
         imageSrc: "https://placehold.co/600x600",
       },
       {
-        name: "Emcees",
-        value: "emcees",
-        href: "/vendors?category=emcees",
-        imageSrc: "https://placehold.co/600x600",
-      },
-      {
         name: "Honeymoon",
         value: "honeymoon",
         href: "/vendors?category=honeymoon",
@@ -166,11 +160,6 @@ export const VENDOR_CATEGORIES = [
     label: "Make Up Artist",
     value: "mua",
     icon: SprayCan,
-  },
-  {
-    label: "Emcees",
-    value: "emcees",
-    icon: Mic2,
   },
   {
     label: "Honeymoon",
