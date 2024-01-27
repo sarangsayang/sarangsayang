@@ -28,7 +28,13 @@ const HomepageAds = () => {
               href={`https://open.spotify.com/show/3k1f239b4o0ais2Yt5OID2`}
               target="_blank"
             >
-              <Image width={1100} height={220} src="/ads/OI.jpg" alt="ad1" />
+              <Image
+                width={1100}
+                height={220}
+                src="/ads/OI.jpg"
+                alt="ad1"
+                unoptimized={true}
+              />
             </Link>
           </CarouselItem>
         </CarouselContent>

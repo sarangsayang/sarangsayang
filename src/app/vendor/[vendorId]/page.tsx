@@ -219,12 +219,12 @@ const Page = async ({ params }: PageProps) => {
               <section className="mt-4">
                 <div className="flex items-center gap-4">
                   {product.facebook ? (
-                    <Link href={product.facebook}>
+                    <Link href={product.facebook} target="_blank">
                       <Facebook className="h-6 w-6 flex-shrink-0 text-gray-400 cursor-pointer hover:text-gray-500" />
                     </Link>
                   ) : null}
                   {product.instagram ? (
-                    <Link href={product.instagram}>
+                    <Link href={product.instagram} target="_blank">
                       <Instagram className="h-6 w-6 flex-shrink-0 text-gray-400 cursor-pointer hover:text-gray-500" />
                     </Link>
                   ) : null}
