@@ -9,7 +9,7 @@ const Guests = async () => {
   const { user } = await getServerSideUser(nextCookies);
 
   return (
-    <MaxWidthWrapper className="flex-1 space-y-4 pt-6 py-20 ">
+    <MaxWidthWrapper className="flex-1 space-y-4 py-10">
       <div className="flex items-center justify-between space-y-2 pb-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Guest List</h2>

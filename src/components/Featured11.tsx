@@ -73,7 +73,7 @@ const Featured11 = ({ user }: Featured11Props) => {
       >
         <CarouselContent>
           <CarouselItem>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {VENDOR_CATEGORIES1.map((category) => (
                 <Featured11Pull
                   label={category.label}
@@ -85,7 +85,7 @@ const Featured11 = ({ user }: Featured11Props) => {
             </div>
           </CarouselItem>
           <CarouselItem>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {VENDOR_CATEGORIES2.map((category) => (
                 <Featured11Pull
                   label={category.label}

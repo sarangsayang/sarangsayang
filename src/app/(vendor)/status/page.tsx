@@ -24,7 +24,6 @@ export default async function Status() {
   const checkoutLink = await createCheckoutLink("" + user?.id);
 
   const vendorRole = user?.role;
-  //var vendorRole = 'platinum'
 
   const bgVendor = vendorRole === "vendor" ? "bg-blue-300" : "bg-yellow-300";
 

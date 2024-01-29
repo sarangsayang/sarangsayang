@@ -47,9 +47,11 @@ const ProductReel = (props: ProductReelProps) => {
   const { title, subtitle, href, query, user, idvPage, vendorName } = props;
 
   const [dsvData, setDSVData] = useState({
-    name: "",
+    vendorName: "",
     email: "",
     category: "",
+    name: "",
+    contact: "",
   });
 
   const [ctvData, setCTVData] = useState({
@@ -124,7 +126,7 @@ const ProductReel = (props: ProductReelProps) => {
                       <Input
                         id="name"
                         name="name"
-                        value={dsvData.name}
+                        value={dsvData.vendorName}
                         onChange={(e) => {
                           setDSVData({
                             ...dsvData,
@@ -165,6 +167,36 @@ const ProductReel = (props: ProductReelProps) => {
                           ))}
                         </SelectContent>
                       </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        value={dsvData.name}
+                        onChange={(e) => {
+                          setDSVData({
+                            ...dsvData,
+                            name: e.target.value,
+                          });
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="contact">Contact Number</Label>
+                      <Input
+                        id="contact"
+                        name="contact"
+                        value={dsvData.contact}
+                        onChange={(e) => {
+                          setDSVData({
+                            ...dsvData,
+                            contact: e.target.value,
+                          });
+                        }}
+                      />
                     </div>
 
                     <div>
@@ -213,9 +245,8 @@ const ProductReel = (props: ProductReelProps) => {
               >
                 <DialogHeader className="mb-6">
                   <DialogTitle>Claim this vendor</DialogTitle>
-                  <DialogDescription>
-                    We&#39;re excited to have you on board. We&#39;ll email you
-                    soon!
+                  <DialogDescription className="text-pretty">
+                    Dis you? Fill up this form and we&#39;ll email you soon!
                   </DialogDescription>
                 </DialogHeader>
                 <div className="flex items-center space-x-2 pb-4">
@@ -246,7 +277,7 @@ const ProductReel = (props: ProductReelProps) => {
                     </div>
 
                     <div>
-                      <Label htmlFor="contact">Contact</Label>
+                      <Label htmlFor="contact">Contact Number</Label>
                       <Input
                         id="contact"
                         name="contact"
@@ -275,6 +306,9 @@ const ProductReel = (props: ProductReelProps) => {
                       />
                     </div>
                   </div>
+                </div>
+                <div className="text-sm text-slate-500">
+                  We&#39;re excited to have you on board!{" "}
                 </div>
                 <DialogFooter className="sm:justify-start mt-6">
                   <DialogClose asChild>

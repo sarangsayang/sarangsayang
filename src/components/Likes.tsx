@@ -66,18 +66,9 @@ const Likes = ({ user }: { user: User }) => {
               className="px-4"
             />
             <div className="text-xl font-semibold">Your heart is empty..</div>
-            <SheetTrigger asChild>
-              <Link
-                href="/vendors"
-                className={buttonVariants({
-                  variant: "link",
-                  size: "sm",
-                  className: "text-sm text-muted-foreground",
-                })}
-              >
-                Add items to your likes!
-              </Link>
-            </SheetTrigger>
+            <div className="text-md font-normal">
+              Your liked items will appear here.
+            </div>
           </div>
         )}
       </SheetContent>

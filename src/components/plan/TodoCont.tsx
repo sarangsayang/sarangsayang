@@ -58,7 +58,7 @@ const TodoCont = ({ userId }: DetailsContProps) => {
   return (
     <>
       {identifiedPlan && identifiedPlan.length === 1 ? (
-        <MaxWidthWrapper>
+        <>
           <div className="grid grid-cols-10 py-3 mb-5 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
             <div className="col-span-3 px-4">
               <Input
@@ -106,7 +106,7 @@ const TodoCont = ({ userId }: DetailsContProps) => {
             </div>
           </div>
           <TodoPull planId={identifiedPlan[0].id} />
-        </MaxWidthWrapper>
+        </>
       ) : identifiedPlan ? (
         <WantToSync plans={identifiedPlan} userId={userId} />
       ) : (

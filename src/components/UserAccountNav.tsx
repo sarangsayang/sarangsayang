@@ -71,10 +71,6 @@ const UserAccountNav = ({ user }: { user: User }) => {
         ) : null}
 
         <DropdownMenuItem asChild>
-          <Link href="/backstage/account">Account</Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem asChild>
           <Link href="/faq">FAQ</Link>
         </DropdownMenuItem>
 

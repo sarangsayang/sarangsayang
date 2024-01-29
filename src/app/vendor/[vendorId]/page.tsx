@@ -81,7 +81,7 @@ const Page = async ({ params }: PageProps) => {
   const BREADCRUMBS = [
     { id: 1, name: "Home", href: "/" },
     { id: 2, name: "Vendors", href: "/vendors" },
-    { id: 3, name: label, href: `/vendors?category=${value}` },
+    { id: 3, name: label, href: `/vendors?category=${product.category}` },
   ];
 
   const validUrls = product.images
@@ -332,8 +332,8 @@ const Page = async ({ params }: PageProps) => {
           user={user?.id}
           idvPage={true}
           query={{ category: product.category, limit: 4 }}
-          title={`Browse similar vendors`}
-          subtitle={`Here are some ${smallCapsLabel.toLowerCase()} we think you might like`}
+          title={`Browse other vendors`}
+          subtitle={`While you are here, check out these other ${smallCapsLabel.toLowerCase()} too!`}
           vendorName={product.name}
         />
       </MaxWidthWrapper>

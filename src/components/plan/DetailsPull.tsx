@@ -261,7 +261,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
   }, [plan.packages]);
 
   return (
-    <MaxWidthWrapper>
+    <>
       <div className="w-full rounded-lg p-7 bg-gradient-to-r from-pink-100 to-cyan-100">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="p-6 flex flex-col justify-around">
@@ -315,7 +315,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="px-6">
           <SyncUsers plan={plan} userId={userId} />
         </div>
       </div>
@@ -323,7 +323,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
       <div className="mt-10 w-full rounded-lg p-6 bg-gradient-to-r from-pink-100 to-cyan-100">
         <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
           <div className="flex flex-col items-center justify-center p-6">
-            <h2 className="font-semibold">Wedding Date</h2>
+            <h2 className="font-semibold">Wedding Countdown</h2>
             {plan.weddingDate ? (
               <WeddingCountdown date={addOneDay(plan.weddingDate)} />
             ) : (
@@ -352,7 +352,8 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
               className="mt-3"
             />
           </div>
-          <div className="flex flex-col items-center justify-center py-6">
+          <div className="flex flex-col items-center gap-4 justify-center py-6">
+            <h2 className="font-semibold">Wedding Date</h2>
             <Calendar
               mode="single"
               required
@@ -440,7 +441,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
                   }
                 >
                   <SelectTrigger className="h-32 mt-3 px-10 bg-sky-50 shadow-lg">
-                    <SelectValue placeholder="Shortlist a vendor" />
+                    <SelectValue placeholder="Shortlist a vendor from your wishlist" />
                   </SelectTrigger>
                   <SelectContent>
                     {likesData.map((like) =>
@@ -531,7 +532,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
           </div>
         </div>
       </div>
-    </MaxWidthWrapper>
+    </>
   );
 };
 

@@ -47,7 +47,7 @@ const PriceRange = ({
     if (category === "venues") {
       return price.monthly;
     } else if (category === "agents") {
-      return price.monthly5;
+      return price.monthly;
     } else if (category === "bridals") {
       return price.monthly5;
     } else if (category === "photovideo") {

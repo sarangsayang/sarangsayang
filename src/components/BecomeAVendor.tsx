@@ -26,9 +26,11 @@ import { Button } from "./ui/button";
 
 const BecomeAVendor = () => {
   const [dsvData, setDSVData] = useState({
-    name: "",
+    vendorName: "",
     email: "",
     category: "",
+    name: "",
+    contact: "",
   });
 
   return (
@@ -97,6 +99,36 @@ const BecomeAVendor = () => {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={dsvData.name}
+                  onChange={(e) => {
+                    setDSVData({
+                      ...dsvData,
+                      name: e.target.value,
+                    });
+                  }}
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="contact">Contact Number</Label>
+                <Input
+                  id="contact"
+                  name="contact"
+                  value={dsvData.contact}
+                  onChange={(e) => {
+                    setDSVData({
+                      ...dsvData,
+                      contact: e.target.value,
+                    });
+                  }}
+                />
               </div>
 
               <div>

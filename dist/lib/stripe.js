@@ -50,7 +50,7 @@ function handleValidUpgradeMonthly(category) {
         return "price_1OTreDJFw5rSN4LFVAgBRlGR";
     }
     else if (category === "agents") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OTreDJFw5rSN4LFVAgBRlGR";
     }
     else if (category === "bridals") {
         return "price_1OVdWBJFw5rSN4LFaih3rPRK";
