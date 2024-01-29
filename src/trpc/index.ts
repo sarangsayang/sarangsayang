@@ -12,6 +12,40 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  getMiscVendors: publicProcedure
+    .input(
+      z.object({
+        category: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const results = await payload.find({
+        collection: "misc",
+        where: {
+          id: "65b7aee5c17286ca4dd3e2ed",
+        },
+        pagination: false,
+      });
+
+      if (input.category === "berkat") {
+        return results.docs[0].berkat;
+      } else if (input.category === "decor") {
+        return results.docs[0].decor;
+      } else if (input.category === "dulang") {
+        return results.docs[0].dulang;
+      } else if (input.category === "emcees") {
+        return results.docs[0].emcees;
+      } else if (input.category === "liveStation") {
+        return results.docs[0].liveStation;
+      } else if (input.category === "performers") {
+        return results.docs[0].performers;
+      } else if (input.category === "cake") {
+        return results.docs[0].cake;
+      }
+    }),
+
   deletePlan: publicProcedure
     .input(
       z.object({

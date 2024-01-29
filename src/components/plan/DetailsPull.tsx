@@ -44,11 +44,8 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
   const [bridals, setBridals] = useState(false);
   const [photovideo, setPhotovideo] = useState(false);
   const [catering, setCatering] = useState(false);
-  const [decor, setDecor] = useState(false);
   const [henna, setHenna] = useState(false);
   const [mua, setMua] = useState(false);
-  const [emcees, setEmcees] = useState(false);
-  const [honeymoon, setHoneymoon] = useState(false);
   const [misc, setMisc] = useState(false);
 
   const setChecklist = (packages: Package[]) => {
@@ -56,11 +53,8 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
     setBridals(false);
     setPhotovideo(false);
     setCatering(false);
-    setDecor(false);
     setHenna(false);
     setMua(false);
-    setEmcees(false);
-    setHoneymoon(false);
     setMisc(false);
     for (let i = 0; i < packages.length; i++) {
       if (packages[i].services) {
@@ -79,20 +73,11 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
           } else if (packages[i].services[x] === "catering") {
             setCatering(true);
             //@ts-ignore
-          } else if (packages[i].services[x] === "decor") {
-            setDecor(true);
-            //@ts-ignore
           } else if (packages[i].services[x] === "henna") {
             setHenna(true);
             //@ts-ignore
           } else if (packages[i].services[x] === "mua") {
             setMua(true);
-            //@ts-ignore
-          } else if (packages[i].services[x] === "emcees") {
-            setEmcees(true);
-            //@ts-ignore
-          } else if (packages[i].services[x] === "honeymoon") {
-            setHoneymoon(true);
             //@ts-ignore
           } else if (packages[i].services[x] === "misc") {
             setMisc(true);
@@ -383,7 +368,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
 
       <div className="mt-10 w-full rounded-lg py-10 px-20 flex flex-col items-center bg-gradient-to-r from-pink-100 to-cyan-100">
         <h2 className="font-semibold w-full">Wedding Checklist</h2>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-4">
           <div className="bg-white/40 sticky top-20 h-[600px] grid grid-cols-1 gap-4 p-5 rounded-lg shadow-sm mt-6">
             <div className="flex gap-3 items-center p-2">
               {venue ? (
@@ -418,14 +403,6 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
               <p>Catering</p>
             </div>
             <div className="flex gap-3 items-center p-2">
-              {decor ? (
-                <CheckSquare2 className="w-4 h-4" />
-              ) : (
-                <Square className="w-4 h-4" />
-              )}
-              <p>Decor</p>
-            </div>
-            <div className="flex gap-3 items-center p-2">
               {henna ? (
                 <CheckSquare2 className="w-4 h-4" />
               ) : (
@@ -442,22 +419,6 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
               <p>Make Up Artist</p>
             </div>
             <div className="flex gap-3 items-center p-2">
-              {emcees ? (
-                <CheckSquare2 className="w-4 h-4" />
-              ) : (
-                <Square className="w-4 h-4" />
-              )}
-              <p>Emcee</p>
-            </div>
-            <div className="flex gap-3 items-center p-2">
-              {honeymoon ? (
-                <CheckSquare2 className="w-4 h-4" />
-              ) : (
-                <Square className="w-4 h-4" />
-              )}
-              <p>Honeymoon</p>
-            </div>
-            <div className="flex gap-3 items-center p-2">
               {misc ? (
                 <CheckSquare2 className="w-4 h-4" />
               ) : (
@@ -466,7 +427,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
               <p>Misc</p>
             </div>
           </div>
-          <div className="flex flex-col items-end z-10 col-span-2">
+          <div className="flex flex-col items-end z-10 col-span-3">
             {categories.map((category) => (
               <div key={category.value} className="py-6 w-[90%]">
                 <Label className="flex gap-2 items-center">

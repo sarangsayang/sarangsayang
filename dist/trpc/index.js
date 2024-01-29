@@ -69,6 +69,54 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    getMiscVendors: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        category: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "misc",
+                                where: {
+                                    id: "65b7aee5c17286ca4dd3e2ed",
+                                },
+                                pagination: false,
+                            })];
+                    case 2:
+                        results = _b.sent();
+                        if (input.category === "berkat") {
+                            return [2 /*return*/, results.docs[0].berkat];
+                        }
+                        else if (input.category === "decor") {
+                            return [2 /*return*/, results.docs[0].decor];
+                        }
+                        else if (input.category === "dulang") {
+                            return [2 /*return*/, results.docs[0].dulang];
+                        }
+                        else if (input.category === "emcees") {
+                            return [2 /*return*/, results.docs[0].emcees];
+                        }
+                        else if (input.category === "liveStation") {
+                            return [2 /*return*/, results.docs[0].liveStation];
+                        }
+                        else if (input.category === "performers") {
+                            return [2 /*return*/, results.docs[0].performers];
+                        }
+                        else if (input.category === "cake") {
+                            return [2 /*return*/, results.docs[0].cake];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
     deletePlan: trpc_1.publicProcedure
         .input(zod_1.z.object({
         id: zod_1.z.string(),

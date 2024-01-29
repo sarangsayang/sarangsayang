@@ -64,7 +64,7 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Misc",
         value: "misc",
-        href: "/vendors?category=misc",
+        href: "/vendors/misc",
         imageSrc: "https://placehold.co/600x600",
       },
     ],

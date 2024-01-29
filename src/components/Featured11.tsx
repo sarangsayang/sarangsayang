@@ -54,7 +54,7 @@ const VENDOR_CATEGORIES2 = [
 
 const Featured11 = ({ user }: Featured11Props) => {
   return (
-    <section className="py-12">
+    <section className="py-9">
       <div className="md:flex md:items-center md:justify-between mb-6">
         <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">

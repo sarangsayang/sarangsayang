@@ -7,7 +7,6 @@ import { cookies } from "next/headers";
 import Filter from "@/components/Filter";
 import Search from "@/components/Search";
 import FeaturedReel from "@/components/FeaturedReel";
-import BadgeLegend from "@/components/BadgeLegend";
 
 type Param = string | string[] | undefined;
 

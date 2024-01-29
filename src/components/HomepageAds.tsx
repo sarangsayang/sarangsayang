@@ -14,7 +14,7 @@ import Link from "next/link";
 
 const HomepageAds = () => {
   return (
-    <section className="pt-1">
+    <section>
       <Carousel
       // plugins={[
       //     Autoplay({

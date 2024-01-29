@@ -23,6 +23,7 @@ export interface Config {
     itinerary: Itinerary;
     chats: Chat;
     message: Message;
+    misc: Misc;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -51,18 +52,7 @@ export interface Vendor {
   id: string;
   venduserid: string | User;
   name: string;
-  category:
-    | 'venues'
-    | 'agents'
-    | 'bridals'
-    | 'photovideo'
-    | 'catering'
-    | 'decor'
-    | 'henna'
-    | 'mua'
-    | 'emcees'
-    | 'honeymoon'
-    | 'misc';
+  category: 'venues' | 'agents' | 'bridals' | 'photovideo' | 'catering' | 'henna' | 'mua' | 'misc';
   details?:
     | {
         [k: string]: unknown;
@@ -85,21 +75,7 @@ export interface Package {
   id: string;
   vendor: string | Vendor;
   name: string;
-  services?:
-    | (
-        | 'venues'
-        | 'agents'
-        | 'bridals'
-        | 'photovideo'
-        | 'catering'
-        | 'decor'
-        | 'henna'
-        | 'mua'
-        | 'emcees'
-        | 'honeymoon'
-        | 'misc'
-      )[]
-    | null;
+  services?: ('venues' | 'agents' | 'bridals' | 'photovideo' | 'catering' | 'henna' | 'mua' | 'misc')[] | null;
   packageDetails?:
     | {
         [k: string]: unknown;
@@ -337,6 +313,18 @@ export interface Message {
   from: string;
   message: string;
   read: boolean;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Misc {
+  id: string;
+  berkat?: (string | Vendor)[] | null;
+  decor?: (string | Vendor)[] | null;
+  dulang?: (string | Vendor)[] | null;
+  emcees?: (string | Vendor)[] | null;
+  liveStation?: (string | Vendor)[] | null;
+  performers?: (string | Vendor)[] | null;
+  cake?: (string | Vendor)[] | null;
   updatedAt: string;
   createdAt: string;
 }

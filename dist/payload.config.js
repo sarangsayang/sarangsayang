@@ -26,6 +26,7 @@ var Guests_1 = require("./app/collections/Plans/Guests");
 var Itinerary_1 = require("./app/collections/Plans/Itinerary");
 var Chats_1 = require("./app/collections/Chat/Chats");
 var Message_1 = require("./app/collections/Chat/Message");
+var MiscVendors_1 = require("./app/collections/MiscVendors");
 dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, "../.env"),
 });
@@ -58,6 +59,7 @@ exports.default = (0, config_1.buildConfig)({
         Itinerary_1.Itinerary,
         Chats_1.Chats,
         Message_1.Message,
+        MiscVendors_1.MiscVendors,
     ],
     routes: {
         admin: "/backstage",

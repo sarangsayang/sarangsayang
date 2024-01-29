@@ -39,12 +39,6 @@ exports.PRODUCT_CATEGORIES = [
                 imageSrc: "https://placehold.co/600x600",
             },
             {
-                name: "Decor",
-                value: "decor",
-                href: "/vendors?category=decor",
-                imageSrc: "https://placehold.co/600x600",
-            },
-            {
                 name: "Henna",
                 value: "henna",
                 href: "/vendors?category=henna",
@@ -57,15 +51,9 @@ exports.PRODUCT_CATEGORIES = [
                 imageSrc: "https://placehold.co/600x600",
             },
             {
-                name: "Honeymoon",
-                value: "honeymoon",
-                href: "/vendors?category=honeymoon",
-                imageSrc: "https://placehold.co/600x600",
-            },
-            {
                 name: "Misc",
                 value: "misc",
-                href: "/vendors?category=misc",
+                href: "/vendors/misc",
                 imageSrc: "https://placehold.co/600x600",
             },
         ],
@@ -135,11 +123,6 @@ exports.VENDOR_CATEGORIES = [
         icon: lucide_react_1.ChefHat,
     },
     {
-        label: "Decor",
-        value: "decor",
-        icon: lucide_react_1.Flower2,
-    },
-    {
         label: "Henna",
         value: "henna",
         icon: lucide_react_1.Hand,
@@ -148,11 +131,6 @@ exports.VENDOR_CATEGORIES = [
         label: "Make Up Artist",
         value: "mua",
         icon: lucide_react_1.SprayCan,
-    },
-    {
-        label: "Honeymoon",
-        value: "honeymoon",
-        icon: lucide_react_1.Plane,
     },
     {
         label: "Misc",
