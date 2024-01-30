@@ -1,9 +1,10 @@
-import { z } from "zod";
+import { date, z } from "zod";
 import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
 import { Package } from "@/payload-types";
+import { format } from "date-fns";
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
@@ -381,7 +382,7 @@ export const appRouter = router({
       await payload.create({
         collection: "leads",
         data: {
-          name: "-",
+          name: getChat.docs[0].user.name,
           email: getChat.docs[0].user.email,
           contact: "-",
           message: "-",
@@ -532,6 +533,24 @@ export const appRouter = router({
       }
     }),
 
+  getItineraryByDate: publicProcedure
+    .input(
+      z.object({
+        planId: z.string(),
+        date: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      return await payload.find({
+        collection: "itinerary",
+        where: { plan: { equals: input.planId }, date: { equals: input.date } },
+        pagination: false,
+        sort: "time",
+      });
+    }),
+
   getItinerary: publicProcedure
     .input(
       z.object({
@@ -541,12 +560,26 @@ export const appRouter = router({
     .query(async ({ input }) => {
       const payload = await getPayloadClient();
 
-      return await payload.find({
+      const results = await payload.find({
         collection: "itinerary",
         where: { plan: { equals: input.planId } },
         pagination: false,
-        sort: "time",
+        sort: "date",
       });
+
+      let dates = [];
+
+      for (let i = 0; i < results.docs.length; i++) {
+        dates.push(results.docs[i].date);
+      }
+
+      for (let i = 0; i < dates.length; i++) {
+        if (dates[i] === dates[i + 1]) {
+          dates.splice(i + 1, 1);
+        }
+      }
+
+      return dates;
     }),
 
   addItinerary: publicProcedure
@@ -779,13 +812,29 @@ export const appRouter = router({
         planId: z.string(),
         for: z.string(),
         cat: z.string(),
-        details: z.string(),
-        plannedCost: z.number(),
-        actualCost: z.number(),
+        details: z.string().optional(),
+        plannedCost: z.number().optional(),
+        actualCost: z.number().optional(),
       })
     )
     .mutation(async ({ input }) => {
       const payload = await getPayloadClient();
+
+      let details = input.details;
+      let plannedCost = input.plannedCost;
+      let actualCost = input.actualCost;
+
+      if (!input.details) {
+        details = "-";
+      }
+
+      if (!input.plannedCost) {
+        plannedCost = 0;
+      }
+
+      if (!input.actualCost) {
+        actualCost = 0;
+      }
 
       await payload.create({
         collection: "budget",
@@ -793,9 +842,9 @@ export const appRouter = router({
           plan: input.planId,
           for: input.for,
           cat: input.cat,
-          details: input.details,
-          plannedCost: input.plannedCost,
-          actualCost: input.actualCost,
+          details: details,
+          plannedCost: plannedCost,
+          actualCost: actualCost,
           amountPaid: 0,
         },
       });

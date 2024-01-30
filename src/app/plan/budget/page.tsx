@@ -15,8 +15,8 @@ const Budget = async () => {
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Budget</h2>
           <p className="text-muted-foreground italic">
-            This part can be a little a intimidating, 😅 So this form is here to
-            help!
+            This part can be a little a intimidating,{" "}
+            <span className="not-italic">😅</span> So this form is here to help!
           </p>
           <div className="flex flex-row items-center gap-1 text-muted-foreground italic">
             <p>Make sure to click</p>

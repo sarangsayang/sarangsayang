@@ -6,10 +6,12 @@ import BudgetPullCont from "./BudgetPullCont";
 import {
   Table,
   TableBody,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/table";
+import BudgetTotal from "./BudgetTotal";
 
 interface BudgetPullProps {
   planId: string;
@@ -70,6 +72,7 @@ const BudgetPull = ({ planId }: BudgetPullProps) => {
                     </>
                   ))}
                 </TableBody>
+                <BudgetTotal budgets={results} category={category.title} />
               </Table>
             </div>
           ))}

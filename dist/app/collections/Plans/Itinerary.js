@@ -25,7 +25,7 @@ exports.Itinerary = {
         },
         {
             name: "date",
-            type: "date",
+            type: "text",
             required: true,
         },
         {

@@ -73,6 +73,11 @@ exports.Users = {
             },
         },
         {
+            name: "name",
+            required: true,
+            type: "text",
+        },
+        {
             name: "role",
             defaultValue: "user",
             required: true,

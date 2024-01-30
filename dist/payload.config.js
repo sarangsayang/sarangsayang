@@ -72,6 +72,8 @@ exports.default = (0, config_1.buildConfig)({
             favicon: "/favicon.ico",
             ogImage: "/thumbnail.jpg",
         },
+        logoutRoute: "/sign-in",
+        inactivityRoute: "/sign-in",
     },
     rateLimit: {
         max: 2000,

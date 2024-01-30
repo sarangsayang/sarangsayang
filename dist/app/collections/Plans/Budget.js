@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Budget = void 0;
 exports.Budget = {
-    slug: 'budget',
+    slug: "budget",
     admin: {
         hidden: function (_a) {
             var user = _a.user;
-            return user.role !== 'admin';
-        }
+            return user.role !== "admin";
+        },
     },
     access: {
         read: function () { return true; },
@@ -17,41 +17,44 @@ exports.Budget = {
     },
     fields: [
         {
-            name: 'plan',
-            type: 'relationship',
-            relationTo: 'plans',
+            name: "plan",
+            type: "relationship",
+            relationTo: "plans",
             required: true,
             hasMany: false,
         },
         {
-            name: 'for',
-            type: 'text',
+            name: "for",
+            type: "text",
             required: true,
         },
         {
-            name: 'cat',
-            type: 'text',
+            name: "cat",
+            type: "text",
             required: true,
         },
         {
-            name: 'details',
-            type: 'text',
+            name: "details",
+            type: "text",
             required: true,
+            defaultValue: "-",
         },
         {
-            name: 'plannedCost',
-            type: 'number',
+            name: "plannedCost",
+            type: "number",
             required: false,
+            defaultValue: 0,
         },
         {
-            name: 'actualCost',
-            type: 'number',
+            name: "actualCost",
+            type: "number",
             required: false,
+            defaultValue: 0,
         },
         {
-            name: 'amountPaid',
-            type: 'number',
+            name: "amountPaid",
+            type: "number",
             required: false,
-        }
-    ]
+        },
+    ],
 };

@@ -48,18 +48,16 @@ exports.authRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var email, password, payload, users;
+            var email, password, name, payload, users;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        email = input.email, password = input.password;
-                        return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()
-                            // check if user already exists
-                        ];
+                        email = input.email, password = input.password, name = input.name;
+                        return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: 'users',
+                                collection: "users",
                                 where: {
                                     email: {
                                         equals: email,
@@ -69,13 +67,14 @@ exports.authRouter = (0, trpc_1.router)({
                     case 2:
                         users = (_b.sent()).docs;
                         if (users.length !== 0)
-                            throw new server_1.TRPCError({ code: 'CONFLICT' });
+                            throw new server_1.TRPCError({ code: "CONFLICT" });
                         return [4 /*yield*/, payload.create({
-                                collection: 'users',
+                                collection: "users",
                                 data: {
                                     email: email,
                                     password: password,
-                                    role: 'user',
+                                    role: "user",
+                                    name: name,
                                 },
                             })];
                     case 3:
@@ -99,20 +98,20 @@ exports.authRouter = (0, trpc_1.router)({
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.verifyEmail({
-                                collection: 'users',
+                                collection: "users",
                                 token: token,
                             })];
                     case 2:
                         isVerified = _b.sent();
                         if (!isVerified)
-                            throw new server_1.TRPCError({ code: 'UNAUTHORIZED' });
+                            throw new server_1.TRPCError({ code: "UNAUTHORIZED" });
                         return [2 /*return*/, { success: true }];
                 }
             });
         });
     }),
     signIn: trpc_1.publicProcedure
-        .input(account_credentials_validator_1.AuthCredentialsValidator)
+        .input(account_credentials_validator_1.AuthSignInValidator)
         .mutation(function (_a) {
         var input = _a.input, ctx = _a.ctx;
         return __awaiter(void 0, void 0, void 0, function () {
@@ -129,7 +128,7 @@ exports.authRouter = (0, trpc_1.router)({
                     case 2:
                         _b.trys.push([2, 4, , 5]);
                         return [4 /*yield*/, payload.login({
-                                collection: 'users',
+                                collection: "users",
                                 data: {
                                     email: email,
                                     password: password,
@@ -141,7 +140,7 @@ exports.authRouter = (0, trpc_1.router)({
                         return [2 /*return*/, { success: true }];
                     case 4:
                         err_1 = _b.sent();
-                        throw new server_1.TRPCError({ code: 'UNAUTHORIZED' });
+                        throw new server_1.TRPCError({ code: "UNAUTHORIZED" });
                     case 5: return [2 /*return*/];
                 }
             });

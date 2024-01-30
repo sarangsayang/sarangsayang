@@ -65,6 +65,11 @@ export const Users: CollectionConfig = {
       },
     },
     {
+      name: "name",
+      required: true,
+      type: "text",
+    },
+    {
       name: "role",
       defaultValue: "user",
       required: true,

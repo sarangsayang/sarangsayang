@@ -12,6 +12,7 @@ import { Todo } from "@/payload-types";
 import TodoChosenDate from "./TodoChosenDate";
 import { Input } from "../ui/input";
 import TodoChosenRemarks from "./TodoChosenRemarks";
+import TodoChosenDone from "./TodoChosenDone";
 
 interface TodoReqProps {
   id: string;
@@ -53,12 +54,14 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
             <TodoChosenDate
               id={results.data.docs[0].id}
               tdDate={results.data.docs[0].date}
+              tChecked={results.data.docs[0].done}
             />
           </div>
           <div className="col-span-4 px-4 flex flex-row items-center">
             <TodoChosenRemarks
               id={results.data.docs[0].id}
               tRemarks={results.data.docs[0].remarks}
+              tChecked={results.data.docs[0].done}
             />
           </div>
         </>
@@ -104,7 +107,14 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
           </div>
         </>
       )}
-      <div className="w-full flex justify-center items-center gap-2"></div>
+      <div className="w-full flex justify-center items-center gap-2">
+        {results.data?.docs.length > 0 ? (
+          <TodoChosenDone
+            id={results.data.docs[0].id}
+            tChecked={results.data.docs[0].done}
+          />
+        ) : null}
+      </div>
     </div>
   );
 };

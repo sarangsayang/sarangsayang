@@ -21,7 +21,7 @@ export const Itinerary: CollectionConfig = {
     },
     {
       name: "date",
-      type: "date",
+      type: "text",
       required: true,
     },
     {

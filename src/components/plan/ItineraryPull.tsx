@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "../ui/table";
 import ItineraryPullCont from "./ItineraryPullCont";
+import ItineraryTable from "./ItineraryTable";
 
 interface ItineraryPullProps {
   planId: string;
@@ -20,27 +21,16 @@ const ItineraryPull = ({ planId }: ItineraryPullProps) => {
     planId: planId,
   });
 
-  const results = itinerary.data?.docs as Itinerary[];
+  const results = itinerary.data;
 
   return (
     <>
       {results ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[140px]">Date and Time</TableHead>
-              <TableHead className="w-[270px]">Event</TableHead>
-              <TableHead className="w-[270px]">Location</TableHead>
-              <TableHead className="w-[350px]">Details</TableHead>
-              <TableHead></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {results.map((itinerary) => (
-              <ItineraryPullCont key={itinerary.id} itinerary={itinerary} />
-            ))}
-          </TableBody>
-        </Table>
+        <div className="flex flex-col">
+          {results.map((date) => (
+            <ItineraryTable title={date} planId={planId} key={date} />
+          ))}
+        </div>
       ) : null}
     </>
   );

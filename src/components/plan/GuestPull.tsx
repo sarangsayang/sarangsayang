@@ -37,7 +37,7 @@ const GuestPull = ({ planId }: GuestPullProps) => {
       {results ? (
         <>
           {tables.map((category) => (
-            <div key={category.title}>
+            <div key={category.title} className="py-4">
               <h1 className="text-xl font-semibold tracking-tight mb-4">
                 {category.title}
               </h1>

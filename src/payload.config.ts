@@ -70,6 +70,8 @@ export default buildConfig({
       favicon: "/favicon.ico",
       ogImage: "/thumbnail.jpg",
     },
+    logoutRoute: "/sign-in",
+    inactivityRoute: "/sign-in",
   },
   rateLimit: {
     max: 2000,

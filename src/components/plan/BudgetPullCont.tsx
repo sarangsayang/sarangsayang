@@ -256,10 +256,12 @@ const BudgetPullCont = ({ budget }: BudgetPullContProps) => {
           )}
         >
           {formatPrice(bActual - bPlanned)}
-          <p>
-            ({totalDifference.toFixed(2)}
-            <span>%</span>)
-          </p>
+          {totalDifference ? (
+            <p>
+              ({totalDifference.toFixed(2)}
+              <span>%</span>)
+            </p>
+          ) : null}
         </div>
       </TableCell>
       <TableCell>

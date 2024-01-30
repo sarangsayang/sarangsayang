@@ -34,6 +34,7 @@ export interface User {
   vendor?: (string | null) | Vendor;
   packages?: (string | Package)[] | null;
   stripe_customer_id?: string | null;
+  name: string;
   role: 'admin' | 'user' | 'vendor' | 'supervendor';
   updatedAt: string;
   createdAt: string;

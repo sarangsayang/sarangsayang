@@ -574,7 +574,7 @@ exports.appRouter = (0, trpc_1.router)({
                         return [4 /*yield*/, payload.create({
                                 collection: "leads",
                                 data: {
-                                    name: "-",
+                                    name: getChat.docs[0].user.name,
                                     email: getChat.docs[0].user.email,
                                     contact: "-",
                                     message: "-",
@@ -793,9 +793,10 @@ exports.appRouter = (0, trpc_1.router)({
             });
         });
     }),
-    getItinerary: trpc_1.publicProcedure
+    getItineraryByDate: trpc_1.publicProcedure
         .input(zod_1.z.object({
         planId: zod_1.z.string(),
+        date: zod_1.z.string(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -808,11 +809,46 @@ exports.appRouter = (0, trpc_1.router)({
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
                                 collection: "itinerary",
-                                where: { plan: { equals: input.planId } },
+                                where: { plan: { equals: input.planId }, date: { equals: input.date } },
                                 pagination: false,
                                 sort: "time",
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    getItinerary: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        planId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results, dates, i, i;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "itinerary",
+                                where: { plan: { equals: input.planId } },
+                                pagination: false,
+                                sort: "date",
+                            })];
+                    case 2:
+                        results = _b.sent();
+                        dates = [];
+                        for (i = 0; i < results.docs.length; i++) {
+                            dates.push(results.docs[i].date);
+                        }
+                        for (i = 0; i < dates.length; i++) {
+                            if (dates[i] === dates[i + 1]) {
+                                dates.splice(i + 1, 1);
+                            }
+                        }
+                        return [2 /*return*/, dates];
                 }
             });
         });
@@ -1143,28 +1179,40 @@ exports.appRouter = (0, trpc_1.router)({
         planId: zod_1.z.string(),
         for: zod_1.z.string(),
         cat: zod_1.z.string(),
-        details: zod_1.z.string(),
-        plannedCost: zod_1.z.number(),
-        actualCost: zod_1.z.number(),
+        details: zod_1.z.string().optional(),
+        plannedCost: zod_1.z.number().optional(),
+        actualCost: zod_1.z.number().optional(),
     }))
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload;
+            var payload, details, plannedCost, actualCost;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
+                        details = input.details;
+                        plannedCost = input.plannedCost;
+                        actualCost = input.actualCost;
+                        if (!input.details) {
+                            details = "-";
+                        }
+                        if (!input.plannedCost) {
+                            plannedCost = 0;
+                        }
+                        if (!input.actualCost) {
+                            actualCost = 0;
+                        }
                         return [4 /*yield*/, payload.create({
                                 collection: "budget",
                                 data: {
                                     plan: input.planId,
                                     for: input.for,
                                     cat: input.cat,
-                                    details: input.details,
-                                    plannedCost: input.plannedCost,
-                                    actualCost: input.actualCost,
+                                    details: details,
+                                    plannedCost: plannedCost,
+                                    actualCost: actualCost,
                                     amountPaid: 0,
                                 },
                             })];

@@ -16,7 +16,6 @@ interface ItineraryPullContProps {
 }
 
 const ItineraryPullCont = ({ itinerary }: ItineraryPullContProps) => {
-  const [date, setDate] = useState<Date>(new Date(itinerary.date));
   const [time, setTime] = useState(itinerary.time);
   const [event, setEvent] = useState(itinerary.event);
   const [location, setLocation] = useState(itinerary.location);
@@ -38,18 +37,6 @@ const ItineraryPullCont = ({ itinerary }: ItineraryPullContProps) => {
 
     return "0" + number;
   }
-
-  const handleDate = (date: Date | Date[]) => {
-    const selectedDate = Array.isArray(date) ? date[0] : date;
-    const formattedDate = selectedDate.toISOString();
-
-    setDate(new Date(formattedDate));
-
-    edit.mutate({
-      id: itinerary.id,
-      date: formattedDate,
-    });
-  };
 
   const handleTime = (event: ChangeEvent<HTMLInputElement>) => {
     setTime(event.target.valueAsNumber);
@@ -91,29 +78,6 @@ const ItineraryPullCont = ({ itinerary }: ItineraryPullContProps) => {
     <TableRow>
       <TableCell>
         <div className="flex flex-col gap-3">
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"outline"}
-                className="w-full justify-start text-left font-normal"
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                <p className="text-ellipsis overflow-hidden">
-                  {format(date, "PPP")}
-                </p>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={date}
-                //@ts-ignore
-                onSelect={handleDate}
-                required
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
           <div className="flex w-full items-center space-x-1">
             <Input
               type="number"

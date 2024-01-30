@@ -11,6 +11,7 @@ import {
 
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
+import { Badge } from "./ui/badge";
 
 const HomepageAds = () => {
   return (
@@ -23,7 +24,7 @@ const HomepageAds = () => {
       // ]}
       >
         <CarouselContent>
-          <CarouselItem className="flex items-center justify-center p-6">
+          <CarouselItem className="flex flex-col items-center justify-center p-6">
             <Link
               href={`https://open.spotify.com/show/3k1f239b4o0ais2Yt5OID2`}
               target="_blank"
@@ -36,6 +37,9 @@ const HomepageAds = () => {
                 unoptimized={true}
               />
             </Link>
+            <div className="w-full flex justify-end">
+              <Badge variant="outline">Ad</Badge>
+            </div>
           </CarouselItem>
         </CarouselContent>
         {/* <CarouselPrevious />

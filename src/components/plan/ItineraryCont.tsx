@@ -68,7 +68,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
         <>
           <div className="w-full flex flex-row justify-center items-center p-4 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
             <Image
-              src="https://i.giphy.com/media/06rUB8SOzXgFzbVmF2/giphy.gif"
+              src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGRzMTRtZmcwb3RtNzRoMng2eDEyOGc3ZDlkZDNtdmVidHU4NjBzOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1driVoIBx9e9DKStSn/giphy.gif"
               alt="ItsTime"
               width={480}
               height={480}
@@ -155,14 +155,14 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
                     event: event,
                     involved: involved,
                     details: details,
-                    date: date?.toISOString() as string,
+                    //@ts-ignore
+                    date: format(date, "dd-MM-yyy") as string,
                   });
                   setTime(0);
                   setLocation("");
                   setEvent("");
                   setInvolved("");
                   setDetails("");
-                  setDate(new Date());
                 }}
                 className="cursor-pointer text-slate-400 hover:text-slate-600"
               />

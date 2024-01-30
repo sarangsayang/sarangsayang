@@ -16,14 +16,15 @@ const EnquiryItemSupervendor = ({ chat, user }: ChatItemProps) => {
     chatId: chat.id,
   });
 
-  const results = unread.data;
   return (
     <>
       <div className="space-y-3 py-2">
-        <div className="w-full flex flex-row items-end justify-between">
+        <div className="w-full flex flex-row items-center justify-between">
           <div>
-            <Label>Email</Label>
-            <h1>{user.email}</h1>
+            {/* <Label className="font-bold text-xs">Name</Label>
+            <Label className="font-bold text-xs">Email</Label> */}
+            <h1 className="font-bold">{user.name}</h1>
+            <p className="text-xs">{user.email}</p>
           </div>
           <div>
             <VendorChat chat={chat} user={user} />
