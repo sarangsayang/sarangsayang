@@ -160,7 +160,7 @@ function createCheckoutLink(userId) {
                     return [4 /*yield*/, payload.find({
                             collection: "vendors",
                             where: {
-                                venduserid: userId,
+                                venduserid: { equals: userId },
                             },
                         })];
                 case 3:
@@ -173,7 +173,7 @@ function createCheckoutLink(userId) {
                             customer: user.stripe_customer_id,
                             line_items: [
                                 {
-                                    price: handleValidUpgradeMonthly(vendor.category),
+                                    price: handleValidUpgradeMonthly(vendor.docs[0].category),
                                     quantity: 1,
                                 },
                             ],
@@ -181,6 +181,7 @@ function createCheckoutLink(userId) {
                         })];
                 case 4:
                     checkout = _a.sent();
+                    console.log(vendor.docs[0].category);
                     return [2 /*return*/, checkout.url];
                 case 5: return [2 /*return*/];
             }

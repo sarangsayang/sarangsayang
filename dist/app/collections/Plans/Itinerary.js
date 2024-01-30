@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Itinerary = void 0;
 exports.Itinerary = {
-    slug: 'itinerary',
+    slug: "itinerary",
     admin: {
         hidden: function (_a) {
             var user = _a.user;
-            return user.role !== 'admin';
-        }
+            return user.role !== "admin";
+        },
     },
     access: {
         read: function () { return true; },
@@ -17,40 +17,45 @@ exports.Itinerary = {
     },
     fields: [
         {
-            name: 'plan',
-            type: 'relationship',
-            relationTo: 'plans',
+            name: "plan",
+            type: "relationship",
+            relationTo: "plans",
             required: true,
             hasMany: false,
         },
         {
-            name: 'time',
-            type: 'number',
+            name: "date",
+            type: "date",
             required: true,
         },
         {
-            name: 'location',
-            type: 'text',
+            name: "time",
+            type: "number",
             required: true,
-            defaultValue: '-'
         },
         {
-            name: 'event',
-            type: 'text',
+            name: "location",
+            type: "text",
             required: true,
-            defaultValue: '-'
+            defaultValue: "-",
         },
         {
-            name: 'involved',
-            type: 'text',
+            name: "event",
+            type: "text",
             required: true,
-            defaultValue: '-'
+            defaultValue: "-",
         },
         {
-            name: 'details',
-            type: 'text',
+            name: "involved",
+            type: "text",
             required: true,
-            defaultValue: '-'
+            defaultValue: "-",
         },
-    ]
+        {
+            name: "details",
+            type: "text",
+            required: true,
+            defaultValue: "-",
+        },
+    ],
 };

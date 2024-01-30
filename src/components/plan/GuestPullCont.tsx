@@ -76,9 +76,19 @@ const GuestPullCont = ({ guest }: GuestPullContProps) => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Bride's Family">Bride&#39;s Family</SelectItem>
+              <SelectItem value="Bride's Colleagues">
+                Bride&#39;s Colleagues
+              </SelectItem>
+              <SelectItem value="Bride's Friends">
+                Bride&#39;s Friends
+              </SelectItem>
               <SelectItem value="Groom's Family">Groom&#39;s Family</SelectItem>
-              <SelectItem value="Work">Work</SelectItem>
-              <SelectItem value="Friends">Friends</SelectItem>
+              <SelectItem value="Groom's Colleagues">
+                Groom&#39;s Colleagues
+              </SelectItem>
+              <SelectItem value="Groom's Friends">
+                Groom&#39;s Friends
+              </SelectItem>
               <SelectItem value="Others">Others</SelectItem>
             </SelectContent>
           </Select>
@@ -139,6 +149,11 @@ const GuestPullCont = ({ guest }: GuestPullContProps) => {
         </div>
       </TableCell>
       <TableCell>
+        <div className="flex w-full items-center justify-center">
+          <Checkbox checked={sent} onCheckedChange={handleSent} />
+        </div>
+      </TableCell>
+      <TableCell>
         <div className="flex w-full max-w-sm items-center space-x-2">
           <Select value={attendance} onValueChange={setAttendance}>
             <SelectTrigger>
@@ -166,11 +181,6 @@ const GuestPullCont = ({ guest }: GuestPullContProps) => {
           >
             <Check className="h-3" />
           </Button>
-        </div>
-      </TableCell>
-      <TableCell>
-        <div className="flex w-full items-center justify-center">
-          <Checkbox checked={sent} onCheckedChange={handleSent} />
         </div>
       </TableCell>
       <TableCell>

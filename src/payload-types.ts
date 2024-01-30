@@ -299,6 +299,7 @@ export interface Guest {
 export interface Itinerary {
   id: string;
   plan: string | Plan;
+  date: string;
   time: number;
   location: string;
   event: string;

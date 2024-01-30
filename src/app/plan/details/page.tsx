@@ -17,7 +17,7 @@ export default async function Details() {
             Wedding Overview
           </h2>
           <div className="flex flex-row items-center gap-1 text-muted-foreground italic">
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground italic">
               You ready? We got you. Let&apos;s start planning.
             </p>
             <p>Make sure to click</p>

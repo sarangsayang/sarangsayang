@@ -14,7 +14,7 @@ const ToDo = async () => {
       <div className="flex items-center justify-between space-y-2 pb-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">To Do List</h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground italic">
             We&apos;ve helped you get started on your to do list, feel free to
             add on as much as you want and we&apos;ll help you keep track.
           </p>

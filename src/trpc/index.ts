@@ -471,6 +471,7 @@ export const appRouter = router({
       z.object({
         id: z.string(),
         time: z.number().optional(),
+        date: z.string().optional(),
         location: z.string().optional(),
         event: z.string().optional(),
         involved: z.string().optional(),
@@ -486,6 +487,14 @@ export const appRouter = router({
           where: { id: { equals: input.id } },
           data: {
             time: input.time,
+          },
+        });
+      } else if (input.date) {
+        await payload.update({
+          collection: "itinerary",
+          where: { id: { equals: input.id } },
+          data: {
+            date: input.date,
           },
         });
       } else if (input.location) {
@@ -544,6 +553,7 @@ export const appRouter = router({
     .input(
       z.object({
         planId: z.string(),
+        date: z.string().optional(),
         time: z.number().optional(),
         location: z.string().optional(),
         event: z.string().optional(),
@@ -558,6 +568,7 @@ export const appRouter = router({
         collection: "itinerary",
         data: {
           plan: input.planId,
+          date: input.date,
           time: input.time,
           location: input.location || "-",
           event: input.event || "-",

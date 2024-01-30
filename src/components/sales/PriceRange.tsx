@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import { Switch } from "../ui/switch";
-import { BadgeCheck, CheckCircle, Crown, MoveRight } from "lucide-react";
+import {
+  BadgeCheck,
+  CheckCircle,
+  Crown,
+  Loader2,
+  MoveRight,
+} from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -41,7 +47,7 @@ const PriceRange = ({
     userId: userId,
   });
 
-  const category = vendor.data?.category || "bridals";
+  const category = vendor.data?.category;
 
   function isFirst6(category: string, price: PriceObject) {
     if (category === "venues") {
@@ -76,11 +82,12 @@ const PriceRange = ({
           <span className="font-semibold">Sarang Sayang Vendor Plans</span>
         </h1>
         <p className="text-sm font-normal text-gray-400">
-          See below our main two plans for your business.
+          View our add on plans to become our top 4 featured vendors in your
+          category- first come first serve.
         </p>
-        <p className="text-sm font-normal text-gray-400">
+        {/* <p className="text-sm font-normal text-gray-400">
           It start from here! Add ons are only available for Supervendors.
-        </p>
+        </p> */}
         <Button variant="ghost" className="mt-3">
           <Link href={portal} className="flex gap-2 items-center">
             Manage Billing{" "}
@@ -91,7 +98,7 @@ const PriceRange = ({
 
       <Tabs
         defaultValue="plans"
-        className="w-full flex flex-col items-center mt-10"
+        className="w-full flex flex-col items-center mt-3"
       >
         <TabsList className="grid w-[400px] grid-cols-2 mb-6">
           <TabsTrigger value="plans">Plans</TabsTrigger>
@@ -134,8 +141,8 @@ const PriceRange = ({
                     />
                   </div>
                   <p className="text-sm text-gray-400">
-                    All vendors that have claimed their vendor profile are
-                    automatically an Official Vendor.
+                    All vendors who have claimed their vendor profile are
+                    automatically an Official Sarang Sayang Vendor.
                   </p>
                 </div>
 
@@ -145,17 +152,6 @@ const PriceRange = ({
                     <span className="ml-3 text-base font-medium">
                       Access to dashboard
                     </span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div>
-                      <p className="ml-3 text-base font-medium">
-                        Access to statistics
-                      </p>
-                      <p className="ml-3 text-sm italic font-light">
-                        Page visits, Enquiries, Vendor likes
-                      </p>
-                    </div>
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
@@ -172,9 +168,39 @@ const PriceRange = ({
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Access to personal
+                        Access to Sarang Sayang
                       </p>
-                      <p className="ml-3 text-base font-medium">CRM Platform</p>
+                      <p className="ml-3 text-base font-medium">Support Team</p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium">
+                        Increased brand awareness
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium">
+                        Enquiry notifications
+                      </p>
+                      <p className="ml-3 text-sm italic font-light">
+                        Upgrade to view user details/messages
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium">
+                        Access to personal CRM Platform
+                      </p>
+                      <p className="ml-3 text-sm italic font-light">
+                        Keep track of your own leads
+                      </p>
                     </div>
                   </li>
                 </ul>
@@ -203,10 +229,14 @@ const PriceRange = ({
                   {!annually ? (
                     <>
                       <span className="text-4xl font-medium tracking-tight">
-                        {isFirst6(category, {
-                          monthly: 500,
-                          monthly5: 200,
-                        })}
+                        {vendor.data && vendor.data.docs[0].category ? (
+                          isFirst6(vendor.data.docs[0].category, {
+                            monthly: 500,
+                            monthly5: 200,
+                          })
+                        ) : (
+                          <Loader2 className="animate-spin text-blue-500" />
+                        )}
                       </span>
                       <span className="text-gray-400">/month</span>
                     </>
@@ -214,12 +244,14 @@ const PriceRange = ({
                     <>
                       <span className="text-4xl font-medium tracking-tight">
                         {/* @ts-ignore */}
-                        {isFirst6(category, {
-                          monthly: 500,
-                          monthly5: 200,
-                        }) *
-                          12 *
-                          0.8}
+                        {vendor.data && vendor.data.docs[0].category ? (
+                          isFirst6(vendor.data.docs[0].category, {
+                            monthly: 4800,
+                            monthly5: 1920,
+                          })
+                        ) : (
+                          <Loader2 className="animate-spin text-blue-500" />
+                        )}
                       </span>
                       <span className="text-gray-400">/year</span>
                     </>
@@ -236,11 +268,12 @@ const PriceRange = ({
                     />
                   </div>
                   <p className="text-sm text-gray-400">
-                    All the basics for businesses that are just getting started.
+                    Other than the cool Gold tick, our Supervendors will have
+                    more access to our users.
                   </p>
                 </div>
 
-                <ul className="flex-1 space-y-4 mb-8">
+                <ul className="flex-1 space-y-4">
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <span className="ml-3 text-base font-medium">
@@ -251,18 +284,7 @@ const PriceRange = ({
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Access to statistics:
-                      </p>
-                      <p className="ml-3 text-sm italic font-light">
-                        Page visits, Enquiries, Vendor likes
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div>
-                      <p className="ml-3 text-base font-medium">
-                        Access to update:
+                        Access to update
                       </p>
                       <p className="ml-3 text-sm italic font-light">
                         Vendor Profile / Packages
@@ -273,19 +295,63 @@ const PriceRange = ({
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Access to personal
+                        Access to Sarang Sayang
                       </p>
-                      <p className="ml-3 text-base font-medium">CRM Platform</p>
+                      <p className="ml-3 text-base font-medium">Support Team</p>
                     </div>
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Able to view all
+                        Increased brand awareness
                       </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
                       <p className="ml-3 text-base font-medium">
-                        Sarang Sayang enquiries
+                        Enquiry notifications
+                      </p>
+                      <p className="ml-3 text-sm italic font-light text-yellow-600">
+                        With viewable user details
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium">
+                        Access to personal CRM Platform
+                      </p>
+                      <p className="ml-3 text-sm italic font-light text-yellow-600">
+                        Your Leads + Sarang Sayang Leads
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium">
+                        Direct Messaging Function
+                      </p>
+                      <p className="ml-3 text-sm italic font-light text-yellow-600">
+                        Access to all user messages,
+                      </p>
+                      <p className="ml-3 text-sm italic font-light text-yellow-600">
+                        and reply to all enquiries instantly
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium">
+                        Entitled to Add Ons
+                      </p>
+                      <p className="ml-3 text-sm italic font-light text-yellow-600">
+                        First come first serve
                       </p>
                     </div>
                   </li>

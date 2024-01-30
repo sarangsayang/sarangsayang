@@ -65,11 +65,21 @@ const GuestCont = ({ userId }: GuestContProps) => {
                     <SelectItem value="Bride's Family">
                       Bride&#39;s Family
                     </SelectItem>
+                    <SelectItem value="Bride's Colleagues">
+                      Bride&#39;s Colleagues
+                    </SelectItem>
+                    <SelectItem value="Bride's Friends">
+                      Bride&#39;s Friends
+                    </SelectItem>
                     <SelectItem value="Groom's Family">
                       Groom&#39;s Family
                     </SelectItem>
-                    <SelectItem value="Work">Work</SelectItem>
-                    <SelectItem value="Friends">Friends</SelectItem>
+                    <SelectItem value="Groom's Colleagues">
+                      Groom&#39;s Colleagues
+                    </SelectItem>
+                    <SelectItem value="Groom's Friends">
+                      Groom&#39;s Friends
+                    </SelectItem>
                     <SelectItem value="Others">Others</SelectItem>
                   </SelectContent>
                 </Select>

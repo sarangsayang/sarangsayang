@@ -6,13 +6,17 @@ import { TableCell, TableRow } from "../ui/table";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { trpc } from "@/trpc/client";
-import { Check, Delete } from "lucide-react";
+import { CalendarIcon, Check, Delete } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Calendar } from "../ui/calendar";
+import { format } from "date-fns";
 
 interface ItineraryPullContProps {
   itinerary: Itinerary;
 }
 
 const ItineraryPullCont = ({ itinerary }: ItineraryPullContProps) => {
+  const [date, setDate] = useState<Date>(new Date(itinerary.date));
   const [time, setTime] = useState(itinerary.time);
   const [event, setEvent] = useState(itinerary.event);
   const [location, setLocation] = useState(itinerary.location);
@@ -34,6 +38,18 @@ const ItineraryPullCont = ({ itinerary }: ItineraryPullContProps) => {
 
     return "0" + number;
   }
+
+  const handleDate = (date: Date | Date[]) => {
+    const selectedDate = Array.isArray(date) ? date[0] : date;
+    const formattedDate = selectedDate.toISOString();
+
+    setDate(new Date(formattedDate));
+
+    edit.mutate({
+      id: itinerary.id,
+      date: formattedDate,
+    });
+  };
 
   const handleTime = (event: ChangeEvent<HTMLInputElement>) => {
     setTime(event.target.valueAsNumber);
@@ -74,27 +90,52 @@ const ItineraryPullCont = ({ itinerary }: ItineraryPullContProps) => {
   return (
     <TableRow>
       <TableCell>
-        <div className="flex w-full items-center space-x-1">
-          <Input
-            type="number"
-            step="15"
-            value={convertToFourDigitNumber(time)}
-            onChange={(e) => handleTime(e)}
-          />
-          <Button
-            variant="outline"
-            size="icon"
-            className={timeButton}
-            onClick={() => {
-              edit.mutate({
-                id: itinerary.id,
-                time: time,
-              });
-              setTimeButton("bg-emerald-200 ease-in-out duration-300");
-            }}
-          >
-            <Check className="h-3" />
-          </Button>
+        <div className="flex flex-col gap-3">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className="w-full justify-start text-left font-normal"
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                <p className="text-ellipsis overflow-hidden">
+                  {format(date, "PPP")}
+                </p>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                //@ts-ignore
+                onSelect={handleDate}
+                required
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+          <div className="flex w-full items-center space-x-1">
+            <Input
+              type="number"
+              step="15"
+              value={convertToFourDigitNumber(time)}
+              onChange={(e) => handleTime(e)}
+            />
+            <Button
+              variant="outline"
+              size="icon"
+              className={timeButton}
+              onClick={() => {
+                edit.mutate({
+                  id: itinerary.id,
+                  time: time,
+                });
+                setTimeButton("bg-emerald-200 ease-in-out duration-300");
+              }}
+            >
+              <Check className="h-3" />
+            </Button>
+          </div>
         </div>
       </TableCell>
       <TableCell>

@@ -1,9 +1,9 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { getServerSideUser } from "@/lib/payload-utils";
 import { cookies } from "next/headers";
-import { Loader } from "lucide-react";
-import GuestCont from "@/components/plan/GuestCont";
+import { Check, Loader } from "lucide-react";
 import ItineraryCont from "@/components/plan/ItineraryCont";
+import { Button } from "@/components/ui/button";
 
 const Itinerary = async () => {
   const nextCookies = cookies();
@@ -14,9 +14,21 @@ const Itinerary = async () => {
       <div className="flex items-center justify-between space-y-2 pb-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Itinerary</h2>
-          <p className="text-muted-foreground">
-            Fill in some details and we&apos;ll help keep you on track.
+          <p className="text-muted-foreground italic">
+            The magic happens when everyone knows what they have to do, your
+            perfect wedding day is an itinerary away!
           </p>
+          <div className="flex flex-row items-center gap-1 text-muted-foreground italic">
+            <p>Make sure to click</p>
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-gradient-to-r from-amber-200 to-emerald-200 w-6 h-6"
+            >
+              <Check className="h-3" />
+            </Button>
+            <p>to save your details.</p>
+          </div>
         </div>
       </div>
       {user ? (

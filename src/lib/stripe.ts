@@ -91,7 +91,7 @@ export async function createCheckoutLink(userId: string) {
   const vendor = await payload.find({
     collection: "vendors",
     where: {
-      venduserid: userId,
+      venduserid: { equals: userId },
     },
   });
 
@@ -104,12 +104,14 @@ export async function createCheckoutLink(userId: string) {
       customer: user.stripe_customer_id,
       line_items: [
         {
-          price: handleValidUpgradeMonthly(vendor.category),
+          price: handleValidUpgradeMonthly(vendor.docs[0].category),
           quantity: 1,
         },
       ],
       mode: "subscription",
     });
+
+    console.log(vendor.docs[0].category);
 
     return checkout.url;
   }

@@ -14,7 +14,7 @@ const Budget = async () => {
       <div className="flex items-center justify-between space-y-2 pb-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Budget</h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground italic">
             This part can be a little a intimidating, 😅 So this form is here to
             help!
           </p>

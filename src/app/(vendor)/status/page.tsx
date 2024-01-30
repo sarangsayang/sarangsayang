@@ -31,7 +31,7 @@ export default async function Status() {
     if (role === "vendor") {
       return {
         label: "Offical Vendor",
-        desc: `Thanks for joining! Try being a Supervendor today`,
+        desc: `View your perks and how you can upgrade your status to become our Supervendor below!`,
       };
     } else if (role === "supervendor") {
       return {
@@ -49,7 +49,9 @@ export default async function Status() {
         {user && vendorRole ? (
           <div className="py-10 flex flex-col items-start">
             <h1 className="text-4xl font-medium py-2 flex items-baseline gap-2">
-              <span className="text-2xl font-light">You&apos;re our</span>{" "}
+              <span className="text-2xl font-light">
+                You&apos;re currently an official
+              </span>{" "}
               {role(vendorRole)?.label}
             </h1>
             <p className="text-gray-600 italic w-100">

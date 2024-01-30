@@ -28,7 +28,7 @@ const ItineraryPull = ({ planId }: ItineraryPullProps) => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[140px]">Time</TableHead>
+              <TableHead className="w-[140px]">Date and Time</TableHead>
               <TableHead className="w-[270px]">Event</TableHead>
               <TableHead className="w-[270px]">Location</TableHead>
               <TableHead className="w-[350px]">Details</TableHead>

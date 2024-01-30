@@ -702,6 +702,7 @@ exports.appRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         id: zod_1.z.string(),
         time: zod_1.z.number().optional(),
+        date: zod_1.z.string().optional(),
         location: zod_1.z.string().optional(),
         event: zod_1.z.string().optional(),
         involved: zod_1.z.string().optional(),
@@ -726,9 +727,21 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         _b.sent();
-                        return [3 /*break*/, 11];
+                        return [3 /*break*/, 13];
                     case 3:
-                        if (!input.location) return [3 /*break*/, 5];
+                        if (!input.date) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "itinerary",
+                                where: { id: { equals: input.id } },
+                                data: {
+                                    date: input.date,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 13];
+                    case 5:
+                        if (!input.location) return [3 /*break*/, 7];
                         return [4 /*yield*/, payload.update({
                                 collection: "itinerary",
                                 where: { id: { equals: input.id } },
@@ -736,11 +749,11 @@ exports.appRouter = (0, trpc_1.router)({
                                     location: input.location,
                                 },
                             })];
-                    case 4:
+                    case 6:
                         _b.sent();
-                        return [3 /*break*/, 11];
-                    case 5:
-                        if (!input.event) return [3 /*break*/, 7];
+                        return [3 /*break*/, 13];
+                    case 7:
+                        if (!input.event) return [3 /*break*/, 9];
                         return [4 /*yield*/, payload.update({
                                 collection: "itinerary",
                                 where: { id: { equals: input.id } },
@@ -748,11 +761,11 @@ exports.appRouter = (0, trpc_1.router)({
                                     event: input.event,
                                 },
                             })];
-                    case 6:
+                    case 8:
                         _b.sent();
-                        return [3 /*break*/, 11];
-                    case 7:
-                        if (!input.involved) return [3 /*break*/, 9];
+                        return [3 /*break*/, 13];
+                    case 9:
+                        if (!input.involved) return [3 /*break*/, 11];
                         return [4 /*yield*/, payload.update({
                                 collection: "itinerary",
                                 where: { id: { equals: input.id } },
@@ -760,11 +773,11 @@ exports.appRouter = (0, trpc_1.router)({
                                     involved: input.involved,
                                 },
                             })];
-                    case 8:
+                    case 10:
                         _b.sent();
-                        return [3 /*break*/, 11];
-                    case 9:
-                        if (!input.details) return [3 /*break*/, 11];
+                        return [3 /*break*/, 13];
+                    case 11:
+                        if (!input.details) return [3 /*break*/, 13];
                         return [4 /*yield*/, payload.update({
                                 collection: "itinerary",
                                 where: { id: { equals: input.id } },
@@ -772,10 +785,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     details: input.details,
                                 },
                             })];
-                    case 10:
+                    case 12:
                         _b.sent();
-                        _b.label = 11;
-                    case 11: return [2 /*return*/];
+                        _b.label = 13;
+                    case 13: return [2 /*return*/];
                 }
             });
         });
@@ -807,6 +820,7 @@ exports.appRouter = (0, trpc_1.router)({
     addItinerary: trpc_1.publicProcedure
         .input(zod_1.z.object({
         planId: zod_1.z.string(),
+        date: zod_1.z.string().optional(),
         time: zod_1.z.number().optional(),
         location: zod_1.z.string().optional(),
         event: zod_1.z.string().optional(),
@@ -826,6 +840,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "itinerary",
                                 data: {
                                     plan: input.planId,
+                                    date: input.date,
                                     time: input.time,
                                     location: input.location || "-",
                                     event: input.event || "-",

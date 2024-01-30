@@ -1,19 +1,25 @@
 "use client";
 
 import { trpc } from "@/trpc/client";
-import { Loader, PlusCircle } from "lucide-react";
+import { CalendarIcon, Loader, PlusCircle } from "lucide-react";
 import { Label } from "../ui/label";
 import { ChangeEvent, SetStateAction, useState } from "react";
 import { Input } from "../ui/input";
 import ItineraryPull from "./ItineraryPull";
 import Image from "next/image";
 import WantToSync from "./WantToSync";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
+import { Calendar } from "../ui/calendar";
+import { format } from "date-fns";
 
 interface ItineraryContProps {
   userId: string;
 }
 
 const ItineraryCont = ({ userId }: ItineraryContProps) => {
+  const [date, setDate] = useState<Date>();
   const [time, setTime] = useState(0);
   const [event, setEvent] = useState("");
   const [location, setLocation] = useState("");
@@ -69,6 +75,30 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
               className="px-4"
             />
             <div className="grid grid-cols-6 gap-5 w-full py-6 px-6">
+              <div className="col-span-6">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
               <div className="col-span-2 flex items-end gap-2">
                 <div className="w-full">
                   <Label>Time (24hr Format)</Label>
@@ -125,12 +155,14 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
                     event: event,
                     involved: involved,
                     details: details,
+                    date: date?.toISOString() as string,
                   });
                   setTime(0);
                   setLocation("");
                   setEvent("");
                   setInvolved("");
                   setDetails("");
+                  setDate(new Date());
                 }}
                 className="cursor-pointer text-slate-400 hover:text-slate-600"
               />
