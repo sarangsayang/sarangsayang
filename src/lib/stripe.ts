@@ -111,8 +111,6 @@ export async function createCheckoutLink(userId: string) {
       mode: "subscription",
     });
 
-    console.log(vendor.docs[0].category);
-
     return checkout.url;
   }
 }

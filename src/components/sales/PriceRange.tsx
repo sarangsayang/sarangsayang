@@ -400,13 +400,12 @@ const PriceRange = ({
                 </div>
 
                 {/* Name and DESC */}
-                <div className="flex-shrink-0 pb-6 space-y-2 border-b h-[120px]">
+                <div className="flex-shrink-0 pb-6 space-y-2 border-b">
                   <div className="flex items-center gap-1">
-                    <h2 className="text-2xl font-normal">Platinum Tier</h2>
+                    <h2 className="text-2xl font-normal">
+                      Featured Vendor add on
+                    </h2>
                   </div>
-                  <p className="text-sm text-gray-400">
-                    All the basics for businesses that are just getting started.
-                  </p>
                 </div>
 
                 <ul className="flex-1 space-y-4">
@@ -417,18 +416,26 @@ const PriceRange = ({
                         Top 4 Listings
                       </p>
                       <p className="ml-3 text-sm italic font-light">
-                        In respective category
+                        Of respective category page
                       </p>
                     </div>
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div>
+                    <div className="w-full">
                       <p className="ml-3 text-base font-medium">
                         Consolidated Social Media Post
                       </p>
                       <p className="ml-3 text-sm italic font-light">
-                        (eg: Bridals to look out for)
+                        (eg: Sarang Sayang Featured Bridals of the month)
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div className="w-full">
+                      <p className="ml-3 text-base font-medium">
+                        Featured in monthly Sarang Sayang e-mail newsletter
                       </p>
                     </div>
                   </li>
@@ -448,50 +455,62 @@ const PriceRange = ({
                 </div>
 
                 {/* Name and DESC */}
-                <div className="flex-shrink-0 pb-6 space-y-2 border-b h-[120px]">
+                <div className="flex-shrink-0 pb-6 space-y-2 border-b">
                   <div className="flex items-center gap-1">
-                    <h2 className="text-2xl font-normal">Elite Tier</h2>
+                    <h2 className="text-2xl font-normal">Top Vendor add on</h2>
                   </div>
-                  <p className="text-sm text-gray-400">
-                    All the basics for businesses that are just getting started.
-                  </p>
                 </div>
 
                 <ul className="flex-1 space-y-4">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div>
+                    <div className="w-full">
                       <p className="ml-3 text-base font-medium">Top Listing</p>
                       <p className="ml-3 text-sm italic font-light">
-                        In respective category
+                        Of respective category page
                       </p>
                     </div>
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div>
-                      <p className="ml-3 text-base font-medium">
-                        Consolidated Social Media Post
+                    <div className="w-full">
+                      <p className="ml-3 text-base font-medium text-balance">
+                        Cover of Consolidated Social Media Post
                       </p>
                       <p className="ml-3 text-sm italic font-light">
-                        (eg: Bridals to look out for)
+                        (eg: Sarang Sayang Featured Bridals of the month)
                       </p>
                     </div>
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div>
+                    <div className="w-full">
+                      <p className="ml-3 text-base font-medium">
+                        Featured in monthly Sarang Sayang e-mail newsletter
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div className="w-full">
                       <p className="ml-3 text-base font-medium">Featured on</p>
                       <p className="ml-3 text-base font-medium">
                         Sarang Sayang Homepage
                       </p>
+                      <p className="ml-3 text-sm italic font-light">
+                        Easy access and maximum exposure to our users
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div>
+                    <div className="w-full">
                       <p className="ml-3 text-base font-medium">
-                        Featured Category Photo
+                        Category Cover Photo
+                      </p>
+                      <p className="ml-3 text-sm italic font-light">
+                        Vendor Photo will be used as the cover photo for the
+                        “discover” tab.
                       </p>
                     </div>
                   </li>

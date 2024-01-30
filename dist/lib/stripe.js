@@ -181,7 +181,6 @@ function createCheckoutLink(userId) {
                         })];
                 case 4:
                     checkout = _a.sent();
-                    console.log(vendor.docs[0].category);
                     return [2 /*return*/, checkout.url];
                 case 5: return [2 /*return*/];
             }

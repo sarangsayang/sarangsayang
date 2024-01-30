@@ -36,7 +36,7 @@ export default async function Status() {
     } else if (role === "supervendor") {
       return {
         label: "Supervendor",
-        desc: `Congrats! You'll maintain being a Supervendor till your subscription ends`,
+        desc: "You beautiful creature you. Look at that gold tick. You a star, that's what you are! You'll maintain being a Supervendor until you don't want to be as special anymore.",
       };
     }
   }
@@ -54,7 +54,7 @@ export default async function Status() {
               </span>{" "}
               {role(vendorRole)?.label}
             </h1>
-            <p className="text-gray-600 italic w-100">
+            <p className="text-gray-600 italic w-100 text-balance">
               {role(vendorRole)?.desc}
             </p>
           </div>
