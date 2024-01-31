@@ -1,4 +1,4 @@
-import { PrimaryActionEmailHtml } from "../../components/emails/PrimaryActionEmail";
+import { VerifyUserEmailHtml } from "../../components/emails/users/VerifyUserEmail";
 import { Access, CollectionConfig } from "payload/types";
 
 const adminsAndUser: Access = ({ req: { user } }) => {
@@ -15,10 +15,9 @@ export const Users: CollectionConfig = {
   slug: "users",
   auth: {
     verify: {
-      generateEmailHTML: ({ token }) => {
-        return PrimaryActionEmailHtml({
-          actionLabel: "verify your account",
-          buttonText: "Verify Account",
+      generateEmailHTML: ({ token, user }) => {
+        return VerifyUserEmailHtml({
+          name: user.name,
           href: `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}`,
         });
       },

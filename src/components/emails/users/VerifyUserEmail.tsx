@@ -10,33 +10,36 @@ import {
   Preview,
   Section,
   Text,
+  render,
 } from "@react-email/components";
 import * as React from "react";
 
-export const EnquiryEmail = () => (
+interface VerifyUserEmailProps {
+  name: string;
+  href: string;
+}
+
+export const VerifyUserEmail = ({ name, href }: VerifyUserEmailProps) => (
   <Html>
     <Head />
-    <Preview>You received an enquiry from Sarang Sayang!</Preview>
+    <Preview>Verify your account with Sarang Sayang!</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={box}>
           <Img
-            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/logo.jpg`}
-            width="49"
-            height="21"
-            alt="Stripe"
+            src={"https://sarangsayang.up.railway.app/logopng.png"}
+            width="100"
+            height="100"
+            alt="SarangSayang"
           />
           <Hr style={hr} />
+          <Text style={paragraph}>Hi {name}!</Text>
           <Text style={paragraph}>
-            Congrats! You&apos;ve received a new enquiry from Sarang Sayang.
+            Welcome to Sarang Sayang, a platform for all things malay weddings.
+            Use the button below to verify your account.
           </Text>
-          <Text style={paragraph}>
-            Only if you are verified as a Supervendor, you can view your
-            lead&apos;s contact and a variety of other information about their
-            enquiry right from your CRM.
-          </Text>
-          <Button style={button} href="https://www.sarangsayang.com/sign-in">
-            View your Sarang Sayang Dashboard
+          <Button style={button} href={href}>
+            Verify Your Account
           </Button>
           <Hr style={hr} />
           <Text style={paragraph}>
@@ -47,17 +50,22 @@ export const EnquiryEmail = () => (
             </Link>{" "}
             and get in touch with us by replying to this email address.
           </Text>
-          <Text style={paragraph}>— The Sarang Sayang team</Text>
+          <Text style={paragraph}>
+            Love, <br /> The Sarang Sayang team
+          </Text>
         </Section>
       </Container>
     </Body>
   </Html>
 );
 
-export default EnquiryEmail;
+export default VerifyUserEmail;
+
+export const VerifyUserEmailHtml = (props: VerifyUserEmailProps) =>
+  render(<VerifyUserEmail {...props} />, { pretty: true });
 
 const main = {
-  backgroundColor: "#f6f9fc",
+  backgroundColor: "#C8E9F3",
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
 };
@@ -80,7 +88,6 @@ const hr = {
 
 const paragraph = {
   color: "#525f7f",
-
   fontSize: "16px",
   lineHeight: "24px",
   textAlign: "left" as const,
@@ -100,11 +107,5 @@ const button = {
   textAlign: "center" as const,
   display: "block",
   width: "100%",
-  padding: "10 10",
-};
-
-const footer = {
-  color: "#8898aa",
-  fontSize: "12px",
-  lineHeight: "16px",
+  padding: "10px",
 };

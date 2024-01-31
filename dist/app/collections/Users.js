@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Users = void 0;
-var PrimaryActionEmail_1 = require("../../components/emails/PrimaryActionEmail");
+var VerifyUserEmail_1 = require("../../components/emails/users/VerifyUserEmail");
 var adminsAndUser = function (_a) {
     var user = _a.req.user;
     if (user.role === "admin")
@@ -17,10 +17,9 @@ exports.Users = {
     auth: {
         verify: {
             generateEmailHTML: function (_a) {
-                var token = _a.token;
-                return (0, PrimaryActionEmail_1.PrimaryActionEmailHtml)({
-                    actionLabel: "verify your account",
-                    buttonText: "Verify Account",
+                var token = _a.token, user = _a.user;
+                return (0, VerifyUserEmail_1.VerifyUserEmailHtml)({
+                    name: user.name,
                     href: "".concat(process.env.NEXT_PUBLIC_SERVER_URL, "/verify-email?token=").concat(token),
                 });
             },
