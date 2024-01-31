@@ -43,7 +43,7 @@ const CRMDataPull = ({ vendorId, role }: CRMDataPullProps) => {
     }
 
     return (
-      <div className="flex w-[100px] items-center gap-1">
+      <div className="flex w-[100px] items-center gap-3">
         {status.icon2}
         <span>{status.label}</span>
       </div>
@@ -58,7 +58,7 @@ const CRMDataPull = ({ vendorId, role }: CRMDataPullProps) => {
     }
 
     return (
-      <div className="flex w-[100px] items-center gap-1">
+      <div className="flex w-[100px] items-center gap-3">
         {priority.icon2}
         <span>{priority.label}</span>
       </div>
@@ -92,51 +92,38 @@ const CRMDataPull = ({ vendorId, role }: CRMDataPullProps) => {
               ]}
             >
               <TableCell>{format(lead.createdAt, "dd/MM/yyyy")}</TableCell>
-              <TableCell>{lead.name}</TableCell>
-              <TableCell>{lead.email}</TableCell>
-              <TableCell>{lead.contact}</TableCell>
               <TableCell>
-                <p className="italic text-slate-500">Started Chat</p>
+                <div className="flex flex-col gap-3">
+                  <p>{lead.name}</p>
+                  <p>{lead.email}</p>
+                  <p>{lead.contact}</p>
+                </div>
               </TableCell>
               <TableCell>{lead.source}</TableCell>
               <TableCell>{statusAndIcon(lead.status)}</TableCell>
               <TableCell>{priorityAndIcon(lead.priority)}</TableCell>
               <TableCell>{lead.remarks}</TableCell>
-              <TableCell>
-                <Delete
-                  className="text-rose-400 hover:text-rose-300 cursor-pointer"
-                  onClick={() => {
-                    removeLead.mutate({
-                      leadId: lead.id,
-                    });
-                  }}
-                />
-              </TableCell>
+              <TableCell></TableCell>
             </TableRow>
           ) : (
             <TableRow key={lead.createdAt}>
               <TableCell>{format(lead.createdAt, "dd/MM/yyyy")}</TableCell>
               <TableCell>
-                <Skeleton className="w-[100px] h-[20px] rounded-full" />
-              </TableCell>
-              <TableCell>
-                <Skeleton className="w-[100px] h-[20px] rounded-full" />
-              </TableCell>
-              <TableCell>
-                <Skeleton className="w-[100px] h-[20px] rounded-full" />
-              </TableCell>
-              <TableCell>
-                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+                <div className="flex flex-col gap-3">
+                  <Skeleton className="w-full h-[30px] rounded-full" />
+                  <Skeleton className="w-full h-[30px] rounded-full" />
+                  <Skeleton className="w-full h-[30px] rounded-full" />
+                </div>
               </TableCell>
               <TableCell>{lead.source}</TableCell>
               <TableCell>
-                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+                <Skeleton className="w-full h-[20px] rounded-full" />
               </TableCell>
               <TableCell>
-                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+                <Skeleton className="w-full h-[20px] rounded-full" />
               </TableCell>
               <TableCell>
-                <Skeleton className="w-[100px] h-[20px] rounded-full" />
+                <Skeleton className="w-full h-[20px] rounded-full" />
               </TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -152,10 +139,13 @@ const CRMDataPull = ({ vendorId, role }: CRMDataPullProps) => {
             ]}
           >
             <TableCell>{format(lead.createdAt, "dd/MM/yyyy")}</TableCell>
-            <TableCell>{lead.name}</TableCell>
-            <TableCell>{lead.email}</TableCell>
-            <TableCell>{lead.contact}</TableCell>
-            <TableCell>{lead.message}</TableCell>
+            <TableCell>
+              <div className="flex flex-col gap-3">
+                <p>{lead.name}</p>
+                <p>{lead.email}</p>
+                <p>{lead.contact}</p>
+              </div>
+            </TableCell>
             <TableCell>{lead.source}</TableCell>
             <TableCell>{statusAndIcon(lead.status)}</TableCell>
             <TableCell>{priorityAndIcon(lead.priority)}</TableCell>

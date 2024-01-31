@@ -2141,6 +2141,7 @@ exports.appRouter = (0, trpc_1.router)({
                                     },
                                 },
                                 pagination: false,
+                                sort: "createdAt",
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -2276,7 +2277,6 @@ exports.appRouter = (0, trpc_1.router)({
         name: zod_1.z.string(),
         email: zod_1.z.string(),
         contact: zod_1.z.string(),
-        message: zod_1.z.string(),
         source: zod_1.z.string(),
         status: zod_1.z.string(),
         priority: zod_1.z.string(),
@@ -2294,14 +2294,13 @@ exports.appRouter = (0, trpc_1.router)({
                         return [4 /*yield*/, payload.update({
                                 collection: "leads",
                                 where: {
-                                    id: input.id,
+                                    id: { equals: input.id },
                                 },
                                 data: {
                                     updatedAt: new Date(),
                                     name: input.name,
                                     email: input.email,
                                     contact: input.contact,
-                                    message: input.message,
                                     source: input.source,
                                     status: input.status,
                                     priority: input.priority,

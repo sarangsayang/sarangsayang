@@ -32,7 +32,6 @@ const CRMEditLead = ({ lead }: CRMDataPullProps) => {
   const [name, setName] = useState(lead.name);
   const [email, setEmail] = useState(lead.email);
   const [contact, setContact] = useState(lead.contact);
-  const [message, setMessage] = useState(lead.message);
   const [source, setSource] = useState(lead.source);
   const [status, setStatus] = useState(lead.status);
   const [priority, setPriority] = useState(lead.priority);
@@ -53,12 +52,6 @@ const CRMEditLead = ({ lead }: CRMDataPullProps) => {
   }) => {
     setContact(event.target.value);
   };
-  const handleMSGChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    // @ts-ignore
-    setMessage(event.target.value);
-  };
   const handleSourceChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -77,10 +70,8 @@ const CRMEditLead = ({ lead }: CRMDataPullProps) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Contact</TableHead>
-          <TableHead>Message</TableHead>
+          <TableHead>Contact Details</TableHead>
+          <TableHead>Chat</TableHead>
           <TableHead>Source</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Priority</TableHead>
@@ -90,59 +81,64 @@ const CRMEditLead = ({ lead }: CRMDataPullProps) => {
       </TableHeader>
       <TableBody>
         <TableCell>
-          <Input
-            value={name}
-            onChange={handleNameChange}
-            className="w-[150px]"
-            type="name"
-            placeholder="Name"
-          />
-        </TableCell>
-        <TableCell>
-          <Input
-            value={email}
-            onChange={handleEmailChange}
-            className="w-[150px]"
-            type="email"
-            placeholder="Email"
-          />
-        </TableCell>
-        <TableCell>
-          <Input
-            value={contact}
-            onChange={handleContactChange}
-            className="w-[150px]"
-            type="contact"
-            placeholder="Contact"
-          />
+          <div className="flex flex-col gap-3">
+            <Input
+              value={name}
+              onChange={handleNameChange}
+              className="w-full"
+              type="name"
+              placeholder="Name"
+            />
+            <Input
+              value={email}
+              onChange={handleEmailChange}
+              className="w-full"
+              type="email"
+              placeholder="Email"
+            />
+            <Input
+              value={contact}
+              onChange={handleContactChange}
+              className="w-full"
+              type="contact"
+              placeholder="Contact"
+            />
+          </div>
         </TableCell>
         {lead.chat ? (
           <TableCell>
-            <VendorChat
-              chat={lead.chat as Chat}
-              //@ts-ignore
-              user={lead.chat.user as User}
-            />
+            <div className="w-full flex justify-center">
+              <VendorChat
+                chat={lead.chat as Chat}
+                //@ts-ignore
+                user={lead.chat.user as User}
+              />
+            </div>
           </TableCell>
         ) : (
           <TableCell>
-            <Textarea
-              // @ts-ignore
-              value={message}
-              onChange={handleMSGChange}
-              className="w-[150px]"
-              placeholder="Type your message here."
-            />
+            <p className="text-slate-500 italic">No Chats Found</p>
           </TableCell>
         )}
         <TableCell>
-          <Input
-            value={source}
-            onChange={handleSourceChange}
-            className="w-[150px]"
-            type="source"
-            placeholder="Source"
-          />
+          {source === "Sarang Sayang" ? (
+            <Input
+              value={source}
+              onChange={handleSourceChange}
+              className="w-full"
+              type="source"
+              placeholder="Source"
+              disabled
+            />
+          ) : (
+            <Input
+              value={source}
+              onChange={handleSourceChange}
+              className="w-full"
+              type="source"
+              placeholder="Source"
+            />
+          )}
         </TableCell>
         <TableCell>
           {/* @ts-ignore */}
@@ -199,8 +195,6 @@ const CRMEditLead = ({ lead }: CRMDataPullProps) => {
                   name: name,
                   contact: contact,
                   email: email,
-                  //@ts-ignore
-                  message: message,
                   source: source,
                   status: status,
                   priority: priority,

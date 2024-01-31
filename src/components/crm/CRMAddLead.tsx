@@ -22,7 +22,6 @@ const CRMAddLead = ({ vendorId }: CRMAddLeadProps) => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [contact, setContact] = React.useState("");
-  const [message, setMessage] = React.useState("");
   const [source, setSource] = React.useState("");
   const [status, setStatus] = React.useState("");
   const [priority, setPriority] = React.useState("");
@@ -43,11 +42,6 @@ const CRMAddLead = ({ vendorId }: CRMAddLeadProps) => {
   }) => {
     setContact(event.target.value);
   };
-  const handleMSGChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setMessage(event.target.value);
-  };
   const handleSourceChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -65,7 +59,7 @@ const CRMAddLead = ({ vendorId }: CRMAddLeadProps) => {
       name: name,
       email: email,
       contact: contact,
-      message: message,
+      message: "-",
       source: source,
       status: status,
       priority: priority,
@@ -74,7 +68,6 @@ const CRMAddLead = ({ vendorId }: CRMAddLeadProps) => {
     setName("");
     setEmail("");
     setContact("");
-    setMessage("");
     setSource("");
     setStatus("");
     setPriority("");
@@ -87,48 +80,38 @@ const CRMAddLead = ({ vendorId }: CRMAddLeadProps) => {
     <TableRow className="bg-gradient-to-r from-pink-100 to-cyan-100 shadow-md">
       {/* Form */}
       <TableCell>
-        <div className="w-[150px]">Today</div>
+        <div>Today</div>
       </TableCell>
       <TableCell>
-        <Input
-          value={name}
-          onChange={handleNameChange}
-          className="w-[150px]"
-          type="name"
-          placeholder="Name"
-        />
-      </TableCell>
-      <TableCell>
-        <Input
-          value={email}
-          onChange={handleEmailChange}
-          className="w-[150px]"
-          type="email"
-          placeholder="Email"
-        />
-      </TableCell>
-      <TableCell>
-        <Input
-          value={contact}
-          onChange={handleContactChange}
-          className="w-[150px]"
-          type="contact"
-          placeholder="Contact"
-        />
-      </TableCell>
-      <TableCell>
-        <Textarea
-          value={message}
-          onChange={handleMSGChange}
-          className="w-[150px]"
-          placeholder="Type your message here."
-        />
+        <div className="flex flex-col gap-3">
+          <Input
+            value={name}
+            onChange={handleNameChange}
+            className="w-full"
+            type="name"
+            placeholder="Name"
+          />
+          <Input
+            value={email}
+            onChange={handleEmailChange}
+            className="w-full"
+            type="email"
+            placeholder="Email"
+          />
+          <Input
+            value={contact}
+            onChange={handleContactChange}
+            className="w-full"
+            type="contact"
+            placeholder="Contact"
+          />
+        </div>
       </TableCell>
       <TableCell>
         <Input
           value={source}
           onChange={handleSourceChange}
-          className="w-[150px]"
+          className="w-full"
           type="source"
           placeholder="Source"
         />

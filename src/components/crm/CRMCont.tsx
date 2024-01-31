@@ -28,16 +28,13 @@ const CRMCont = ({ userId, role }: CRMContProps) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Date Created</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Contact</TableHead>
-            <TableHead>Message</TableHead>
-            <TableHead>Source</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Priority</TableHead>
-            <TableHead>Remarks</TableHead>
-            <TableHead className="max-w-[100px]"></TableHead>
+            <TableHead className="w-[150px]">Date Created</TableHead>
+            <TableHead className="w-[300px]">Contact Details</TableHead>
+            <TableHead className="w-[180px]">Source</TableHead>
+            <TableHead className="w-[180px]">Status</TableHead>
+            <TableHead className="w-[180px]">Priority</TableHead>
+            <TableHead className="w-[200px]">Remarks</TableHead>
+            <TableHead className="w-[100px]"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

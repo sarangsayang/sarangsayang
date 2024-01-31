@@ -1593,6 +1593,7 @@ export const appRouter = router({
           },
         },
         pagination: false,
+        sort: "createdAt",
       });
     }),
 
@@ -1694,7 +1695,6 @@ export const appRouter = router({
         name: z.string(),
         email: z.string(),
         contact: z.string(),
-        message: z.string(),
         source: z.string(),
         status: z.string(),
         priority: z.string(),
@@ -1707,14 +1707,13 @@ export const appRouter = router({
       await payload.update({
         collection: "leads",
         where: {
-          id: input.id,
+          id: { equals: input.id },
         },
         data: {
           updatedAt: new Date(),
           name: input.name,
           email: input.email,
           contact: input.contact,
-          message: input.message,
           source: input.source,
           status: input.status,
           priority: input.priority,
