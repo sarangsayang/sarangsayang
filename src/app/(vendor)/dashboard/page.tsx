@@ -13,16 +13,28 @@ export default async function Dashboard() {
 
   return (
     <>
-      <MaxWidthWrapper className="space-y-4 pt-6 py-20">
+      <MaxWidthWrapper className="space-y-4 pt-6 py-10">
         <div className="flex items-center justify-between space-y-2 pb-8">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Welcome back!</h2>
-            <p className="text-muted-foreground">
-              Here&apos;s an overview of your vendor account and statistics.
+            <h2 className="text-3xl font-bold tracking-tight">
+              Welcome back{user ? ", " + user.name : null}!
+            </h2>
+            <p className="text-muted-foreground text-balance">
+              Here&apos;s the most important part of Sarang Sayang for all our
+              vendors- keeping track of your leads! All the users who have
+              chatted with you will appear in our very own CRM. You can input
+              your own leads here too for easier reference too.
             </p>
+            {/* <p className="text-muted-foreground">
+              All the users who have chatted with you will appear in our very
+              own CRM.
+            </p>
+            <p className="text-muted-foreground">
+              You can input your own leads here too for easier reference too.
+            </p> */}
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3 mb-12">
+        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
           {/* Total Vendor Likes */}
           <Card>{user ? <TVLCont userId={user.id} /> : null}</Card>
 

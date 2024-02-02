@@ -36,7 +36,7 @@ export const VerifyUserEmail = ({ name, href }: VerifyUserEmailProps) => (
           <Text style={paragraph}>Hi {name}!</Text>
           <Text style={paragraph}>
             Welcome to Sarang Sayang, a platform for all things malay weddings.
-            Use the button below to verify your account.
+            Use the link below to verify your account.
           </Text>
           <Button style={button} href={href}>
             Verify Your Account

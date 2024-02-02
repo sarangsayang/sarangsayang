@@ -1,33 +1,31 @@
-'use client'
+"use client";
 
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { trpc } from "@/trpc/client"
-import { FolderSearch } from "lucide-react"
-import TEDataPull from "./TEDataPull"
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { trpc } from "@/trpc/client";
+import { FolderSearch } from "lucide-react";
+import TEDataPull from "./TEDataPull";
 
 interface TEContProps {
-    userId: string
+  userId: string;
 }
 
-const TECont = ({userId} : TEContProps) => {
-    const getVendorId = trpc.getVendorId.useQuery({
-        userId: userId
-    })
+const TECont = ({ userId }: TEContProps) => {
+  const getVendorId = trpc.getVendorId.useQuery({
+    userId: userId,
+  });
 
-    const vendorId = getVendorId.data?.docs[0].id
+  const vendorId = getVendorId.data?.docs[0].id;
   return (
     <>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 h-20">
-            <CardTitle className="text-sm font-medium">
-                Total Enquiries
-            </CardTitle>
-            <FolderSearch />
-        </CardHeader>
-        <CardContent>
-            {vendorId ? <TEDataPull vendorId={vendorId} /> : null}
-        </CardContent>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 h-20">
+        <CardTitle className="text-sm font-medium">Total Enquiries</CardTitle>
+        <FolderSearch />
+      </CardHeader>
+      <CardContent>
+        {vendorId ? <TEDataPull vendorId={vendorId} /> : null}
+      </CardContent>
     </>
-  )
-}
+  );
+};
 
-export default TECont
+export default TECont;
