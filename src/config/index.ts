@@ -2,15 +2,11 @@ import {
   CakeSlice,
   Camera,
   ChefHat,
-  Flower2,
   Hand,
   Hotel,
-  Mic2,
-  Plane,
   Shirt,
   SprayCan,
   Search,
-  LockKeyhole,
 } from "lucide-react";
 
 export const PRODUCT_CATEGORIES = [

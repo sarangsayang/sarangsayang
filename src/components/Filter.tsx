@@ -36,18 +36,18 @@ const Filter = ({ sort, category }: FilterProps) => {
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="createdAt">
+        <SelectItem value="name">
           <p className="flex flex-row gap-3">
             <span>
-              <ArrowUpAZ className="w-5 h-5" />
+              <ArrowDownAZ className="w-5 h-5" />
             </span>
             Ascending
           </p>
         </SelectItem>
-        <SelectItem value="-createdAt">
+        <SelectItem value="-name">
           <p className="flex flex-row gap-3">
             <span>
-              <ArrowDownAZ className="w-5 h-5" />
+              <ArrowUpAZ className="w-5 h-5" />
             </span>
             Descending
           </p>

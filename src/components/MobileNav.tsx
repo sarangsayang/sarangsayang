@@ -84,14 +84,14 @@ const MobileNav = () => {
                             key={item.name}
                             className="group relative text-sm"
                           >
-                            <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                              {/* @ts-ignore */}
-                              <FeaturedImage category={item.value} />
-                            </div>
                             <Link
                               href={item.href}
                               className="mt-6 block font-medium text-gray-900"
                             >
+                              <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                {/* @ts-ignore */}
+                                <FeaturedImage category={item.value} />
+                              </div>
                               {item.name}
                             </Link>
                           </div>

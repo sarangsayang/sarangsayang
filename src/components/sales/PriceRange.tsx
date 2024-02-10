@@ -20,15 +20,10 @@ import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import FeaturedVendorForm from "./FeaturedVendorForm";
+import { toast } from "sonner";
+import { sendFeatVendForm } from "@/actions/sendFeatVendForm";
+import { Vendor } from "@/payload-types";
+import { sendTopVendForm } from "@/actions/sendTopVendForm";
 
 interface PriceRangeProps {
   userRole: string;
@@ -56,7 +51,7 @@ const PriceRange = ({
     userId: userId,
   });
 
-  const category = vendor.data?.category;
+  const vendorAsVendor = vendor.data?.docs[0] as Vendor;
 
   function isFirst6(category: string, price: PriceObject) {
     if (category === "venues") {
@@ -90,14 +85,7 @@ const PriceRange = ({
         <h1 className="mb-4 text-2xl font-normal md:text-3xl lg:text-4xl">
           <span className="font-semibold">Sarang Sayang Vendor Plans</span>
         </h1>
-        <p className="text-sm font-normal text-gray-400">
-          View our add on plans to become our top 4 featured vendors in your
-          category- first come first serve.
-        </p>
-        {/* <p className="text-sm font-normal text-gray-400">
-          It start from here! Add ons are only available for Supervendors.
-        </p> */}
-        <Button variant="ghost" className="mt-3">
+        <Button variant="ghost">
           <Link href={portal} className="flex gap-2 items-center">
             Manage Billing{" "}
             <MoveRight className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
@@ -396,7 +384,13 @@ const PriceRange = ({
         </TabsContent>
 
         <TabsContent value="addon">
-          <div className="flex flex-col items-center justify-center mt-5 px-20 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
+          <div className="flex flex-row justify-center">
+            <p className="text-sm font-normal text-gray-600">
+              All Supervendors are eligible for this Featured/Top vendor add on-
+              on a first come first serve basis.
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center px-20 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
             <div className="flex flex-col items-center gap-2">
               <div className="h-6"></div>
               <section className="flex flex-col w-full max-w-sm p-12 space-y-6 bg-white rounded-lg shadow-md">
@@ -415,6 +409,7 @@ const PriceRange = ({
                       Featured Vendor add on
                     </h2>
                   </div>
+                  <p className="text-sm text-gray-400">3 slots per category</p>
                 </div>
 
                 <ul className="flex-1 space-y-4">
@@ -422,10 +417,10 @@ const PriceRange = ({
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Top 4 Listings
+                        Top 4 Listings for the month
                       </p>
                       <p className="ml-3 text-sm italic font-light">
-                        Of respective category page
+                        On respective category page
                       </p>
                     </div>
                   </li>
@@ -449,7 +444,22 @@ const PriceRange = ({
                     </div>
                   </li>
                 </ul>
-                <FeaturedVendorForm />
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    sendFeatVendForm({
+                      name: vendorAsVendor.name,
+                      cat: vendorAsVendor.category,
+                      //@ts-ignore
+                      email: vendorAsVendor.venduserid.email,
+                    });
+                    toast.success(
+                      "Thanks for your interest! We will reach out soon."
+                    );
+                  }}
+                >
+                  Upgrade
+                </Button>
               </section>
             </div>
 
@@ -469,15 +479,18 @@ const PriceRange = ({
                   <div className="flex items-center gap-1">
                     <h2 className="text-2xl font-normal">Top Vendor add on</h2>
                   </div>
+                  <p className="text-sm text-gray-400">1 slot per category</p>
                 </div>
 
                 <ul className="flex-1 space-y-4">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div className="w-full">
-                      <p className="ml-3 text-base font-medium">Top Listing</p>
+                      <p className="ml-3 text-base font-medium">
+                        Top Listing of the month
+                      </p>
                       <p className="ml-3 text-sm italic font-light">
-                        Of respective category page
+                        On respective category page
                       </p>
                     </div>
                   </li>
@@ -525,6 +538,22 @@ const PriceRange = ({
                     </div>
                   </li>
                 </ul>
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    sendTopVendForm({
+                      name: vendorAsVendor.name,
+                      cat: vendorAsVendor.category,
+                      //@ts-ignore
+                      email: vendorAsVendor.venduserid.email,
+                    });
+                    toast.success(
+                      "Thanks for your interest! We will reach out soon."
+                    );
+                  }}
+                >
+                  Upgrade
+                </Button>
               </section>
             </div>
           </div>

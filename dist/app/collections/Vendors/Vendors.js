@@ -48,10 +48,10 @@ var yourOwnVendor = function (_a) {
                     user = req.user;
                     if (!user)
                         return [2 /*return*/, false];
-                    if (user.role === 'admin')
+                    if (user.role === "admin")
                         return [2 /*return*/, true];
                     return [4 /*yield*/, req.payload.find({
-                            collection: 'vendors',
+                            collection: "vendors",
                             where: {
                                 venduserid: {
                                     equals: user.id,
@@ -71,48 +71,49 @@ var yourOwnVendor = function (_a) {
     });
 };
 exports.Vendors = {
-    slug: 'vendors',
+    slug: "vendors",
     admin: {
-        useAsTitle: 'name',
+        useAsTitle: "name",
         hideAPIURL: true,
     },
     access: {
         create: function (_a) {
             var req = _a.req;
-            return req.user.role === 'admin';
+            return req.user.role === "admin";
         },
         read: yourOwnVendor,
         update: yourOwnVendor,
         delete: function (_a) {
             var req = _a.req;
-            return req.user.role === 'admin';
+            return req.user.role === "admin";
         },
     },
     fields: [
         {
-            name: 'venduserid',
-            label: 'Vendor User ID',
-            type: 'relationship',
-            relationTo: 'users',
+            name: "venduserid",
+            label: "Vendor User ID",
+            type: "relationship",
+            relationTo: "users",
             access: {
                 update: function (_a) {
                     var req = _a.req;
-                    return req.user.role === 'admin';
+                    return req.user.role === "admin";
                 },
             },
             required: true,
             hasMany: false,
         },
         {
-            name: 'name',
-            label: 'Vendor Name',
-            type: 'text',
+            name: "name",
+            label: "Vendor Name",
+            type: "text",
             required: true,
+            index: true,
         },
         {
-            name: 'category',
-            label: 'Vendor Category',
-            type: 'select',
+            name: "category",
+            label: "Vendor Category",
+            type: "select",
             options: config_1.VENDOR_CATEGORIES.map(function (_a) {
                 var label = _a.label, value = _a.value;
                 return ({ label: label, value: value });
@@ -120,51 +121,51 @@ exports.Vendors = {
             required: true,
         },
         {
-            name: 'details',
-            type: 'richText',
-            label: 'Vendor Details',
+            name: "details",
+            type: "richText",
+            label: "Vendor Details",
             required: false,
         },
         {
-            name: 'location',
-            label: 'Vendor Location',
-            type: 'text',
+            name: "location",
+            label: "Vendor Location",
+            type: "text",
             required: false,
         },
         {
-            name: 'facebook',
-            label: 'Vendor Facebook Link',
-            type: 'text',
+            name: "facebook",
+            label: "Vendor Facebook Link",
+            type: "text",
             required: false,
         },
         {
-            name: 'instagram',
-            label: 'Vendor Instagram Link',
-            type: 'text',
+            name: "instagram",
+            label: "Vendor Instagram Link",
+            type: "text",
             required: false,
         },
         {
-            name: 'packages',
-            type: 'relationship',
-            label: 'Vendor Package(s)',
+            name: "packages",
+            type: "relationship",
+            label: "Vendor Package(s)",
             required: false,
-            relationTo: 'packages',
+            relationTo: "packages",
             hasMany: true,
         },
         {
-            name: 'images',
-            type: 'array',
-            label: 'Product images',
+            name: "images",
+            type: "array",
+            label: "Product images",
             minRows: 1,
             labels: {
-                singular: 'Image',
-                plural: 'Images',
+                singular: "Image",
+                plural: "Images",
             },
             fields: [
                 {
-                    name: 'image',
-                    type: 'upload',
-                    relationTo: 'media',
+                    name: "image",
+                    type: "upload",
+                    relationTo: "media",
                     required: true,
                 },
             ],

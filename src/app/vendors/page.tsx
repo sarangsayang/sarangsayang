@@ -57,8 +57,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
             category,
             search,
             limit: 40,
-            sort:
-              sort === "-createdAt" || sort === "createdAt" ? sort : undefined,
+            sort: sort === "-name" || sort === "name" ? sort : undefined,
           }}
         />
       </MaxWidthWrapper>
