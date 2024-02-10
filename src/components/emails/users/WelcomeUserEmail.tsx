@@ -16,34 +16,13 @@ import * as React from "react";
 export const WelcomeUserEmail = () => (
   <Html>
     <Head />
-    <Preview>Singapore&#39;s largest malay wedding directory</Preview>
+    <Preview>We&apos;re excited to be part of your Wedding Journey!</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section style={box}>
-          <Img
-            src={"https://sarangsayang.up.railway.app/logopng.png"}
-            width="60"
-            height="60"
-            alt="SarangSayang"
-          />
-          <Hr style={hr} />
-          <Text style={paragraph}>Welcome!</Text>
-          <Text style={paragraph}>
-            Welcome to Sarang Sayang, a platform for all things malay weddings.
-          </Text>
-          <Hr style={hr} />
-          <Text style={paragraph}>
-            We&apos;ll be here to help you with any step along the way. You can
-            find answers to most questions on our{" "}
-            <Link style={anchor} href="https://www.sarangsayang.com/faq">
-              FAQ page
-            </Link>{" "}
-            and get in touch with us by replying to this email address.
-          </Text>
-          <Text style={paragraph}>
-            Love, <br /> The Sarang Sayang team
-          </Text>
-        </Section>
+        <Img
+          src={"https://sarangsayang.up.railway.app/logopng.png"}
+          alt="WelcomeUser"
+        />
       </Container>
     </Body>
   </Html>
