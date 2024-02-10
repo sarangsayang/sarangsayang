@@ -19,10 +19,12 @@ export const WelcomeUserEmail = () => (
     <Preview>We&apos;re excited to be part of your Wedding Journey!</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img
-          src={"https://sarangsayang.up.railway.app/logopng.png"}
-          alt="WelcomeUser"
-        />
+        <Link href="https://sarangsayang.up.railway.app">
+          <Img
+            src={"https://sarangsayang.up.railway.app/email/welcomeEmail.jpg"}
+            alt="WelcomeUser"
+          />
+        </Link>
       </Container>
     </Body>
   </Html>
