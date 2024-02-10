@@ -26,11 +26,12 @@ const faq = () => {
           <AccordionItem value="item-1">
             <AccordionTrigger>What is Sarang Sayang?</AccordionTrigger>
             <AccordionContent>
-              Sarang Sayang is an online platform that houses malay wedding
-              vendors of all categories. Our mission is to help and empower our
-              Malay community by making wedding planning easier for all couples.
-              We connect Malay wedding vendors to couples planning for their
-              dream wedding through the convenience of one platform.
+              Sarang Sayang is Singapore&apos;s largest Malay Wedding Directory.
+              It acts as an online platform that houses malay wedding vendors
+              for all things Malay weddings. Our mission is to help and empower
+              our Malay community by making wedding planning easier for all
+              couples. We connect Malay wedding vendors to couples planning for
+              their dream wedding through the convenience of one platform.
             </AccordionContent>
           </AccordionItem>
 
@@ -39,18 +40,23 @@ const faq = () => {
               How can I get more information about any packages?
             </AccordionTrigger>
             <AccordionContent>
-              You can click &apos;Enquire Now&apos; and they will reach out to
-              you to set up an appointment or answer any queries regarding their
-              packages.
+              Some vendors have not claimed their profile and some vendors would
+              prefer if clients contact them directly. You can click &apos;Chat
+              Now&apos; and our vendors will reach out to you as soon as
+              possible.
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-3">
             <AccordionTrigger>
-              Does Sarang Sayang charge for any of our services?
+              Do users have to pay to use Sarang Sayang?
             </AccordionTrigger>
             <AccordionContent>
-              No. We do not claim a percentage from any payments made by you.
+              No. Currently, there are no options for users to purchase any
+              packages directly through Sarang Sayang. All payments for any
+              packages are discussed and paid directly to the vendor through
+              their own channels. Users and vendors are welcomed to create a
+              profile and use all of Sarang Sayang&apos;s services for free.
             </AccordionContent>
           </AccordionItem>
 
@@ -77,7 +83,10 @@ const faq = () => {
                     <h3 className="text-base font-medium text-gray-900">
                       Non-Offical Vendor
                     </h3>
-                    <p className="mt-3 text-sm text-muted-foreground">Desc</p>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      Non-Official Sarang Sayang vendors have not claimed their
+                      profiles and are not active vendors.
+                    </p>
                   </div>
                 </div>
 
@@ -104,7 +113,10 @@ const faq = () => {
                     <h3 className="text-base font-medium text-gray-900">
                       Official Vendor
                     </h3>
-                    <p className="mt-3 text-sm text-muted-foreground">Desc</p>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      Official Sarang Sayang vendors are vendors who have
+                      claimed their profile.
+                    </p>
                   </div>
                 </div>
 
@@ -131,10 +143,25 @@ const faq = () => {
                     <h3 className="text-base font-medium text-gray-900">
                       Supervendor
                     </h3>
-                    <p className="mt-3 text-sm text-muted-foreground">Desc</p>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      Supervendors have claimed their profiles and are very
+                      active in updating their packages and replying enquiries.
+                    </p>
                   </div>
                 </div>
               </div>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-5">
+            <AccordionTrigger>
+              Can I use the Plan function on Sarang Sayang?
+            </AccordionTrigger>
+            <AccordionContent>
+              As long you have an account registered with Sarang Sayang, all you
+              have to do is click &quot;Unlock Wedding Planner&quot; on the home
+              page, and you will have full access to Sarang Sayang&apos;s
+              wedding wedding planner.
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -159,9 +186,33 @@ const faq = () => {
               vendor?
             </AccordionTrigger>
             <AccordionContent>
+              If you see your vendor listed within your category, you can click
+              &quot;Claim this vendor&quot;, fill in the details required and
+              our team will contact you at the soonest. Once approved, you will
+              be invited to update your details and packages accordingly.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+              My vendor isn&apos;t listed. How do I become a Sarang Sayang
+              vendor?
+            </AccordionTrigger>
+            <AccordionContent>
               Click &quot;Don&apos;t see your vendor?&quot; on any vendor
               browsing pages, fill in some details and we&apos;ll make it happen
               once we can verify your company!
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+              Does Sarang Sayang take a cut in any of your packages sales?
+            </AccordionTrigger>
+            <AccordionContent>
+              No! We do not take any cuts through the leads you get from Sarang
+              Sayang. We only provide the platform for you to expand your
+              audience and engage with your leads directly.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

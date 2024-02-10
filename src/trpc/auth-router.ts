@@ -33,6 +33,8 @@ export const authRouter = router({
           password,
           role: "user",
           name: name,
+          userFirstLog: true,
+          vendorFirstLog: false,
         },
       });
 

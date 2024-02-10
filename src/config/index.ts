@@ -77,32 +77,32 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Wishlist",
         href: `/plan/wishlist`,
-        imageSrc: "/planmenu/wishlist.jpg",
+        imageSrc: "/planmenu/wishlist.png",
       },
       {
         name: "Wedding Overview",
         href: "/plan/details",
-        imageSrc: "/planmenu/overview.jpg",
+        imageSrc: "/planmenu/overview.png",
       },
       {
         name: "To Do List",
         href: "/plan/todo",
-        imageSrc: "/planmenu/todo.jpg",
+        imageSrc: "/planmenu/todo.png",
       },
       {
         name: "Budget",
         href: "/plan/budget",
-        imageSrc: "/planmenu/budget.jpg",
+        imageSrc: "/planmenu/budget.png",
       },
       {
         name: "Guest List",
         href: "/plan/guests",
-        imageSrc: "/planmenu/guests.jpg",
+        imageSrc: "/planmenu/guest.png",
       },
       {
         name: "Itinerary",
         href: "/plan/itinerary",
-        imageSrc: "/planmenu/itinerary.jpg",
+        imageSrc: "/planmenu/itinerary.png",
       },
     ],
   },

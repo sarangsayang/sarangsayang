@@ -25,13 +25,6 @@ export default async function Dashboard() {
               chatted with you will appear in our very own CRM. You can input
               your own leads here too for easier reference too.
             </p>
-            {/* <p className="text-muted-foreground">
-              All the users who have chatted with you will appear in our very
-              own CRM.
-            </p>
-            <p className="text-muted-foreground">
-              You can input your own leads here too for easier reference too.
-            </p> */}
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">

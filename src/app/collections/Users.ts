@@ -83,5 +83,23 @@ export const Users: CollectionConfig = {
         { label: "Standard Supervendor", value: "supervendor" },
       ],
     },
+    {
+      name: "userFirstLog",
+      defaultValue: true,
+      required: false,
+      type: "checkbox",
+      access: {
+        update: ({ req }) => req.user.role === "admin",
+      },
+    },
+    {
+      name: "vendorFirstLog",
+      defaultValue: false,
+      required: false,
+      type: "checkbox",
+      access: {
+        update: ({ req }) => req.user.role === "admin",
+      },
+    },
   ],
 };

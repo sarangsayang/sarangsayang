@@ -118,7 +118,11 @@ const DirectChat = ({
           )}
 
           <DrawerFooter className="h-full">
-            <ChatInput vendor={vendor} chat={identifiedChat} />
+            <ChatInput
+              vendor={vendor}
+              chat={identifiedChat}
+              userName={user.name}
+            />
           </DrawerFooter>
         </MaxWidthWrapper>
       </DrawerContent>

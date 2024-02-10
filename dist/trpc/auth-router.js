@@ -75,6 +75,8 @@ exports.authRouter = (0, trpc_1.router)({
                                     password: password,
                                     role: "user",
                                     name: name,
+                                    userFirstLog: true,
+                                    vendorFirstLog: false,
                                 },
                             })];
                     case 3:

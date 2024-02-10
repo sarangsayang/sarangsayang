@@ -5,6 +5,7 @@ import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
 import { Package } from "@/payload-types";
 import { format } from "date-fns";
+import { sendMessageUpdateFromUser } from "@/actions/sendMessageUpdateFromUser";
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
@@ -12,6 +13,71 @@ function formatWithLeadingZero(num: number) {
 
 export const appRouter = router({
   auth: authRouter,
+
+  updateVendorFirstLog: publicProcedure
+    .input(
+      z.object({
+        email: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.update({
+        collection: "users",
+        where: {
+          email: {
+            equals: input.email,
+          },
+        },
+        data: {
+          vendorFirstLog: false,
+        },
+      });
+    }),
+
+  updateUserFirstLog: publicProcedure
+    .input(
+      z.object({
+        email: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      await payload.update({
+        collection: "users",
+        where: {
+          email: {
+            equals: input.email,
+          },
+        },
+        data: {
+          userFirstLog: false,
+        },
+      });
+    }),
+
+  sendWelcomeUserEmail: publicProcedure
+    .input(
+      z.object({
+        email: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const result = await payload.find({
+        collection: "users",
+        where: {
+          email: {
+            equals: input.email,
+          },
+        },
+      });
+
+      return result;
+    }),
 
   getMiscVendors: publicProcedure
     .input(
@@ -359,15 +425,8 @@ export const appRouter = router({
     .mutation(async ({ input }) => {
       const payload = await getPayloadClient();
 
-      await payload.create({
-        collection: "chats",
-        data: {
-          user: input.userId,
-          vendor: input.vendorId,
-        },
-      });
-
-      const getChat = await payload.find({
+      // Find out if chat exist
+      const doesChatExist = await payload.find({
         collection: "chats",
         where: {
           user: {
@@ -379,21 +438,43 @@ export const appRouter = router({
         },
       });
 
-      await payload.create({
-        collection: "leads",
-        data: {
-          name: getChat.docs[0].user.name,
-          email: getChat.docs[0].user.email,
-          contact: "-",
-          message: "-",
-          source: "Sarang Sayang",
-          status: "not contacted",
-          priority: "high",
-          remarks: "-",
-          vendor: input.vendorId,
-          chat: getChat.docs[0].id,
-        },
-      });
+      if (doesChatExist.docs.length === 0) {
+        await payload.create({
+          collection: "chats",
+          data: {
+            user: input.userId,
+            vendor: input.vendorId,
+          },
+        });
+
+        const getChat = await payload.find({
+          collection: "chats",
+          where: {
+            user: {
+              equals: input.userId,
+            },
+            vendor: {
+              equals: input.vendorId,
+            },
+          },
+        });
+
+        await payload.create({
+          collection: "leads",
+          data: {
+            name: getChat.docs[0].user.name,
+            email: getChat.docs[0].user.email,
+            contact: "-",
+            message: "-",
+            source: "Sarang Sayang",
+            status: "not contacted",
+            priority: "high",
+            remarks: "-",
+            vendor: input.vendorId,
+            chat: getChat.docs[0].id,
+          },
+        });
+      }
     }),
 
   getAllChats: publicProcedure
@@ -1052,24 +1133,33 @@ export const appRouter = router({
         },
       });
 
-      const packages = plan.docs[0].packages;
-      let packageIds = [];
-
-      for (let i = 0; i < packages.length; i++) {
-        packageIds.push(packages[i].id);
+      if (plan.docs[0].packages) {
+        let packageIds = [];
+        const packages = plan.docs[0].packages;
+        for (let i = 0; i < packages.length; i++) {
+          packageIds.push(packages[i].id);
+        }
+        packageIds.push(input.packageId);
+        await payload.update({
+          collection: "plans",
+          where: {
+            id: { equals: input.id },
+          },
+          data: {
+            packages: packageIds,
+          },
+        });
+      } else {
+        await payload.update({
+          collection: "plans",
+          where: {
+            id: { equals: input.id },
+          },
+          data: {
+            packages: input.packageId,
+          },
+        });
       }
-
-      packageIds.push(input.packageId);
-
-      await payload.update({
-        collection: "plans",
-        where: {
-          id: { equals: input.id },
-        },
-        data: {
-          packages: packageIds,
-        },
-      });
     }),
 
   updatePlan: publicProcedure

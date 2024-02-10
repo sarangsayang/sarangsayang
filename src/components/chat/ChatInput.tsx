@@ -1,25 +1,43 @@
 "use client";
 
-import { Chat, Vendor } from "@/payload-types";
+import { Chat, User, Vendor } from "@/payload-types";
 import React, { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "../ui/button";
 import { ArrowUp } from "lucide-react";
 import { trpc } from "@/trpc/client";
+import { sendMessageUpdateFromUser } from "@/actions/sendMessageUpdateFromUser";
 
 interface ChatInputProps {
   vendor: Vendor;
   chat: Chat;
+  userName: string;
 }
 
-const ChatInput = ({ vendor, chat }: ChatInputProps) => {
+interface EmailProps {
+  userName: string;
+  vendorEmail: string;
+  vendorName: string;
+}
+
+const ChatInput = ({ vendor, chat, userName }: ChatInputProps) => {
   const [input, setInput] = useState<string>("");
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value);
   };
 
+  const vendorUser = vendor.venduserid as User;
+
   const add = trpc.addMessage.useMutation();
+
+  // const onSubmit = ({ userName, vendorEmail, vendorName }: EmailProps) => {
+  //   sendMessageUpdateFromUser({
+  //     userName: userName,
+  //     vendorEmail: vendorEmail,
+  //     vendorName: vendorName,
+  //   });
+  // };
 
   return (
     <div className="border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0 flex flex-row items-center">
@@ -34,6 +52,11 @@ const ChatInput = ({ vendor, chat }: ChatInputProps) => {
                 chatId: chat.id,
                 from: "user",
                 message: input,
+              });
+              sendMessageUpdateFromUser({
+                userName: userName,
+                vendorEmail: vendorUser.email,
+                vendorName: vendor.name,
               });
               setInput("");
             }
@@ -50,11 +73,17 @@ const ChatInput = ({ vendor, chat }: ChatInputProps) => {
             </Button>
           ) : (
             <Button
+              type="submit"
               onClick={() => {
                 add.mutate({
                   chatId: chat.id,
                   from: "user",
                   message: input,
+                });
+                sendMessageUpdateFromUser({
+                  userName: userName,
+                  vendorEmail: vendorUser.email,
+                  vendorName: vendor.name,
                 });
                 setInput("");
               }}

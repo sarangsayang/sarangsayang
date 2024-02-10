@@ -20,6 +20,15 @@ import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import FeaturedVendorForm from "./FeaturedVendorForm";
 
 interface PriceRangeProps {
   userRole: string;
@@ -440,6 +449,7 @@ const PriceRange = ({
                     </div>
                   </li>
                 </ul>
+                <FeaturedVendorForm />
               </section>
             </div>
 

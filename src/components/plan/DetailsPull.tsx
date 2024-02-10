@@ -257,6 +257,14 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
   useEffect(() => {
     if (plan.packages && plan.packages.length > 0) {
       setChecklist(plan.packages as Package[]);
+    } else if (plan.packages && plan.packages.length === 0) {
+      setVenue(false);
+      setBridals(false);
+      setPhotovideo(false);
+      setCatering(false);
+      setHenna(false);
+      setMua(false);
+      setMisc(false);
     }
   }, [plan.packages]);
 

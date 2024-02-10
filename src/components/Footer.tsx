@@ -1,28 +1,63 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Link from "next/link";
-import { Instagram } from "lucide-react";
+import { Dot, Instagram } from "lucide-react";
+import Image from "next/image";
+import ContactUs from "./ContactUs";
 
 const Footer = () => {
   return (
     <footer className="bg-white flex-grow-0">
       <MaxWidthWrapper>
         <div className="py-10 md:flex md:items-center md:justify-between">
-          <div className="text-center md:text-left">
+          <div className="flex flex-row gap-1 items-center text-center md:text-left">
             <p className="text-sm text-muted-foreground">
               &copy; {new Date().getFullYear()} Sarang Sayang
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <Dot />
+            </p>
+            <ContactUs />
+            <p className="text-sm text-muted-foreground">
+              <Dot />
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <Link href={"/terms"} className="hover:underline" target="_blank">
+                Terms
+              </Link>
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <Dot />
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <Link href={"/faq"} className="hover:underline" target="_blank">
+                FAQ
+              </Link>
             </p>
           </div>
 
           <div className="mt-4 flex items-center justify-center md:mt-0">
-            <div className="flex space-x-8">
+            <div className="flex space-x-2">
               <Link
-                href="#"
+                href={"#"}
                 className="text-sm text-muted-foreground hover:text-gray-600"
+                target="_blank"
               >
-                <Instagram />
+                <Image
+                  src={"/tiktok.png"}
+                  alt={"tiktok"}
+                  width={25}
+                  height={25}
+                  className="rounded-md"
+                />
+              </Link>
+              <Link
+                href={"https://www.instagram.com/sarangsayangsg/"}
+                className="text-sm text-muted-foreground hover:text-gray-600"
+                target="_blank"
+              >
+                <Instagram width={25} height={25} />
               </Link>
             </div>
           </div>

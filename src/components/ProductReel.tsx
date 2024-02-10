@@ -48,17 +48,17 @@ const ProductReel = (props: ProductReelProps) => {
 
   const [dsvData, setDSVData] = useState({
     vendorName: "",
-    email: "",
     category: "",
     name: "",
     contact: "",
+    email: "",
   });
 
   const [ctvData, setCTVData] = useState({
+    vendor: vendorName,
     name: "",
     contact: "",
     email: "",
-    vendor: vendorName,
   });
 
   const { data: queryResults, isLoading } =
@@ -124,13 +124,13 @@ const ProductReel = (props: ProductReelProps) => {
                     <div>
                       <Label htmlFor="name">Vendor Name</Label>
                       <Input
-                        id="name"
-                        name="name"
+                        id="vendorName"
+                        name="vendorName"
                         value={dsvData.vendorName}
                         onChange={(e) => {
                           setDSVData({
                             ...dsvData,
-                            name: e.target.value,
+                            vendorName: e.target.value,
                           });
                         }}
                       />
@@ -217,7 +217,11 @@ const ProductReel = (props: ProductReelProps) => {
                 </div>
                 <DialogFooter className="sm:justify-start">
                   <DialogClose asChild>
-                    <Button type="submit" variant="secondary">
+                    <Button
+                      type="submit"
+                      variant="secondary"
+                      className="w-full"
+                    >
                       Submit
                     </Button>
                   </DialogClose>
@@ -310,9 +314,13 @@ const ProductReel = (props: ProductReelProps) => {
                 <div className="text-sm text-slate-500">
                   We&#39;re excited to have you on board!{" "}
                 </div>
-                <DialogFooter className="sm:justify-start mt-6">
+                <DialogFooter className="sm:justify-start mt-4">
                   <DialogClose asChild>
-                    <Button type="submit" variant="secondary">
+                    <Button
+                      type="submit"
+                      variant="secondary"
+                      className="w-full"
+                    >
                       Submit
                     </Button>
                   </DialogClose>

@@ -6,13 +6,15 @@ import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "../ui/button";
 import { ArrowUp } from "lucide-react";
 import { trpc } from "@/trpc/client";
+import { sendMessageUpdateFromVendor } from "@/actions/snedMessageUpdateFromVendor";
 
 interface ChatInputProps {
   user: User;
   chat: Chat;
+  vendorName: string;
 }
 
-const ChatInput = ({ user, chat }: ChatInputProps) => {
+const ChatInput = ({ user, chat, vendorName }: ChatInputProps) => {
   const [input, setInput] = useState<string>("");
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -35,6 +37,12 @@ const ChatInput = ({ user, chat }: ChatInputProps) => {
                 from: "vendor",
                 message: input,
               });
+              sendMessageUpdateFromVendor({
+                message: input,
+                userEmail: user.email,
+                userName: user.name,
+                vendorName: vendorName,
+              });
               setInput("");
             }
           }}
@@ -55,6 +63,12 @@ const ChatInput = ({ user, chat }: ChatInputProps) => {
                   chatId: chat.id,
                   from: "vendor",
                   message: input,
+                });
+                sendMessageUpdateFromVendor({
+                  message: input,
+                  userEmail: user.email,
+                  userName: user.name,
+                  vendorName: vendorName,
                 });
                 setInput("");
               }}

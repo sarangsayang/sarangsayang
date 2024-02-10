@@ -30,14 +30,16 @@ export default async function Home() {
             <Link href="/featuredvendors" className={buttonVariants()}>
               Start Browsing
             </Link>
-            {!user ? (
-              <Button variant="ghost">
-                Unlock Wedding Planner{" "}
-                <LockKeyhole className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
-              </Button>
-            ) : (
-              <CreatePlanButton userId={user.id} />
-            )}
+            <div className="hidden lg:block">
+              {!user ? (
+                <Button variant="ghost">
+                  Unlock Wedding Planner{" "}
+                  <LockKeyhole className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
+                </Button>
+              ) : (
+                <CreatePlanButton userId={user.id} />
+              )}
+            </div>
           </div>
         </MaxWidthWrapper>
       </div>

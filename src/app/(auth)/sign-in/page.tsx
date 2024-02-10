@@ -19,11 +19,29 @@ import {
 import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { sendWelcomeUserEmail } from "@/actions/sendWelcomeUserEmail";
+import { sendWelcomeVendorEmail } from "@/actions/sendWelcomeVendorEmail";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const origin = searchParams.get("origin");
+
+  const [email2, setEmail2] = useState("");
+
+  function handleEmailChange(event: {
+    target: { value: React.SetStateAction<string> };
+  }) {
+    setEmail2(event.target.value);
+  }
+
+  const role = trpc.sendWelcomeUserEmail.useQuery({
+    email: email2,
+  });
+
+  const updUserFirstLog = trpc.updateUserFirstLog.useMutation();
+  const updVendorFirstLog = trpc.updateVendorFirstLog.useMutation();
 
   const {
     register,
@@ -55,6 +73,24 @@ const Page = () => {
   });
 
   const onSubmit = ({ email, password }: TAuthSignInValidator) => {
+    if (role.data && role.data.docs[0].userFirstLog === true) {
+      sendWelcomeUserEmail({
+        email: email,
+      });
+      updUserFirstLog.mutate({
+        email: email,
+      });
+    }
+
+    if (role.data && role.data.docs[0].vendorFirstLog === true) {
+      sendWelcomeVendorEmail({
+        email: email,
+      });
+      updVendorFirstLog.mutate({
+        email: email,
+      });
+    }
+
     signIn({ email, password });
   };
 
@@ -100,6 +136,7 @@ const Page = () => {
                       "focus-visible:ring-red-500": errors.email,
                     })}
                     placeholder="you@example.com"
+                    onChange={handleEmailChange}
                   />
                   {errors?.email && (
                     <p className="text-sm text-red-500">
@@ -125,12 +162,23 @@ const Page = () => {
                   )}
                 </div>
 
-                <Button disabled={isLoading}>
-                  {isLoading && (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Sign in
-                </Button>
+                <div className="flex flex-col justify-center">
+                  <Button disabled={isLoading}>
+                    {isLoading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
+                    Sign in
+                  </Button>
+                  <Link
+                    href={"/backstage/forgot"}
+                    className={buttonVariants({
+                      variant: "link",
+                      className: "text-xs",
+                    })}
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
               </div>
             </form>
           </div>

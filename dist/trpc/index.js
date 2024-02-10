@@ -69,6 +69,96 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    updateVendorFirstLog: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        email: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.update({
+                                collection: "users",
+                                where: {
+                                    email: {
+                                        equals: input.email,
+                                    },
+                                },
+                                data: {
+                                    vendorFirstLog: false,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    updateUserFirstLog: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        email: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.update({
+                                collection: "users",
+                                where: {
+                                    email: {
+                                        equals: input.email,
+                                    },
+                                },
+                                data: {
+                                    userFirstLog: false,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    sendWelcomeUserEmail: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        email: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, result;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "users",
+                                where: {
+                                    email: {
+                                        equals: input.email,
+                                    },
+                                },
+                            })];
+                    case 2:
+                        result = _b.sent();
+                        return [2 /*return*/, result];
+                }
+            });
+        });
+    }),
     getMiscVendors: trpc_1.publicProcedure
         .input(zod_1.z.object({
         category: zod_1.z.string(),
@@ -543,12 +633,26 @@ exports.appRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, getChat;
+            var payload, doesChatExist, getChat;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    },
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                },
+                            })];
+                    case 2:
+                        doesChatExist = _b.sent();
+                        if (!(doesChatExist.docs.length === 0)) return [3 /*break*/, 6];
                         return [4 /*yield*/, payload.create({
                                 collection: "chats",
                                 data: {
@@ -556,7 +660,7 @@ exports.appRouter = (0, trpc_1.router)({
                                     vendor: input.vendorId,
                                 },
                             })];
-                    case 2:
+                    case 3:
                         _b.sent();
                         return [4 /*yield*/, payload.find({
                                 collection: "chats",
@@ -569,7 +673,7 @@ exports.appRouter = (0, trpc_1.router)({
                                     },
                                 },
                             })];
-                    case 3:
+                    case 4:
                         getChat = _b.sent();
                         return [4 /*yield*/, payload.create({
                                 collection: "leads",
@@ -586,9 +690,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     chat: getChat.docs[0].id,
                                 },
                             })];
-                    case 4:
+                    case 5:
                         _b.sent();
-                        return [2 /*return*/];
+                        _b.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -1486,7 +1591,7 @@ exports.appRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, plan, packages, packageIds, i;
+            var payload, plan, packageIds, packages, i;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -1500,8 +1605,9 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         plan = _b.sent();
-                        packages = plan.docs[0].packages;
+                        if (!plan.docs[0].packages) return [3 /*break*/, 4];
                         packageIds = [];
+                        packages = plan.docs[0].packages;
                         for (i = 0; i < packages.length; i++) {
                             packageIds.push(packages[i].id);
                         }
@@ -1517,7 +1623,20 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 3:
                         _b.sent();
-                        return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 4: return [4 /*yield*/, payload.update({
+                            collection: "plans",
+                            where: {
+                                id: { equals: input.id },
+                            },
+                            data: {
+                                packages: input.packageId,
+                            },
+                        })];
+                    case 5:
+                        _b.sent();
+                        _b.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });

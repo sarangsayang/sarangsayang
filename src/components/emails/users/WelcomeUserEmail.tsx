@@ -1,6 +1,5 @@
 import {
   Body,
-  Button,
   Container,
   Head,
   Hr,
@@ -14,15 +13,10 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-interface VerifyUserEmailProps {
-  name: string;
-  href: string;
-}
-
-export const VerifyUserEmail = ({ name, href }: VerifyUserEmailProps) => (
+export const WelcomeUserEmail = () => (
   <Html>
     <Head />
-    <Preview>Verify your account with Sarang Sayang!</Preview>
+    <Preview>Singapore&#39;s largest malay wedding directory</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={box}>
@@ -33,17 +27,19 @@ export const VerifyUserEmail = ({ name, href }: VerifyUserEmailProps) => (
             alt="SarangSayang"
           />
           <Hr style={hr} />
-          <Text style={paragraph}>Hi {name}!</Text>
+          <Text style={paragraph}>Welcome!</Text>
           <Text style={paragraph}>
-            Welcome to Sarang Sayang, Singapore&apos;s Largest Malay Wedding
-            Directory! We know you&apos;re excited, but before you join our
-            Sarang Sayang family, we&apos;ll have to verify your account so go
-            on and click the link below and let&apos;s get your started.
+            Welcome to Sarang Sayang, a platform for all things malay weddings.
           </Text>
-          <Button style={button} href={href}>
-            Verify Your Account
-          </Button>
           <Hr style={hr} />
+          <Text style={paragraph}>
+            We&apos;ll be here to help you with any step along the way. You can
+            find answers to most questions on our{" "}
+            <Link style={anchor} href="https://www.sarangsayang.com/faq">
+              FAQ page
+            </Link>{" "}
+            and get in touch with us by replying to this email address.
+          </Text>
           <Text style={paragraph}>
             Love, <br /> The Sarang Sayang team
           </Text>
@@ -53,10 +49,7 @@ export const VerifyUserEmail = ({ name, href }: VerifyUserEmailProps) => (
   </Html>
 );
 
-export default VerifyUserEmail;
-
-export const VerifyUserEmailHtml = (props: VerifyUserEmailProps) =>
-  render(<VerifyUserEmail {...props} />, { pretty: true });
+export default WelcomeUserEmail;
 
 const main = {
   backgroundColor: "#C8E9F3",
@@ -85,6 +78,10 @@ const paragraph = {
   fontSize: "16px",
   lineHeight: "24px",
   textAlign: "left" as const,
+};
+
+const anchor = {
+  color: "rgb(96 165 250)",
 };
 
 const button = {

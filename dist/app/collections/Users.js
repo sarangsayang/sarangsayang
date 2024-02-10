@@ -94,5 +94,29 @@ exports.Users = {
                 { label: "Standard Supervendor", value: "supervendor" },
             ],
         },
+        {
+            name: "userFirstLog",
+            defaultValue: true,
+            required: false,
+            type: "checkbox",
+            access: {
+                update: function (_a) {
+                    var req = _a.req;
+                    return req.user.role === "admin";
+                },
+            },
+        },
+        {
+            name: "vendorFirstLog",
+            defaultValue: false,
+            required: false,
+            type: "checkbox",
+            access: {
+                update: function (_a) {
+                    var req = _a.req;
+                    return req.user.role === "admin";
+                },
+            },
+        },
     ],
 };

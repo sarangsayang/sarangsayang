@@ -1,6 +1,6 @@
 "use client";
 
-import { Chat, User } from "@/payload-types";
+import { Chat, User, Vendor } from "@/payload-types";
 import {
   Drawer,
   DrawerContent,
@@ -27,6 +27,8 @@ const VendorChat = ({ chat, user }: DirectChatProps) => {
   });
 
   const results = unread.data;
+
+  const vendor = chat.vendor as Vendor;
 
   const read = trpc.vendorRead.useMutation();
   return (
@@ -64,7 +66,7 @@ const VendorChat = ({ chat, user }: DirectChatProps) => {
           </DrawerHeader>
           <VendorMessages chat={chat} />
           <DrawerFooter className="h-full">
-            <VendorChatInput user={user} chat={chat} />
+            <VendorChatInput user={user} chat={chat} vendorName={vendor.name} />
           </DrawerFooter>
         </MaxWidthWrapper>
       </DrawerContent>

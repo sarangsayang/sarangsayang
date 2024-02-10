@@ -27,10 +27,10 @@ import { Button } from "./ui/button";
 const BecomeAVendor = () => {
   const [dsvData, setDSVData] = useState({
     vendorName: "",
-    email: "",
     category: "",
     name: "",
     contact: "",
+    email: "",
   });
 
   return (
@@ -59,13 +59,13 @@ const BecomeAVendor = () => {
               <div>
                 <Label htmlFor="name">Vendor Name</Label>
                 <Input
-                  id="name"
-                  name="name"
-                  value={dsvData.name}
+                  id="vendorName"
+                  name="vendorName"
+                  value={dsvData.vendorName}
                   onChange={(e) => {
                     setDSVData({
                       ...dsvData,
-                      name: e.target.value,
+                      vendorName: e.target.value,
                     });
                   }}
                 />
@@ -147,9 +147,9 @@ const BecomeAVendor = () => {
               </div>
             </div>
           </div>
-          <DialogFooter className="sm:justify-start mt-6">
+          <DialogFooter className="sm:justify-start">
             <DialogClose asChild>
-              <Button type="submit" variant="secondary">
+              <Button type="submit" variant="secondary" className="w-full">
                 Submit
               </Button>
             </DialogClose>

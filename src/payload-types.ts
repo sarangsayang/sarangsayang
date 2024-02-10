@@ -36,6 +36,8 @@ export interface User {
   stripe_customer_id?: string | null;
   name: string;
   role: 'admin' | 'user' | 'vendor' | 'supervendor';
+  userFirstLog?: boolean | null;
+  vendorFirstLog?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
