@@ -76,6 +76,7 @@ const Page = () => {
     if (role.data && role.data.docs[0].userFirstLog === true) {
       sendWelcomeUserEmail({
         email: email,
+        name: role.data.docs[0].name,
       });
       updUserFirstLog.mutate({
         email: email,
