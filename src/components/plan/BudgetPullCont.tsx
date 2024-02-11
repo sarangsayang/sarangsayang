@@ -69,6 +69,23 @@ const BudgetPullCont = ({ budget }: BudgetPullContProps) => {
     <TableRow>
       <TableCell className="flex flex-col gap-2">
         <div className="flex w-full max-w-sm items-center space-x-2">
+          <Input value={bDetails} onChange={(e) => handleDetails(e)} />
+          <Button
+            variant="outline"
+            size="icon"
+            className={detailsButton}
+            onClick={() => {
+              edit.mutate({
+                id: budget.id,
+                details: bDetails,
+              });
+              setDetailsButton("bg-emerald-200 ease-in-out duration-300");
+            }}
+          >
+            <Check className="h-3" />
+          </Button>
+        </div>
+        <div className="flex w-full max-w-sm items-center space-x-2">
           <Select
             value={bFor}
             onValueChange={setFor}
@@ -116,86 +133,6 @@ const BudgetPullCont = ({ budget }: BudgetPullContProps) => {
                 for: bFor,
               });
               setForButton("bg-emerald-200 ease-in-out duration-300");
-            }}
-          >
-            <Check className="h-3" />
-          </Button>
-        </div>
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <Select
-            value={bCat}
-            onValueChange={setCat}
-            onOpenChange={() =>
-              setCatButton("bg-amber-200 ease-in-out duration-300")
-            }
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Wedding</SelectLabel>
-                <SelectItem value="Outfit">Outfit</SelectItem>
-                <SelectItem value="Rings">Rings</SelectItem>
-                <SelectItem value="Make Up">Make Up</SelectItem>
-                <SelectItem value="Henna">Henna</SelectItem>
-                <SelectItem value="Catering">Catering</SelectItem>
-                <SelectItem value="Decor">Decor</SelectItem>
-              </SelectGroup>
-              <SelectGroup>
-                <SelectLabel>People</SelectLabel>
-                <SelectItem value="Kadi">Kadi</SelectItem>
-                <SelectItem value="Photographer">Photographer</SelectItem>
-                <SelectItem value="Videographer">Videographer</SelectItem>
-                <SelectItem value="Emcee">Emcee</SelectItem>
-                <SelectItem value="Agent">Agent</SelectItem>
-              </SelectGroup>
-              <SelectGroup>
-                <SelectLabel>Place</SelectLabel>
-                <SelectItem value="Venue">Venue</SelectItem>
-                <SelectItem value="Accomodations">Accomodations</SelectItem>
-              </SelectGroup>
-              <SelectGroup>
-                <SelectLabel>Misc</SelectLabel>
-                <SelectItem value="Flowers">Flowers</SelectItem>
-                <SelectItem value="Cake">Cake</SelectItem>
-                <SelectItem value="Gifts">Gifts</SelectItem>
-                <SelectItem value="Door Gifts">Door Gifts</SelectItem>
-                <SelectItem value="Invitation Cards">
-                  Invitation Cards
-                </SelectItem>
-                <SelectItem value="Transport">Transport</SelectItem>
-                <SelectItem value="Others">Others</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Button
-            variant="outline"
-            size="icon"
-            className={catButton}
-            onClick={() => {
-              edit.mutate({
-                id: budget.id,
-                cat: bCat,
-              });
-              setCatButton("bg-emerald-200 ease-in-out duration-300");
-            }}
-          >
-            <Check className="h-3" />
-          </Button>
-        </div>
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input value={bDetails} onChange={(e) => handleDetails(e)} />
-          <Button
-            variant="outline"
-            size="icon"
-            className={detailsButton}
-            onClick={() => {
-              edit.mutate({
-                id: budget.id,
-                details: bDetails,
-              });
-              setDetailsButton("bg-emerald-200 ease-in-out duration-300");
             }}
           >
             <Check className="h-3" />

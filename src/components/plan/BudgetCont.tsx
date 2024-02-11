@@ -67,92 +67,48 @@ const BudgetCont = ({ userId }: BudgetProps) => {
               className="px-4"
             />
             <div className="grid grid-cols-4 gap-5 w-full py-6 px-6">
-              <div className="col-span-2">
-                <Select value={bfor} onValueChange={setFor}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="For" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>People</SelectLabel>
-                      <SelectItem value="Bride">Bride</SelectItem>
-                      <SelectItem value="Groom">Groom</SelectItem>
-                      <SelectItem value="Bridesmaids">Bridesmaids</SelectItem>
-                      <SelectItem value="Groomsmen">Groomsmen</SelectItem>
-                      <SelectItem value="Bride's Family">
-                        Bride&#39;s Family
-                      </SelectItem>
-                      <SelectItem value="Groom's Family">
-                        Groom&#39;s Family
-                      </SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>Event</SelectLabel>
-                      <SelectItem value="Wedding">Wedding</SelectItem>
-                      <SelectItem value="Engagement">Engagement</SelectItem>
-                      <SelectItem value="Honeymoon">Honeymoon</SelectItem>
-                      <SelectItem value="Photoshoot">Photoshoot</SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>Misc</SelectLabel>
-                      <SelectItem value="Others">Others</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+              <div className="col-span-4">
+                <Input
+                  placeholder="Add details"
+                  value={bdetails}
+                  onChange={(e) => handleDetails(e)}
+                />
               </div>
-              <div className="col-span-2">
-                <Select value={bcat} onValueChange={setCat}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Wedding</SelectLabel>
-                      <SelectItem value="Outfit">Outfit</SelectItem>
-                      <SelectItem value="Rings">Rings</SelectItem>
-                      <SelectItem value="Make Up">Make Up</SelectItem>
-                      <SelectItem value="Henna">Henna</SelectItem>
-                      <SelectItem value="Catering">Catering</SelectItem>
-                      <SelectItem value="Decor">Decor</SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>People</SelectLabel>
-                      <SelectItem value="Kadi">Kadi</SelectItem>
-                      <SelectItem value="Photographer">Photographer</SelectItem>
-                      <SelectItem value="Videographer">Videographer</SelectItem>
-                      <SelectItem value="Emcee">Emcee</SelectItem>
-                      <SelectItem value="Agent">Agent</SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>Place</SelectLabel>
-                      <SelectItem value="Venue">Venue</SelectItem>
-                      <SelectItem value="Accomodations">
-                        Accomodations
-                      </SelectItem>
-                    </SelectGroup>
-                    <SelectGroup>
-                      <SelectLabel>Misc</SelectLabel>
-                      <SelectItem value="Flowers">Flowers</SelectItem>
-                      <SelectItem value="Cake">Cake</SelectItem>
-                      <SelectItem value="Gifts">Gifts</SelectItem>
-                      <SelectItem value="Door Gifts">Door Gifts</SelectItem>
-                      <SelectItem value="Invitation Cards">
-                        Invitation Cards
-                      </SelectItem>
-                      <SelectItem value="Transport">Transport</SelectItem>
-                      <SelectItem value="Others">Others</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
+
               <div className="col-span-2">
                 <div className="grid w-full items-center gap-1.5">
-                  <Label>Details</Label>
-                  <Input
-                    placeholder="Add details"
-                    value={bdetails}
-                    onChange={(e) => handleDetails(e)}
-                  />
+                  <Label>Category</Label>
+                  <Select value={bfor} onValueChange={setFor}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="For" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>People</SelectLabel>
+                        <SelectItem value="Bride">Bride</SelectItem>
+                        <SelectItem value="Groom">Groom</SelectItem>
+                        <SelectItem value="Bridesmaids">Bridesmaids</SelectItem>
+                        <SelectItem value="Groomsmen">Groomsmen</SelectItem>
+                        <SelectItem value="Bride's Family">
+                          Bride&#39;s Family
+                        </SelectItem>
+                        <SelectItem value="Groom's Family">
+                          Groom&#39;s Family
+                        </SelectItem>
+                      </SelectGroup>
+                      <SelectGroup>
+                        <SelectLabel>Event</SelectLabel>
+                        <SelectItem value="Wedding">Wedding</SelectItem>
+                        <SelectItem value="Engagement">Engagement</SelectItem>
+                        <SelectItem value="Honeymoon">Honeymoon</SelectItem>
+                        <SelectItem value="Photoshoot">Photoshoot</SelectItem>
+                      </SelectGroup>
+                      <SelectGroup>
+                        <SelectLabel>Misc</SelectLabel>
+                        <SelectItem value="Others">Others</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
               <div className="col-span-1">
@@ -194,7 +150,7 @@ const BudgetCont = ({ userId }: BudgetProps) => {
                   add.mutate({
                     planId: identifiedPlan[0].id,
                     for: bfor,
-                    cat: bcat,
+                    cat: "-",
                     details: bdetails,
                     plannedCost: plannedCost,
                     actualCost: actualCost,
