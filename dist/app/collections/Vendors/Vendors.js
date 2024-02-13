@@ -170,5 +170,13 @@ exports.Vendors = {
                 },
             ],
         },
+        {
+            name: "clicks",
+            type: "number",
+            required: false,
+            admin: {
+                condition: function () { return false; },
+            },
+        },
     ],
 };

@@ -14,6 +14,67 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  getClicks: publicProcedure
+    .input(
+      z.object({
+        vendorId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const vendor = await payload.find({
+        collection: "vendors",
+        where: {
+          id: { equals: input.vendorId },
+        },
+        limit: 1,
+      });
+
+      if (vendor.docs[0].clicks) {
+        return vendor.docs[0].clicks;
+      } else {
+        return 0;
+      }
+    }),
+
+  addClick: publicProcedure
+    .input(
+      z.object({
+        vendorId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      let clicks = 0;
+      const payload = await getPayloadClient();
+
+      const vendor = await payload.find({
+        collection: "vendors",
+        where: {
+          id: { equals: input.vendorId },
+        },
+        limit: 1,
+      });
+
+      if (vendor.docs[0].clicks) {
+        clicks = vendor.docs[0].clicks + 1;
+      } else {
+        clicks = 1;
+      }
+
+      await payload.update({
+        collection: "vendors",
+        where: {
+          id: {
+            equals: input.vendorId,
+          },
+        },
+        data: {
+          clicks: clicks,
+        },
+      });
+    }),
+
   updateVendorFirstLog: publicProcedure
     .input(
       z.object({

@@ -117,5 +117,13 @@ export const Vendors: CollectionConfig = {
         },
       ],
     },
+    {
+      name: "clicks",
+      type: "number",
+      required: false,
+      admin: {
+        condition: () => false,
+      },
+    },
   ],
 };

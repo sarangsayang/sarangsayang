@@ -71,6 +71,7 @@ export interface Vendor {
         id?: string | null;
       }[]
     | null;
+  clicks?: number | null;
   updatedAt: string;
   createdAt: string;
 }

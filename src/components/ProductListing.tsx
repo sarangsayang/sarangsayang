@@ -11,6 +11,7 @@ import LikeButton from "./LikeButton";
 import { BadgeCheck, Heart } from "lucide-react";
 import { toast } from "sonner";
 import Badge from "./Badge";
+import { trpc } from "@/trpc/client";
 
 interface ProductListingProps {
   vendor: Vendor | null;
@@ -20,6 +21,8 @@ interface ProductListingProps {
 
 const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  const addClick = trpc.addClick.useMutation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,7 +51,15 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
           "visible animate-in fade-in-5": isVisible,
         })}
       >
-        <div className="flex flex-col w-full">
+        <div
+          className="flex flex-col w-full"
+          onClick={() => {
+            //console.log(vendor.id);
+            addClick.mutate({
+              vendorId: vendor.id,
+            });
+          }}
+        >
           {user ? (
             <Link
               href={`/vendor/${vendor.id}`}

@@ -69,6 +69,87 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    getClicks: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        vendorId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, vendor;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                where: {
+                                    id: { equals: input.vendorId },
+                                },
+                                limit: 1,
+                            })];
+                    case 2:
+                        vendor = _b.sent();
+                        if (vendor.docs[0].clicks) {
+                            return [2 /*return*/, vendor.docs[0].clicks];
+                        }
+                        else {
+                            return [2 /*return*/, 0];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    addClick: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        vendorId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var clicks, payload, vendor;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        clicks = 0;
+                        return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                where: {
+                                    id: { equals: input.vendorId },
+                                },
+                                limit: 1,
+                            })];
+                    case 2:
+                        vendor = _b.sent();
+                        if (vendor.docs[0].clicks) {
+                            clicks = vendor.docs[0].clicks + 1;
+                        }
+                        else {
+                            clicks = 1;
+                        }
+                        return [4 /*yield*/, payload.update({
+                                collection: "vendors",
+                                where: {
+                                    id: {
+                                        equals: input.vendorId,
+                                    },
+                                },
+                                data: {
+                                    clicks: clicks,
+                                },
+                            })];
+                    case 3:
+                        _b.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
     updateVendorFirstLog: trpc_1.publicProcedure
         .input(zod_1.z.object({
         email: zod_1.z.string(),

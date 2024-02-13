@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import TVLCont from "@/components/analytics/cards/vendorlikes/TVLCont";
 import TECont from "@/components/analytics/cards/enquiries/TECont";
 import SSCont from "@/components/analytics/cards/enquiries/SSCont";
+import TVCCont from "@/components/analytics/cards/vendorClicks/TVCCont";
 
 export default async function Dashboard() {
   const nextCookies = cookies();
@@ -27,7 +28,10 @@ export default async function Dashboard() {
             </p>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-4">
+          {/* Total Vendor Likes */}
+          <Card>{user ? <TVCCont userId={user.id} /> : null}</Card>
+
           {/* Total Vendor Likes */}
           <Card>{user ? <TVLCont userId={user.id} /> : null}</Card>
 
