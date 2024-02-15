@@ -24,8 +24,8 @@ const FeaturedImage = ({ category }: FeaturedImageProps) => {
           <Tooltip>
             <TooltipTrigger>
               <Image
-                width={200}
-                height={200}
+                width={900}
+                height={900}
                 src={results.data.top.images[1].image.url}
                 alt="product category image"
                 className="aspect-square rounded-2xl object-cover object-center"
@@ -38,8 +38,8 @@ const FeaturedImage = ({ category }: FeaturedImageProps) => {
         </TooltipProvider>
       ) : (
         <Image
-          width={200}
-          height={200}
+          width={900}
+          height={900}
           src="https://placehold.co/600x600"
           alt="product category image"
           className="aspect-square rounded-2xl"

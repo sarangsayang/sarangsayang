@@ -19,14 +19,14 @@ const Footer = () => {
               <Dot />
             </p>
             <ContactUs />
-            <p className="text-sm text-muted-foreground">
+            {/* <p className="text-sm text-muted-foreground">
               <Dot />
             </p>
             <p className="text-sm text-muted-foreground">
               <Link href={"/terms"} className="hover:underline" target="_blank">
                 Terms
               </Link>
-            </p>
+            </p> */}
             <p className="text-sm text-muted-foreground">
               <Dot />
             </p>

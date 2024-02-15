@@ -70,7 +70,13 @@ const GuestPullCont = ({ guest }: GuestPullContProps) => {
     <TableRow>
       <TableCell className="flex flex-col gap-2">
         <div className="flex w-full max-w-sm items-center space-x-2">
-          <Select value={group} onValueChange={setGroup}>
+          <Select
+            value={group}
+            onValueChange={setGroup}
+            onOpenChange={() =>
+              setGroupButton("bg-amber-200 ease-in-out duration-300")
+            }
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select a group" />
             </SelectTrigger>
@@ -155,7 +161,13 @@ const GuestPullCont = ({ guest }: GuestPullContProps) => {
       </TableCell>
       <TableCell>
         <div className="flex w-full max-w-sm items-center space-x-2">
-          <Select value={attendance} onValueChange={setAttendance}>
+          <Select
+            value={attendance}
+            onValueChange={setAttendance}
+            onOpenChange={() =>
+              setAttendanceButton("bg-amber-200 ease-in-out duration-300")
+            }
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select their attendance status" />
             </SelectTrigger>

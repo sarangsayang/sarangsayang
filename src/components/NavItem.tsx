@@ -103,8 +103,8 @@ const NavItem = ({
                             <FeaturedImage category={item.value} />
                           ) : (
                             <Image
-                              width={900}
-                              height={900}
+                              width={197}
+                              height={197}
                               src={item.imageSrc}
                               alt="product category image"
                               className="aspect-square rounded-2xl"

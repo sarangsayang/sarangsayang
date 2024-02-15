@@ -17,7 +17,7 @@ const GuestScoreboard = ({ guests }: GuestScoreboardProps) => {
     invited = invited + guests[i].pax;
 
     if (guests[i].attendance === "Attending") {
-      attending++;
+      attending = attending + guests[i].pax;
     }
 
     if (guests[i].sent === true) {
