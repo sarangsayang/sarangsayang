@@ -47,40 +47,40 @@ var payload_utils_1 = require("../lib/payload-utils");
 var get_payload_1 = require("../get-payload");
 function handleValidUpgradeMonthly(category) {
     if (category === "venues") {
-        return "price_1OTreDJFw5rSN4LFVAgBRlGR";
+        return "price_1OdzDHJFw5rSN4LFiA948CVR";
     }
     else if (category === "agents") {
-        return "price_1OTreDJFw5rSN4LFVAgBRlGR";
+        return "price_1OdzDHJFw5rSN4LFiA948CVR";
     }
     else if (category === "bridals") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "photovideo") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "catering") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "decor") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "henna") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "mua") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "emcees") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "honeymoon") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else if (category === "misc") {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
     else {
-        return "price_1OVdWBJFw5rSN4LFaih3rPRK";
+        return "price_1OdzD2JFw5rSN4LF1CQjpORa";
     }
 }
 exports.stripe = new stripe_1.default((_a = process.env.STRIPE_SECRET_KEY) !== null && _a !== void 0 ? _a : "", {

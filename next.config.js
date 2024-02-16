@@ -6,7 +6,9 @@ const nextConfig = {
             "placehold.co",
             "localhost",
             "sarangsayang.up.railway.app",
-            "i.giphy.com"
+            "i.giphy.com",
+            "www.sarangsayang.com",
+            "sarangsayang.com"
         ]
     },
     transpilePackages: ['html-to-text']
