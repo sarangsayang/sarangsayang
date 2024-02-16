@@ -83,7 +83,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),
   },
-  csrf: ["https://sarangsayang.up.railway.app"],
+  csrf: ["https://sarangsayang.up.railway.app", "https://www.sarangsayang.com"],
   cors: "*",
   plugins: [
     cloudStorage({
