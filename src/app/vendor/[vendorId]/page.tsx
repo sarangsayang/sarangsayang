@@ -13,7 +13,7 @@ import { VENDOR_CATEGORIES } from "@/config";
 import { getPayloadClient } from "@/get-payload";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { CheckCheck, Facebook, Heart, Instagram, MapPin } from "lucide-react";
 
 import { getServerSideUser } from "@/lib/payload-utils";

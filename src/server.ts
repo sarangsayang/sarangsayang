@@ -58,10 +58,10 @@ const start = async () => {
 
     const parsedUrl = parse(req.url, true);
 
-    return nextApp.render(req, res, "/", parsedUrl.query);
+    return nextApp.render(req, res, "/vendor", parsedUrl.query);
   });
 
-  //app.use()
+  app.use("/vendor", mustBeLoggedIn);
 
   if (process.env.NEXT_BUILD) {
     app.listen(PORT, async () => {
