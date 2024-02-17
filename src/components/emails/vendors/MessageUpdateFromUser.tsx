@@ -45,10 +45,7 @@ export const MessageUpdateFromUserEmail = ({
               </Text>
             </Section>
             <Section style={{ paddingBottom: "20px" }}>
-              <Button
-                style={button}
-                href={"https://sarangsayang.up.railway.app/"}
-              >
+              <Button style={button} href={"https://www.sarangsayang.com/"}>
                 View Message on Sarang Sayang
               </Button>
             </Section>

@@ -21,7 +21,7 @@ export const WelcomeVendorEmail = () => (
       <Container style={container}>
         <Section style={box}>
           <Img
-            src={"https://sarangsayang.up.railway.app/logopng.png"}
+            src={"https://www.sarangsayang.com/logopng.png"}
             width="100"
             height="100"
             alt="SarangSayang"

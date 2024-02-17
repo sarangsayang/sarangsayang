@@ -27,7 +27,7 @@ export const VerifyUserEmail = ({ name, href }: VerifyUserEmailProps) => (
       <Container style={container}>
         <Section style={box}>
           <Img
-            src={"https://sarangsayang.up.railway.app/logopng.png"}
+            src={"https://www.sarangsayang.com/logopng.png"}
             width="60"
             height="60"
             alt="SarangSayang"
