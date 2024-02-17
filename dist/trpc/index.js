@@ -452,7 +452,7 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, results, chat, allmsg, i;
+            var payload, results, chat, i, allmsg, i_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -469,22 +469,32 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         chat = _b.sent();
+                        if (!(chat.docs.length > 0)) return [3 /*break*/, 6];
+                        i = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(i < chat.docs.length)) return [3 /*break*/, 6];
                         return [4 /*yield*/, payload.find({
                                 collection: "message",
                                 where: {
                                     chat: {
-                                        equals: chat.docs[0].id,
+                                        equals: chat.docs[i],
                                     },
                                 },
                             })];
-                    case 3:
+                    case 4:
                         allmsg = _b.sent();
-                        for (i = 0; i < allmsg.docs.length; i++) {
-                            if (allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor") {
+                        for (i_1 = 0; i_1 < allmsg.docs.length; i_1++) {
+                            if (allmsg.docs[i_1].read === false &&
+                                allmsg.docs[i_1].from === "vendor") {
                                 results++;
                             }
                         }
-                        return [2 /*return*/, results];
+                        _b.label = 5;
+                    case 5:
+                        i++;
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/, results];
                 }
             });
         });
@@ -576,7 +586,7 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, results, chat, allmsg, i;
+            var payload, results, chat, i, allmsg, i_2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -593,22 +603,32 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         chat = _b.sent();
+                        if (!(chat.docs.length > 0)) return [3 /*break*/, 6];
+                        i = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(i < chat.docs.length)) return [3 /*break*/, 6];
                         return [4 /*yield*/, payload.find({
                                 collection: "message",
                                 where: {
                                     chat: {
-                                        equals: chat.docs[0].id,
+                                        equals: chat.docs[i],
                                     },
                                 },
                             })];
-                    case 3:
+                    case 4:
                         allmsg = _b.sent();
-                        for (i = 0; i < allmsg.docs.length; i++) {
-                            if (allmsg.docs[i].read === false && allmsg.docs[i].from === "user") {
+                        for (i_2 = 0; i_2 < allmsg.docs.length; i_2++) {
+                            if (allmsg.docs[i_2].read === false &&
+                                allmsg.docs[i_2].from === "user") {
                                 results++;
                             }
                         }
-                        return [2 /*return*/, results];
+                        _b.label = 5;
+                    case 5:
+                        i++;
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/, results];
                 }
             });
         });
