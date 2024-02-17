@@ -6,14 +6,21 @@ import Image from "next/image";
 import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import ProductListing from "./ProductListing";
+import { Vendor } from "@/payload-types";
 
 interface Featured11PullProps {
   category: string;
   label: string;
   user?: string;
+  index: number;
 }
 
-const Featured11Pull = ({ user, category, label }: Featured11PullProps) => {
+const Featured11Pull = ({
+  user,
+  category,
+  label,
+  index,
+}: Featured11PullProps) => {
   const results = trpc.getTopVendor.useQuery({
     category: category,
   });
@@ -22,15 +29,15 @@ const Featured11Pull = ({ user, category, label }: Featured11PullProps) => {
     <div className="w-50">
       {user && results.data?.top ? (
         <ProductListing
-          index={results.data.top.id}
-          vendor={results.data.top}
+          index={index}
+          vendor={results.data.top as Vendor}
           user={user}
         />
       ) : null}
       {!user && results.data?.top ? (
         <ProductListing
-          index={results.data.top.id}
-          vendor={results.data.top}
+          index={index}
+          vendor={results.data.top as Vendor}
           user={user}
         />
       ) : null}

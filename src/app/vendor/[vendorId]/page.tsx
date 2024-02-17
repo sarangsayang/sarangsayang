@@ -28,6 +28,7 @@ import React, { Fragment } from "react";
 import escapeHtml from "escape-html";
 import { Text } from "slate";
 import DirectChat from "@/components/chat/DirectChat";
+import { User, Vendor } from "@/payload-types";
 
 interface PageProps {
   params: {
@@ -85,8 +86,8 @@ const Page = async ({ params }: PageProps) => {
   ];
 
   const validUrls = product.images
-    // @ts-ignore
-    .map(({ image }) => image.url) as string[];
+    .map(({ image }) => (typeof image === "string" ? image : image.url))
+    .filter(Boolean) as string[];
 
   const { docs: packages } = await payload.find({
     collection: "packages",
@@ -96,6 +97,8 @@ const Page = async ({ params }: PageProps) => {
       },
     },
   });
+
+  const VendUser = product.venduserid as User;
 
   //@ts-ignore
   const serialize = (children) =>
@@ -203,7 +206,7 @@ const Page = async ({ params }: PageProps) => {
                     <h1 className="flex items-baseline gap-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                       {product.name}
                       <span>
-                        <Badge vendorRole={product.venduserid.role} />
+                        <Badge vendorRole={VendUser.role} />
                       </span>
                     </h1>
                     <p className="text-balance text-muted-foreground mt-3 flex gap-2 items-center">
@@ -296,12 +299,18 @@ const Page = async ({ params }: PageProps) => {
                     {packageItem.name}
                   </TableCell>
                   <TableCell>
-                    {packageItem.services.map((service: string) => (
-                      <div key={service} className="flex gap-3 items-center">
-                        <CheckCheck className="w-4 h-4 text-lime-500" />
-                        <p>{vendCatLabel(service)}</p>
-                      </div>
-                    ))}
+                    {packageItem.services ? (
+                      packageItem.services.map((service: string) => (
+                        <div key={service} className="flex gap-3 items-center">
+                          <CheckCheck className="w-4 h-4 text-lime-500" />
+                          <p>{vendCatLabel(service)}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-slate-400 italic">
+                        Package Services not disclosed
+                      </p>
+                    )}
                   </TableCell>
                   <TableCell>
                     {packageItem.packageDetails ? (

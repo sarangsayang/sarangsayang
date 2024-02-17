@@ -4,6 +4,7 @@ import { trpc } from "@/trpc/client";
 import ProductListing from "./ProductListing";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
+import { Vendor } from "@/payload-types";
 
 interface FeaturedReelProps {
   title: string;
@@ -62,23 +63,19 @@ const FeaturedReel = ({
           <div className="w-full grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-10 lg:gap-x-8">
             <div className="bg-white p-6 rounded-sm shadow-md">
               <ProductListing
-                vendor={results.data?.top}
+                vendor={results.data?.top as Vendor}
                 index={0}
                 user={user}
               />
             </div>
 
             {/* @ts-ignore */}
-            {results.data?.top4.map((product) => (
+            {results.data?.top4.map((vendor: Vendor, i) => (
               <div
                 className="bg-white p-6 rounded-sm shadow-md"
-                key={product.vendor.id}
+                key={vendor.id}
               >
-                <ProductListing
-                  index={product.vendor.id}
-                  vendor={product.vendor}
-                  user={user}
-                />
+                <ProductListing index={i} vendor={vendor} user={user} />
               </div>
             ))}
           </div>

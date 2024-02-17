@@ -157,6 +157,7 @@ exports.Vendors = {
             type: "array",
             label: "Product images",
             minRows: 1,
+            required: true,
             labels: {
                 singular: "Image",
                 plural: "Images",

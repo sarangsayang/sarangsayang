@@ -3,7 +3,7 @@ import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
-import { Package } from "@/payload-types";
+import { Package, User } from "@/payload-types";
 import { format } from "date-fns";
 import { sendMessageUpdateFromUser } from "@/actions/sendMessageUpdateFromUser";
 
@@ -152,7 +152,7 @@ export const appRouter = router({
       const results = await payload.find({
         collection: "misc",
         where: {
-          id: "65b7aee5c17286ca4dd3e2ed",
+          id: { equals: "65b7aee5c17286ca4dd3e2ed" },
         },
         pagination: false,
       });
@@ -207,7 +207,7 @@ export const appRouter = router({
           id: { equals: input.planId },
         },
         data: {
-          user: input.user1,
+          user: [input.user1],
         },
       });
     }),
@@ -520,11 +520,13 @@ export const appRouter = router({
           },
         });
 
+        const user = getChat.docs[0].user as User;
+
         await payload.create({
           collection: "leads",
           data: {
-            name: getChat.docs[0].user.name,
-            email: getChat.docs[0].user.email,
+            name: user.name,
+            email: user.email,
             contact: "-",
             message: "-",
             source: "Sarang Sayang",
@@ -728,8 +730,8 @@ export const appRouter = router({
     .input(
       z.object({
         planId: z.string(),
-        date: z.string().optional(),
-        time: z.number().optional(),
+        date: z.string(),
+        time: z.number(),
         location: z.string().optional(),
         event: z.string().optional(),
         involved: z.string().optional(),
@@ -984,7 +986,7 @@ export const appRouter = router({
           plan: input.planId,
           for: input.for,
           cat: input.cat,
-          details: details,
+          details: details || "-",
           plannedCost: plannedCost,
           actualCost: actualCost,
           amountPaid: 0,
@@ -1126,6 +1128,7 @@ export const appRouter = router({
             todo: input.todo,
             date: input.date,
             remarks: input.remarks,
+            done: false,
           },
         });
       } else {
@@ -1135,6 +1138,7 @@ export const appRouter = router({
             plan: input.planId,
             todo: input.todo,
             date: input.date,
+            done: false,
           },
         });
       }
@@ -1157,7 +1161,7 @@ export const appRouter = router({
         },
       });
 
-      const packages = plan.docs[0].packages;
+      const packages = plan.docs[0].packages as Package[];
       let packageIds = [];
 
       for (let i = 0; i < packages.length; i++) {
@@ -1196,11 +1200,12 @@ export const appRouter = router({
 
       if (plan.docs[0].packages) {
         let packageIds = [];
-        const packages = plan.docs[0].packages;
+        const packages = plan.docs[0].packages as Package[];
         for (let i = 0; i < packages.length; i++) {
           packageIds.push(packages[i].id);
         }
         packageIds.push(input.packageId);
+
         await payload.update({
           collection: "plans",
           where: {
@@ -1217,7 +1222,7 @@ export const appRouter = router({
             id: { equals: input.id },
           },
           data: {
-            packages: input.packageId,
+            packages: [input.packageId],
           },
         });
       }
@@ -1401,7 +1406,7 @@ export const appRouter = router({
       await payload.create({
         collection: "plans",
         data: {
-          user: input.userId,
+          user: [input.userId],
         },
       });
     }),
@@ -1614,8 +1619,8 @@ export const appRouter = router({
       return await payload.find({
         collection: "leads",
         where: {
-          vendor: input.vendorId,
-          source: "Sarang Sayang",
+          vendor: { equals: input.vendorId },
+          source: { equals: "Sarang Sayang" },
           createdAt: {
             greater_than_equal: new Date(
               `${input.year}-${input.month}-01T00:00:00Z`
@@ -1645,7 +1650,7 @@ export const appRouter = router({
       return await payload.find({
         collection: "likes",
         where: {
-          vendor: input.vendorId,
+          vendor: { equals: input.vendorId },
           createdAt: {
             greater_than_equal: new Date(
               `${input.year}-${input.month}-01T00:00:00Z`
@@ -1675,7 +1680,7 @@ export const appRouter = router({
       return await payload.find({
         collection: "leads",
         where: {
-          vendorId: input.vendorId,
+          vendorId: { equals: input.vendorId },
           createdAt: {
             greater_than_equal: new Date(
               `${input.year}-${input.month}-01T00:00:00Z`
@@ -1861,7 +1866,7 @@ export const appRouter = router({
           id: { equals: input.id },
         },
         data: {
-          updatedAt: new Date(),
+          updatedAt: new Date().toISOString(),
           name: input.name,
           email: input.email,
           contact: input.contact,
@@ -2021,7 +2026,7 @@ export const appRouter = router({
       const results = await payload.find({
         collection: "featured",
         where: {
-          id: "65a3e090f66a58e7b5eb9542",
+          id: { equals: "65a3e090f66a58e7b5eb9542" },
         },
       });
 

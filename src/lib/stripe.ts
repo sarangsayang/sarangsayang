@@ -155,10 +155,10 @@ export async function createCustomerIfNull() {
     const validUser = await payload.find({
       collection: "users",
       where: {
-        email: user?.email,
+        email: { equals: user?.email },
       },
     });
 
-    return validUser?.stripe_customer_id;
+    return validUser?.docs[0].stripe_customer_id;
   }
 }

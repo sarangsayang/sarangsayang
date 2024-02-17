@@ -16,16 +16,20 @@ import { useEffect, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import LikeItem from "./LikeItem";
 import { trpc } from "@/trpc/client";
-import { User } from "@/payload-types";
+import { Like, User, Vendor } from "@/payload-types";
 
 const Likes = ({ user }: { user: User }) => {
   const getLikes = trpc.getLikes.useQuery({
     userId: user.id,
   });
 
-  const likes = getLikes.data?.docs || [];
+  const likes = (getLikes.data?.docs as Like[]) || [];
 
   const itemCount = likes.length;
+
+  const getVendorId = (vendor: Vendor) => {
+    return vendor.id;
+  };
 
   return (
     <Sheet>
@@ -48,7 +52,7 @@ const Likes = ({ user }: { user: User }) => {
                   <div className="px-6" key={like.id}>
                     <LikeItem
                       key={like.id}
-                      vendorId={like.vendor.id}
+                      vendorId={getVendorId(like.vendor as Vendor)}
                       likeId={like.id}
                     />
                   </div>

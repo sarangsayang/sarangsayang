@@ -57,7 +57,7 @@ const SyncUsers = ({ plan, userId }: SyncUsersProps) => {
               placeholder="Enter Partner's User Email"
             />
             {user2 != "" ? (
-              checkUser.data?.docs.length > 0 ? (
+              checkUser.data && checkUser.data?.docs.length > 0 ? (
                 <Button
                   variant="secondary"
                   className="bg-green-300"

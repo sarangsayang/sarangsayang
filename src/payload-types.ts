@@ -65,12 +65,10 @@ export interface Vendor {
   facebook?: string | null;
   instagram?: string | null;
   packages?: (string | Package)[] | null;
-  images?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
   clicks?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -143,8 +141,8 @@ export interface Lead {
   contact: string;
   message?: string | null;
   source: string;
-  status: 'not contacted' | 'warm' | 'hot' | 'cold' | 'lnr' | 'not interested' | 'contract signed';
-  priority: 'low' | 'medium' | 'high';
+  status: string;
+  priority: string;
   remarks?: string | null;
   chat?: (string | null) | Chat;
   updatedAt: string;

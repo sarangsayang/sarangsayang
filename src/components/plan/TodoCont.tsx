@@ -44,15 +44,17 @@ const TodoCont = ({ userId }: DetailsContProps) => {
   const addTodo = trpc.addTodo.useMutation();
 
   const submitTodo = () => {
-    addTodo.mutate({
-      planId: identifiedPlan[0].id as string,
-      date: date?.toISOString() as string,
-      todo: todo as string,
-      remarks: remarks as string,
-    });
-    setRemarks("");
-    setDate(new Date());
-    setTodo("");
+    if (identifiedPlan) {
+      addTodo.mutate({
+        planId: identifiedPlan[0].id as string,
+        date: date?.toISOString() as string,
+        todo: todo as string,
+        remarks: remarks as string,
+      });
+      setRemarks("");
+      setDate(new Date());
+      setTodo("");
+    }
   };
 
   return (

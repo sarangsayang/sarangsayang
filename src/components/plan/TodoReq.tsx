@@ -3,7 +3,7 @@
 import { trpc } from "@/trpc/client";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { CalendarIcon, Check } from "lucide-react";
+import { CalendarIcon, Check, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -48,7 +48,7 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
       <div className="col-span-3 px-4 flex flex-row items-center">
         <p className="px-2 font-medium">{Todo}</p>
       </div>
-      {results.data?.docs.length > 0 ? (
+      {results.data && results.data?.docs.length > 0 ? (
         <>
           <div className="col-span-2 flex justify-center items-center">
             <TodoChosenDate
@@ -60,7 +60,7 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
           <div className="col-span-4 px-4 flex flex-row items-center">
             <TodoChosenRemarks
               id={results.data.docs[0].id}
-              tRemarks={results.data.docs[0].remarks}
+              tRemarks={results.data.docs[0].remarks || ""}
               tChecked={results.data.docs[0].done}
             />
           </div>
@@ -108,12 +108,14 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
         </>
       )}
       <div className="w-full flex justify-center items-center gap-2">
-        {results.data?.docs.length > 0 ? (
+        {results.data && results.data?.docs.length > 0 ? (
           <TodoChosenDone
             id={results.data.docs[0].id}
             tChecked={results.data.docs[0].done}
           />
-        ) : null}
+        ) : (
+          <Loader2 className="animate-spin" />
+        )}
       </div>
     </div>
   );

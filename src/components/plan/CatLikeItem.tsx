@@ -3,20 +3,16 @@
 import { trpc } from "@/trpc/client";
 import { Loader } from "lucide-react";
 import Link from "next/link";
-import { Vendor } from "@/payload-types";
+import { Like, User, Vendor } from "@/payload-types";
 import Image from "next/image";
 import ImageSlider from "../ImageSlider";
 import Badge from "../Badge";
 
 interface CatLikeItemProps {
   category: string;
-  data: Data[];
+  data: Like[];
   icon: any;
   label: string;
-}
-
-interface Data {
-  vendor: Vendor;
 }
 
 const CatLikeItem = ({ category, data, icon, label }: CatLikeItemProps) => {
@@ -25,7 +21,8 @@ const CatLikeItem = ({ category, data, icon, label }: CatLikeItemProps) => {
   let itemCount = 0;
 
   for (let i = 0; i < data.length; i++) {
-    const vendorId = data[i].vendor.id;
+    const vendor = data[i].vendor as Vendor;
+    const vendorId = vendor.id;
 
     const vendors = trpc.getVendor.useQuery({
       id: vendorId,
@@ -53,6 +50,10 @@ const CatLikeItem = ({ category, data, icon, label }: CatLikeItemProps) => {
 
     return validUrls;
   }
+
+  const getUserRole = (user: User) => {
+    return user.role;
+  };
 
   return (
     <>
@@ -88,7 +89,9 @@ const CatLikeItem = ({ category, data, icon, label }: CatLikeItemProps) => {
                       {vendor.name}
                       {/* @ts-ignore */}
                       <span>
-                        <Badge vendorRole={vendor.venduserid.role} />
+                        <Badge
+                          vendorRole={getUserRole(vendor.venduserid as User)}
+                        />
                       </span>
                     </h3>
                   </Link>

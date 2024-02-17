@@ -36,11 +36,11 @@ const Graphs = ({ userId }: GraphProps) => {
       </Card>
 
       <Card>
-        {vendor ? (
+        {/* {vendor ? (
           <Enquiries vendorId={vendorId} />
         ) : (
           <Loader className="animate-spin" />
-        )}
+        )} */}
       </Card>
     </>
   );

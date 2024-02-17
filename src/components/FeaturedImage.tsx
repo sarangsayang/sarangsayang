@@ -8,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { Vendor } from "@/payload-types";
 
 interface FeaturedImageProps {
   category: string;
@@ -17,22 +18,25 @@ const FeaturedImage = ({ category }: FeaturedImageProps) => {
   const results = trpc.getTopVendor.useQuery({
     category: category,
   });
+
+  const top = results.data?.top as Vendor;
   return (
     <>
-      {results.data?.top ? (
+      {top ? (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <Image
                 width={900}
                 height={900}
-                src={results.data.top.images[1].image.url}
+                //@ts-ignore
+                src={top.images[1].image.url}
                 alt="product category image"
                 className="aspect-square rounded-2xl object-cover object-center"
               />
             </TooltipTrigger>
             <TooltipContent>
-              <p>{results.data.top.name}</p>
+              <p>{top.name}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

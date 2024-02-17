@@ -246,12 +246,12 @@ function createCustomerIfNull() {
                     return [4 /*yield*/, payload.find({
                             collection: "users",
                             where: {
-                                email: user === null || user === void 0 ? void 0 : user.email,
+                                email: { equals: user === null || user === void 0 ? void 0 : user.email },
                             },
                         })];
                 case 5:
                     validUser = _a.sent();
-                    return [2 /*return*/, validUser === null || validUser === void 0 ? void 0 : validUser.stripe_customer_id];
+                    return [2 /*return*/, validUser === null || validUser === void 0 ? void 0 : validUser.docs[0].stripe_customer_id];
                 case 6: return [2 /*return*/];
             }
         });

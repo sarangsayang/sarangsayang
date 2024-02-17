@@ -3,6 +3,7 @@
 import { trpc } from "@/trpc/client";
 import CatLikeItem from "./CatLikeItem";
 import { categories } from "@/app/data/data";
+import { Like, Vendor } from "@/payload-types";
 
 interface CategorizedLikesProps {
   userId: string;
@@ -22,7 +23,7 @@ const CategorizedLikes = ({ userId }: CategorizedLikesProps) => {
         >
           {likes && likes.data ? (
             <CatLikeItem
-              data={likes.data.docs}
+              data={likes.data.docs as Like[]}
               category={category.value}
               icon={category.icon}
               label={category.label}
