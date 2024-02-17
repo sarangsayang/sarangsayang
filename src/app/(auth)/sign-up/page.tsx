@@ -14,7 +14,7 @@ import {
   TAuthCredentialsValidator,
 } from "@/lib/validators/account-credentials-validator";
 import { trpc } from "@/trpc/client";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/use-toast";
 import { ZodError } from "zod";
 import { useRouter } from "next/navigation";
 
@@ -32,21 +32,36 @@ const Page = () => {
   const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
     onError: (err) => {
       if (err.data?.code === "CONFLICT") {
-        toast.error("This email is already in use. Sign in instead?");
+        toast({
+          title: "Sign in instead?",
+          description: "We know this email already! Were you tryna sign in?",
+          variant: "destructive",
+        });
 
         return;
       }
 
       if (err instanceof ZodError) {
-        toast.error(err.issues[0].message);
+        toast({
+          title: "Oh shoot! Looks like something went wrong.",
+          description: err.issues[0].message,
+          variant: "destructive",
+        });
 
         return;
       }
 
-      toast.error("Something went wrong. Please try again.");
+      toast({
+        title: "Oh shoot! Looks like something went wrong.",
+        description: "Hmm. Try it again?",
+        variant: "destructive",
+      });
     },
     onSuccess: ({ sentToEmail }) => {
-      toast.success(`Verification email sent to ${sentToEmail}.`);
+      toast({
+        title: "I believe you got mail!",
+        description: `Verification email sent to ${sentToEmail}`,
+      });
       router.push("/verify-email?to=" + sentToEmail);
     },
   });

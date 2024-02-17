@@ -19,7 +19,7 @@ import { CheckCheck, Facebook, Heart, Instagram, MapPin } from "lucide-react";
 import { getServerSideUser } from "@/lib/payload-utils";
 import { cookies } from "next/headers";
 import LikeButton from "@/components/LikeButton";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/use-toast";
 import Badge from "@/components/Badge";
 import EnquireButton from "@/components/EnquireButton";
 
@@ -29,6 +29,7 @@ import escapeHtml from "escape-html";
 import { Text } from "slate";
 import DirectChat from "@/components/chat/DirectChat";
 import { User, Vendor } from "@/payload-types";
+import { Button } from "@/components/ui/button";
 
 interface PageProps {
   params: {
@@ -267,7 +268,19 @@ const Page = async ({ params }: PageProps) => {
                           aria-hidden="true"
                           className="h-6 w-6 flex-shrink-0 text-gray-400 cursor-pointer"
                           onClick={() => {
-                            toast.error("You have to be logged in first.");
+                            toast({
+                              title: "You gotta sign in first",
+                              variant: "destructive",
+                              action: (
+                                <Button
+                                  asChild
+                                  variant="outline"
+                                  className="text-slate-900"
+                                >
+                                  <Link href={"/sign-in"}>Sign in!</Link>
+                                </Button>
+                              ),
+                            });
                           }}
                         />
                       )}

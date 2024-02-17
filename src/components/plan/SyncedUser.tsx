@@ -2,7 +2,7 @@
 
 import { User } from "@/payload-types";
 import { Button } from "../ui/button";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/use-toast";
 import { Input } from "../ui/input";
 import { trpc } from "@/trpc/client";
 
@@ -33,7 +33,10 @@ const SyncedUser = ({ users, userId, planId }: SyncedUserProps) => {
                 planId: planId,
                 user1: userId,
               });
-              toast.success(`Successfully Unsynced`);
+              toast({
+                title: "I hope it's all good(?)",
+                description: "Successfully Unsynced",
+              });
             }}
           >
             Unsync

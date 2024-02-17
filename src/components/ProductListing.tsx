@@ -9,9 +9,10 @@ import { VENDOR_CATEGORIES } from "../config";
 import ImageSlider from "./ImageSlider";
 import LikeButton from "./LikeButton";
 import { BadgeCheck, Heart } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/use-toast";
 import Badge from "./Badge";
 import { trpc } from "@/trpc/client";
+import { Button } from "@/components/ui/button";
 
 interface ProductListingProps {
   vendor: Vendor | null;
@@ -86,7 +87,19 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
             <Link
               href="#"
               onClick={() => {
-                toast.error("You have to be logged in first.");
+                toast({
+                  title: "You gotta sign in first",
+                  variant: "destructive",
+                  action: (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="text-slate-900"
+                    >
+                      <Link href={"/sign-in"}>Sign in!</Link>
+                    </Button>
+                  ),
+                });
               }}
             >
               <ImageSlider urls={validUrls} />
@@ -112,7 +125,19 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
               aria-hidden="true"
               className="h-6 w-6 flex-shrink-0 text-gray-400 cursor-pointer"
               onClick={() => {
-                toast.error("You have to be logged in first.");
+                toast({
+                  title: "You gotta sign in first",
+                  variant: "destructive",
+                  action: (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="text-slate-900"
+                    >
+                      <Link href={"/sign-in"}>Sign in!</Link>
+                    </Button>
+                  ),
+                });
               }}
             />
           )}

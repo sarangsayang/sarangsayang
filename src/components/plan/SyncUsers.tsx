@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/use-toast";
 import SyncedUser from "./SyncedUser";
 
 interface SyncUsersProps {
@@ -67,7 +67,10 @@ const SyncUsers = ({ plan, userId }: SyncUsersProps) => {
                       user1: userId,
                       user2: checkUser.data.docs[0].id,
                     });
-                    toast.success(`${user2} synced!`);
+                    toast({
+                      title: "Ooo hello!",
+                      description: `Looks like you synced with ${user2}`,
+                    });
                   }}
                 >
                   Sync User

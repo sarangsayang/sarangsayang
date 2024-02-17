@@ -17,7 +17,7 @@ import {
   TAuthSignInValidator,
 } from "@/lib/validators/account-credentials-validator";
 import { trpc } from "@/trpc/client";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { sendWelcomeUserEmail } from "@/actions/sendWelcomeUserEmail";
@@ -53,7 +53,10 @@ const Page = () => {
 
   const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
     onSuccess: async () => {
-      toast.success("Signed in successfully");
+      toast({
+        title: "Nice! Good to go, champ",
+        description: "Log in was successful",
+      });
 
       router.refresh();
 
@@ -67,13 +70,21 @@ const Page = () => {
     },
     onError: (err) => {
       if (err.data?.code === "UNAUTHORIZED") {
-        toast.error("Invalid email or password.");
+        toast({
+          title: "Oh shoot! Looks like something went wrong.",
+          description: "Invalid Email or Password",
+          variant: "destructive",
+        });
       }
     },
   });
 
   const onSubmit = ({ email, password }: TAuthSignInValidator) => {
-    if (role.data && role.data.docs[0].userFirstLog === true) {
+    if (
+      role.data &&
+      role.data.totalDocs != 0 &&
+      role.data.docs[0].userFirstLog === true
+    ) {
       sendWelcomeUserEmail({
         email: email,
         name: role.data.docs[0].name,
@@ -83,7 +94,11 @@ const Page = () => {
       });
     }
 
-    if (role.data && role.data.docs[0].vendorFirstLog === true) {
+    if (
+      role.data &&
+      role.data.totalDocs != 0 &&
+      role.data.docs[0].vendorFirstLog === true
+    ) {
       sendWelcomeVendorEmail({
         email: email,
       });

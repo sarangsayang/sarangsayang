@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { Vendor } from "@/payload-types";
 import { Heart, Loader2 } from "lucide-react";
 import { trpc } from "@/trpc/client";
-import { toast } from "sonner";
 
 const LikeButton = ({ vendor, user }: { vendor: Vendor; user: string }) => {
   const { mutate: addLike, isLoading } = trpc.addLike.useMutation();

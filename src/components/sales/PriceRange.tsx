@@ -20,7 +20,7 @@ import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/use-toast";
 import { sendFeatVendForm } from "@/actions/sendFeatVendForm";
 import { Vendor } from "@/payload-types";
 import { sendTopVendForm } from "@/actions/sendTopVendForm";
@@ -453,9 +453,10 @@ const PriceRange = ({
                       //@ts-ignore
                       email: vendorAsVendor.venduserid.email,
                     });
-                    toast.success(
-                      "Thanks for your interest! We will reach out soon."
-                    );
+                    toast({
+                      title: "Thanks for your interest!",
+                      description: "We will reach out soon.",
+                    });
                   }}
                 >
                   Upgrade
@@ -547,9 +548,10 @@ const PriceRange = ({
                       //@ts-ignore
                       email: vendorAsVendor.venduserid.email,
                     });
-                    toast.success(
-                      "Thanks for your interest! We will reach out soon."
-                    );
+                    toast({
+                      title: "Thanks for your interest!",
+                      description: "We will reach out soon.",
+                    });
                   }}
                 >
                   Upgrade

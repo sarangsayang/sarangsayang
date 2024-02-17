@@ -1,10 +1,6 @@
 "use client";
 
-import { CarouselItem } from "./ui/carousel";
-import Link from "next/link";
-import Image from "next/image";
 import { trpc } from "@/trpc/client";
-import { toast } from "sonner";
 import ProductListing from "./ProductListing";
 import { Vendor } from "@/payload-types";
 
