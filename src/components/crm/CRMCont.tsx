@@ -34,7 +34,7 @@ const CRMCont = ({ userId, role }: CRMContProps) => {
             <TableHead className="w-[180px]">Status</TableHead>
             <TableHead className="w-[180px]">Priority</TableHead>
             <TableHead className="w-[200px]">Remarks</TableHead>
-            <TableHead className="w-[100px]"></TableHead>
+            <TableHead className="w-[100px]">{vendorId}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

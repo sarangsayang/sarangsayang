@@ -61,8 +61,9 @@ const LikeItem = ({ vendorId, likeId }: LikeItemProps) => {
                   <Image
                     src={validVendor.images[0].image.url}
                     alt={validVendor.name}
-                    fill
-                    className="absolute object-cover"
+                    width={400}
+                    height={400}
+                    className="absolute object-cover aspect-square"
                   />
                 </Link>
               ) : (

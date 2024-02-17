@@ -287,7 +287,7 @@ export const appRouter = router({
 
       let results = 0;
 
-      const { docs: chat } = await payload.find({
+      const chat = await payload.find({
         collection: "chats",
         where: {
           user: {
@@ -296,18 +296,24 @@ export const appRouter = router({
         },
       });
 
-      const allmsg = await payload.find({
-        collection: "message",
-        where: {
-          chat: {
-            equals: chat[0].id,
-          },
-        },
-      });
-
-      for (let i = 0; i < allmsg.docs.length; i++) {
-        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "vendor") {
-          results++;
+      if (chat.docs.length > 0) {
+        for (let i = 0; i < chat.docs.length; i++) {
+          const allmsg = await payload.find({
+            collection: "message",
+            where: {
+              chat: {
+                equals: chat.docs[i],
+              },
+            },
+          });
+          for (let i = 0; i < allmsg.docs.length; i++) {
+            if (
+              allmsg.docs[i].read === false &&
+              allmsg.docs[i].from === "vendor"
+            ) {
+              results++;
+            }
+          }
         }
       }
 
@@ -388,18 +394,24 @@ export const appRouter = router({
         },
       });
 
-      const allmsg = await payload.find({
-        collection: "message",
-        where: {
-          chat: {
-            equals: chat.docs[0].id,
-          },
-        },
-      });
-
-      for (let i = 0; i < allmsg.docs.length; i++) {
-        if (allmsg.docs[i].read === false && allmsg.docs[i].from === "user") {
-          results++;
+      if (chat.docs.length > 0) {
+        for (let i = 0; i < chat.docs.length; i++) {
+          const allmsg = await payload.find({
+            collection: "message",
+            where: {
+              chat: {
+                equals: chat.docs[i],
+              },
+            },
+          });
+          for (let i = 0; i < allmsg.docs.length; i++) {
+            if (
+              allmsg.docs[i].read === false &&
+              allmsg.docs[i].from === "user"
+            ) {
+              results++;
+            }
+          }
         }
       }
 
