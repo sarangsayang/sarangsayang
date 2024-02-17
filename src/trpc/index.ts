@@ -287,7 +287,7 @@ export const appRouter = router({
 
       let results = 0;
 
-      const chat = await payload.find({
+      const { docs: chat } = await payload.find({
         collection: "chats",
         where: {
           user: {
@@ -300,7 +300,7 @@ export const appRouter = router({
         collection: "message",
         where: {
           chat: {
-            equals: chat.docs[0].id,
+            equals: chat[0].id,
           },
         },
       });
