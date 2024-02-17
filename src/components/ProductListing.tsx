@@ -1,6 +1,6 @@
 "use client";
 
-import { Vendor } from "../payload-types";
+import { User, Vendor } from "../payload-types";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
@@ -23,6 +23,10 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const addClick = trpc.addClick.useMutation();
+
+  const getVendorRole = (vendUser: User) => {
+    return vendUser.role;
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -71,8 +75,9 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
                 {vendor.name}
                 {/* @ts-ignore */}
                 <span>
-                  {/* @ts-ignore */}
-                  <Badge vendorRole={vendor.venduserid.role} />
+                  <Badge
+                    vendorRole={getVendorRole(vendor.venduserid as User)}
+                  />
                 </span>
               </h3>
             </Link>
@@ -87,8 +92,9 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
               <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
                 {vendor.name}
                 <span>
-                  {/* @ts-ignore */}
-                  <Badge vendorRole={vendor.venduserid.role} />
+                  <Badge
+                    vendorRole={getVendorRole(vendor.venduserid as User)}
+                  />
                 </span>
               </h3>
             </Link>
