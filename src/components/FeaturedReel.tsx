@@ -27,6 +27,8 @@ const FeaturedReel = ({
     category: category,
   });
 
+  const top4 = results.data?.top4 as Vendor[];
+
   return (
     <section className="py-12">
       <div className="md:flex md:items-center md:justify-between mb-4">
@@ -69,15 +71,20 @@ const FeaturedReel = ({
               />
             </div>
 
-            {/* @ts-ignore */}
-            {results.data?.top4.map((vendor: Vendor, i) => (
-              <div
-                className="bg-white p-6 rounded-sm shadow-md"
-                key={vendor.id}
-              >
-                <ProductListing index={i} vendor={vendor} user={user} />
-              </div>
-            ))}
+            {results.data &&
+              top4.map((vendor, i) => (
+                <div
+                  className="bg-white p-6 rounded-sm shadow-md"
+                  key={vendor.id}
+                >
+                  <ProductListing
+                    index={i}
+                    //@ts-ignore
+                    vendor={vendor.vendor}
+                    user={user}
+                  />
+                </div>
+              ))}
           </div>
         </div>
       </div>
