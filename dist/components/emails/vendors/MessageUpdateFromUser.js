@@ -60,7 +60,7 @@ var MessageUpdateFromUserEmail = function (_a) {
                             userName,
                             ", here's what they said!")),
                     React.createElement(components_1.Section, { style: { paddingBottom: "20px" } },
-                        React.createElement(components_1.Button, { style: button, href: "https://sarangsayang.up.railway.app/" }, "View Message on Sarang Sayang")),
+                        React.createElement(components_1.Button, { style: button, href: "https://www.sarangsayang.com/" }, "View Message on Sarang Sayang")),
                     React.createElement(components_1.Hr, { style: hr }),
                     React.createElement(components_1.Text, { style: footer }, "This is an automated e-mail. Please use our chat function on Sarang Sayang to send messages directly to users."))))));
 };
