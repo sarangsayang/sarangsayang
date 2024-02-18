@@ -16,34 +16,23 @@ import * as React from "react";
 export const WelcomeVendorEmail = () => (
   <Html>
     <Head />
-    <Preview>Singapore&#39;s largest malay wedding directory</Preview>
+    <Preview>Welcome on board! Here&apos;s what you can do.</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section style={box}>
+        <Link href="https://www.sarangsayang.com">
           <Img
-            src={"https://www.sarangsayang.com/logopng.png"}
-            width="100"
-            height="100"
-            alt="SarangSayang"
+            src={"https://www.sarangsayang.com/email/welcomeVendor/1.jpg"}
+            alt="WelcomeVendor1"
           />
-          <Hr style={hr} />
-          <Text style={paragraph}>Welcome!</Text>
-          <Text style={paragraph}>
-            Welcome to Sarang Sayang, a platform for all things malay weddings.
-          </Text>
-          <Hr style={hr} />
-          <Text style={paragraph}>
-            We&apos;ll be here to help you with any step along the way. You can
-            find answers to most questions on our{" "}
-            <Link style={anchor} href="https://www.sarangsayang.com/faq">
-              FAQ page
-            </Link>{" "}
-            and get in touch with us by replying to this email address.
-          </Text>
-          <Text style={paragraph}>
-            Love, <br /> The Sarang Sayang team
-          </Text>
-        </Section>
+          <Img
+            src={"https://www.sarangsayang.com/email/welcomeVendor/2.jpg"}
+            alt="WelcomeVendor2"
+          />
+          <Img
+            src={"https://www.sarangsayang.com/email/welcomeVendor/3.jpg"}
+            alt="WelcomeVendor3"
+          />
+        </Link>
       </Container>
     </Body>
   </Html>
@@ -52,7 +41,7 @@ export const WelcomeVendorEmail = () => (
 export default WelcomeVendorEmail;
 
 const main = {
-  backgroundColor: "#FDE046",
+  backgroundColor: "#C8E9F3",
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
 };

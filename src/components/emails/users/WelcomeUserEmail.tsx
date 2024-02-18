@@ -21,9 +21,7 @@ export const WelcomeUserEmail = () => (
       <Container style={container}>
         <Link href="https://www.sarangsayang.com.railway.app">
           <Img
-            src={
-              "https://www.sarangsayang.com.railway.app/email/welcomeEmail.jpg"
-            }
+            src={"https://www.sarangsayang.com/email/welcomeEmail.jpg"}
             alt="WelcomeUser"
           />
         </Link>

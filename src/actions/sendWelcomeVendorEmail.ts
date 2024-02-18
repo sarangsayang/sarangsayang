@@ -13,7 +13,7 @@ export const sendWelcomeVendorEmail = async ({ email }: Data) => {
   resend.emails.send({
     from: "Sarang Sayang <admin@sarangsayang.com>",
     to: [`${email}`],
-    subject: `Welcome to Sarang Sayang!`,
+    subject: `You're an Official Sarang Sayang Vendor!`,
     react: React.createElement(WelcomeVendorEmail),
   });
 };
