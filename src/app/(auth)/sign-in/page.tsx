@@ -54,7 +54,7 @@ const Page = () => {
   const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
     onSuccess: async () => {
       toast({
-        title: "Nice! Good to go, champ",
+        title: "Welcome back, go on ahead champ!",
         description: "Log in was successful",
       });
 
@@ -83,7 +83,8 @@ const Page = () => {
     if (
       role.data &&
       role.data.totalDocs != 0 &&
-      role.data.docs[0].userFirstLog === true
+      role.data.docs[0].userFirstLog === true &&
+      role.data.docs[0]._verified === true
     ) {
       sendWelcomeUserEmail({
         email: email,
