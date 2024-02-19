@@ -10,6 +10,12 @@ import HomepageAds from "@/components/HomepageAds";
 import BadgeLegend from "@/components/BadgeLegend";
 import Featured11 from "@/components/Featured11";
 import CreatePlanButton from "@/components/plan/CreatePlanButton";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 export default async function Home() {
   const nextCookies = cookies();
@@ -32,10 +38,19 @@ export default async function Home() {
             </Link>
             <div className="hidden lg:block">
               {!user ? (
-                <Button variant="ghost">
-                  Unlock Wedding Planner{" "}
-                  <LockKeyhole className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
-                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost">
+                        Unlock Wedding Planner{" "}
+                        <LockKeyhole className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>You have to be logged in!</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               ) : (
                 <CreatePlanButton userId={user.id} />
               )}

@@ -10,8 +10,8 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `Sarang Sayang | Singapore's largest malay wedding directory`,
-  description: `Welcome to Sarang Sayang, a platform for all things malay weddings.`,
+  title: `Sarang Sayang | Singapore's largest online malay wedding directory`,
+  description: `Welcome to Sarang Sayang, a platform for all things malay weddings. Sarang Sayang is Singapore's largest Malay Wedding Directory. It acts as an online platform that houses Malay wedding vendors for all things Malay weddings. Our mission is to help and empower our Malay community by making wedding planning easier for all couples. We connect Malay wedding vendors to couples planning for their dream wedding through the convenience of one platform.`,
 };
 
 export default function RootLayout({

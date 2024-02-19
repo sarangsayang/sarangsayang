@@ -49,10 +49,9 @@ var sendMessageUpdateFromUser = function (_a) {
     var vendorEmail = _a.vendorEmail, userName = _a.userName, vendorName = _a.vendorName;
     return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_b) {
-            console.log("Atleast they tried");
             resend.emails.send({
                 from: "Sarang Sayang <admin@sarangsayang.com>",
-                to: vendorEmail,
+                to: ["".concat(vendorEmail)],
                 subject: "Message From ".concat(userName, " on Sarang Sayang!"),
                 react: react_1.default.createElement(MessageUpdateFromUser_1.default, {
                     userName: userName,

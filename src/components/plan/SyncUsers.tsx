@@ -68,8 +68,8 @@ const SyncUsers = ({ plan, userId }: SyncUsersProps) => {
                       user2: checkUser.data.docs[0].id,
                     });
                     toast({
-                      title: "Ooo hello!",
-                      description: `Looks like you synced with ${user2}`,
+                      title: "Nice!",
+                      description: `Let's wait for ${user2} to accept your sync request.`,
                     });
                   }}
                 >

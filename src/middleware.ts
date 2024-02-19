@@ -11,9 +11,9 @@ export async function middleware(req: NextRequest) {
 
   if (
     (!user && nextUrl.pathname.startsWith("/vendor")) ||
-    nextUrl.pathname.startsWith("/plan") ||
-    nextUrl.pathname === "/status" ||
-    nextUrl.pathname === "/dashboard"
+    (!user && nextUrl.pathname.startsWith("/plan")) ||
+    (!user && nextUrl.pathname === "/status") ||
+    (!user && nextUrl.pathname === "/dashboard")
   ) {
     return NextResponse.redirect(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/sign-in`

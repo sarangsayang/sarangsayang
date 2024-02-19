@@ -71,5 +71,13 @@ exports.MiscVendors = {
             filterOptions: { category: { equals: "misc" } },
             hasMany: true,
         },
+        {
+            name: "pakandam",
+            type: "relationship",
+            label: "Pak Andam Vendors",
+            relationTo: "vendors",
+            filterOptions: { category: { equals: "misc" } },
+            hasMany: true,
+        },
     ],
 };

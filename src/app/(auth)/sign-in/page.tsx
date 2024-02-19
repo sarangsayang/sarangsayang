@@ -43,6 +43,8 @@ const Page = () => {
   const updUserFirstLog = trpc.updateUserFirstLog.useMutation();
   const updVendorFirstLog = trpc.updateVendorFirstLog.useMutation();
 
+  const createAccIfNil = trpc.createPlanIfNil.useMutation();
+
   const {
     register,
     handleSubmit,
@@ -105,6 +107,12 @@ const Page = () => {
       });
       updVendorFirstLog.mutate({
         email: email,
+      });
+    }
+
+    if (role.data && role.data.totalDocs != 0) {
+      createAccIfNil.mutate({
+        userId: role.data.docs[0].id,
       });
     }
 

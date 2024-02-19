@@ -67,5 +67,13 @@ export const MiscVendors: CollectionConfig = {
       filterOptions: { category: { equals: "misc" } },
       hasMany: true,
     },
+    {
+      name: "pakandam",
+      type: "relationship",
+      label: "Pak Andam Vendors",
+      relationTo: "vendors",
+      filterOptions: { category: { equals: "misc" } },
+      hasMany: true,
+    },
   ],
 };

@@ -34,7 +34,7 @@ const SyncedUser = ({ users, userId, planId }: SyncedUserProps) => {
                 user1: userId,
               });
               toast({
-                title: "I hope it's all good(?)",
+                title: "I hope it's all good",
                 description: "Successfully Unsynced",
               });
             }}

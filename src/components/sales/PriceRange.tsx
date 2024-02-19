@@ -454,8 +454,9 @@ const PriceRange = ({
                       email: vendorAsVendor.venduserid.email,
                     });
                     toast({
-                      title: "Thanks for your interest!",
-                      description: "We will reach out soon.",
+                      title: "We have received your interest!",
+                      description:
+                        "We will reach out to you soon should there be a slot availability.",
                     });
                   }}
                 >
@@ -549,8 +550,9 @@ const PriceRange = ({
                       email: vendorAsVendor.venduserid.email,
                     });
                     toast({
-                      title: "Thanks for your interest!",
-                      description: "We will reach out soon.",
+                      title: "We have received your interest!",
+                      description:
+                        "We will reach out to you soon should there be a slot availability.",
                     });
                   }}
                 >

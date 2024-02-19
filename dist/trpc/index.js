@@ -1565,6 +1565,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "todos",
                                 where: { todo: { equals: input.todo }, plan: { equals: input.planId } },
                                 pagination: false,
+                                sort: "date",
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -1588,7 +1589,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "todos",
                                 where: { plan: { equals: input.planId } },
                                 pagination: false,
-                                sort: "createdAt",
+                                sort: "date",
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
@@ -2021,6 +2022,45 @@ exports.appRouter = (0, trpc_1.router)({
                                 pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
+                }
+            });
+        });
+    }),
+    createPlanIfNil: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        userId: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "plans",
+                                where: {
+                                    user: {
+                                        equals: input.userId,
+                                    },
+                                },
+                                pagination: false,
+                            })];
+                    case 2:
+                        results = _b.sent();
+                        if (!(results.docs.length === 0)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, payload.create({
+                                collection: "plans",
+                                data: {
+                                    user: [input.userId],
+                                },
+                            })];
+                    case 3:
+                        _b.sent();
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         });

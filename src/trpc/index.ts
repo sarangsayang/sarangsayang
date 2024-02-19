@@ -1100,6 +1100,7 @@ export const appRouter = router({
         collection: "todos",
         where: { todo: { equals: input.todo }, plan: { equals: input.planId } },
         pagination: false,
+        sort: "date",
       });
     }),
 
@@ -1116,7 +1117,7 @@ export const appRouter = router({
         collection: "todos",
         where: { plan: { equals: input.planId } },
         pagination: false,
-        sort: "createdAt",
+        sort: "date",
       });
     }),
 
@@ -1441,6 +1442,35 @@ export const appRouter = router({
         },
         pagination: false,
       });
+    }),
+
+  createPlanIfNil: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const results = await payload.find({
+        collection: "plans",
+        where: {
+          user: {
+            equals: input.userId,
+          },
+        },
+        pagination: false,
+      });
+
+      if (results.docs.length === 0) {
+        await payload.create({
+          collection: "plans",
+          data: {
+            user: [input.userId],
+          },
+        });
+      }
     }),
 
   getEnquiries12M: publicProcedure

@@ -16,7 +16,7 @@ export const sendContactUs = async (formData: FormData) => {
             <div>
                 <p>Name: ${name}</p>
                 <p>Email: ${email}</p>
-                <p>Contact: ${message}</p>
+                <p>Message: ${message}</p>
             </div>
         `,
   });
