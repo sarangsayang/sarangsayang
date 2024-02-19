@@ -68,7 +68,7 @@ export default buildConfig({
     meta: {
       titleSuffix: "- SarangSayang",
       favicon: "/favicon.ico",
-      ogImage: "/thumbnail.jpg",
+      ogImage: "/logoSmall.jpg",
     },
     logoutRoute: "/sign-in",
     inactivityRoute: "/sign-in",
