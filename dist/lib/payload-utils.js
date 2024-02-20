@@ -43,13 +43,11 @@ var getServerSideUser = function (cookies) { return __awaiter(void 0, void 0, vo
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                token = (_a = cookies.get('payload-token')) === null || _a === void 0 ? void 0 : _a.value;
+                token = (_a = cookies.get("payload-token")) === null || _a === void 0 ? void 0 : _a.value;
                 return [4 /*yield*/, fetch("".concat(process.env.NEXT_PUBLIC_SERVER_URL, "/api/users/me"), {
                         headers: {
                             Authorization: "JWT ".concat(token),
                         },
-                        credentials: 'include',
-                        mode: 'cors'
                     })];
             case 1:
                 meRes = _b.sent();
