@@ -56,7 +56,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
           query={{
             category,
             search,
-            limit: 40,
+            limit: 1000,
             sort: sort === "-name" || sort === "name" ? sort : undefined,
           }}
         />

@@ -2855,7 +2855,7 @@ exports.appRouter = (0, trpc_1.router)({
     }),
     getInfiniteProducts: trpc_1.publicProcedure
         .input(zod_1.z.object({
-        limit: zod_1.z.number().min(1).max(100),
+        limit: zod_1.z.number().min(1).max(1000),
         cursor: zod_1.z.number().nullish(),
         query: query_validator_1.QueryValidator,
     }))
