@@ -23,7 +23,7 @@ const Featured11Pull = ({
   });
 
   return (
-    <div className="w-50 min-h-96">
+    <div className="w-50 min-h-40 md:min-h-80">
       {results.isLoading ? (
         <div className="flex flex-col w-full">
           <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
