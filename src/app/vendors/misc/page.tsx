@@ -16,6 +16,7 @@ const Misc = async () => {
     { title: "Live Stations", value: "liveStation" },
     { title: "Performers", value: "performers" },
     { title: "Wedding Cake", value: "cake" },
+    { title: "Pak Andam", value: "pakandam" },
   ];
 
   return (

@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
     (!user && nextUrl.pathname === "/dashboard")
   ) {
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/sign-in`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/sign-in?origin=${nextUrl.pathname}`
     );
   }
 

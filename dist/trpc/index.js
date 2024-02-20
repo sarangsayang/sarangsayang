@@ -478,7 +478,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "message",
                                 where: {
                                     chat: {
-                                        equals: chat.docs[i],
+                                        equals: chat.docs[i].id,
                                     },
                                 },
                             })];
@@ -612,7 +612,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "message",
                                 where: {
                                     chat: {
-                                        equals: chat.docs[i],
+                                        equals: chat.docs[i].id,
                                     },
                                 },
                             })];

@@ -39,6 +39,19 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
     return () => clearTimeout(timer);
   }, [index]);
 
+  const ProductPlaceholder = () => {
+    return (
+      <div className="flex flex-col w-full">
+        <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
+          <Skeleton className="h-full w-full" />
+        </div>
+        <Skeleton className="mt-4 w-2/3 h-4 rounded-lg" />
+        <Skeleton className="mt-2 w-16 h-4 rounded-lg" />
+        <Skeleton className="mt-2 w-12 h-4 rounded-lg" />
+      </div>
+    );
+  };
+
   if (!vendor || !isVisible) return <ProductPlaceholder />;
 
   const label = VENDOR_CATEGORIES.find(
@@ -70,8 +83,13 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
           {user ? (
             <Link
               href={`/vendor/${vendor.id}`}
-              className="cursor-pointer"
               target="_blank"
+              className={cn(
+                "invisible h-full w-full cursor-pointer group/main",
+                {
+                  "visible animate-in fade-in-5": isVisible,
+                }
+              )}
             >
               <ImageSlider urls={validUrls} />
               <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
@@ -85,7 +103,7 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
             </Link>
           ) : (
             <Link
-              href="#"
+              href="/sign-in"
               onClick={() => {
                 toast({
                   title: "You gotta sign in first",
@@ -145,19 +163,6 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
       </div>
     );
   }
-};
-
-const ProductPlaceholder = () => {
-  return (
-    <div className="flex flex-col w-full">
-      <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
-        <Skeleton className="h-full w-full" />
-      </div>
-      <Skeleton className="mt-4 w-2/3 h-4 rounded-lg" />
-      <Skeleton className="mt-2 w-16 h-4 rounded-lg" />
-      <Skeleton className="mt-2 w-12 h-4 rounded-lg" />
-    </div>
-  );
 };
 
 export default ProductListing;

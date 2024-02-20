@@ -64,6 +64,11 @@ const LikeItem = ({ vendorId, likeId }: LikeItemProps) => {
                     width={400}
                     height={400}
                     className="absolute object-cover aspect-square"
+                    onLoad={() => (
+                      <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
+                        <Skeleton className="h-full w-full" />
+                      </div>
+                    )}
                   />
                 </Link>
               ) : (

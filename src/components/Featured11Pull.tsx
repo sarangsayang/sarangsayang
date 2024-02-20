@@ -3,6 +3,7 @@
 import { trpc } from "@/trpc/client";
 import ProductListing from "./ProductListing";
 import { Vendor } from "@/payload-types";
+import { Skeleton } from "./ui/skeleton";
 
 interface Featured11PullProps {
   category: string;
@@ -22,15 +23,25 @@ const Featured11Pull = ({
   });
 
   return (
-    <div className="w-50">
-      {user && results.data?.top ? (
+    <div className="w-50 min-h-96">
+      {results.isLoading ? (
+        <div className="flex flex-col w-full">
+          <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
+            <Skeleton className="h-full w-full" />
+          </div>
+          <Skeleton className="mt-4 w-2/3 h-4 rounded-lg" />
+          <Skeleton className="mt-2 w-16 h-4 rounded-lg" />
+          <Skeleton className="mt-2 w-12 h-4 rounded-lg" />
+        </div>
+      ) : null}
+      {user && results.isFetched && results.data?.top ? (
         <ProductListing
           index={index}
           vendor={results.data.top as Vendor}
           user={user}
         />
       ) : null}
-      {!user && results.data?.top ? (
+      {!user && results.isFetched && results.data?.top ? (
         <ProductListing
           index={index}
           vendor={results.data.top as Vendor}

@@ -302,7 +302,7 @@ export const appRouter = router({
             collection: "message",
             where: {
               chat: {
-                equals: chat.docs[i],
+                equals: chat.docs[i].id,
               },
             },
           });
@@ -400,7 +400,7 @@ export const appRouter = router({
             collection: "message",
             where: {
               chat: {
-                equals: chat.docs[i],
+                equals: chat.docs[i].id,
               },
             },
           });

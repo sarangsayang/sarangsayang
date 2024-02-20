@@ -13,7 +13,7 @@ import { VENDOR_CATEGORIES } from "@/config";
 import { getPayloadClient } from "@/get-payload";
 import { formatPrice } from "@/lib/utils";
 import Link from "next/link";
-import { notFound, useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
 import { CheckCheck, Facebook, Heart, Instagram, MapPin } from "lucide-react";
 
 import { getServerSideUser } from "@/lib/payload-utils";
@@ -21,14 +21,13 @@ import { cookies } from "next/headers";
 import LikeButton from "@/components/LikeButton";
 import { toast } from "@/components/ui/use-toast";
 import Badge from "@/components/Badge";
-import EnquireButton from "@/components/EnquireButton";
 
 import React, { Fragment } from "react";
 //@ts-ignore
 import escapeHtml from "escape-html";
 import { Text } from "slate";
 import DirectChat from "@/components/chat/DirectChat";
-import { User, Vendor } from "@/payload-types";
+import { User } from "@/payload-types";
 import { Button } from "@/components/ui/button";
 
 interface PageProps {
@@ -165,7 +164,6 @@ const Page = async ({ params }: PageProps) => {
           return <p key={i}>{serialize(node.children)}</p>;
       }
     });
-
   return (
     <>
       <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg mb-10">

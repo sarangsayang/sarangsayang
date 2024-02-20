@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import FeaturedImage from "./FeaturedImage";
+import { Skeleton } from "./ui/skeleton";
 
 type Category = (typeof PRODUCT_CATEGORIES)[number];
 
@@ -108,6 +109,11 @@ const NavItem = ({
                               src={item.imageSrc}
                               alt="product category image"
                               className="aspect-square rounded-2xl"
+                              onLoad={() => (
+                                <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
+                                  <Skeleton className="h-full w-full" />
+                                </div>
+                              )}
                             />
                           )}
                         </Link>
