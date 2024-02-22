@@ -31,13 +31,16 @@ const ChatInput = ({ vendor, chat, userName }: ChatInputProps) => {
 
   const add = trpc.addMessage.useMutation();
 
-  // const onSubmit = ({ userName, vendorEmail, vendorName }: EmailProps) => {
-  //   sendMessageUpdateFromUser({
-  //     userName: userName,
-  //     vendorEmail: vendorEmail,
-  //     vendorName: vendorName,
-  //   });
-  // };
+  const autoReply = (vendorUser: User) => {
+    if (vendorUser.email === "sales@sarangsayang.com") {
+      add.mutate({
+        chatId: chat.id,
+        from: "vendor",
+        message:
+          "This vendor has not claimed their profile, please expect a delay in their response.",
+      });
+    }
+  };
 
   return (
     <div className="border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0 flex flex-row items-center">
@@ -53,6 +56,7 @@ const ChatInput = ({ vendor, chat, userName }: ChatInputProps) => {
                 from: "user",
                 message: input,
               });
+              autoReply(vendorUser);
               sendMessageUpdateFromUser({
                 userName: userName,
                 vendorEmail: vendorUser.email,
@@ -80,6 +84,7 @@ const ChatInput = ({ vendor, chat, userName }: ChatInputProps) => {
                   from: "user",
                   message: input,
                 });
+                autoReply(vendorUser);
                 sendMessageUpdateFromUser({
                   userName: userName,
                   vendorEmail: vendorUser.email,
