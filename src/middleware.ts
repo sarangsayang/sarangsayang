@@ -9,16 +9,16 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(`${process.env.NEXT_PUBLIC_SERVER_URL}/`);
   }
 
-  if (
-    (!user && nextUrl.pathname.startsWith("/vendor")) ||
-    (!user && nextUrl.pathname.startsWith("/plan")) ||
-    (!user && nextUrl.pathname === "/status") ||
-    (!user && nextUrl.pathname === "/dashboard")
-  ) {
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/sign-in?origin=${nextUrl.pathname}`
-    );
-  }
+  // if (
+  //   // (!user && nextUrl.pathname.startsWith("/vendor")) ||
+  //   // (!user && nextUrl.pathname.startsWith("/plan")) ||
+  //   (!user && nextUrl.pathname === "/status") ||
+  //   (!user && nextUrl.pathname === "/dashboard")
+  // ) {
+  //   return NextResponse.redirect(
+  //     `${process.env.NEXT_PUBLIC_SERVER_URL}/sign-in?origin=${nextUrl.pathname}`
+  //   );
+  // }
 
   return NextResponse.next();
 }

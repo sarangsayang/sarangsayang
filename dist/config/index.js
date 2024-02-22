@@ -66,32 +66,32 @@ exports.PRODUCT_CATEGORIES = [
             {
                 name: "Wishlist",
                 href: "/plan/wishlist",
-                imageSrc: "/planmenu/wishlist.png",
+                imageSrc: "/planmenu/1.jpg",
             },
             {
                 name: "Wedding Overview",
                 href: "/plan/details",
-                imageSrc: "/planmenu/overview.png",
+                imageSrc: "/planmenu/2.jpg",
             },
             {
                 name: "To Do List",
                 href: "/plan/todo",
-                imageSrc: "/planmenu/todo.png",
+                imageSrc: "/planmenu/3.jpg",
             },
             {
                 name: "Budget",
                 href: "/plan/budget",
-                imageSrc: "/planmenu/budget.png",
+                imageSrc: "/planmenu/4.jpg",
             },
             {
                 name: "Guest List",
                 href: "/plan/guests",
-                imageSrc: "/planmenu/guest.png",
+                imageSrc: "/planmenu/5.jpg",
             },
             {
                 name: "Itinerary",
                 href: "/plan/itinerary",
-                imageSrc: "/planmenu/itinerary.png",
+                imageSrc: "/planmenu/6.jpg",
             },
         ],
     },

@@ -10,10 +10,31 @@ import {
   hasSubscription,
 } from "@/lib/stripe";
 import { generateCustomerPortalLink } from "@/lib/stripe";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Status() {
   const nextCookies = cookies();
   const { user } = await getServerSideUser(nextCookies);
+
+  if (!user) {
+    return (
+      <>
+        <MaxWidthWrapper className="mt-10">
+          <div className="w-full rounded-lg p-7 bg-red-300 flex flex-row items-center justify-between">
+            <div>
+              <h1 className="font-bold">Oh no..</h1>
+              <p>You have to be signed in first, my friend!</p>
+            </div>
+
+            <Button asChild variant={"secondary"}>
+              <Link href={`/sign-in?origin=status`}>Sign In</Link>
+            </Button>
+          </div>
+        </MaxWidthWrapper>
+      </>
+    );
+  }
 
   await createCustomerIfNull();
 
@@ -40,39 +61,60 @@ export default async function Status() {
       };
     }
   }
+  if (user) {
+    return (
+      <>
+        <MaxWidthWrapper
+          className={cn(bgVendor, "mt-20 h-full rounded-lg shadow-md")}
+        >
+          {user && vendorRole ? (
+            <div className="py-10 flex flex-col items-start">
+              <h1 className="text-4xl font-medium py-2 flex items-baseline gap-2">
+                <span className="text-2xl font-light">
+                  You&apos;re currently an official
+                </span>{" "}
+                {role(vendorRole)?.label}
+              </h1>
+              <p className="text-gray-600 italic w-100 text-balance">
+                {role(vendorRole)?.desc}
+              </p>
+            </div>
+          ) : (
+            <div className="py-10 w-full rounded-lg p-7 bg-red-300 flex flex-row items-center justify-between">
+              <div>
+                <h1 className="font-bold">Oh no..</h1>
+                <p>You have to be signed in first, my friend!</p>
+              </div>
 
-  return (
-    <>
-      <MaxWidthWrapper
-        className={cn(bgVendor, "mt-20 h-full rounded-lg shadow-md")}
-      >
-        {user && vendorRole ? (
-          <div className="py-10 flex flex-col items-start">
-            <h1 className="text-4xl font-medium py-2 flex items-baseline gap-2">
-              <span className="text-2xl font-light">
-                You&apos;re currently an official
-              </span>{" "}
-              {role(vendorRole)?.label}
-            </h1>
-            <p className="text-gray-600 italic w-100 text-balance">
-              {role(vendorRole)?.desc}
-            </p>
-          </div>
+              <Button asChild variant={"secondary"}>
+                <Link href={`/sign-in?origin=status`}>Sign In</Link>
+              </Button>
+            </div>
+          )}
+        </MaxWidthWrapper>
+        {user && vendorRole && manage && checkoutLink ? (
+          <PriceRange
+            userRole={vendorRole}
+            userId={user.id}
+            portal={manage}
+            hasSub={hasSub}
+            checkoutLink={checkoutLink}
+          />
         ) : (
-          <Loader className="animate-spin" />
+          <MaxWidthWrapper className="mt-10">
+            <div className="w-full rounded-lg p-7 bg-red-300 flex flex-row items-center justify-between">
+              <div>
+                <h1 className="font-bold">Oh no..</h1>
+                <p>You have to be signed in first, my friend!</p>
+              </div>
+
+              <Button asChild variant={"secondary"}>
+                <Link href={`/sign-in?origin=status`}>Sign In</Link>
+              </Button>
+            </div>
+          </MaxWidthWrapper>
         )}
-      </MaxWidthWrapper>
-      {user && vendorRole && manage && checkoutLink ? (
-        <PriceRange
-          userRole={vendorRole}
-          userId={user.id}
-          portal={manage}
-          hasSub={hasSub}
-          checkoutLink={checkoutLink}
-        />
-      ) : (
-        <Loader className="animate-spin" />
-      )}
-    </>
-  );
+      </>
+    );
+  }
 }

@@ -1,8 +1,10 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import CategorizedLikes from "@/components/plan/CategorizedLikes";
+import { Button } from "@/components/ui/button";
 import { getServerSideUser } from "@/lib/payload-utils";
 import { Loader } from "lucide-react";
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 export default async function Wishlist() {
   const nextCookies = cookies();
@@ -21,7 +23,18 @@ export default async function Wishlist() {
       {user ? (
         <CategorizedLikes userId={user.id} />
       ) : (
-        <Loader className="animate-spin" />
+        <MaxWidthWrapper className="mt-10">
+          <div className="w-full rounded-lg p-7 bg-red-300 flex flex-row items-center justify-between">
+            <div>
+              <h1 className="font-bold">Oh no..</h1>
+              <p>You have to be signed in first, my friend!</p>
+            </div>
+
+            <Button asChild variant={"secondary"}>
+              <Link href={`/sign-in?origin=plan/wishlist`}>Sign In</Link>
+            </Button>
+          </div>
+        </MaxWidthWrapper>
       )}
     </MaxWidthWrapper>
   );

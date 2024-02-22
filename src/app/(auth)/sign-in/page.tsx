@@ -64,6 +64,7 @@ const Page = () => {
 
       if (origin) {
         router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/${origin}`);
+        router.refresh();
         return;
       }
 

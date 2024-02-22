@@ -7,6 +7,8 @@ import TVLCont from "@/components/analytics/cards/vendorlikes/TVLCont";
 import TECont from "@/components/analytics/cards/enquiries/TECont";
 import SSCont from "@/components/analytics/cards/enquiries/SSCont";
 import TVCCont from "@/components/analytics/cards/vendorClicks/TVCCont";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Dashboard() {
   const nextCookies = cookies();
@@ -42,7 +44,22 @@ export default async function Dashboard() {
           <Card>{user ? <SSCont userId={user.id} /> : null}</Card>
         </div>
       </MaxWidthWrapper>
-      {user ? <CRMCont userId={user.id} role={user.role} /> : null}
+      {user ? (
+        <CRMCont userId={user.id} role={user.role} />
+      ) : (
+        <MaxWidthWrapper>
+          <div className="w-full rounded-lg p-7 bg-red-300 flex flex-row items-center justify-between">
+            <div>
+              <h1 className="font-bold">Oh no..</h1>
+              <p>You have to be signed in first, my friend!</p>
+            </div>
+
+            <Button asChild variant={"secondary"}>
+              <Link href={`/sign-in?origin=dashboard`}>Sign In</Link>
+            </Button>
+          </div>
+        </MaxWidthWrapper>
+      )}
     </>
   );
 }
