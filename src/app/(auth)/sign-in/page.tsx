@@ -71,6 +71,7 @@ const Page = () => {
       router.refresh();
     },
     onError: (err) => {
+      console.log(JSON.stringify(err));
       if (err.data?.code === "UNAUTHORIZED") {
         toast({
           title: "Oh shoot! Looks like something went wrong.",
@@ -162,6 +163,12 @@ const Page = () => {
                     })}
                     placeholder="you@example.com"
                     onChange={handleEmailChange}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        //handleSubmit(onSubmit);
+                      }
+                    }}
                   />
                   {errors?.email && (
                     <p className="text-sm text-red-500">

@@ -53,7 +53,7 @@ export const authRouter = router({
         token,
       });
 
-      if (!isVerified) throw new TRPCError({ code: "UNAUTHORIZED" });
+      if (!isVerified) throw new TRPCError({ code: "BAD_REQUEST" });
 
       return { success: true };
     }),
