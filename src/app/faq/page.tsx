@@ -209,8 +209,8 @@ const faq = () => {
             </AccordionTrigger>
             <AccordionContent>
               Click &quot;Don&apos;t see your vendor?&quot; on any vendor
-              browsing pages, fill in some details and we'll make it happen once
-              we can verify your company!
+              browsing pages, fill in some details and we&apos;ll make it happen
+              once we can verify your company!
             </AccordionContent>
           </AccordionItem>
 
