@@ -171,6 +171,8 @@ export const appRouter = router({
         return results.docs[0].performers;
       } else if (input.category === "cake") {
         return results.docs[0].cake;
+      } else if (input.category === "pakandam") {
+        return results.docs[0].pakandam;
       }
     }),
 
