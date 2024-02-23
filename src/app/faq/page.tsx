@@ -65,7 +65,7 @@ const faq = () => {
               What does the blue and gold checkmarks mean?
             </AccordionTrigger>
             <AccordionContent>
-              <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
+              <div className="py-6 grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
                 <div className="text-center md:flex md:items-start md:text-left lg:block lg:text-center">
                   <div className="md:flex-shrink-0 flex justify-center">
                     <div className="p-6 h-30 w-60 flex flex-col gap-2 items-start justify-center rounded-lg bg-white shadow-md">
@@ -83,7 +83,7 @@ const faq = () => {
                     <h3 className="text-base font-medium text-gray-900">
                       Non-Offical Vendor
                     </h3>
-                    <p className="mt-3 text-sm text-muted-foreground">
+                    <p className="mt-3 text-sm text-muted-foreground text-balance">
                       Non-Official Sarang Sayang vendors have not claimed their
                       profiles and are not active vendors.
                     </p>
@@ -113,7 +113,7 @@ const faq = () => {
                     <h3 className="text-base font-medium text-gray-900">
                       Official Vendor
                     </h3>
-                    <p className="mt-3 text-sm text-muted-foreground">
+                    <p className="mt-3 text-sm text-muted-foreground text-balance">
                       Official Sarang Sayang vendors are vendors who have
                       claimed their profile.
                     </p>
@@ -143,7 +143,7 @@ const faq = () => {
                     <h3 className="text-base font-medium text-gray-900">
                       Supervendor
                     </h3>
-                    <p className="mt-3 text-sm text-muted-foreground">
+                    <p className="mt-3 text-sm text-muted-foreground text-balance">
                       Supervendors have claimed their profiles and are very
                       active in updating their packages and replying enquiries.
                     </p>
@@ -155,13 +155,35 @@ const faq = () => {
 
           <AccordionItem value="item-5">
             <AccordionTrigger>
-              Can I use the Plan function on Sarang Sayang?
+              Can I plan my wedding with my partner?
             </AccordionTrigger>
             <AccordionContent>
-              As long you have an account registered with Sarang Sayang, all you
-              have to do is click &quot;Unlock Wedding Planner&quot; on the home
-              page, and you will have full access to Sarang Sayang&apos;s
-              wedding wedding planner.
+              You sure can! On your wedding overview tab, you can insert your
+              partner&apos;s e-mail address and all the details you have worked
+              on in our &quot;plan&quot; section will be synced with theirs.
+              Make sure your partner has already registered an account with
+              Sarang Sayang too.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-6">
+            <AccordionTrigger>
+              Why do some vendor pages have packages and some do not?
+            </AccordionTrigger>
+            <AccordionContent className="text-balance">
+              As much as we do encourage our vendors to upload their packages,
+              we do respect their decision on how they choose to share them with
+              their clients so feel free to start a chat with them!
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-7">
+            <AccordionTrigger>
+              Is Sarang Sayang a registered business under ACRA?
+            </AccordionTrigger>
+            <AccordionContent>
+              Yes we are! We are a Sole Proprietor, incorporated in Singapore
+              with UEN 53479247B
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -173,10 +195,10 @@ const faq = () => {
           <AccordionItem value="item-1">
             <AccordionTrigger>How do I claim my vendor?</AccordionTrigger>
             <AccordionContent>
-              Click &quot;Claim this vendor&quot; in your vendor page, fill in
-              the details required and our team will contact you at the soonest.
-              Once approved, you will be invited to update your details and
-              packages accordingly.
+              If you see your vendor listed within your category, you can click
+              &quot;Claim this vendor&quot;, fill in the details required and
+              our team will contact you at the soonest. Once approved, you will
+              be invited to update your details and packages accordingly.
             </AccordionContent>
           </AccordionItem>
 
@@ -186,26 +208,13 @@ const faq = () => {
               vendor?
             </AccordionTrigger>
             <AccordionContent>
-              If you see your vendor listed within your category, you can click
-              &quot;Claim this vendor&quot;, fill in the details required and
-              our team will contact you at the soonest. Once approved, you will
-              be invited to update your details and packages accordingly.
+              Click &quot;Don&apos;t see your vendor?&quot; on any vendor
+              browsing pages, fill in some details and we'll make it happen once
+              we can verify your company!
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="item-3">
-            <AccordionTrigger>
-              My vendor isn&apos;t listed. How do I become a Sarang Sayang
-              vendor?
-            </AccordionTrigger>
-            <AccordionContent>
-              Click &quot;Don&apos;t see your vendor?&quot; on any vendor
-              browsing pages, fill in some details and we&apos;ll make it happen
-              once we can verify your company!
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="item-4">
             <AccordionTrigger>
               Does Sarang Sayang take a cut in any of your packages sales?
             </AccordionTrigger>
