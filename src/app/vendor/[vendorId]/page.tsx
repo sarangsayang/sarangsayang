@@ -29,6 +29,7 @@ import { Text } from "slate";
 import DirectChat from "@/components/chat/DirectChat";
 import { User } from "@/payload-types";
 import { Button } from "@/components/ui/button";
+import ClaimVendor from "@/components/ClaimVendor";
 
 interface PageProps {
   params: {
@@ -221,6 +222,13 @@ const Page = async ({ params }: PageProps) => {
                       </p>
                     </div>
 
+                    {/* Claim */}
+                    {VendUser.email === "sales@sarangsayang.com" ? (
+                      <div className="mt-4">
+                        <ClaimVendor vendorName={product.name} />
+                      </div>
+                    ) : null}
+
                     <section className="mt-4">
                       <div className="flex items-center gap-4">
                         {product.facebook ? (
@@ -249,10 +257,6 @@ const Page = async ({ params }: PageProps) => {
                       {/* Enquire */}
                       <div className="group flex items-center gap-8 text-sm text-medium mt-10">
                         {user ? (
-                          // <EnquireButton
-                          //   vendorId={product.id}
-                          //   userEmail={user.email}
-                          // />
                           <DirectChat
                             vendor={product}
                             user={user}
@@ -352,9 +356,7 @@ const Page = async ({ params }: PageProps) => {
           ) : null}
 
           <ProductReel
-            href="/products"
             user={user?.id}
-            idvPage={true}
             query={{ category: product.category, limit: 4 }}
             title={`Browse other vendors`}
             subtitle={`While you are here, check out these other ${smallCapsLabel.toLowerCase()} too!`}

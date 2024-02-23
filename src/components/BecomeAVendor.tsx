@@ -23,6 +23,7 @@ import {
 } from "./ui/select";
 import { categories } from "@/app/data/data";
 import { Button } from "./ui/button";
+import { toast } from "./ui/use-toast";
 
 const BecomeAVendor = () => {
   const [dsvData, setDSVData] = useState({
@@ -149,7 +150,18 @@ const BecomeAVendor = () => {
           </div>
           <DialogFooter className="sm:justify-start">
             <DialogClose asChild>
-              <Button type="submit" variant="secondary" className="w-full">
+              <Button
+                type="submit"
+                variant="secondary"
+                className="w-full"
+                onClick={() =>
+                  toast({
+                    title: "We'll get right on it!",
+                    description:
+                      "Verifications and authentications can take up to 1-2 working days.",
+                  })
+                }
+              >
                 Submit
               </Button>
             </DialogClose>

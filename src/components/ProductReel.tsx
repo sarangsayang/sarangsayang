@@ -30,6 +30,7 @@ import {
 } from "./ui/select";
 import { categories } from "@/app/data/data";
 import Image from "next/image";
+import { toast } from "./ui/use-toast";
 
 interface ProductReelProps {
   title: string;
@@ -221,6 +222,13 @@ const ProductReel = (props: ProductReelProps) => {
                       type="submit"
                       variant="secondary"
                       className="w-full"
+                      onClick={() =>
+                        toast({
+                          title: "We'll get right on it!",
+                          description:
+                            "Verifications and authentications can take up to 1-2 working days.",
+                        })
+                      }
                     >
                       Submit
                     </Button>
@@ -320,6 +328,13 @@ const ProductReel = (props: ProductReelProps) => {
                       type="submit"
                       variant="secondary"
                       className="w-full"
+                      onClick={() =>
+                        toast({
+                          title: "We'll get right on it!",
+                          description:
+                            "Verifications and authentications can take up to 1-2 working days.",
+                        })
+                      }
                     >
                       Submit
                     </Button>
