@@ -286,6 +286,9 @@ exports.appRouter = (0, trpc_1.router)({
                         else if (input.category === "pakandam") {
                             return [2 /*return*/, results.docs[0].pakandam];
                         }
+                        else if (input.category === "kadjemputan") {
+                            return [2 /*return*/, results.docs[0].kadJemputan];
+                        }
                         return [2 /*return*/];
                 }
             });

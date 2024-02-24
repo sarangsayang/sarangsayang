@@ -173,6 +173,8 @@ export const appRouter = router({
         return results.docs[0].cake;
       } else if (input.category === "pakandam") {
         return results.docs[0].pakandam;
+      } else if (input.category === "kadjemputan") {
+        return results.docs[0].kadJemputan;
       }
     }),
 

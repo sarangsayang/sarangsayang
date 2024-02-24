@@ -329,6 +329,7 @@ export interface Misc {
   performers?: (string | Vendor)[] | null;
   cake?: (string | Vendor)[] | null;
   pakandam?: (string | Vendor)[] | null;
+  kadJemputan?: (string | Vendor)[] | null;
   updatedAt: string;
   createdAt: string;
 }

@@ -79,5 +79,13 @@ exports.MiscVendors = {
             filterOptions: { category: { equals: "misc" } },
             hasMany: true,
         },
+        {
+            name: "kadjemputan",
+            type: "relationship",
+            label: "Kad Jemputan Vendors",
+            relationTo: "vendors",
+            filterOptions: { category: { equals: "misc" } },
+            hasMany: true,
+        },
     ],
 };

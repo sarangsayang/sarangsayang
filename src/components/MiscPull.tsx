@@ -27,6 +27,7 @@ import { Button } from "./ui/button";
 import { trpc } from "@/trpc/client";
 import ProductListing from "./ProductListing";
 import { Vendor } from "@/payload-types";
+import { toast } from "./ui/use-toast";
 
 interface MiscPullProps {
   category: string;
@@ -145,7 +146,17 @@ const MiscPull = ({ category, title, user }: MiscPullProps) => {
                 </div>
                 <DialogFooter className="sm:justify-start">
                   <DialogClose asChild>
-                    <Button type="submit" variant="secondary">
+                    <Button
+                      type="submit"
+                      variant="secondary"
+                      onClick={() =>
+                        toast({
+                          title: "We'll get right on it!",
+                          description:
+                            "Verifications and authentications can take up to 1-2 working days.",
+                        })
+                      }
+                    >
                       Submit
                     </Button>
                   </DialogClose>
