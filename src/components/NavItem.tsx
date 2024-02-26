@@ -109,6 +109,7 @@ const NavItem = ({
                               src={item.imageSrc}
                               alt="product category image"
                               className="aspect-square rounded-2xl"
+                              unoptimized={false}
                               onLoad={() => (
                                 <div className="relative bg-zinc-100 aspect-square w-full overflow-hidden rounded-xl">
                                   <Skeleton className="h-full w-full" />

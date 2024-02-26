@@ -30,7 +30,7 @@ const ChatItem = ({ chat, vendor, user }: ChatItemProps) => {
           <div className="relative aspect-square h-16 w-16 min-w-fit overflow-hidden rounded">
             <Image
               // @ts-ignore
-              src={vendor.images[0].image.url}
+              src={vendor.images[0].image.sizes?.thumbnail?.url}
               alt={vendor.name}
               fill
               className="absolute object-cover"

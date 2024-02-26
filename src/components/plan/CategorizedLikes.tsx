@@ -4,6 +4,7 @@ import { trpc } from "@/trpc/client";
 import CatLikeItem from "./CatLikeItem";
 import { categories } from "@/app/data/data";
 import { Like, Vendor } from "@/payload-types";
+import { Loader2 } from "lucide-react";
 
 interface CategorizedLikesProps {
   userId: string;
@@ -28,7 +29,9 @@ const CategorizedLikes = ({ userId }: CategorizedLikesProps) => {
               icon={category.icon}
               label={category.label}
             />
-          ) : null}
+          ) : (
+            <Loader2 className="animate-spin" />
+          )}
         </section>
       ))}
     </div>

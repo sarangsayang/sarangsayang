@@ -60,7 +60,9 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
 
   const validUrls = vendor.images
     ? (vendor.images
-        .map(({ image }) => (typeof image === "string" ? image : image.url))
+        .map(({ image }) =>
+          typeof image === "string" ? image : image.sizes?.thumbnail?.url
+        )
         .filter(Boolean) as string[])
     : [];
 

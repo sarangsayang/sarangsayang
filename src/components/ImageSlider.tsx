@@ -88,10 +88,11 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
             <Image
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="eager"
+              loading="lazy"
               className="-z-10 h-full w-full object-cover object-center"
               src={url}
               alt="Product image"
+              unoptimized={false}
             />
           </SwiperSlide>
         ))}
