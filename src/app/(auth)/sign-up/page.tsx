@@ -134,6 +134,10 @@ const Page = () => {
                 <Button>Sign up</Button>
               </div>
             </form>
+            <p className="text-xs italic text-slate-600 text-balance text-center">
+              By registering you are agreeing to receive updates and promotions
+              from Sarang Sayang
+            </p>
             <Link
               className={buttonVariants({
                 variant: "link",
