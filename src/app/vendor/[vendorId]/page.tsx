@@ -30,6 +30,7 @@ import DirectChat from "@/components/chat/DirectChat";
 import { User } from "@/payload-types";
 import { Button } from "@/components/ui/button";
 import ClaimVendor from "@/components/ClaimVendor";
+import { metadata } from "@/app/layout";
 
 interface PageProps {
   params: {
@@ -56,6 +57,8 @@ const Page = async ({ params }: PageProps) => {
   });
 
   const [product] = vendors;
+
+  metadata.title = `${product.name} | Sarang Sayang`;
 
   if (!product) return notFound();
 
