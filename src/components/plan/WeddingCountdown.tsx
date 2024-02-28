@@ -9,30 +9,15 @@ const WeddingCountdown = ({ date }: WeddingCountdownProps) => {
 
   return (
     <div className="p-6 flex flex-col gap-1 items-center justify-center">
-      <div className="flex flex-row items-center">
-        <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
-          <h1 className="font-semibold text-3xl">
-            {Math.floor(duration.asYears())}
-          </h1>
-          <p className="font-light text-sm">Years Left</p>
-        </div>
-        <div className="w-10 px-6">
-          <p>/</p>
-        </div>
-        <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
-          <h1 className="font-semibold text-3xl">
-            {Math.floor(duration.asMonths())}
-          </h1>
-          <p className="font-light text-sm">Months Left</p>
-        </div>
-        <div className="w-10 px-6">
-          <p>/</p>
-        </div>
-        <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
+      <div className="flex flex-row items-center gap-6">
+        <div className="p-10 border-neutral-300 border-1 shadow-md rounded-xl flex flex-row gap-2 items-center justify-center bg-slate-50">
           <h1 className="font-semibold text-3xl">
             {Math.floor(duration.asDays())}
           </h1>
-          <p className="font-light text-sm">Days Left</p>
+          <div>
+            <p className="font-light text-xs text-slate-500">Days</p>
+            <p className="font-light text-xs text-slate-500">Left</p>
+          </div>
         </div>
       </div>
     </div>

@@ -11,15 +11,17 @@ const Footer = () => {
     <footer className="bg-white flex-grow-0">
       <MaxWidthWrapper>
         <div className="py-10 md:flex md:items-center md:justify-between">
-          <div className="flex flex-row gap-1 items-center text-center md:text-left">
-            <p className="text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} Sarang Sayang
-            </p>
-            <p className="text-sm text-muted-foreground">
-              <Dot />
-            </p>
-            <ContactUs />
-            {/* <p className="text-sm text-muted-foreground">
+          {/* left */}
+          <div className="flex justify-center md:justify-start">
+            <div className="flex flex-row gap-1 items-center">
+              <p className="text-sm text-muted-foreground">
+                &copy; {new Date().getFullYear()} Sarang Sayang
+              </p>
+              <p className="text-sm text-muted-foreground">
+                <Dot />
+              </p>
+              <ContactUs />
+              {/* <p className="text-sm text-muted-foreground">
               <Dot />
             </p>
             <p className="text-sm text-muted-foreground">
@@ -27,20 +29,21 @@ const Footer = () => {
                 Terms
               </Link>
             </p> */}
-            <p className="text-sm text-muted-foreground">
-              <Dot />
-            </p>
-            <p className="text-sm text-muted-foreground">
-              <Link href={"/faq"} className="hover:underline" target="_blank">
-                FAQ
-              </Link>
-            </p>
+              <p className="text-sm text-muted-foreground">
+                <Dot />
+              </p>
+              <p className="text-sm text-muted-foreground">
+                <Link href={"/faq"} className="hover:underline" target="_blank">
+                  FAQ
+                </Link>
+              </p>
+            </div>
           </div>
 
           <div className="mt-4 flex items-center justify-center md:mt-0">
             <div className="flex space-x-2">
               <Link
-                href={"#"}
+                href={"https://www.tiktok.com/@sarangsayang.sg"}
                 className="text-sm text-muted-foreground hover:text-gray-600"
                 target="_blank"
               >
