@@ -40,6 +40,15 @@ const NormalUserAccountNav = ({ user }: { user: User }) => {
           </DropdownMenuItem>
         ) : null}
 
+        {user.role === "admin" ? (
+          <DropdownMenuItem
+            asChild
+            className="bg-gradient-to-r from-gray-300 to-slate-100 hover:to-gray-300"
+          >
+            <Link href="/kylokloud">Kylo Kloud</Link>
+          </DropdownMenuItem>
+        ) : null}
+
         <DropdownMenuItem asChild>
           <Link href="/faq">FAQ</Link>
         </DropdownMenuItem>

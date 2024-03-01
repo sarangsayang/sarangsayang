@@ -69,6 +69,76 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    getAllVendorLikes: trpc_1.publicProcedure
+        .input(zod_1.z.object({ category: zod_1.z.string().optional() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results, allVendors, i, likesforthem, newData, allVendors, i, likesforthem, newData, top10;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        results = [];
+                        if (!input.category) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                where: { category: { equals: input.category } },
+                                pagination: false,
+                            })];
+                    case 2:
+                        allVendors = (_b.sent()).docs;
+                        i = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(i < allVendors.length)) return [3 /*break*/, 6];
+                        return [4 /*yield*/, payload.find({
+                                collection: "likes",
+                                where: { vendor: { equals: allVendors[i].id } },
+                            })];
+                    case 4:
+                        likesforthem = (_b.sent()).docs;
+                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length });
+                        results.push(newData);
+                        _b.label = 5;
+                    case 5:
+                        i++;
+                        return [3 /*break*/, 3];
+                    case 6: return [3 /*break*/, 12];
+                    case 7: return [4 /*yield*/, payload.find({
+                            collection: "vendors",
+                            pagination: false,
+                        })];
+                    case 8:
+                        allVendors = (_b.sent()).docs;
+                        i = 0;
+                        _b.label = 9;
+                    case 9:
+                        if (!(i < allVendors.length)) return [3 /*break*/, 12];
+                        return [4 /*yield*/, payload.find({
+                                collection: "likes",
+                                where: { vendor: { equals: allVendors[i].id } },
+                                pagination: false,
+                            })];
+                    case 10:
+                        likesforthem = (_b.sent()).docs;
+                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length });
+                        results.push(newData);
+                        _b.label = 11;
+                    case 11:
+                        i++;
+                        return [3 /*break*/, 9];
+                    case 12:
+                        results.sort(function (a, b) {
+                            return b.likes - a.likes;
+                        });
+                        top10 = results.slice(0, 10);
+                        return [2 /*return*/, top10];
+                }
+            });
+        });
+    }),
     getClicks: trpc_1.publicProcedure
         .input(zod_1.z.object({
         vendorId: zod_1.z.string(),

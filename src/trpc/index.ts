@@ -6,6 +6,7 @@ import { publicProcedure, router } from "./trpc";
 import { Package, User } from "@/payload-types";
 import { format } from "date-fns";
 import { sendMessageUpdateFromUser } from "@/actions/sendMessageUpdateFromUser";
+import { equal } from "assert";
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
@@ -13,6 +14,57 @@ function formatWithLeadingZero(num: number) {
 
 export const appRouter = router({
   auth: authRouter,
+
+  getAllVendorLikes: publicProcedure
+    .input(z.object({ category: z.string().optional() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+      let results = [];
+
+      if (input.category) {
+        const { docs: allVendors } = await payload.find({
+          collection: "vendors",
+          where: { category: { equals: input.category } },
+          pagination: false,
+        });
+
+        for (let i = 0; i < allVendors.length; i++) {
+          const { docs: likesforthem } = await payload.find({
+            collection: "likes",
+            where: { vendor: { equals: allVendors[i].id } },
+          });
+
+          const newData = { ...allVendors[i], likes: likesforthem.length };
+
+          results.push(newData);
+        }
+      } else {
+        const { docs: allVendors } = await payload.find({
+          collection: "vendors",
+          pagination: false,
+        });
+
+        for (let i = 0; i < allVendors.length; i++) {
+          const { docs: likesforthem } = await payload.find({
+            collection: "likes",
+            where: { vendor: { equals: allVendors[i].id } },
+            pagination: false,
+          });
+
+          const newData = { ...allVendors[i], likes: likesforthem.length };
+
+          results.push(newData);
+        }
+      }
+
+      results.sort(function (a, b) {
+        return b.likes - a.likes;
+      });
+
+      const top10 = results.slice(0, 10);
+
+      return top10;
+    }),
 
   getClicks: publicProcedure
     .input(
