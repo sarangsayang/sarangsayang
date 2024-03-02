@@ -45,7 +45,8 @@ const LikeBook = () => {
                     {vendor.category}
                   </TableCell>
                   <TableCell>
-                    {vendor.venduserid === "658fdba885aa3665781e567a" ? (
+                    {/* @ts-ignore */}
+                    {vendor.venduserid.id === "658fdba885aa3665781e567a" ? (
                       <p className="p-5 bg-amber-200 rounded-md shadow-md w-full text-slate-500">
                         UnClaimed
                       </p>
