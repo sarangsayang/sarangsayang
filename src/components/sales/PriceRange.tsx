@@ -174,7 +174,7 @@ const PriceRange = ({
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Increased brand awareness
+                        Vendor profile visibility
                       </p>
                     </div>
                   </li>
@@ -301,7 +301,7 @@ const PriceRange = ({
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Increased brand awareness
+                        Vendor profile visibility
                       </p>
                     </div>
                   </li>
@@ -428,17 +428,6 @@ const PriceRange = ({
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div className="w-full">
                       <p className="ml-3 text-base font-medium">
-                        Consolidated Social Media Post
-                      </p>
-                      <p className="ml-3 text-sm italic font-light">
-                        (eg: Sarang Sayang Featured Bridals of the month)
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div className="w-full">
-                      <p className="ml-3 text-base font-medium">
                         Featured in monthly Sarang Sayang e-mail newsletter
                       </p>
                     </div>
@@ -493,17 +482,6 @@ const PriceRange = ({
                       </p>
                       <p className="ml-3 text-sm italic font-light">
                         On respective category page
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <div className="w-full">
-                      <p className="ml-3 text-base font-medium text-balance">
-                        Cover of Consolidated Social Media Post
-                      </p>
-                      <p className="ml-3 text-sm italic font-light">
-                        (eg: Sarang Sayang Featured Bridals of the month)
                       </p>
                     </div>
                   </li>
