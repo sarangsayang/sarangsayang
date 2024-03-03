@@ -39,6 +39,7 @@ const LikeBookCat = ({ category, label }: LikeBookCatProps) => {
                 <TableHead className="w-[100px]">Position</TableHead>
                 <TableHead className="w-[700px]">Vendor Name</TableHead>
                 <TableHead className="w-[200px]">Claim Status</TableHead>
+                <TableHead className="w-[200px]">Clicks</TableHead>
                 <TableHead className="text-right">Likes</TableHead>
               </TableRow>
             </TableHeader>
@@ -59,6 +60,9 @@ const LikeBookCat = ({ category, label }: LikeBookCatProps) => {
                       </p>
                     )}
                   </TableCell>
+                  <TableCell className="text-right">
+                    {vendor.clicks ? vendor.clicks : 0}
+                  </TableCell>
                   {/* @ts-ignore */}
                   <TableCell className="text-right">{vendor.likes}</TableCell>
                 </TableRow>
@@ -73,7 +77,8 @@ const LikeBookCat = ({ category, label }: LikeBookCatProps) => {
             <TableRow>
               <TableHead className="w-[100px]">Position</TableHead>
               <TableHead>Vendor Name</TableHead>
-              <TableHead>Claim Status</TableHead>
+              <TableHead className="w-[200px]">Claim Status</TableHead>
+              <TableHead className="w-[200px]">Clicks</TableHead>
               <TableHead className="text-right">Likes</TableHead>
             </TableRow>
           </TableHeader>

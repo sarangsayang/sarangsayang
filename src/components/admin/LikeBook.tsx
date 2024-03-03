@@ -33,6 +33,7 @@ const LikeBook = () => {
                 <TableHead>Vendor Name</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead className="w-[200px]">Claim Status</TableHead>
+                <TableHead className="w-[200px]">Clicks</TableHead>
                 <TableHead className="text-right">Likes</TableHead>
               </TableRow>
             </TableHeader>
@@ -48,13 +49,16 @@ const LikeBook = () => {
                     {/* @ts-ignore */}
                     {vendor.venduserid.id === "658fdba885aa3665781e567a" ? (
                       <p className="p-5 bg-amber-200 rounded-md shadow-md w-full text-slate-500">
-                        UnClaimed
+                        Not Claimed
                       </p>
                     ) : (
                       <p className="p-5 bg-sky-200 rounded-md shadow-md w-full text-slate-500">
                         Claimed
                       </p>
                     )}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {vendor.clicks ? vendor.clicks : 0}
                   </TableCell>
                   {/* @ts-ignore */}
                   <TableCell className="text-right">{vendor.likes}</TableCell>
@@ -70,7 +74,8 @@ const LikeBook = () => {
             <TableRow>
               <TableHead className="w-[100px]">Position</TableHead>
               <TableHead>Vendor Name</TableHead>
-              <TableHead>Claim Status</TableHead>
+              <TableHead className="w-[200px]">Claim Status</TableHead>
+              <TableHead className="w-[200px]">Clicks</TableHead>
               <TableHead className="text-right">Likes</TableHead>
             </TableRow>
           </TableHeader>
