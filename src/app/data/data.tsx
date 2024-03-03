@@ -11,12 +11,9 @@ import {
   ClipboardSignature,
   CakeSlice,
   Camera,
-  ChefHat,
-  Flower2,
   Hand,
   Hotel,
   Mic2,
-  Plane,
   Search,
   Shirt,
   SprayCan,
@@ -110,9 +107,9 @@ export const categories = [
     icon: <Camera />,
   },
   {
-    label: "Catering",
-    value: "catering",
-    icon: <ChefHat />,
+    label: "Make Up Artists",
+    value: "mua",
+    icon: <SprayCan />,
   },
   {
     label: "Henna",
@@ -120,9 +117,9 @@ export const categories = [
     icon: <Hand />,
   },
   {
-    label: "Make Up Artists",
-    value: "mua",
-    icon: <SprayCan />,
+    label: "Emcees & Performers",
+    value: "emceesperformers",
+    icon: <Mic2 />,
   },
   {
     label: "Misc",

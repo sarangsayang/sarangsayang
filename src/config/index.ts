@@ -1,7 +1,7 @@
 import {
   CakeSlice,
   Camera,
-  ChefHat,
+  Mic2,
   Hand,
   Hotel,
   Shirt,
@@ -40,9 +40,9 @@ export const PRODUCT_CATEGORIES = [
         imageSrc: "https://placehold.co/600x600",
       },
       {
-        name: "Catering",
-        value: "catering",
-        href: "/vendors?category=catering",
+        name: "Make Up Artists",
+        value: "mua",
+        href: "/vendors?category=mua",
         imageSrc: "https://placehold.co/600x600",
       },
       {
@@ -52,9 +52,9 @@ export const PRODUCT_CATEGORIES = [
         imageSrc: "https://placehold.co/600x600",
       },
       {
-        name: "Make Up Artists",
-        value: "mua",
-        href: "/vendors?category=mua",
+        name: "Emcees & Performers",
+        value: "emceesperformers",
+        href: "/vendors?category=emceesperformers",
         imageSrc: "https://placehold.co/600x600",
       },
       {
@@ -126,9 +126,9 @@ export const VENDOR_CATEGORIES = [
     icon: Camera,
   },
   {
-    label: "Catering",
-    value: "catering",
-    icon: ChefHat,
+    label: "Make Up Artist",
+    value: "mua",
+    icon: SprayCan,
   },
   {
     label: "Henna",
@@ -136,9 +136,9 @@ export const VENDOR_CATEGORIES = [
     icon: Hand,
   },
   {
-    label: "Make Up Artist",
-    value: "mua",
-    icon: SprayCan,
+    label: "Emcees & Performers",
+    value: "emceesperformers",
+    icon: Mic2,
   },
   {
     label: "Misc",

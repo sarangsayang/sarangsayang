@@ -341,23 +341,14 @@ exports.appRouter = (0, trpc_1.router)({
                         else if (input.category === "dulang") {
                             return [2 /*return*/, results.docs[0].dulang];
                         }
-                        else if (input.category === "emcees") {
-                            return [2 /*return*/, results.docs[0].emcees];
-                        }
                         else if (input.category === "liveStation") {
                             return [2 /*return*/, results.docs[0].liveStation];
-                        }
-                        else if (input.category === "performers") {
-                            return [2 /*return*/, results.docs[0].performers];
                         }
                         else if (input.category === "cake") {
                             return [2 /*return*/, results.docs[0].cake];
                         }
-                        else if (input.category === "pakandam") {
-                            return [2 /*return*/, results.docs[0].pakandam];
-                        }
-                        else if (input.category === "kadjemputan") {
-                            return [2 /*return*/, results.docs[0].kadJemputan];
+                        else if (input.category === "catering") {
+                            return [2 /*return*/, results.docs[0].catering];
                         }
                         return [2 /*return*/];
                 }
@@ -2882,18 +2873,6 @@ exports.appRouter = (0, trpc_1.router)({
                                     top4: results.docs[0].top4Photovideo,
                                 }];
                         }
-                        else if (input.category === "catering") {
-                            return [2 /*return*/, {
-                                    top: results.docs[0].top1Catering,
-                                    top4: results.docs[0].top4Catering,
-                                }];
-                        }
-                        else if (input.category === "decor") {
-                            return [2 /*return*/, {
-                                    top: results.docs[0].top1Decor,
-                                    top4: results.docs[0].top4Decor,
-                                }];
-                        }
                         else if (input.category === "henna") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Henna,
@@ -2906,16 +2885,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     top4: results.docs[0].top4Mua,
                                 }];
                         }
-                        else if (input.category === "emcees") {
+                        else if (input.category === "emceesperformers") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Emcee,
                                     top4: results.docs[0].top4Emcees,
-                                }];
-                        }
-                        else if (input.category === "honeymoon") {
-                            return [2 /*return*/, {
-                                    top: results.docs[0].top1Honeymoon,
-                                    top4: results.docs[0].top4Honeymoon,
                                 }];
                         }
                         else if (input.category === "misc") {

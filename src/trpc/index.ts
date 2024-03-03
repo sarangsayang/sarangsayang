@@ -215,18 +215,12 @@ export const appRouter = router({
         return results.docs[0].decor;
       } else if (input.category === "dulang") {
         return results.docs[0].dulang;
-      } else if (input.category === "emcees") {
-        return results.docs[0].emcees;
       } else if (input.category === "liveStation") {
         return results.docs[0].liveStation;
-      } else if (input.category === "performers") {
-        return results.docs[0].performers;
       } else if (input.category === "cake") {
         return results.docs[0].cake;
-      } else if (input.category === "pakandam") {
-        return results.docs[0].pakandam;
-      } else if (input.category === "kadjemputan") {
-        return results.docs[0].kadJemputan;
+      } else if (input.category === "catering") {
+        return results.docs[0].catering;
       }
     }),
 
@@ -2148,16 +2142,6 @@ export const appRouter = router({
           top: results.docs[0].top1Photovideo,
           top4: results.docs[0].top4Photovideo,
         };
-      } else if (input.category === "catering") {
-        return {
-          top: results.docs[0].top1Catering,
-          top4: results.docs[0].top4Catering,
-        };
-      } else if (input.category === "decor") {
-        return {
-          top: results.docs[0].top1Decor,
-          top4: results.docs[0].top4Decor,
-        };
       } else if (input.category === "henna") {
         return {
           top: results.docs[0].top1Henna,
@@ -2168,15 +2152,10 @@ export const appRouter = router({
           top: results.docs[0].top1Mua,
           top4: results.docs[0].top4Mua,
         };
-      } else if (input.category === "emcees") {
+      } else if (input.category === "emceesperformers") {
         return {
           top: results.docs[0].top1Emcee,
           top4: results.docs[0].top4Emcees,
-        };
-      } else if (input.category === "honeymoon") {
-        return {
-          top: results.docs[0].top1Honeymoon,
-          top4: results.docs[0].top4Honeymoon,
         };
       } else if (input.category === "misc") {
         return {

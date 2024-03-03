@@ -33,9 +33,9 @@ exports.PRODUCT_CATEGORIES = [
                 imageSrc: "https://placehold.co/600x600",
             },
             {
-                name: "Catering",
-                value: "catering",
-                href: "/vendors?category=catering",
+                name: "Make Up Artists",
+                value: "mua",
+                href: "/vendors?category=mua",
                 imageSrc: "https://placehold.co/600x600",
             },
             {
@@ -45,9 +45,9 @@ exports.PRODUCT_CATEGORIES = [
                 imageSrc: "https://placehold.co/600x600",
             },
             {
-                name: "Make Up Artists",
-                value: "mua",
-                href: "/vendors?category=mua",
+                name: "Emcees & Performers",
+                value: "emceesperformers",
+                href: "/vendors?category=emceesperformers",
                 imageSrc: "https://placehold.co/600x600",
             },
             {
@@ -118,9 +118,9 @@ exports.VENDOR_CATEGORIES = [
         icon: lucide_react_1.Camera,
     },
     {
-        label: "Catering",
-        value: "catering",
-        icon: lucide_react_1.ChefHat,
+        label: "Make Up Artist",
+        value: "mua",
+        icon: lucide_react_1.SprayCan,
     },
     {
         label: "Henna",
@@ -128,9 +128,9 @@ exports.VENDOR_CATEGORIES = [
         icon: lucide_react_1.Hand,
     },
     {
-        label: "Make Up Artist",
-        value: "mua",
-        icon: lucide_react_1.SprayCan,
+        label: "Emcees & Performers",
+        value: "emceesperformers",
+        icon: lucide_react_1.Mic2,
     },
     {
         label: "Misc",

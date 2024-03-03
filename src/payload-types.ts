@@ -55,7 +55,7 @@ export interface Vendor {
   id: string;
   venduserid: string | User;
   name: string;
-  category: 'venues' | 'agents' | 'bridals' | 'photovideo' | 'catering' | 'henna' | 'mua' | 'misc';
+  category: 'venues' | 'agents' | 'bridals' | 'photovideo' | 'mua' | 'henna' | 'emceesperformers' | 'misc';
   details?:
     | {
         [k: string]: unknown;
@@ -77,7 +77,7 @@ export interface Package {
   id: string;
   vendor: string | Vendor;
   name: string;
-  services?: ('venues' | 'agents' | 'bridals' | 'photovideo' | 'catering' | 'henna' | 'mua' | 'misc')[] | null;
+  services?: ('venues' | 'agents' | 'bridals' | 'photovideo' | 'mua' | 'henna' | 'emceesperformers' | 'misc')[] | null;
   packageDetails?:
     | {
         [k: string]: unknown;
@@ -213,15 +213,8 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Catering?: (string | null) | Vendor;
-  top4Catering?:
-    | {
-        vendor?: (string | null) | Vendor;
-        id?: string | null;
-      }[]
-    | null;
-  top1Decor?: (string | null) | Vendor;
-  top4Decor?:
+  top1Mua?: (string | null) | Vendor;
+  top4Mua?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
@@ -234,22 +227,8 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Mua?: (string | null) | Vendor;
-  top4Mua?:
-    | {
-        vendor?: (string | null) | Vendor;
-        id?: string | null;
-      }[]
-    | null;
   top1Emcee?: (string | null) | Vendor;
   top4Emcees?:
-    | {
-        vendor?: (string | null) | Vendor;
-        id?: string | null;
-      }[]
-    | null;
-  top1Honeymoon?: (string | null) | Vendor;
-  top4Honeymoon?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
@@ -324,12 +303,9 @@ export interface Misc {
   berkat?: (string | Vendor)[] | null;
   decor?: (string | Vendor)[] | null;
   dulang?: (string | Vendor)[] | null;
-  emcees?: (string | Vendor)[] | null;
   liveStation?: (string | Vendor)[] | null;
-  performers?: (string | Vendor)[] | null;
   cake?: (string | Vendor)[] | null;
-  pakandam?: (string | Vendor)[] | null;
-  kadJemputan?: (string | Vendor)[] | null;
+  catering?: (string | Vendor)[] | null;
   updatedAt: string;
   createdAt: string;
 }
