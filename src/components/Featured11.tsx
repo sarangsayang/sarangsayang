@@ -35,16 +35,16 @@ const VENDOR_CATEGORIES1 = [
 
 const VENDOR_CATEGORIES2 = [
   {
-    label: "Catering",
-    value: "catering",
+    label: "Make Up Artist",
+    value: "mua",
   },
   {
     label: "Henna",
     value: "henna",
   },
   {
-    label: "Make Up Artist",
-    value: "mua",
+    label: "Emcees & Performers",
+    value: "emceesperformers",
   },
   {
     label: "Misc",
