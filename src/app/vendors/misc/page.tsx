@@ -9,14 +9,12 @@ const Misc = async () => {
   const { user } = await getServerSideUser(nextCookies);
 
   const subC = [
-    { title: "Berkat", value: "berkat" },
     { title: "Decor", value: "decor" },
+    { title: "Berkat", value: "berkat" },
     { title: "Dulang", value: "dulang" },
-    { title: "Emcees and AV", value: "emcees" },
-    { title: "Live Stations", value: "liveStation" },
-    { title: "Performers", value: "performers" },
     { title: "Wedding Cake", value: "cake" },
-    { title: "Pak Andam", value: "pakandam" },
+    { title: "Live Stations", value: "liveStation" },
+    { title: "Catering", value: "catering" },
   ];
 
   return (
