@@ -3,7 +3,7 @@ import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
-import { Package, User } from "@/payload-types";
+import { Package, User, Vendor } from "@/payload-types";
 import { format } from "date-fns";
 import { sendMessageUpdateFromUser } from "@/actions/sendMessageUpdateFromUser";
 import { equal } from "assert";
@@ -221,6 +221,26 @@ export const appRouter = router({
         return results.docs[0].cake;
       } else if (input.category === "catering") {
         return results.docs[0].catering;
+      } else if (input.category === "pakandam") {
+        return results.docs[0].pakandam;
+      } else if (input.category === "mua") {
+        let pakandamid = [];
+        const misclist = results.docs[0].pakandam as Vendor[];
+
+        for (let i = 0; i < misclist.length; i++) {
+          pakandamid.push(misclist[i].id);
+        }
+
+        const results2 = await payload.find({
+          collection: "vendors",
+          where: {
+            id: { not_in: pakandamid },
+            category: { equals: "mua" },
+          },
+          pagination: false,
+        });
+
+        return results2.docs;
       }
     }),
 

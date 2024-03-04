@@ -317,7 +317,7 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, results;
+            var payload, results, pakandamid, misclist, i, results2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -332,25 +332,45 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         results = _b.sent();
-                        if (input.category === "berkat") {
-                            return [2 /*return*/, results.docs[0].berkat];
+                        if (!(input.category === "berkat")) return [3 /*break*/, 3];
+                        return [2 /*return*/, results.docs[0].berkat];
+                    case 3:
+                        if (!(input.category === "decor")) return [3 /*break*/, 4];
+                        return [2 /*return*/, results.docs[0].decor];
+                    case 4:
+                        if (!(input.category === "dulang")) return [3 /*break*/, 5];
+                        return [2 /*return*/, results.docs[0].dulang];
+                    case 5:
+                        if (!(input.category === "liveStation")) return [3 /*break*/, 6];
+                        return [2 /*return*/, results.docs[0].liveStation];
+                    case 6:
+                        if (!(input.category === "cake")) return [3 /*break*/, 7];
+                        return [2 /*return*/, results.docs[0].cake];
+                    case 7:
+                        if (!(input.category === "catering")) return [3 /*break*/, 8];
+                        return [2 /*return*/, results.docs[0].catering];
+                    case 8:
+                        if (!(input.category === "pakandam")) return [3 /*break*/, 9];
+                        return [2 /*return*/, results.docs[0].pakandam];
+                    case 9:
+                        if (!(input.category === "mua")) return [3 /*break*/, 11];
+                        pakandamid = [];
+                        misclist = results.docs[0].pakandam;
+                        for (i = 0; i < misclist.length; i++) {
+                            pakandamid.push(misclist[i].id);
                         }
-                        else if (input.category === "decor") {
-                            return [2 /*return*/, results.docs[0].decor];
-                        }
-                        else if (input.category === "dulang") {
-                            return [2 /*return*/, results.docs[0].dulang];
-                        }
-                        else if (input.category === "liveStation") {
-                            return [2 /*return*/, results.docs[0].liveStation];
-                        }
-                        else if (input.category === "cake") {
-                            return [2 /*return*/, results.docs[0].cake];
-                        }
-                        else if (input.category === "catering") {
-                            return [2 /*return*/, results.docs[0].catering];
-                        }
-                        return [2 /*return*/];
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                where: {
+                                    id: { not_in: pakandamid },
+                                    category: { equals: "mua" },
+                                },
+                                pagination: false,
+                            })];
+                    case 10:
+                        results2 = _b.sent();
+                        return [2 /*return*/, results2.docs];
+                    case 11: return [2 /*return*/];
                 }
             });
         });

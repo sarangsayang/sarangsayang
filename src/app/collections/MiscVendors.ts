@@ -2,6 +2,7 @@ import { CollectionConfig } from "payload/types";
 
 export const MiscVendors: CollectionConfig = {
   slug: "misc",
+  labels: { plural: "Misc and Pak Andams" },
   admin: {
     hidden: ({ user }) => user.role !== "admin",
   },
@@ -57,6 +58,14 @@ export const MiscVendors: CollectionConfig = {
       label: "Catering Vendors",
       relationTo: "vendors",
       filterOptions: { category: { equals: "misc" } },
+      hasMany: true,
+    },
+    {
+      name: "pakandam",
+      type: "relationship",
+      label: "Pak Andam",
+      relationTo: "vendors",
+      filterOptions: { category: { equals: "mua" } },
       hasMany: true,
     },
   ],

@@ -306,6 +306,7 @@ export interface Misc {
   liveStation?: (string | Vendor)[] | null;
   cake?: (string | Vendor)[] | null;
   catering?: (string | Vendor)[] | null;
+  pakandam?: (string | Vendor)[] | null;
   updatedAt: string;
   createdAt: string;
 }

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MiscVendors = void 0;
 exports.MiscVendors = {
     slug: "misc",
+    labels: { plural: "Misc and Pak Andams" },
     admin: {
         hidden: function (_a) {
             var user = _a.user;
@@ -61,6 +62,14 @@ exports.MiscVendors = {
             label: "Catering Vendors",
             relationTo: "vendors",
             filterOptions: { category: { equals: "misc" } },
+            hasMany: true,
+        },
+        {
+            name: "pakandam",
+            type: "relationship",
+            label: "Pak Andam",
+            relationTo: "vendors",
+            filterOptions: { category: { equals: "mua" } },
             hasMany: true,
         },
     ],
