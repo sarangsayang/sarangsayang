@@ -42,7 +42,7 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Make Up Artists",
         value: "mua",
-        href: "/vendors?category=mua",
+        href: "/vendors/mua",
         imageSrc: "https://placehold.co/600x600",
       },
       {
