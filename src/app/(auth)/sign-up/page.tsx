@@ -17,6 +17,8 @@ import { trpc } from "@/trpc/client";
 import { toast } from "@/components/ui/use-toast";
 import { ZodError } from "zod";
 import { useRouter } from "next/navigation";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from "react";
 
 const Page = () => {
   const {
@@ -26,6 +28,8 @@ const Page = () => {
   } = useForm<TAuthCredentialsValidator>({
     resolver: zodResolver(AuthCredentialsValidator),
   });
+
+  const [captcha, setCaptcha] = useState<string | null>();
 
   const router = useRouter();
 
@@ -67,7 +71,9 @@ const Page = () => {
   });
 
   const onSubmit = ({ email, password, name }: TAuthCredentialsValidator) => {
-    mutate({ email, password, name });
+    if (captcha) {
+      mutate({ email, password, name });
+    }
   };
 
   return (
@@ -131,7 +137,18 @@ const Page = () => {
                   )}
                 </div>
 
-                <Button>Sign up</Button>
+                <div className="w-full flex flex-row justify-center mb-2">
+                  <ReCAPTCHA
+                    sitekey={`${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+                    onChange={setCaptcha}
+                  />
+                </div>
+
+                {captcha ? (
+                  <Button>Sign up</Button>
+                ) : (
+                  <Button disabled>Sign up</Button>
+                )}
               </div>
             </form>
             <p className="text-xs italic text-slate-600 text-balance text-center">
