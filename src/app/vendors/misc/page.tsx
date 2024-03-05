@@ -11,7 +11,7 @@ const Misc = async () => {
   const subC = [
     { title: "Decor", value: "decor" },
     { title: "Berkat", value: "berkat" },
-    { title: "Dulang", value: "dulang" },
+    { title: "Dulang & Gubahan", value: "dulang" },
     { title: "Wedding Cake", value: "cake" },
     { title: "Live Stations", value: "liveStation" },
     { title: "Catering", value: "catering" },
