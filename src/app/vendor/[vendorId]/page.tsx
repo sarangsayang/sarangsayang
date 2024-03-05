@@ -80,10 +80,18 @@ const Page = async ({ params }: PageProps) => {
     return category.label;
   };
 
+  let categoryhref = `/vendors?category=${product.category}`;
+
+  if (product.category === "mua") {
+    categoryhref = `/vendors/mua`;
+  } else if (product.category === "misc") {
+    categoryhref = `/vendors/misc`;
+  }
+
   const BREADCRUMBS = [
     { id: 1, name: "Home", href: "/" },
     { id: 2, name: "Vendors", href: "/vendors" },
-    { id: 3, name: label, href: `/vendors?category=${product.category}` },
+    { id: 3, name: label, href: categoryhref },
   ];
 
   const validUrls = product.images

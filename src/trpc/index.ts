@@ -1322,12 +1322,9 @@ export const appRouter = router({
         agent: z.string().optional(),
         bridal: z.string().optional(),
         photovideo: z.string().optional(),
-        catering: z.string().optional(),
-        decor: z.string().optional(),
-        henna: z.string().optional(),
         mua: z.string().optional(),
-        emcee: z.string().optional(),
-        honeymoon: z.string().optional(),
+        henna: z.string().optional(),
+        emceesperformers: z.string().optional(),
         misc: z.string().optional(),
       })
     )
@@ -1404,26 +1401,6 @@ export const appRouter = router({
             photovideo: input.photovideo,
           },
         });
-      } else if (input.catering) {
-        await payload.update({
-          collection: "plans",
-          where: {
-            id: { equals: input.id },
-          },
-          data: {
-            catering: input.catering,
-          },
-        });
-      } else if (input.decor) {
-        await payload.update({
-          collection: "plans",
-          where: {
-            id: { equals: input.id },
-          },
-          data: {
-            decor: input.decor,
-          },
-        });
       } else if (input.henna) {
         await payload.update({
           collection: "plans",
@@ -1444,24 +1421,14 @@ export const appRouter = router({
             mua: input.mua,
           },
         });
-      } else if (input.emcee) {
+      } else if (input.emceesperformers) {
         await payload.update({
           collection: "plans",
           where: {
             id: { equals: input.id },
           },
           data: {
-            emcee: input.emcee,
-          },
-        });
-      } else if (input.honeymoon) {
-        await payload.update({
-          collection: "plans",
-          where: {
-            id: { equals: input.id },
-          },
-          data: {
-            honeymoon: input.honeymoon,
+            emceesperformers: input.emceesperformers,
           },
         });
       } else if (input.misc) {

@@ -13,12 +13,17 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { sendContactUs } from "@/actions/sendContactUs";
+import { trpc } from "@/trpc/client";
 
 const ContactUs = () => {
   const [contactData, setContactData] = useState({
     name: "",
     email: "",
     message: "",
+  });
+
+  const checkUser = trpc.checkUserExist.useQuery({
+    email: contactData.email,
   });
 
   return (
@@ -55,7 +60,10 @@ const ContactUs = () => {
               </div>
 
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">
+                  Registered Sarang Sayang Email{" "}
+                  <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   id="email"
                   name="email"
@@ -87,9 +95,22 @@ const ContactUs = () => {
           </div>
           <DialogFooter className="sm:justify-start">
             <DialogClose asChild>
-              <Button type="submit" variant="secondary" className="w-full">
-                Submit
-              </Button>
+              {checkUser.data &&
+              checkUser.data.totalDocs === 1 &&
+              contactData.email != "" ? (
+                <Button type="submit" variant="secondary" className="w-full">
+                  Submit
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  variant="secondary"
+                  className="w-full"
+                  disabled
+                >
+                  Submit
+                </Button>
+              )}
             </DialogClose>
           </DialogFooter>
         </form>

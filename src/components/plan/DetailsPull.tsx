@@ -43,16 +43,16 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
   const [venue, setVenue] = useState(false);
   const [bridals, setBridals] = useState(false);
   const [photovideo, setPhotovideo] = useState(false);
-  const [catering, setCatering] = useState(false);
-  const [henna, setHenna] = useState(false);
   const [mua, setMua] = useState(false);
+  const [henna, setHenna] = useState(false);
+  const [emcee, setEmcee] = useState(false);
   const [misc, setMisc] = useState(false);
 
   const setChecklist = (packages: Package[]) => {
     setVenue(false);
     setBridals(false);
     setPhotovideo(false);
-    setCatering(false);
+    setEmcee(false);
     setHenna(false);
     setMua(false);
     setMisc(false);
@@ -70,8 +70,8 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
           } else if (packages[i].services[x] === "photovideo") {
             setPhotovideo(true);
             //@ts-ignore
-          } else if (packages[i].services[x] === "catering") {
-            setCatering(true);
+          } else if (packages[i].services[x] === "emceesperformers") {
+            setEmcee(true);
             //@ts-ignore
           } else if (packages[i].services[x] === "henna") {
             setHenna(true);
@@ -137,24 +137,15 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
     } else if (category === "photovideo" && plan.photovideo) {
       //@ts-ignore
       return plan.photovideo as Vendor;
-    } else if (category === "catering" && plan.catering) {
+    } else if (category === "emceesperformers" && plan.emceesperformers) {
       //@ts-ignore
-      return plan.catering as Vendor;
-    } else if (category === "decor" && plan.decor) {
-      //@ts-ignore
-      return plan.decor as Vendor;
+      return plan.emceesperformers as Vendor;
     } else if (category === "henna" && plan.henna) {
       //@ts-ignore
       return plan.henna as Vendor;
     } else if (category === "mua" && plan.mua) {
       //@ts-ignore
       return plan.mua as Vendor;
-    } else if (category === "emcees" && plan.emcee) {
-      //@ts-ignore
-      return plan.emcee as Vendor;
-    } else if (category === "honeymoon" && plan.honeymoon) {
-      //@ts-ignore
-      return plan.honeymoon as Vendor;
     } else if (category === "misc" && plan.misc) {
       //@ts-ignore
       return plan.misc as Vendor;
@@ -184,16 +175,6 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
         id: plan.id,
         photovideo: selectedValue,
       });
-    } else if (category === "catering") {
-      updatePlan.mutate({
-        id: plan.id,
-        catering: selectedValue,
-      });
-    } else if (category === "decor") {
-      updatePlan.mutate({
-        id: plan.id,
-        decor: selectedValue,
-      });
     } else if (category === "henna") {
       updatePlan.mutate({
         id: plan.id,
@@ -204,15 +185,10 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
         id: plan.id,
         mua: selectedValue,
       });
-    } else if (category === "emcees") {
+    } else if (category === "emceesperformers") {
       updatePlan.mutate({
         id: plan.id,
-        emcee: selectedValue,
-      });
-    } else if (category === "honeymoon") {
-      updatePlan.mutate({
-        id: plan.id,
-        honeymoon: selectedValue,
+        emceesperformers: selectedValue,
       });
     } else if (category === "misc") {
       updatePlan.mutate({
@@ -261,7 +237,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
       setVenue(false);
       setBridals(false);
       setPhotovideo(false);
-      setCatering(false);
+      setEmcee(false);
       setHenna(false);
       setMua(false);
       setMisc(false);
@@ -377,7 +353,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
 
       <div className="mt-10 w-full rounded-lg py-10 px-20 flex flex-col items-center bg-gradient-to-r from-pink-100 to-cyan-100">
         <h2 className="font-semibold w-full">Wedding Checklist</h2>
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-4 w-full">
           <div className="bg-white/40 sticky top-20 h-[600px] grid grid-cols-1 gap-4 p-5 rounded-lg shadow-sm mt-6">
             <div className="flex gap-3 items-center p-2">
               {venue ? (
@@ -403,14 +379,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
               )}
               <p>Photo & Video</p>
             </div>
-            <div className="flex gap-3 items-center p-2">
-              {catering ? (
-                <CheckSquare2 className="w-4 h-4" />
-              ) : (
-                <Square className="w-4 h-4" />
-              )}
-              <p>Catering</p>
-            </div>
+
             <div className="flex gap-3 items-center p-2">
               {henna ? (
                 <CheckSquare2 className="w-4 h-4" />
@@ -426,6 +395,14 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
                 <Square className="w-4 h-4" />
               )}
               <p>Make Up Artist</p>
+            </div>
+            <div className="flex gap-3 items-center p-2">
+              {emcee ? (
+                <CheckSquare2 className="w-4 h-4" />
+              ) : (
+                <Square className="w-4 h-4" />
+              )}
+              <p>Emcees & Performers</p>
             </div>
             <div className="flex gap-3 items-center p-2">
               {misc ? (

@@ -1843,12 +1843,9 @@ exports.appRouter = (0, trpc_1.router)({
         agent: zod_1.z.string().optional(),
         bridal: zod_1.z.string().optional(),
         photovideo: zod_1.z.string().optional(),
-        catering: zod_1.z.string().optional(),
-        decor: zod_1.z.string().optional(),
-        henna: zod_1.z.string().optional(),
         mua: zod_1.z.string().optional(),
-        emcee: zod_1.z.string().optional(),
-        honeymoon: zod_1.z.string().optional(),
+        henna: zod_1.z.string().optional(),
+        emceesperformers: zod_1.z.string().optional(),
         misc: zod_1.z.string().optional(),
     }))
         .mutation(function (_a) {
@@ -1872,7 +1869,7 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         _b.sent();
-                        return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
                     case 3:
                         if (!input.groomName) return [3 /*break*/, 5];
                         return [4 /*yield*/, payload.update({
@@ -1886,7 +1883,7 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 4:
                         _b.sent();
-                        return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
                     case 5:
                         if (!input.weddingDate) return [3 /*break*/, 7];
                         return [4 /*yield*/, payload.update({
@@ -1900,7 +1897,7 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 6:
                         _b.sent();
-                        return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
                     case 7:
                         if (!input.venue) return [3 /*break*/, 9];
                         return [4 /*yield*/, payload.update({
@@ -1914,7 +1911,7 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 8:
                         _b.sent();
-                        return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
                     case 9:
                         if (!input.agent) return [3 /*break*/, 11];
                         return [4 /*yield*/, payload.update({
@@ -1928,7 +1925,7 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 10:
                         _b.sent();
-                        return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
                     case 11:
                         if (!input.bridal) return [3 /*break*/, 13];
                         return [4 /*yield*/, payload.update({
@@ -1942,7 +1939,7 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 12:
                         _b.sent();
-                        return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
                     case 13:
                         if (!input.photovideo) return [3 /*break*/, 15];
                         return [4 /*yield*/, payload.update({
@@ -1956,37 +1953,9 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 14:
                         _b.sent();
-                        return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
                     case 15:
-                        if (!input.catering) return [3 /*break*/, 17];
-                        return [4 /*yield*/, payload.update({
-                                collection: "plans",
-                                where: {
-                                    id: { equals: input.id },
-                                },
-                                data: {
-                                    catering: input.catering,
-                                },
-                            })];
-                    case 16:
-                        _b.sent();
-                        return [3 /*break*/, 29];
-                    case 17:
-                        if (!input.decor) return [3 /*break*/, 19];
-                        return [4 /*yield*/, payload.update({
-                                collection: "plans",
-                                where: {
-                                    id: { equals: input.id },
-                                },
-                                data: {
-                                    decor: input.decor,
-                                },
-                            })];
-                    case 18:
-                        _b.sent();
-                        return [3 /*break*/, 29];
-                    case 19:
-                        if (!input.henna) return [3 /*break*/, 21];
+                        if (!input.henna) return [3 /*break*/, 17];
                         return [4 /*yield*/, payload.update({
                                 collection: "plans",
                                 where: {
@@ -1996,11 +1965,11 @@ exports.appRouter = (0, trpc_1.router)({
                                     henna: input.henna,
                                 },
                             })];
-                    case 20:
+                    case 16:
                         _b.sent();
-                        return [3 /*break*/, 29];
-                    case 21:
-                        if (!input.mua) return [3 /*break*/, 23];
+                        return [3 /*break*/, 23];
+                    case 17:
+                        if (!input.mua) return [3 /*break*/, 19];
                         return [4 /*yield*/, payload.update({
                                 collection: "plans",
                                 where: {
@@ -2010,39 +1979,25 @@ exports.appRouter = (0, trpc_1.router)({
                                     mua: input.mua,
                                 },
                             })];
-                    case 22:
+                    case 18:
                         _b.sent();
-                        return [3 /*break*/, 29];
-                    case 23:
-                        if (!input.emcee) return [3 /*break*/, 25];
+                        return [3 /*break*/, 23];
+                    case 19:
+                        if (!input.emceesperformers) return [3 /*break*/, 21];
                         return [4 /*yield*/, payload.update({
                                 collection: "plans",
                                 where: {
                                     id: { equals: input.id },
                                 },
                                 data: {
-                                    emcee: input.emcee,
+                                    emceesperformers: input.emceesperformers,
                                 },
                             })];
-                    case 24:
+                    case 20:
                         _b.sent();
-                        return [3 /*break*/, 29];
-                    case 25:
-                        if (!input.honeymoon) return [3 /*break*/, 27];
-                        return [4 /*yield*/, payload.update({
-                                collection: "plans",
-                                where: {
-                                    id: { equals: input.id },
-                                },
-                                data: {
-                                    honeymoon: input.honeymoon,
-                                },
-                            })];
-                    case 26:
-                        _b.sent();
-                        return [3 /*break*/, 29];
-                    case 27:
-                        if (!input.misc) return [3 /*break*/, 29];
+                        return [3 /*break*/, 23];
+                    case 21:
+                        if (!input.misc) return [3 /*break*/, 23];
                         return [4 /*yield*/, payload.update({
                                 collection: "plans",
                                 where: {
@@ -2052,10 +2007,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     misc: input.misc,
                                 },
                             })];
-                    case 28:
+                    case 22:
                         _b.sent();
-                        _b.label = 29;
-                    case 29: return [2 /*return*/];
+                        _b.label = 23;
+                    case 23: return [2 /*return*/];
                 }
             });
         });

@@ -172,12 +172,9 @@ export interface Plan {
   agent?: (string | null) | Vendor;
   bridal?: (string | null) | Vendor;
   photovideo?: (string | null) | Vendor;
-  catering?: (string | null) | Vendor;
-  decor?: (string | null) | Vendor;
-  henna?: (string | null) | Vendor;
   mua?: (string | null) | Vendor;
-  emcee?: (string | null) | Vendor;
-  honeymoon?: (string | null) | Vendor;
+  henna?: (string | null) | Vendor;
+  emceesperformers?: (string | null) | Vendor;
   misc?: (string | null) | Vendor;
   packages?: (string | Package)[] | null;
   updatedAt: string;

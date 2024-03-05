@@ -13,13 +13,23 @@ const Trending = async () => {
       {categories.map((category) => (
         <div key={category.value} className="bg-sky-100">
           <MaxWidthWrapper>
-            <FeaturedReel
-              title={category.label}
-              category={category.value}
-              user={user?.id}
-              featured={false}
-              href={`/vendors?category=${category.value}`}
-            />
+            {category.value != "mua" && category.value != "misc" ? (
+              <FeaturedReel
+                title={category.label}
+                category={category.value}
+                user={user?.id}
+                featured={false}
+                href={`/vendors?category=${category.value}`}
+              />
+            ) : (
+              <FeaturedReel
+                title={category.label}
+                category={category.value}
+                user={user?.id}
+                featured={false}
+                href={`/vendors/${category.value}`}
+              />
+            )}
           </MaxWidthWrapper>
         </div>
       ))}

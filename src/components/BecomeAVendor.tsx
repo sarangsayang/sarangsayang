@@ -24,6 +24,7 @@ import {
 import { categories } from "@/app/data/data";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
+import { trpc } from "@/trpc/client";
 
 const BecomeAVendor = () => {
   const [dsvData, setDSVData] = useState({
@@ -32,6 +33,10 @@ const BecomeAVendor = () => {
     name: "",
     contact: "",
     email: "",
+  });
+
+  const checkUser = trpc.checkUserExist.useQuery({
+    email: dsvData.email,
   });
 
   return (
@@ -133,7 +138,10 @@ const BecomeAVendor = () => {
               </div>
 
               <div>
-                <Label htmlFor="email">Vendor Email</Label>
+                <Label htmlFor="email">
+                  Registered Sarang Sayang Email{" "}
+                  <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   id="email"
                   name="email"
@@ -150,20 +158,33 @@ const BecomeAVendor = () => {
           </div>
           <DialogFooter className="sm:justify-start">
             <DialogClose asChild>
-              <Button
-                type="submit"
-                variant="secondary"
-                className="w-full"
-                onClick={() =>
-                  toast({
-                    title: "We'll get right on it!",
-                    description:
-                      "Verifications and authentications can take up to 1-2 working days.",
-                  })
-                }
-              >
-                Submit
-              </Button>
+              {checkUser.data &&
+              checkUser.data.totalDocs === 1 &&
+              dsvData.email != "" ? (
+                <Button
+                  type="submit"
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() =>
+                    toast({
+                      title: "We'll get right on it!",
+                      description:
+                        "Verifications and authentications can take up to 1-2 working days.",
+                    })
+                  }
+                >
+                  Submit
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  variant="secondary"
+                  className="w-full"
+                  disabled
+                >
+                  Submit
+                </Button>
+              )}
             </DialogClose>
           </DialogFooter>
         </form>
