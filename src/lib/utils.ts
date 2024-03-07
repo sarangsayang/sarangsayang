@@ -26,8 +26,13 @@ export function formatPrice(
 }
 
 export function constructMetadata({
-  title = `Sarang Sayang | A platform for all things malay weddings in Singapore`,
-  description = `Welcome to Sarang Sayang, a platform for all things malay weddings. Sarang Sayang is Singapore's largest Malay Wedding Directory. It acts as an online platform that houses Malay wedding vendors for all things Malay weddings. Our mission is to help and empower our Malay community by making wedding planning easier for all couples. We connect Malay wedding vendors to couples planning for their dream wedding through the convenience of one platform.`,
+  title = `Sarang Sayang | Singapore's largest online malay wedding directory`,
+  description = `Sarang Sayang is Singapore's largest Malay Wedding Directory.
+  It acts as an online platform that houses malay wedding vendors
+  for all things Malay weddings. Our mission is to help and empower
+  our Malay community by making wedding planning easier for all
+  couples. We connect Malay wedding vendors to couples planning for
+  their dream wedding through the convenience of one platform.`,
   image = "/logopngBlue.png",
   icons = "/favicon.ico",
   noIndex = false,
