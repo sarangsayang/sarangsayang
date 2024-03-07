@@ -26,12 +26,13 @@ const faq = () => {
           <AccordionItem value="item-1">
             <AccordionTrigger>What is Sarang Sayang?</AccordionTrigger>
             <AccordionContent>
-              Sarang Sayang is Singapore&apos;s largest Malay Wedding Directory.
-              It acts as an online platform that houses malay wedding vendors
-              for all things Malay weddings. Our mission is to help and empower
-              our Malay community by making wedding planning easier for all
-              couples. We connect Malay wedding vendors to couples planning for
-              their dream wedding through the convenience of one platform.
+              Welcome to Sarang Sayang, a platform for all things Malay
+              Weddings. Sarang Sayang is Singapore&apos;s largest Online Malay
+              Wedding Directory and acts as an online platform that houses Malay
+              wedding vendors of all categories. Our mission is to help and
+              empower our Malay community by making wedding planning easier for
+              all couples. We connect Malay wedding vendors to couples planning
+              for their dream wedding through the convenience of one platform.
             </AccordionContent>
           </AccordionItem>
 
