@@ -33,7 +33,7 @@ const LikeBook = () => {
                 <TableHead>Vendor Name</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead className="w-[200px]">Claim Status</TableHead>
-                <TableHead className="w-[200px]">Clicks</TableHead>
+                <TableHead className="w-[50px]">Clicks</TableHead>
                 <TableHead className="text-right">Likes</TableHead>
               </TableRow>
             </TableHeader>
@@ -75,7 +75,7 @@ const LikeBook = () => {
               <TableHead className="w-[100px]">Position</TableHead>
               <TableHead>Vendor Name</TableHead>
               <TableHead className="w-[200px]">Claim Status</TableHead>
-              <TableHead className="w-[200px]">Clicks</TableHead>
+              <TableHead className="w-[50px]">Clicks</TableHead>
               <TableHead className="text-right">Likes</TableHead>
             </TableRow>
           </TableHeader>

@@ -39,7 +39,7 @@ const LikeBookCat = ({ category, label }: LikeBookCatProps) => {
                 <TableHead className="w-[100px]">Position</TableHead>
                 <TableHead className="w-[700px]">Vendor Name</TableHead>
                 <TableHead className="w-[200px]">Claim Status</TableHead>
-                <TableHead className="w-[200px]">Clicks</TableHead>
+                <TableHead className="w-[50px]">Clicks</TableHead>
                 <TableHead className="text-right">Likes</TableHead>
               </TableRow>
             </TableHeader>
@@ -78,7 +78,7 @@ const LikeBookCat = ({ category, label }: LikeBookCatProps) => {
               <TableHead className="w-[100px]">Position</TableHead>
               <TableHead>Vendor Name</TableHead>
               <TableHead className="w-[200px]">Claim Status</TableHead>
-              <TableHead className="w-[200px]">Clicks</TableHead>
+              <TableHead className="w-[50px]">Clicks</TableHead>
               <TableHead className="text-right">Likes</TableHead>
             </TableRow>
           </TableHeader>

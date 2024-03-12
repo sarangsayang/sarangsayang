@@ -181,6 +181,10 @@ const Page = async ({ params }: PageProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 py-3 items-center">
               <div className="aspect-square rounded-lg">
                 <ImageSlider urls={validUrls} />
+                <p className="bg-white text-sm italic font-semibold p-4 mt-3 rounded-md shadow-md mx-4">
+                  Photo Credits: {product.name}&apos;s
+                  Instagram/Facebook/Website
+                </p>
               </div>
               <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:gap-x-8 lg:px-14">
                 {/* Product Details */}
