@@ -15,6 +15,8 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import AngelSearch from "@/components/AngelSearch";
+import HomepageAds2 from "@/components/HomepageAds2";
 
 export default async function Home() {
   const nextCookies = cookies();
@@ -22,7 +24,7 @@ export default async function Home() {
 
   return (
     <>
-      <div className="mx-auto py-6 bg-[url('/hero.png')] bg-cover bg-center shadow-md">
+      <div className="mx-auto py-6 bg-[url('/hero.png')] bg-cover bg-center shadow-2xl">
         <MaxWidthWrapper className="text-center flex flex-col items-center">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Singapore&apos;s largest online{" "}
@@ -31,6 +33,7 @@ export default async function Home() {
           <p className="mt-4 text-lg max-w-prose text-muted-foreground">
             Welcome to Sarang Sayang, a platform for all things malay weddings.
           </p>
+          {/* <AngelSearch /> */}
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link href="/featuredvendors" className={buttonVariants()}>
               Start Browsing
@@ -57,10 +60,15 @@ export default async function Home() {
           </div>
         </MaxWidthWrapper>
       </div>
+      {/* <HomepageAds2 /> */}
       <MaxWidthWrapper>
         <Featured11 user={user?.id} />
         <HomepageAds />
-        <ProductReel user={user?.id} title="Brand New" query={{ limit: 4 }} />
+        <ProductReel
+          user={user?.id}
+          title="Recently Added"
+          query={{ limit: 8 }}
+        />
       </MaxWidthWrapper>
     </>
   );
