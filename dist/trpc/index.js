@@ -74,14 +74,14 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, results, allVendors, i, likesforthem, newData, allVendors, i, likesforthem, newData, top10;
+            var payload, results, allVendors, i, likesforthem, enquiriesforthem, messages, replies, x, messagesfromuser, repliesfromvendor, newData, allVendors, i, likesforthem, enquiriesforthem, messages, replies, x, messagesfromuser, repliesfromvendor, newData, top10;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
                         results = [];
-                        if (!input.category) return [3 /*break*/, 7];
+                        if (!input.category) return [3 /*break*/, 13];
                         return [4 /*yield*/, payload.find({
                                 collection: "vendors",
                                 where: { category: { equals: input.category } },
@@ -92,44 +92,139 @@ exports.appRouter = (0, trpc_1.router)({
                         i = 0;
                         _b.label = 3;
                     case 3:
-                        if (!(i < allVendors.length)) return [3 /*break*/, 6];
+                        if (!(i < allVendors.length)) return [3 /*break*/, 12];
                         return [4 /*yield*/, payload.find({
                                 collection: "likes",
                                 where: { vendor: { equals: allVendors[i].id } },
                             })];
                     case 4:
                         likesforthem = (_b.sent()).docs;
-                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length });
-                        results.push(newData);
-                        _b.label = 5;
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: { vendor: { equals: allVendors[i].id } },
+                            })];
                     case 5:
-                        i++;
-                        return [3 /*break*/, 3];
-                    case 6: return [3 /*break*/, 12];
-                    case 7: return [4 /*yield*/, payload.find({
-                            collection: "vendors",
-                            pagination: false,
-                        })];
+                        enquiriesforthem = (_b.sent()).docs;
+                        messages = 0;
+                        replies = 0;
+                        x = 0;
+                        _b.label = 6;
+                    case 6:
+                        if (!(x < enquiriesforthem.length)) return [3 /*break*/, 10];
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: { equals: enquiriesforthem[x].id },
+                                    and: [
+                                        {
+                                            from: { equals: "user" },
+                                        },
+                                    ],
+                                },
+                            })];
+                    case 7:
+                        messagesfromuser = (_b.sent()).docs;
+                        messages = messages + messagesfromuser.length;
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: { equals: enquiriesforthem[x].id },
+                                    and: [
+                                        {
+                                            from: { equals: "vendor" },
+                                        },
+                                    ],
+                                    message: {
+                                        not_equals: "This vendor has not claimed their profile, please expect a delay in their response.",
+                                    },
+                                },
+                            })];
                     case 8:
-                        allVendors = (_b.sent()).docs;
-                        i = 0;
+                        repliesfromvendor = (_b.sent()).docs;
+                        replies = replies + repliesfromvendor.length;
                         _b.label = 9;
                     case 9:
-                        if (!(i < allVendors.length)) return [3 /*break*/, 12];
-                        return [4 /*yield*/, payload.find({
-                                collection: "likes",
-                                where: { vendor: { equals: allVendors[i].id } },
-                                pagination: false,
-                            })];
+                        x++;
+                        return [3 /*break*/, 6];
                     case 10:
-                        likesforthem = (_b.sent()).docs;
-                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length });
+                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length, enquiries: messages, replies: replies });
                         results.push(newData);
                         _b.label = 11;
                     case 11:
                         i++;
-                        return [3 /*break*/, 9];
-                    case 12:
+                        return [3 /*break*/, 3];
+                    case 12: return [3 /*break*/, 24];
+                    case 13: return [4 /*yield*/, payload.find({
+                            collection: "vendors",
+                            pagination: false,
+                        })];
+                    case 14:
+                        allVendors = (_b.sent()).docs;
+                        i = 0;
+                        _b.label = 15;
+                    case 15:
+                        if (!(i < allVendors.length)) return [3 /*break*/, 24];
+                        return [4 /*yield*/, payload.find({
+                                collection: "likes",
+                                where: { vendor: { equals: allVendors[i].id } },
+                            })];
+                    case 16:
+                        likesforthem = (_b.sent()).docs;
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: { vendor: { equals: allVendors[i].id } },
+                            })];
+                    case 17:
+                        enquiriesforthem = (_b.sent()).docs;
+                        messages = 0;
+                        replies = 0;
+                        x = 0;
+                        _b.label = 18;
+                    case 18:
+                        if (!(x < enquiriesforthem.length)) return [3 /*break*/, 22];
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: { equals: enquiriesforthem[x].id },
+                                    and: [
+                                        {
+                                            from: { equals: "user" },
+                                        },
+                                    ],
+                                },
+                            })];
+                    case 19:
+                        messagesfromuser = (_b.sent()).docs;
+                        messages = messages + messagesfromuser.length;
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: { equals: enquiriesforthem[x].id },
+                                    and: [
+                                        {
+                                            from: { equals: "vendor" },
+                                        },
+                                    ],
+                                    message: {
+                                        not_equals: "This vendor has not claimed their profile, please expect a delay in their response.",
+                                    },
+                                },
+                            })];
+                    case 20:
+                        repliesfromvendor = (_b.sent()).docs;
+                        replies = replies + repliesfromvendor.length;
+                        _b.label = 21;
+                    case 21:
+                        x++;
+                        return [3 /*break*/, 18];
+                    case 22:
+                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length, enquiries: messages, replies: replies });
+                        results.push(newData);
+                        _b.label = 23;
+                    case 23:
+                        i++;
+                        return [3 /*break*/, 15];
+                    case 24:
                         results.sort(function (a, b) {
                             return b.likes - a.likes;
                         });

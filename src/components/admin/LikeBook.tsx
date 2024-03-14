@@ -34,7 +34,9 @@ const LikeBook = () => {
                 <TableHead>Category</TableHead>
                 <TableHead className="w-[200px]">Claim Status</TableHead>
                 <TableHead className="w-[50px]">Clicks</TableHead>
-                <TableHead className="text-right">Likes</TableHead>
+                <TableHead className="w-[50px]">Enquiries</TableHead>
+                <TableHead className="w-[50px]">Replies</TableHead>
+                <TableHead className="w-[50px]">Likes</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -57,11 +59,27 @@ const LikeBook = () => {
                       </p>
                     )}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-center">
                     {vendor.clicks ? vendor.clicks : 0}
                   </TableCell>
                   {/* @ts-ignore */}
-                  <TableCell className="text-right">{vendor.likes}</TableCell>
+                  {!vendor.replies && vendor.enquiries ? (
+                    <TableCell className="text-center text-red-500 font-extrabold">
+                      {/* @ts-ignore */}
+                      {vendor.enquiries ? vendor.enquiries : 0}
+                    </TableCell>
+                  ) : (
+                    <TableCell className="text-center">
+                      {/* @ts-ignore */}
+                      {vendor.enquiries ? vendor.enquiries : 0}
+                    </TableCell>
+                  )}
+                  <TableCell className="text-center">
+                    {/* @ts-ignore */}
+                    {vendor.replies ? vendor.replies : 0}
+                  </TableCell>
+                  {/* @ts-ignore */}
+                  <TableCell className="text-center">{vendor.likes}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -76,7 +94,9 @@ const LikeBook = () => {
               <TableHead>Vendor Name</TableHead>
               <TableHead className="w-[200px]">Claim Status</TableHead>
               <TableHead className="w-[50px]">Clicks</TableHead>
-              <TableHead className="text-right">Likes</TableHead>
+              <TableHead className="w-[50px]">Enquiries</TableHead>
+              <TableHead className="w-[50px]">Replies</TableHead>
+              <TableHead className="w-[50px]">Likes</TableHead>
             </TableRow>
           </TableHeader>
         </Table>

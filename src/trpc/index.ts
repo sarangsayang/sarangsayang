@@ -34,7 +34,54 @@ export const appRouter = router({
             where: { vendor: { equals: allVendors[i].id } },
           });
 
-          const newData = { ...allVendors[i], likes: likesforthem.length };
+          const { docs: enquiriesforthem } = await payload.find({
+            collection: "chats",
+            where: { vendor: { equals: allVendors[i].id } },
+          });
+
+          let messages = 0;
+          let replies = 0;
+
+          for (let x = 0; x < enquiriesforthem.length; x++) {
+            const { docs: messagesfromuser } = await payload.find({
+              collection: "message",
+              where: {
+                chat: { equals: enquiriesforthem[x].id },
+                and: [
+                  {
+                    from: { equals: "user" },
+                  },
+                ],
+              },
+            });
+
+            messages = messages + messagesfromuser.length;
+
+            const { docs: repliesfromvendor } = await payload.find({
+              collection: "message",
+              where: {
+                chat: { equals: enquiriesforthem[x].id },
+                and: [
+                  {
+                    from: { equals: "vendor" },
+                  },
+                ],
+                message: {
+                  not_equals:
+                    "This vendor has not claimed their profile, please expect a delay in their response.",
+                },
+              },
+            });
+
+            replies = replies + repliesfromvendor.length;
+          }
+
+          const newData = {
+            ...allVendors[i],
+            likes: likesforthem.length,
+            enquiries: messages,
+            replies: replies,
+          };
 
           results.push(newData);
         }
@@ -48,10 +95,56 @@ export const appRouter = router({
           const { docs: likesforthem } = await payload.find({
             collection: "likes",
             where: { vendor: { equals: allVendors[i].id } },
-            pagination: false,
           });
 
-          const newData = { ...allVendors[i], likes: likesforthem.length };
+          const { docs: enquiriesforthem } = await payload.find({
+            collection: "chats",
+            where: { vendor: { equals: allVendors[i].id } },
+          });
+
+          let messages = 0;
+          let replies = 0;
+
+          for (let x = 0; x < enquiriesforthem.length; x++) {
+            const { docs: messagesfromuser } = await payload.find({
+              collection: "message",
+              where: {
+                chat: { equals: enquiriesforthem[x].id },
+                and: [
+                  {
+                    from: { equals: "user" },
+                  },
+                ],
+              },
+            });
+
+            messages = messages + messagesfromuser.length;
+
+            const { docs: repliesfromvendor } = await payload.find({
+              collection: "message",
+              where: {
+                chat: { equals: enquiriesforthem[x].id },
+                and: [
+                  {
+                    from: { equals: "vendor" },
+                  },
+                ],
+                message: {
+                  not_equals:
+                    "This vendor has not claimed their profile, please expect a delay in their response.",
+                },
+              },
+            });
+
+            replies = replies + repliesfromvendor.length;
+          }
+
+          const newData = {
+            ...allVendors[i],
+            likes: likesforthem.length,
+            enquiries: messages,
+            replies: replies,
+          };
 
           results.push(newData);
         }
