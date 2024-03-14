@@ -24,7 +24,7 @@ export default async function Home() {
 
   return (
     <>
-      <div className="mx-auto py-6 bg-[url('/hero.png')] bg-cover bg-center shadow-2xl">
+      <div className="mx-auto py-6 bg-[url('/hero.png')] bg-cover bg-center shadow-md">
         <MaxWidthWrapper className="text-center flex flex-col items-center">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Singapore&apos;s largest online{" "}
