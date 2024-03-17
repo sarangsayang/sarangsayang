@@ -49,6 +49,12 @@ const NormalUserAccountNav = ({ user }: { user: User }) => {
           </DropdownMenuItem>
         ) : null}
 
+        {user.role === "admin" ? (
+          <DropdownMenuItem asChild>
+            <Link href="/graphy">Graphy</Link>
+          </DropdownMenuItem>
+        ) : null}
+
         <DropdownMenuItem asChild>
           <Link href="/faq">FAQ</Link>
         </DropdownMenuItem>

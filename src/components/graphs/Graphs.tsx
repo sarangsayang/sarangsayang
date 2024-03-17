@@ -1,48 +1,33 @@
 "use client";
 
-import React from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { trpc } from "@/trpc/client";
-import PageVisits from "./pagevisits/PageVisits";
-import { Loader } from "lucide-react";
-import VendorLikes from "./vendorlikes/VendorLikes";
-import Enquiries from "./enquiries/Enquiries";
+import MaxWidthWrapper from "../MaxWidthWrapper";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import WebActivity from "./webactivity/WebActivity";
+import TikTok from "./tiktok/TikTok";
+import Ig from "./ig/Ig";
 
-interface GraphProps {
-  userId: string;
-}
-
-const Graphs = ({ userId }: GraphProps) => {
-  const vendor = trpc.getVendorId.useQuery({
-    userId: userId,
-  });
-
-  const vendorId = vendor.data?.docs[0].id;
-
+const Graphs = () => {
   return (
-    <>
-      <Card>
-        {vendorId ? (
-          <VendorLikes vendorId={vendorId} />
-        ) : (
-          <Loader className="animate-spin" />
-        )}
-      </Card>
-
-      <Card>
-        {/* {vendor ? (
-          <Enquiries vendorId={vendorId} />
-        ) : (
-          <Loader className="animate-spin" />
-        )} */}
-      </Card>
-    </>
+    <Tabs defaultValue="ig" className="w-full">
+      <TabsList className="w-full bg-sky-200">
+        <TabsTrigger value="webactivity">Website Activity</TabsTrigger>
+        <TabsTrigger value="tiktok">TikTok</TabsTrigger>
+        <TabsTrigger value="ig">Instagram</TabsTrigger>
+      </TabsList>
+      <div className="mt-6">
+        <MaxWidthWrapper>
+          <TabsContent value="webactivity">
+            <WebActivity />
+          </TabsContent>
+          <TabsContent value="tiktok">
+            <TikTok />
+          </TabsContent>
+          <TabsContent value="ig">
+            <Ig />
+          </TabsContent>
+        </MaxWidthWrapper>
+      </div>
+    </Tabs>
   );
 };
 
