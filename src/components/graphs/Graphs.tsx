@@ -8,7 +8,7 @@ import Ig from "./ig/Ig";
 
 const Graphs = () => {
   return (
-    <Tabs defaultValue="ig" className="w-full">
+    <Tabs defaultValue="webactivity" className="w-full">
       <TabsList className="w-full bg-sky-200">
         <TabsTrigger value="webactivity">Website Activity</TabsTrigger>
         <TabsTrigger value="tiktok">TikTok</TabsTrigger>
