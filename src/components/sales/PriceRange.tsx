@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { Switch } from "../ui/switch";
-import {
-  BadgeCheck,
-  CheckCircle,
-  Crown,
-  Loader2,
-  MoveRight,
-} from "lucide-react";
+import { BadgeCheck, CheckCircle, Crown, Loader2 } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -153,18 +147,12 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                 <ul className="flex-1 space-y-4">
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="ml-3 text-base font-medium">
-                      Access to dashboard
-                    </span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Access to update
+                        Access to dashboard
                       </p>
                       <p className="ml-3 text-sm italic font-light">
-                        Vendor Profile / Packages
+                        View your profile statistics
                       </p>
                     </div>
                   </li>
@@ -172,9 +160,11 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Access to Sarang Sayang
+                        Update vendor profile
                       </p>
-                      <p className="ml-3 text-base font-medium">Support Team</p>
+                      <p className="ml-3 text-sm italic font-light">
+                        Add/Edit as many photos and packages
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-center">
@@ -279,18 +269,12 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                 <ul className="flex-1 space-y-4">
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="ml-3 text-base font-medium">
-                      Access to dashboard
-                    </span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Access to update
+                        Access to dashboard
                       </p>
                       <p className="ml-3 text-sm italic font-light">
-                        Vendor Profile / Packages
+                        View your profile statistics
                       </p>
                     </div>
                   </li>
@@ -298,9 +282,11 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Access to Sarang Sayang
+                        Update vendor profile
                       </p>
-                      <p className="ml-3 text-base font-medium">Support Team</p>
+                      <p className="ml-3 text-sm italic font-light">
+                        Add/Edit as many photos and packages
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-center">
@@ -318,7 +304,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         Enquiry notifications
                       </p>
                       <p className="ml-3 text-sm italic font-light text-yellow-600">
-                        With viewable user details
+                        User details can now be viewed
                       </p>
                     </div>
                   </li>
@@ -328,8 +314,11 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       <p className="ml-3 text-base font-medium">
                         Access to personal CRM Platform
                       </p>
+                      <p className="ml-3 text-sm italic font-light ">
+                        Keep track of your own leads
+                      </p>
                       <p className="ml-3 text-sm italic font-light text-yellow-600">
-                        Your Leads + Sarang Sayang Leads
+                        + Sarang Sayang Leads will appear here
                       </p>
                     </div>
                   </li>
@@ -343,15 +332,18 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         Access to all user messages,
                       </p>
                       <p className="ml-3 text-sm italic font-light text-yellow-600">
-                        and reply to all enquiries instantly
+                        and be able to reply to
+                      </p>
+                      <p className="ml-3 text-sm italic font-light text-yellow-600">
+                        all enquiries instantly
                       </p>
                     </div>
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
-                      <p className="ml-3 text-base font-medium">
-                        Entitled to Add Ons
+                      <p className="ml-3 text-base font-medium text-balance">
+                        Entitled to Featured Vendor Add Ons
                       </p>
                       <p className="ml-3 text-sm italic font-light text-yellow-600">
                         First come first serve
@@ -375,8 +367,9 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       All semiannual plans are non-refundable.
                     </p>
                   ) : (
-                    <p className="text-sm font-light text-center text-gray-400 mt-3">
-                      Monthly plans can be cancelled at any time.
+                    <p className="text-sm font-light text-center text-balance text-gray-400 mt-3">
+                      Drop us an e-mail to cancel your monthly subscription
+                      anytime!
                     </p>
                   )}
                 </div>
@@ -460,10 +453,26 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div>
                       <p className="ml-3 text-base font-medium">
-                        Top 4 Listings for the month
+                        Listed in the top 4 for the month
                       </p>
                       <p className="ml-3 text-sm italic font-light">
                         On respective category page
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium text-balance">
+                        Average increase by 230% profile visits
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div>
+                      <p className="ml-3 text-base font-medium text-balance">
+                        Consolidated Social Media Post Shout out
                       </p>
                     </div>
                   </li>
@@ -517,14 +526,30 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                 </div>
 
                 <ul className="flex-1 space-y-4">
-                  <li className="flex items-start">
+                  <li className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500" />
                     <div className="w-full">
-                      <p className="ml-3 text-base font-medium">
-                        Top Listing of the month
+                      <p className="ml-3 text-base font-medium text-balance">
+                        Listed as the top listing of the month
                       </p>
                       <p className="ml-3 text-sm italic font-light">
                         On respective category page
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div className="w-full">
+                      <p className="ml-3 text-base font-medium text-balance">
+                        Average Increase by 425% profile visits
+                      </p>
+                    </div>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <div className="w-full">
+                      <p className="ml-3 text-base font-medium text-balance">
+                        Consolidated Social Media Post Shout out
                       </p>
                     </div>
                   </li>
@@ -543,7 +568,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       <p className="ml-3 text-base font-medium">
                         Sarang Sayang Homepage
                       </p>
-                      <p className="ml-3 text-sm italic font-light">
+                      <p className="ml-3 text-sm italic font-light text-balance">
                         Easy access and maximum exposure to our users
                       </p>
                     </div>
@@ -554,9 +579,9 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       <p className="ml-3 text-base font-medium">
                         Category Cover Photo
                       </p>
-                      <p className="ml-3 text-sm italic font-light">
+                      <p className="ml-3 text-sm italic font-light text-balance">
                         Vendor Photo will be used as the cover photo for the
-                        “discover” tab.
+                        &apos;Discover&apos; tab.
                       </p>
                     </div>
                   </li>

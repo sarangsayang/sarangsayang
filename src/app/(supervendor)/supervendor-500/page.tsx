@@ -44,16 +44,12 @@ const Supervendor500 = () => {
             <ul className="flex-1 space-y-4">
               <li className="flex items-center">
                 <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="ml-3 text-base font-medium">
-                  Access to dashboard
-                </span>
-              </li>
-              <li className="flex items-center">
-                <CheckCircle className="w-5 h-5 text-green-500" />
                 <div>
-                  <p className="ml-3 text-base font-medium">Access to update</p>
+                  <p className="ml-3 text-base font-medium">
+                    Access to dashboard
+                  </p>
                   <p className="ml-3 text-sm italic font-light">
-                    Vendor Profile / Packages
+                    View your profile statistics
                   </p>
                 </div>
               </li>
@@ -61,9 +57,11 @@ const Supervendor500 = () => {
                 <CheckCircle className="w-5 h-5 text-green-500" />
                 <div>
                   <p className="ml-3 text-base font-medium">
-                    Access to Sarang Sayang
+                    Update vendor profile
                   </p>
-                  <p className="ml-3 text-base font-medium">Support Team</p>
+                  <p className="ml-3 text-sm italic font-light">
+                    Add/Edit as many photos and packages
+                  </p>
                 </div>
               </li>
               <li className="flex items-center">
@@ -140,16 +138,12 @@ const Supervendor500 = () => {
             <ul className="flex-1 space-y-4">
               <li className="flex items-center">
                 <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="ml-3 text-base font-medium">
-                  Access to dashboard
-                </span>
-              </li>
-              <li className="flex items-center">
-                <CheckCircle className="w-5 h-5 text-green-500" />
                 <div>
-                  <p className="ml-3 text-base font-medium">Access to update</p>
+                  <p className="ml-3 text-base font-medium">
+                    Access to dashboard
+                  </p>
                   <p className="ml-3 text-sm italic font-light">
-                    Vendor Profile / Packages
+                    View your profile statistics
                   </p>
                 </div>
               </li>
@@ -157,9 +151,11 @@ const Supervendor500 = () => {
                 <CheckCircle className="w-5 h-5 text-green-500" />
                 <div>
                   <p className="ml-3 text-base font-medium">
-                    Access to Sarang Sayang
+                    Update vendor profile
                   </p>
-                  <p className="ml-3 text-base font-medium">Support Team</p>
+                  <p className="ml-3 text-sm italic font-light">
+                    Add/Edit as many photos and packages
+                  </p>
                 </div>
               </li>
               <li className="flex items-center">
@@ -177,7 +173,7 @@ const Supervendor500 = () => {
                     Enquiry notifications
                   </p>
                   <p className="ml-3 text-sm italic font-light text-yellow-600">
-                    With viewable user details
+                    User details can now be viewed
                   </p>
                 </div>
               </li>
@@ -187,8 +183,11 @@ const Supervendor500 = () => {
                   <p className="ml-3 text-base font-medium">
                     Access to personal CRM Platform
                   </p>
+                  <p className="ml-3 text-sm italic font-light ">
+                    Keep track of your own leads
+                  </p>
                   <p className="ml-3 text-sm italic font-light text-yellow-600">
-                    Your Leads + Sarang Sayang Leads
+                    + Sarang Sayang Leads will appear here
                   </p>
                 </div>
               </li>
@@ -202,15 +201,18 @@ const Supervendor500 = () => {
                     Access to all user messages,
                   </p>
                   <p className="ml-3 text-sm italic font-light text-yellow-600">
-                    and reply to all enquiries instantly
+                    and be able to reply to
+                  </p>
+                  <p className="ml-3 text-sm italic font-light text-yellow-600">
+                    all enquiries instantly
                   </p>
                 </div>
               </li>
               <li className="flex items-center">
                 <CheckCircle className="w-5 h-5 text-green-500" />
                 <div>
-                  <p className="ml-3 text-base font-medium">
-                    Entitled to Add Ons
+                  <p className="ml-3 text-base font-medium text-balance">
+                    Entitled to Featured Vendor Add Ons
                   </p>
                   <p className="ml-3 text-sm italic font-light text-yellow-600">
                     First come first serve
@@ -234,8 +236,8 @@ const Supervendor500 = () => {
                   All semiannual plans are non-refundable.
                 </p>
               ) : (
-                <p className="text-sm font-light text-center text-gray-400 mt-3">
-                  Monthly plans can be cancelled at any time.
+                <p className="text-sm font-light text-center text-balance text-gray-400 mt-3">
+                  Drop us an e-mail to cancel your monthly subscription anytime!
                 </p>
               )}
             </div>
