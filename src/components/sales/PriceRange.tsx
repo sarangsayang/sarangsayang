@@ -28,9 +28,9 @@ import { sendTopVendForm } from "@/actions/sendTopVendForm";
 interface PriceRangeProps {
   userRole: string;
   userId: string;
-  portal: string;
   hasSub: boolean;
-  checkoutLink: string;
+  //portal: string;
+  //checkoutLink: string;
 }
 
 interface PriceObject {
@@ -38,14 +38,13 @@ interface PriceObject {
   monthly5: number;
 }
 
-const PriceRange = ({
-  userRole,
-  userId,
-  portal,
-  hasSub,
-  checkoutLink,
-}: PriceRangeProps) => {
-  const [annually, setAnnually] = useState(false);
+interface LinkObject {
+  monthly: string;
+  monthly5: string;
+}
+
+const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
+  const [sixmth, setSixmth] = useState(false);
 
   const vendor = trpc.getVendorId.useQuery({
     userId: userId,
@@ -53,7 +52,7 @@ const PriceRange = ({
 
   const vendorAsVendor = vendor.data?.docs[0] as Vendor;
 
-  function isFirst6(category: string, price: PriceObject) {
+  function isFirst6Price(category: string, price: PriceObject) {
     if (category === "venues") {
       return price.monthly;
     } else if (category === "agents") {
@@ -62,20 +61,34 @@ const PriceRange = ({
       return price.monthly5;
     } else if (category === "photovideo") {
       return price.monthly5;
-    } else if (category === "catering") {
-      return price.monthly5;
-    } else if (category === "decor") {
-      return price.monthly5;
     } else if (category === "henna") {
       return price.monthly5;
     } else if (category === "mua") {
       return price.monthly5;
-    } else if (category === "emcees") {
-      return price.monthly5;
-    } else if (category === "honeymoon") {
+    } else if (category === "emceesperformers") {
       return price.monthly5;
     } else if (category === "misc") {
       return price.monthly5;
+    }
+  }
+
+  function isFirst6Link(category: string, link: LinkObject) {
+    if (category === "venues") {
+      return link.monthly;
+    } else if (category === "agents") {
+      return link.monthly;
+    } else if (category === "bridals") {
+      return link.monthly5;
+    } else if (category === "photovideo") {
+      return link.monthly5;
+    } else if (category === "henna") {
+      return link.monthly5;
+    } else if (category === "mua") {
+      return link.monthly5;
+    } else if (category === "emceesperformers") {
+      return link.monthly5;
+    } else if (category === "misc") {
+      return link.monthly5;
     }
   }
 
@@ -85,12 +98,6 @@ const PriceRange = ({
         <h1 className="mb-4 text-2xl font-normal md:text-3xl lg:text-4xl">
           <span className="font-semibold">Sarang Sayang Vendor Plans</span>
         </h1>
-        <Button variant="ghost">
-          <Link href={portal} className="flex gap-2 items-center">
-            Manage Billing{" "}
-            <MoveRight className="ml-1 h-4 w-4 transition-all text-muted-foreground" />
-          </Link>
-        </Button>
       </div>
 
       <Tabs
@@ -223,11 +230,11 @@ const PriceRange = ({
                 {/* Price */}
                 <div className="flex-shrink-0">
                   <span className="text-4xl font-medium tracking-tight">$</span>
-                  {!annually ? (
+                  {!sixmth ? (
                     <>
                       <span className="text-4xl font-medium tracking-tight">
                         {vendor.data && vendor.data.docs[0].category ? (
-                          isFirst6(vendor.data.docs[0].category, {
+                          isFirst6Price(vendor.data.docs[0].category, {
                             monthly: 500,
                             monthly5: 200,
                           })
@@ -240,17 +247,16 @@ const PriceRange = ({
                   ) : (
                     <>
                       <span className="text-4xl font-medium tracking-tight">
-                        {/* @ts-ignore */}
                         {vendor.data && vendor.data.docs[0].category ? (
-                          isFirst6(vendor.data.docs[0].category, {
-                            monthly: 4800,
-                            monthly5: 1920,
+                          isFirst6Price(vendor.data.docs[0].category, {
+                            monthly: 2400,
+                            monthly5: 960,
                           })
                         ) : (
                           <Loader2 className="animate-spin text-blue-500" />
                         )}
                       </span>
-                      <span className="text-gray-400">/year</span>
+                      <span className="text-gray-400">/semiannual</span>
                     </>
                   )}
                 </div>
@@ -358,15 +364,15 @@ const PriceRange = ({
                 <div>
                   <div className="flex items-center justify-center mt-18 space-x-4 border-t p-5">
                     <p className="font-medium text-sm">Bill Monthly</p>
-                    <Switch checked={annually} onCheckedChange={setAnnually} />
+                    <Switch checked={sixmth} onCheckedChange={setSixmth} />
                     <p className="text-sm font-medium flex flex-col">
-                      Bill Annually{" "}
+                      Bill Semiannually{" "}
                       <span className="font-light">(20% off)</span>
                     </p>
                   </div>
-                  {annually ? (
+                  {sixmth ? (
                     <p className="text-sm font-light text-center text-gray-400 mt-3">
-                      All yearly plans are non-refundable.
+                      All semiannual plans are non-refundable.
                     </p>
                   ) : (
                     <p className="text-sm font-light text-center text-gray-400 mt-3">
@@ -375,8 +381,45 @@ const PriceRange = ({
                   )}
                 </div>
 
-                <Button disabled={hasSub} className="w-full">
-                  <Link href={checkoutLink}>Upgrade Now</Link>
+                <Button
+                  disabled={hasSub || vendor.isLoading}
+                  className="w-full"
+                >
+                  {sixmth ? (
+                    <Link
+                      // @ts-ignore
+                      href={
+                        vendor.data && vendor.data.docs[0].category
+                          ? isFirst6Link(vendor.data.docs[0].category, {
+                              monthly:
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1X6212875B7338605MYAEG5Y",
+                              monthly5:
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5X355723R76713212MYALTUI",
+                            })
+                          : "#"
+                      }
+                      target="_blank"
+                    >
+                      Upgrade Now
+                    </Link>
+                  ) : (
+                    <Link
+                      // @ts-ignore
+                      href={
+                        vendor.data && vendor.data.docs[0].category
+                          ? isFirst6Link(vendor.data.docs[0].category, {
+                              monthly:
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-7T622914J1988522MMYAEGFY",
+                              monthly5:
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5MB55423SY4409800MYALSDI",
+                            })
+                          : "#"
+                      }
+                      target="_blank"
+                    >
+                      Upgrade Now
+                    </Link>
+                  )}
                 </Button>
               </section>
             </div>
