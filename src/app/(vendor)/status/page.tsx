@@ -43,9 +43,9 @@ export default async function Status() {
   // );
   // const checkoutLink = await createCheckoutLink("" + user?.id);
 
-  const hasSub = false;
-
   const vendorRole = user?.role;
+
+  const hasSub = vendorRole === "vendor" ? false : true;
 
   const bgVendor = vendorRole === "vendor" ? "bg-blue-300" : "bg-yellow-300";
 
