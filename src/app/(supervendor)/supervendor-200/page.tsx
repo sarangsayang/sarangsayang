@@ -10,14 +10,14 @@ const Supervendor200 = () => {
   const [sixmth, setSixmth] = useState(false);
   return (
     <main className="mx-4 my-12">
-      <div className="text-center">
+      <div className="text-center text-balance">
         <h1 className="mb-4 text-2xl font-normal py-6 md:text-3xl lg:text-4xl">
           Hey there! Here are{" "}
           <span className="font-bold">Sarang Sayang Vendor Plans.</span>
         </h1>
       </div>
 
-      <div className="flex flex-col items-center justify-center mt-5 px-20 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
+      <div className="flex flex-col items-center justify-center mt-5 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
         <div className="flex flex-col items-center gap-2">
           <section className="flex flex-col w-full max-w-sm p-12 space-y-6 bg-white rounded-lg shadow-md">
             {/* Price */}

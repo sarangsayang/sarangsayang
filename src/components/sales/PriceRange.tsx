@@ -104,7 +104,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
         </TabsList>
 
         <TabsContent value="plans">
-          <div className="flex flex-col items-center justify-center mt-5 px-20 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
+          <div className="flex flex-col items-center justify-center mt-5 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
             <div className="flex flex-col items-center gap-2">
               <div className="h-6">
                 <TooltipProvider>

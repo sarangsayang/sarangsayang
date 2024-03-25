@@ -1,15 +1,8 @@
 import PriceRange from "@/components/sales/PriceRange";
 import { cookies } from "next/headers";
 import { getServerSideUser } from "@/lib/payload-utils";
-import { Loader } from "lucide-react";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { cn } from "@/lib/utils";
-import {
-  createCheckoutLink,
-  createCustomerIfNull,
-  hasSubscription,
-} from "@/lib/stripe";
-import { generateCustomerPortalLink } from "@/lib/stripe";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -71,7 +64,7 @@ export default async function Status() {
           {user && vendorRole ? (
             <div className="py-10 flex flex-col items-start">
               <h1 className="text-4xl font-medium py-2 flex items-baseline gap-2">
-                <span className="text-2xl font-light">
+                <span className="text-2xl font-light text-balance">
                   You&apos;re currently an official
                 </span>{" "}
                 {role(vendorRole)?.label}
