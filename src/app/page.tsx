@@ -15,8 +15,6 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
-import AngelSearch from "@/components/AngelSearch";
-import HomepageAds2 from "@/components/HomepageAds2";
 
 export default async function Home() {
   const nextCookies = cookies();
