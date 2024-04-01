@@ -28,7 +28,7 @@ export default async function Home() {
         <MaxWidthWrapper className="text-center flex flex-col items-center">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Singapore&apos;s largest online{" "}
-            <span className="text-blue-400">malay wedding directory </span>.
+            <span className="text-blue-400">malay wedding directory</span>.
           </h1>
           <p className="mt-4 text-lg max-w-prose text-muted-foreground">
             Welcome to Sarang Sayang, a platform for all things malay weddings.
