@@ -17,11 +17,11 @@ const HomepageAds2 = () => {
   return (
     <section className="shadow-xl">
       <Carousel
-        // plugins={[
-        //     Autoplay({
-        //         delay: 5000,
-        //     }),
-        // ]}
+        plugins={[
+          Autoplay({
+            delay: 5000,
+          }),
+        ]}
         className="w-full"
       >
         <CarouselContent>
@@ -34,6 +34,17 @@ const HomepageAds2 = () => {
                 width={1920}
                 height={1080}
                 src="/ads/OI.jpg"
+                alt="ad1"
+                unoptimized={true}
+              />
+            </Link>
+          </CarouselItem>
+          <CarouselItem className="w-full h-fit flex flex-col items-center justify-center">
+            <Link href={`#`} target="_blank">
+              <Image
+                width={1920}
+                height={1080}
+                src="/ads/SSHomepageAds.jpg"
                 alt="ad1"
                 unoptimized={true}
               />

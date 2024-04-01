@@ -60,7 +60,6 @@ export default async function Home() {
           </div>
         </MaxWidthWrapper>
       </div>
-      {/* <HomepageAds2 /> */}
       <MaxWidthWrapper>
         <Featured11 user={user?.id} />
         <HomepageAds />
