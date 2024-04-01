@@ -58,7 +58,7 @@ const Featured11 = ({ user }: Featured11Props) => {
       <div className="md:flex md:items-center md:justify-between mb-6">
         <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-            Featured Vendors
+            Popular Vendors
           </h1>
         </div>
       </div>

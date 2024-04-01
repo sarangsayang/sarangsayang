@@ -14,11 +14,11 @@ const MakeUp = async () => {
   ];
   return (
     <>
-      <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
+      {/* <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
         <MaxWidthWrapper>
           <FeaturedReel title="Make Up Artist" category="mua" user={user?.id} />
         </MaxWidthWrapper>
-      </div>
+      </div> */}
       <MaxWidthWrapper>
         {subC.map((cat) => (
           <MiscPull

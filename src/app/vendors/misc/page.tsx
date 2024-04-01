@@ -19,11 +19,11 @@ const Misc = async () => {
 
   return (
     <>
-      <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
+      {/* <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
         <MaxWidthWrapper>
           <FeaturedReel title="Misc" category="misc" user={user?.id} />
         </MaxWidthWrapper>
-      </div>
+      </div> */}
       <MaxWidthWrapper>
         {subC.map((cat) => (
           <MiscPull

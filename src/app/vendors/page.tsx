@@ -32,7 +32,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 
   return (
     <>
-      <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
+      {/* <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
         <MaxWidthWrapper>
           {category ? (
             <FeaturedReel
@@ -42,7 +42,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
             />
           ) : null}
         </MaxWidthWrapper>
-      </div>
+      </div> */}
       <MaxWidthWrapper>
         <div className="mt-6 flex items-center gap-3">
           {category ? <Search search={search} category={category} /> : null}
