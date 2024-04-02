@@ -12,7 +12,6 @@ import {
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { trpc } from "@/trpc/client";
-import { cn } from "@/lib/utils";
 
 const UserAccountNav = ({ user }: { user: User }) => {
   const { signOut } = useAuth();
@@ -52,6 +51,12 @@ const UserAccountNav = ({ user }: { user: User }) => {
 
         {isVendor && vendor.data ? (
           <>
+            <DropdownMenuItem asChild>
+              <Link href={`/vendor/${vendor.data.docs[0].id}`}>
+                {vendor.data.docs[0].name}
+              </Link>
+            </DropdownMenuItem>
+
             <DropdownMenuItem asChild>
               <Link href="/status" className={bgVendor}>
                 Vendor Status
