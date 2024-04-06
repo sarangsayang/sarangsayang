@@ -44,20 +44,20 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
   };
 
   return (
-    <div className="grid grid-cols-10">
-      <div className="col-span-3 px-4 flex flex-row items-center">
+    <div className="grid grid-cols-3 gap-2 md:grid-cols-10 md:gap-0">
+      <div className="col-span-3 md:px-4 flex flex-row items-center">
         <p className="px-2 font-medium">{Todo}</p>
       </div>
       {results.data && results.data?.docs.length > 0 ? (
         <>
-          <div className="col-span-2 flex justify-center items-center">
+          <div className="col-span-3 md:col-span-2 flex justify-center items-center">
             <TodoChosenDate
               id={results.data.docs[0].id}
               tdDate={results.data.docs[0].date}
               tChecked={results.data.docs[0].done}
             />
           </div>
-          <div className="col-span-4 px-4 flex flex-row items-center">
+          <div className="col-span-2 px-0 md:col-span-4 md:px-4 flex flex-row items-center">
             <TodoChosenRemarks
               id={results.data.docs[0].id}
               tRemarks={results.data.docs[0].remarks || ""}
@@ -67,7 +67,7 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
         </>
       ) : (
         <>
-          <div className="col-span-2 flex justify-center items-center">
+          <div className="col-span-3 md:col-span-2 flex justify-center items-center">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -92,7 +92,7 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
               </PopoverContent>
             </Popover>
           </div>
-          <div className="col-span-4 px-4 flex flex-row items-center">
+          <div className="col-span-2 px-0 md:col-span-4 md:px-4 flex flex-row items-center">
             <div className="flex w-full max-w-sm items-center space-x-2">
               <Input placeholder="Remarks - Pick a date first!" disabled />
               <Button

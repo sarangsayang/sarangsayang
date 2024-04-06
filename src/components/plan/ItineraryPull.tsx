@@ -1,15 +1,6 @@
 "use client";
 
-import { Itinerary } from "@/payload-types";
 import { trpc } from "@/trpc/client";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
-import ItineraryPullCont from "./ItineraryPullCont";
 import ItineraryTable from "./ItineraryTable";
 
 interface ItineraryPullProps {

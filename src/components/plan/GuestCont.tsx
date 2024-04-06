@@ -52,10 +52,10 @@ const GuestCont = ({ userId }: GuestContProps) => {
               alt="CountingBudget"
               width={480}
               height={360}
-              className="px-4"
+              className="px-4 hidden lg:block"
             />
             <div className="grid grid-cols-4 gap-5 w-full py-6 px-6">
-              <div>
+              <div className="col-span-4 md:col-span-1">
                 <Label>Group</Label>
                 <Select value={group} onValueChange={setGroup}>
                   <SelectTrigger>
@@ -84,7 +84,7 @@ const GuestCont = ({ userId }: GuestContProps) => {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-4 md:col-span-2">
                 <Label>Name</Label>
                 <Input
                   placeholder="Person's Name or Group's Name"
@@ -92,7 +92,7 @@ const GuestCont = ({ userId }: GuestContProps) => {
                   onChange={(e) => handleName(e)}
                 />
               </div>
-              <div>
+              <div className="col-span-4 md:col-span-1">
                 <Label>Number of Pax</Label>
                 <Input
                   type="number"

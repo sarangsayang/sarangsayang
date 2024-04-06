@@ -66,19 +66,16 @@ const MobileNav = () => {
               <ul>
                 {PRODUCT_CATEGORIES.map((category) =>
                   !category.locked ? (
-                    <li
-                      key={category.label}
-                      className="space-y-10 px-4 pb-8 pt-10"
-                    >
+                    <li key={category.label} className="space-y-10 px-4 pt-10">
                       <div className="border-b border-gray-200">
-                        <div className="-mb-px flex">
-                          <p className="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 py-4 text-base font-medium">
+                        <div className="flex">
+                          <p className="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 text-base font-medium">
                             {category.label}
                           </p>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-y-10 gap-x-4">
+                      <div className="grid grid-cols-2 gap-x-4">
                         {category.featured.map((item) => (
                           <div
                             key={item.name}
@@ -98,12 +95,48 @@ const MobileNav = () => {
                         ))}
                       </div>
                     </li>
-                  ) : null
+                  ) : (
+                    <li key={category.label} className="space-y-10 px-4 pt-10">
+                      <div className="border-b border-gray-200">
+                        <div className="-mb-px flex">
+                          <p className="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 py-4 text-base font-medium">
+                            {category.label}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-y-10 gap-x-4">
+                        {category.featured.map((item) => (
+                          <div
+                            key={item.name}
+                            className="group relative text-sm"
+                          >
+                            <Link
+                              href={item.href}
+                              className="mt-6 block font-medium text-gray-900"
+                            >
+                              <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                <Image
+                                  width={197}
+                                  height={197}
+                                  src={item.imageSrc}
+                                  alt="product category image"
+                                  className="aspect-square rounded-2xl"
+                                  unoptimized={false}
+                                />
+                              </div>
+                              {item.name}
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
+                    </li>
+                  )
                 )}
               </ul>
             </div>
 
-            <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+            <div className="space-y-10 border-gray-200 px-4 py-6">
               <div className="flow-root">
                 <Link
                   onClick={() => closeOnCurrent("/sign-in")}

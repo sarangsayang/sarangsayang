@@ -72,7 +72,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
               alt="ItsTime"
               width={480}
               height={480}
-              className="px-4"
+              className="px-4 hidden lg:block"
             />
             <div className="grid grid-cols-6 gap-5 w-full py-6 px-6">
               <div className="col-span-6">
@@ -99,7 +99,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className="col-span-2 flex items-end gap-2">
+              <div className="col-span-6 md:col-span-2 flex items-end gap-2">
                 <div className="w-full">
                   <Label>Time (24hr Format)</Label>
                   <Input
@@ -112,7 +112,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
                 </div>
                 <p className="text-slate-500 pb-2">hrs</p>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-6 md:col-span-2">
                 <Label>Event</Label>
                 <Input
                   placeholder="Enter event"
@@ -120,7 +120,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
                   onChange={(e) => handleEvent(e)}
                 />
               </div>
-              <div className="col-span-2">
+              <div className="col-span-6 md:col-span-2">
                 <Label>Location</Label>
                 <Input
                   placeholder="Enter location"
@@ -128,7 +128,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
                   onChange={(e) => handleLocation(e)}
                 />
               </div>
-              <div className="col-span-3">
+              <div className="col-span-6 md:col-span-3">
                 <Label>Who&#39;s Involved</Label>
                 <Input
                   placeholder="Enter people involved"
@@ -136,7 +136,7 @@ const ItineraryCont = ({ userId }: ItineraryContProps) => {
                   onChange={(e) => handleInvolved(e)}
                 />
               </div>
-              <div className="col-span-3">
+              <div className="col-span-6 md:col-span-3">
                 <Label>Details</Label>
                 <Input
                   placeholder="Enter details"

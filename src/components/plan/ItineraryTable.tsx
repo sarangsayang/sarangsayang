@@ -25,15 +25,15 @@ const ItineraryTable = ({ title, planId }: ItineraryTableProps) => {
   const results = itinerary.data?.docs as Itinerary[];
 
   return (
-    <div className="py-10">
+    <div className="md:py-10">
       <h1 className="font-bold">{title}</h1>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[140px]">Time</TableHead>
-            <TableHead className="w-[270px]">Event</TableHead>
-            <TableHead className="w-[270px]">Location</TableHead>
-            <TableHead className="w-[350px]">Details</TableHead>
+            <TableHead className="w-full md:w-[140px]">Time</TableHead>
+            <TableHead className="w-full md:w-[270px]">Event</TableHead>
+            <TableHead className="w-full md:w-[270px]">Location</TableHead>
+            <TableHead className="w-full md:w-[350px]">Details</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>

@@ -17,19 +17,21 @@ export default async function Details() {
           <h2 className="text-3xl font-bold tracking-tight">
             Wedding Overview
           </h2>
-          <div className="flex flex-row items-center gap-1 text-muted-foreground italic">
+          <div className="flex flex-col lg:flex-row items-center gap-1 text-muted-foreground italic">
             <p className="text-muted-foreground italic">
               You ready? We got you. Let&apos;s start planning.
             </p>
-            <p>Make sure to click</p>
-            <Button
-              variant="outline"
-              size="icon"
-              className="bg-gradient-to-r from-amber-200 to-emerald-200 w-6 h-6"
-            >
-              <Check className="h-3" />
-            </Button>
-            <p>to save your details.</p>
+            <div className="flex flex-row items-center gap-1">
+              <p>Make sure to click</p>
+              <Button
+                variant="outline"
+                size="icon"
+                className="bg-gradient-to-r from-amber-200 to-emerald-200 w-6 h-6"
+              >
+                <Check className="h-3" />
+              </Button>
+              <p>to save your details.</p>
+            </div>
           </div>
         </div>
       </div>

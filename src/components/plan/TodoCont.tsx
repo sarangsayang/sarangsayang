@@ -61,7 +61,7 @@ const TodoCont = ({ userId }: DetailsContProps) => {
     <>
       {identifiedPlan && identifiedPlan.length === 1 ? (
         <>
-          <div className="grid grid-cols-10 py-3 mb-5 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
+          <div className="grid grid-cols-3 gap-2 md:gap-0 md:grid-cols-10 py-3 mb-5 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
             <div className="col-span-3 px-4">
               <Input
                 placeholder="Add a new to do.."
@@ -69,7 +69,7 @@ const TodoCont = ({ userId }: DetailsContProps) => {
                 onChange={(e) => handleTodoChange(e)}
               />
             </div>
-            <div className="col-span-2 flex justify-center items-center">
+            <div className="col-span-3 px-4 md:px-0 md:col-span-2 flex justify-center items-center">
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -93,7 +93,7 @@ const TodoCont = ({ userId }: DetailsContProps) => {
                 </PopoverContent>
               </Popover>
             </div>
-            <div className="col-span-4 px-4">
+            <div className="col-span-2 md:col-span-4 px-4">
               <Input
                 placeholder="Remarks"
                 value={remarks}

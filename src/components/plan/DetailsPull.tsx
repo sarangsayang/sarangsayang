@@ -312,18 +312,13 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
               <WeddingCountdown date={addOneDay(plan.weddingDate)} />
             ) : (
               <div className="p-6 flex flex-col gap-1 items-center justify-center">
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
+                <div className="flex flex-row items-center gap-6">
+                  <div className="p-10 border-neutral-300 border-1 shadow-md rounded-xl flex flex-row gap-2 items-center justify-center bg-slate-50">
                     <h1 className="font-semibold text-3xl">-</h1>
-                    <p className="font-light text-sm">Years Left</p>
-                  </div>
-                  <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
-                    <h1 className="font-semibold text-3xl">-</h1>
-                    <p className="font-light text-sm">Months Left</p>
-                  </div>
-                  <div className="w-24 h-24 border-neutral-300 shadow-md border-2 rounded-xl flex flex-col gap-1 items-center justify-center bg-slate-50">
-                    <h1 className="font-semibold text-3xl">-</h1>
-                    <p className="font-light text-sm">Days Left</p>
+                    <div>
+                      <p className="font-light text-xs text-slate-500">Days</p>
+                      <p className="font-light text-xs text-slate-500">Left</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -351,10 +346,10 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
         </div>
       </div>
 
-      <div className="mt-10 w-full rounded-lg py-10 px-20 flex flex-col items-center bg-gradient-to-r from-pink-100 to-cyan-100">
+      <div className="mt-10 w-full rounded-lg py-10 px-6 md:px-20 flex flex-col items-center bg-gradient-to-r from-pink-100 to-cyan-100">
         <h2 className="font-semibold w-full">Wedding Checklist</h2>
         <div className="grid grid-cols-4 w-full">
-          <div className="bg-white/40 sticky top-20 h-[600px] grid grid-cols-1 gap-4 p-5 rounded-lg shadow-sm mt-6">
+          <div className="hidden bg-white/40 sticky top-20 h-[600px] md:grid grid-cols-1 gap-4 p-5 rounded-lg shadow-sm mt-6">
             <div className="flex gap-3 items-center p-2">
               {venue ? (
                 <CheckSquare2 className="w-4 h-4" />
@@ -413,9 +408,9 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
               <p>Misc</p>
             </div>
           </div>
-          <div className="flex flex-col items-end z-10 col-span-3">
+          <div className="flex flex-col md:items-end z-10 col-span-4 md:col-span-3">
             {categories.map((category) => (
-              <div key={category.value} className="py-6 w-[90%]">
+              <div key={category.value} className="py-6 md:w-[90%]">
                 <Label className="flex gap-2 items-center">
                   <span>{category.icon}</span> {category.label}
                 </Label>
@@ -442,7 +437,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
                               height={100}
                               //@ts-ignore
                               alt={`${like.vendor.name}-image`}
-                              className="aspect-square"
+                              className="aspect-square hidden lg:block"
                               style={{ objectFit: "cover" }}
                             />
                             {/* @ts-ignore */}
@@ -455,7 +450,7 @@ const DetailsPull = ({ plan, likesData, userId }: DetailsPullProps) => {
                 </Select>
                 {/* @ts-ignore */}
                 {getShortlist(category.value)?.packages?.length > 0 ? (
-                  <div className="bg-white/60 pt-6 mx-4 px-4 py-3 shadow-sm">
+                  <div className="hidden md:block bg-white/60 pt-6 mx-4 px-4 py-3 shadow-sm">
                     <p className="text-center text-slate-400 italic">
                       Shortlist a package below
                     </p>

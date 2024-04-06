@@ -19,7 +19,7 @@ const BudgetScoreboardCont = ({ planId }: BudgetScoreboardContProps) => {
       {results ? (
         <BudgetScoreboard budgets={results} />
       ) : (
-        <div className="w-full flex justify-center gap-10 pb-6">
+        <div className="w-full flex flex-col items-center md:flex-row justify-center gap-10 pb-6">
           <div className="w-[200px] h-[200px] rounded-lg shadow-lg border-2 flex flex-col justify-center items-center">
             <div className="flex flex-col items-center">
               <h1 className="text-xl">$0</h1>

@@ -86,15 +86,15 @@ const TodoEdit = ({
   };
 
   return (
-    <div className="grid grid-cols-10">
-      <div className="col-span-3 px-4 flex items-center">
+    <div className="mt-4 grid grid-cols-3 gap-3 md:grid-cols-10 md:gap-0">
+      <div className="col-span-3 md:px-4 flex items-center">
         {checked ? (
           <Input value={todo} disabled className="bg-slate-200" />
         ) : (
           <Input value={todo} onChange={(e) => editTodo(e)} />
         )}
       </div>
-      <div className="col-span-2 flex justify-center items-center">
+      <div className="col-span-3 md:col-span-2 flex justify-center items-center">
         <Popover>
           <PopoverTrigger asChild>
             {checked ? (
@@ -132,7 +132,7 @@ const TodoEdit = ({
           </PopoverContent>
         </Popover>
       </div>
-      <div className="col-span-4 px-4 flex items-center">
+      <div className="col-span-2 px-0 md:col-span-4 md:px-4 flex items-center">
         {checked ? (
           <div className="flex w-full max-w-sm items-center space-x-2">
             <Input

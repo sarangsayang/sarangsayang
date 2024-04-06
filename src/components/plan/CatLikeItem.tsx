@@ -75,7 +75,7 @@ const CatLikeItem = ({ category, data, icon, label }: CatLikeItemProps) => {
       {results.length === 0 ? (
         <p className="text-slate-600 italic">No likes found!</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
           {results.map((vendor) => (
             <div className="space-y-3 pt-6" key={vendor.id}>
               <div className="flex items-start justify-between gap-4">

@@ -64,9 +64,9 @@ const BudgetCont = ({ userId }: BudgetProps) => {
               alt="CountingBudget"
               width={480}
               height={360}
-              className="px-4"
+              className="px-4 hidden lg:block"
             />
-            <div className="grid grid-cols-4 gap-5 w-full py-6 px-6">
+            <div className="grid grid-cols-4 gap-5 w-full py-6 md:px-6">
               <div className="col-span-4">
                 <Input
                   placeholder="Add details"
@@ -75,7 +75,7 @@ const BudgetCont = ({ userId }: BudgetProps) => {
                 />
               </div>
 
-              <div className="col-span-2">
+              <div className="col-span-4 md:col-span-2">
                 <div className="grid w-full items-center gap-1.5">
                   <Label>Category</Label>
                   <Select value={bfor} onValueChange={setFor}>
@@ -111,7 +111,7 @@ const BudgetCont = ({ userId }: BudgetProps) => {
                   </Select>
                 </div>
               </div>
-              <div className="col-span-1">
+              <div className="col-span-2 md:col-span-1">
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                   <Label>Planned Cost</Label>
                   <div className="flex w-full max-w-sm items-center space-x-2">
@@ -127,7 +127,7 @@ const BudgetCont = ({ userId }: BudgetProps) => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-1">
+              <div className="col-span-2 md:col-span-1">
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                   <Label>Actual Cost</Label>
                   <div className="flex w-full max-w-sm items-center space-x-2">
