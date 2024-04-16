@@ -7,9 +7,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import FeaturedImage from "./FeaturedImage";
+import { useAuth } from "@/hooks/use-auth";
+import { User, Vendor } from "@/payload-types";
+import { trpc } from "@/trpc/client";
 
-const MobileNav = () => {
+interface MobileNavProps {
+  signedIn: boolean;
+  user?: User;
+}
+
+const MobileNav = ({ signedIn, user }: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { signOut } = useAuth();
 
   const pathname = usePathname();
 
@@ -31,6 +40,10 @@ const MobileNav = () => {
     if (isOpen) document.body.classList.add("overflow-hidden");
     else document.body.classList.remove("overflow-hidden");
   }, [isOpen]);
+
+  const vendor = trpc.getVendorId.useQuery({
+    userId: user?.id || "",
+  });
 
   if (!isOpen)
     return (
@@ -66,7 +79,7 @@ const MobileNav = () => {
               <ul>
                 {PRODUCT_CATEGORIES.map((category) =>
                   !category.locked ? (
-                    <li key={category.label} className="space-y-10 px-4 pt-10">
+                    <li key={category.label} className="space-y-2 px-4 ">
                       <div className="border-b border-gray-200">
                         <div className="flex">
                           <p className="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 text-base font-medium">
@@ -83,6 +96,7 @@ const MobileNav = () => {
                           >
                             <Link
                               href={item.href}
+                              onClick={() => closeOnCurrent(item.href)}
                               className="mt-6 block font-medium text-gray-900"
                             >
                               <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
@@ -96,7 +110,7 @@ const MobileNav = () => {
                       </div>
                     </li>
                   ) : (
-                    <li key={category.label} className="space-y-10 px-4 pt-10">
+                    <li key={category.label} className="space-y-2 px-4 pt-8">
                       <div className="border-b border-gray-200">
                         <div className="-mb-px flex">
                           <p className="border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 py-4 text-base font-medium">
@@ -105,7 +119,7 @@ const MobileNav = () => {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-y-10 gap-x-4">
+                      <div className="grid grid-cols-2 gap-x-4">
                         {category.featured.map((item) => (
                           <div
                             key={item.name}
@@ -113,6 +127,7 @@ const MobileNav = () => {
                           >
                             <Link
                               href={item.href}
+                              onClick={() => closeOnCurrent(item.href)}
                               className="mt-6 block font-medium text-gray-900"
                             >
                               <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
@@ -136,26 +151,96 @@ const MobileNav = () => {
               </ul>
             </div>
 
-            <div className="space-y-10 border-gray-200 px-4 py-6">
-              <div className="flow-root">
-                <Link
-                  onClick={() => closeOnCurrent("/sign-in")}
-                  href="/sign-in"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Sign in
-                </Link>
+            {signedIn ? (
+              <div className="space-y-2 border-gray-200 px-4 py-6 mt-10">
+                {user &&
+                user.role !== "user" &&
+                user.role !== "admin" &&
+                vendor &&
+                vendor.isSuccess &&
+                vendor.data ? (
+                  <>
+                    <div className="flow-root py-2 border-b border-gray-200">
+                      <Link
+                        onClick={() =>
+                          closeOnCurrent(`/vendor/${vendor.data.docs[0].id}`)
+                        }
+                        href={`/vendor/${vendor.data.docs[0].id}`}
+                        //href={"#"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        {vendor.data.docs[0].name}
+                      </Link>
+                    </div>
+                    <div className="flow-root py-2 border-b border-gray-200">
+                      <Link
+                        onClick={() =>
+                          closeOnCurrent(
+                            `/backstage/collections/vendors/${vendor.data.docs[0].id}`
+                          )
+                        }
+                        href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Update Vendor Profile
+                      </Link>
+                    </div>
+                    <div className="flow-root py-2 border-b border-gray-200">
+                      <Link
+                        onClick={() => closeOnCurrent("/dashboard")}
+                        href="/dashboard"
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Vendor Dashboard
+                      </Link>
+                    </div>
+                  </>
+                ) : null}
+
+                {user && user.role === "admin" ? (
+                  <div className="flow-root py-2 border-b border-gray-200">
+                    <Link
+                      onClick={() => closeOnCurrent("/backstage")}
+                      href={"/backstage"}
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Backstage
+                    </Link>
+                  </div>
+                ) : null}
+
+                <div className="flow-root py-2 border-b border-gray-200">
+                  <Link
+                    onClick={signOut}
+                    href="/sign-in"
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
+                    Log out
+                  </Link>
+                </div>
               </div>
-              <div className="flow-root">
-                <Link
-                  onClick={() => closeOnCurrent("/sign-up")}
-                  href="/sign-up"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Sign up
-                </Link>
+            ) : (
+              <div className="space-y-2 px-4 py-6 mt-10">
+                <div className="flow-root py-2 border-b border-gray-200">
+                  <Link
+                    onClick={() => closeOnCurrent("/sign-in")}
+                    href="/sign-in"
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
+                    Sign in
+                  </Link>
+                </div>
+                <div className="flow-root py-2 border-b border-gray-200">
+                  <Link
+                    onClick={() => closeOnCurrent("/sign-up")}
+                    href="/sign-up"
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
+                    Sign up
+                  </Link>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

@@ -52,7 +52,7 @@ const EnquiriesContentCont = ({
             asChild
             className="bg-yellow-300 hover:bg-yellow-400 text-black"
           >
-            <Link href="/status">Upgrade</Link>
+            <Link href="/status">Upgrade to View Chat Enquiries</Link>
           </Button>
         ) : null}
       </SheetContent>

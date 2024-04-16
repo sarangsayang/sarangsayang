@@ -25,7 +25,11 @@ const Navbar = async () => {
         <MaxWidthWrapper>
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
-              <MobileNav />
+              {user && user.id ? (
+                <MobileNav signedIn={true} user={user} />
+              ) : (
+                <MobileNav signedIn={false} />
+              )}
 
               <div className="ml-4 flex lg:ml-0">
                 <Link href="/">

@@ -24,7 +24,7 @@ const CRMCont = ({ userId, role }: CRMContProps) => {
   const vendorId = getVendorId.data?.docs[0].id;
 
   return (
-    <div className="px-24">
+    <div className="lg:px-24">
       <Table>
         <TableHeader>
           <TableRow>
