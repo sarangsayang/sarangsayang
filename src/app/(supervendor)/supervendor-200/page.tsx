@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { BadgeCheck, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 
 const Supervendor200 = () => {
   const [sixmth, setSixmth] = useState(false);
@@ -139,6 +140,7 @@ const Supervendor200 = () => {
                   </div>
                 </>
               )}
+              <Badge variant="outline">One Year Plan</Badge>
             </div>
 
             {/* Name and DESC */}

@@ -20,6 +20,7 @@ import { sendFeatVendForm } from "@/actions/sendFeatVendForm";
 import { Vendor } from "@/payload-types";
 import { sendTopVendForm } from "@/actions/sendTopVendForm";
 import MaxWidthWrapper from "../MaxWidthWrapper";
+import { Badge } from "../ui/badge";
 
 interface PriceRangeProps {
   userRole: string;
@@ -285,6 +286,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       </div>
                     </>
                   )}
+                  <Badge variant="outline">One Year Plan</Badge>
                 </div>
 
                 {/* Name and DESC */}
