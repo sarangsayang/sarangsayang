@@ -58,8 +58,10 @@ const UserAccountNav = ({ user }: { user: User }) => {
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <Link href="/status" className={bgVendor}>
-                Vendor Status
+              <Link
+                href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}
+              >
+                Update Vendor Profile
               </Link>
             </DropdownMenuItem>
 
@@ -68,10 +70,8 @@ const UserAccountNav = ({ user }: { user: User }) => {
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <Link
-                href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}
-              >
-                Update Vendor Profile
+              <Link href="/status" className={bgVendor}>
+                Vendor Status
               </Link>
             </DropdownMenuItem>
           </>

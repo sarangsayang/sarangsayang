@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { BadgeCheck, CheckCircle } from "lucide-react";
@@ -16,6 +18,16 @@ const Supervendor500 = () => {
           <span className="font-bold">Sarang Sayang Vendor Plans.</span>
         </h1>
       </div>
+
+      <MaxWidthWrapper className="py-4 w-[1000px]">
+        <Image
+          width={1280}
+          height={360}
+          src="/ads/rayaslash.jpg"
+          alt="ad1"
+          unoptimized={true}
+        />
+      </MaxWidthWrapper>
 
       <div className="flex flex-col items-center justify-center mt-5 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
         <div className="flex flex-col items-center gap-2">
@@ -102,20 +114,29 @@ const Supervendor500 = () => {
           <section className="flex flex-col w-full max-w-sm p-12 space-y-6 bg-white rounded-lg shadow-md">
             {/* Price */}
             <div className="flex-shrink-0">
-              <span className="text-4xl font-medium tracking-tight">$</span>
               {!sixmth ? (
                 <>
-                  <span className="text-4xl font-medium tracking-tight">
-                    500
+                  <span className="text-2xl font-medium tracking-tight line-through">
+                    $500
                   </span>
-                  <span className="text-gray-400">/month</span>
+                  <div>
+                    <span className="text-4xl font-medium tracking-tight">
+                      $250
+                    </span>
+                    <span className="text-gray-400">/month</span>
+                  </div>
                 </>
               ) : (
                 <>
-                  <span className="text-4xl font-medium tracking-tight">
-                    2400
+                  <span className="text-2xl font-medium tracking-tight line-through">
+                    $4800
                   </span>
-                  <span className="text-gray-400">/semiannual</span>
+                  <div>
+                    <span className="text-4xl font-medium tracking-tight">
+                      $2400
+                    </span>
+                    <span className="text-gray-400">/year</span>
+                  </div>
                 </>
               )}
             </div>
@@ -227,13 +248,12 @@ const Supervendor500 = () => {
                 <p className="font-medium text-sm">Bill Monthly</p>
                 <Switch checked={sixmth} onCheckedChange={setSixmth} />
                 <p className="text-sm font-medium flex flex-col">
-                  Bill Semiannually{" "}
-                  <span className="font-light">(20% off)</span>
+                  Bill Annually <span className="font-light">(20% off)</span>
                 </p>
               </div>
               {sixmth ? (
                 <p className="text-sm font-light text-center text-gray-400 mt-3">
-                  All semiannual plans are non-refundable.
+                  All annual plans are non-refundable.
                 </p>
               ) : (
                 <p className="text-sm font-light text-center text-balance text-gray-400 mt-3">

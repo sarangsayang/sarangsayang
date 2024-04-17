@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Switch } from "../ui/switch";
 import { BadgeCheck, CheckCircle, Crown, Loader2 } from "lucide-react";
@@ -18,6 +19,7 @@ import { toast } from "@/components/ui/use-toast";
 import { sendFeatVendForm } from "@/actions/sendFeatVendForm";
 import { Vendor } from "@/payload-types";
 import { sendTopVendForm } from "@/actions/sendTopVendForm";
+import MaxWidthWrapper from "../MaxWidthWrapper";
 
 interface PriceRangeProps {
   userRole: string;
@@ -94,6 +96,16 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
         </h1>
       </div>
 
+      <MaxWidthWrapper className="py-4 w-[1000px]">
+        <Image
+          width={1280}
+          height={360}
+          src="/ads/rayaslash.jpg"
+          alt="ad1"
+          unoptimized={true}
+        />
+      </MaxWidthWrapper>
+
       <Tabs
         defaultValue="plans"
         className="w-full flex flex-col items-center mt-3"
@@ -110,9 +122,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-                      {userRole === "vendor" ? (
-                        <Crown className="text-yellow-600" />
-                      ) : null}
+                      {!hasSub ? <Crown className="text-yellow-600" /> : null}
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>You are here!</p>
@@ -206,9 +216,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-                      {userRole != "vendor" ? (
-                        <Crown className="text-yellow-600" />
-                      ) : null}
+                      {hasSub ? <Crown className="text-yellow-600" /> : null}
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>You are here!</p>
@@ -219,10 +227,11 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
               <section className="flex flex-col w-full max-w-sm p-12 space-y-6 bg-white rounded-lg shadow-md">
                 {/* Price */}
                 <div className="flex-shrink-0">
-                  <span className="text-4xl font-medium tracking-tight">$</span>
+                  {/* <span className="text-4xl font-medium tracking-tight">$</span> */}
                   {!sixmth ? (
                     <>
-                      <span className="text-4xl font-medium tracking-tight">
+                      <span className="text-2xl font-medium tracking-tight line-through">
+                        $
                         {vendor.data && vendor.data.docs[0].category ? (
                           isFirst6Price(vendor.data.docs[0].category, {
                             monthly: 500,
@@ -232,21 +241,48 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                           <Loader2 className="animate-spin text-blue-500" />
                         )}
                       </span>
-                      <span className="text-gray-400">/month</span>
+                      <div>
+                        <span className="text-4xl font-medium tracking-tight">
+                          $
+                          {vendor.data && vendor.data.docs[0].category ? (
+                            isFirst6Price(vendor.data.docs[0].category, {
+                              monthly: 250,
+                              monthly5: 100,
+                            })
+                          ) : (
+                            <Loader2 className="animate-spin text-blue-500" />
+                          )}
+                        </span>
+                        <span className="text-gray-400">/month</span>
+                      </div>
                     </>
                   ) : (
                     <>
-                      <span className="text-4xl font-medium tracking-tight">
+                      <span className="text-2xl font-medium tracking-tight line-through">
+                        $
                         {vendor.data && vendor.data.docs[0].category ? (
                           isFirst6Price(vendor.data.docs[0].category, {
-                            monthly: 2400,
-                            monthly5: 960,
+                            monthly: 4800,
+                            monthly5: 1920,
                           })
                         ) : (
                           <Loader2 className="animate-spin text-blue-500" />
                         )}
                       </span>
-                      <span className="text-gray-400">/semiannual</span>
+                      <div>
+                        <span className="text-4xl font-medium tracking-tight">
+                          $
+                          {vendor.data && vendor.data.docs[0].category ? (
+                            isFirst6Price(vendor.data.docs[0].category, {
+                              monthly: 2400,
+                              monthly5: 960,
+                            })
+                          ) : (
+                            <Loader2 className="animate-spin text-blue-500" />
+                          )}
+                        </span>
+                        <span className="text-gray-400">/year</span>
+                      </div>
                     </>
                   )}
                 </div>
@@ -358,13 +394,13 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                     <p className="font-medium text-sm">Bill Monthly</p>
                     <Switch checked={sixmth} onCheckedChange={setSixmth} />
                     <p className="text-sm font-medium flex flex-col">
-                      Bill Semiannually{" "}
+                      Bill Annually{" "}
                       <span className="font-light">(20% off)</span>
                     </p>
                   </div>
                   {sixmth ? (
                     <p className="text-sm font-light text-center text-gray-400 mt-3">
-                      All semiannual plans are non-refundable.
+                      All annual plans are non-refundable.
                     </p>
                   ) : (
                     <p className="text-sm font-light text-center text-balance text-gray-400 mt-3">
@@ -385,9 +421,9 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         vendor.data && vendor.data.docs[0].category
                           ? isFirst6Link(vendor.data.docs[0].category, {
                               monthly:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1X6212875B7338605MYAEG5Y",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-6KB46908YR064624CMYPSQXI",
                               monthly5:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5X355723R76713212MYALTUI",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-8EF88898PD9390217MYPSQMI",
                             })
                           : "#"
                       }
@@ -402,9 +438,9 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         vendor.data && vendor.data.docs[0].category
                           ? isFirst6Link(vendor.data.docs[0].category, {
                               monthly:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-7T622914J1988522MMYAEGFY",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-0UM83666JP158954AMYPSPYY",
                               monthly5:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5MB55423SY4409800MYALSDI",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5XD908164R004932WMYPSPKI",
                             })
                           : "#"
                       }
