@@ -97,7 +97,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
         </h1>
       </div>
 
-      <MaxWidthWrapper className="py-4 w-[1000px]">
+      <MaxWidthWrapper className="py-4 lg:w-[1000px]">
         <Image
           width={1280}
           height={360}
