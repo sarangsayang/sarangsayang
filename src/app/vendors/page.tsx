@@ -43,6 +43,17 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
               user={user?.id}
             />
           ) : null}
+        </MaxWidthWrapper>bg-[url('/begonia-test.jpg')]
+      </div> */}
+
+      {/* <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg p-5">
+        <MaxWidthWrapper>
+          <div className="bg-[url('/begonia-test.jpg')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
+            <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
+              <h1 className="text-lg font-bold">Begonia Ballroom</h1>
+              <p className="text-slate-500 text-sm">Featured Venue</p>
+            </div>
+          </div>
         </MaxWidthWrapper>
       </div> */}
 
