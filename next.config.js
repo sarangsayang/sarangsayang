@@ -8,7 +8,8 @@ const nextConfig = {
             "sarangsayang.up.railway.app",
             "i.giphy.com",
             "www.sarangsayang.com",
-            "sarangsayang.com"
+            "sarangsayang.com",
+            "tiktok.com"
         ]
     },
     transpilePackages: ['html-to-text']

@@ -43,11 +43,11 @@ const HomepageAds = () => {
   return (
     <section>
       <Carousel
-        plugins={[
-          Autoplay({
-            delay: 3000,
-          }),
-        ]}
+      // plugins={[
+      //   Autoplay({
+      //     delay: 3000,
+      //   }),
+      // ]}
       >
         <CarouselContent>
           <CarouselItem className="flex flex-col items-center justify-center p-6">
@@ -67,7 +67,7 @@ const HomepageAds = () => {
               <Badge variant="outline">Ad</Badge>
             </div>
           </CarouselItem>
-          <CarouselItem className="flex flex-col items-center justify-center p-6">
+          {/* <CarouselItem className="flex flex-col items-center justify-center p-6">
             <Dialog>
               <DialogTrigger asChild>
                 <Image
@@ -169,7 +169,7 @@ const HomepageAds = () => {
             <div className="w-full flex justify-end">
               <Badge variant="outline">Ad</Badge>
             </div>
-          </CarouselItem>
+          </CarouselItem> */}
         </CarouselContent>
         <CarouselPrevious className="hidden bg-slate-200" />
         <CarouselNext className="hidden bg-slate-200" />

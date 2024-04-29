@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import Tiktok from "@/components/Tiktok";
 
 export default async function Home() {
   const nextCookies = cookies();
@@ -61,6 +62,10 @@ export default async function Home() {
       <MaxWidthWrapper>
         <Featured11 user={user?.id} />
         <HomepageAds />
+      </MaxWidthWrapper>
+
+      <Tiktok />
+      <MaxWidthWrapper>
         <ProductReel
           user={user?.id}
           title="Recently Added"
