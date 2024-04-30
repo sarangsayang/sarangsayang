@@ -69,19 +69,19 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
-    getAllVendorLikes: trpc_1.publicProcedure
-        .input(zod_1.z.object({ category: zod_1.z.string().optional() }))
+    getSimilarVendors: trpc_1.publicProcedure
+        .input(zod_1.z.object({ vendorId: zod_1.z.string(), category: zod_1.z.string() }))
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, results, allVendors, i, likesforthem, enquiriesforthem, messages, replies, x, messagesfromuser, repliesfromvendor, newData, allVendors, i, likesforthem, enquiriesforthem, messages, replies, x, messagesfromuser, repliesfromvendor, newData, top10;
+            var payload, results, rank, allVendors, i;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
                         results = [];
-                        if (!input.category) return [3 /*break*/, 13];
+                        rank = -1;
                         return [4 /*yield*/, payload.find({
                                 collection: "vendors",
                                 where: { category: { equals: input.category } },
@@ -89,28 +89,71 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         allVendors = (_b.sent()).docs;
+                        for (i = 0; i < allVendors.length; i++) {
+                            if (allVendors[i].id === input.vendorId) {
+                                rank = i;
+                                if (rank === 0) {
+                                    results.push(allVendors[1]);
+                                    results.push(allVendors[2]);
+                                    results.push(allVendors[3]);
+                                    results.push(allVendors[4]);
+                                }
+                                else if (rank === 1) {
+                                    results.push(allVendors[0]);
+                                    results.push(allVendors[2]);
+                                    results.push(allVendors[3]);
+                                    results.push(allVendors[4]);
+                                }
+                                else {
+                                    results.push(allVendors[rank - 2]);
+                                    results.push(allVendors[rank - 1]);
+                                    results.push(allVendors[rank + 1]);
+                                    results.push(allVendors[rank + 2]);
+                                }
+                            }
+                        }
+                        return [2 /*return*/, results];
+                }
+            });
+        });
+    }),
+    getAllVendorLikes: trpc_1.publicProcedure
+        .input(zod_1.z.object({ category: zod_1.z.string().optional() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, results, allVendors, i, enquiriesforthem, messages, replies, x, messagesfromuser, repliesfromvendor, newData, allVendors, i, enquiriesforthem, messages, replies, x, messagesfromuser, repliesfromvendor, newData;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        results = [];
+                        if (!input.category) return [3 /*break*/, 12];
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                where: { category: { equals: input.category } },
+                                sort: "-likes",
+                                limit: 10,
+                            })];
+                    case 2:
+                        allVendors = (_b.sent()).docs;
                         i = 0;
                         _b.label = 3;
                     case 3:
-                        if (!(i < allVendors.length)) return [3 /*break*/, 12];
+                        if (!(i < allVendors.length)) return [3 /*break*/, 11];
                         return [4 /*yield*/, payload.find({
-                                collection: "likes",
+                                collection: "chats",
                                 where: { vendor: { equals: allVendors[i].id } },
                             })];
                     case 4:
-                        likesforthem = (_b.sent()).docs;
-                        return [4 /*yield*/, payload.find({
-                                collection: "chats",
-                                where: { vendor: { equals: allVendors[i].id } },
-                            })];
-                    case 5:
                         enquiriesforthem = (_b.sent()).docs;
                         messages = 0;
                         replies = 0;
                         x = 0;
-                        _b.label = 6;
-                    case 6:
-                        if (!(x < enquiriesforthem.length)) return [3 /*break*/, 10];
+                        _b.label = 5;
+                    case 5:
+                        if (!(x < enquiriesforthem.length)) return [3 /*break*/, 9];
                         return [4 /*yield*/, payload.find({
                                 collection: "message",
                                 where: {
@@ -120,68 +163,63 @@ exports.appRouter = (0, trpc_1.router)({
                                             from: { equals: "user" },
                                         },
                                     ],
+                                },
+                            })];
+                    case 6:
+                        messagesfromuser = (_b.sent()).docs;
+                        messages = messages + messagesfromuser.length;
+                        return [4 /*yield*/, payload.find({
+                                collection: "message",
+                                where: {
+                                    chat: { equals: enquiriesforthem[x].id },
+                                    and: [
+                                        {
+                                            from: { equals: "vendor" },
+                                        },
+                                    ],
+                                    message: {
+                                        not_equals: "This vendor has not claimed their profile, please expect a delay in their response.",
+                                    },
                                 },
                             })];
                     case 7:
-                        messagesfromuser = (_b.sent()).docs;
-                        messages = messages + messagesfromuser.length;
-                        return [4 /*yield*/, payload.find({
-                                collection: "message",
-                                where: {
-                                    chat: { equals: enquiriesforthem[x].id },
-                                    and: [
-                                        {
-                                            from: { equals: "vendor" },
-                                        },
-                                    ],
-                                    message: {
-                                        not_equals: "This vendor has not claimed their profile, please expect a delay in their response.",
-                                    },
-                                },
-                            })];
-                    case 8:
                         repliesfromvendor = (_b.sent()).docs;
                         replies = replies + repliesfromvendor.length;
-                        _b.label = 9;
-                    case 9:
+                        _b.label = 8;
+                    case 8:
                         x++;
-                        return [3 /*break*/, 6];
-                    case 10:
-                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length, enquiries: messages, replies: replies });
+                        return [3 /*break*/, 5];
+                    case 9:
+                        newData = __assign(__assign({}, allVendors[i]), { enquiries: messages, replies: replies });
                         results.push(newData);
-                        _b.label = 11;
-                    case 11:
+                        _b.label = 10;
+                    case 10:
                         i++;
                         return [3 /*break*/, 3];
-                    case 12: return [3 /*break*/, 24];
-                    case 13: return [4 /*yield*/, payload.find({
+                    case 11: return [3 /*break*/, 22];
+                    case 12: return [4 /*yield*/, payload.find({
                             collection: "vendors",
-                            pagination: false,
+                            sort: "-likes",
+                            limit: 10,
                         })];
-                    case 14:
+                    case 13:
                         allVendors = (_b.sent()).docs;
                         i = 0;
-                        _b.label = 15;
-                    case 15:
-                        if (!(i < allVendors.length)) return [3 /*break*/, 24];
-                        return [4 /*yield*/, payload.find({
-                                collection: "likes",
-                                where: { vendor: { equals: allVendors[i].id } },
-                            })];
-                    case 16:
-                        likesforthem = (_b.sent()).docs;
+                        _b.label = 14;
+                    case 14:
+                        if (!(i < allVendors.length)) return [3 /*break*/, 22];
                         return [4 /*yield*/, payload.find({
                                 collection: "chats",
                                 where: { vendor: { equals: allVendors[i].id } },
                             })];
-                    case 17:
+                    case 15:
                         enquiriesforthem = (_b.sent()).docs;
                         messages = 0;
                         replies = 0;
                         x = 0;
-                        _b.label = 18;
-                    case 18:
-                        if (!(x < enquiriesforthem.length)) return [3 /*break*/, 22];
+                        _b.label = 16;
+                    case 16:
+                        if (!(x < enquiriesforthem.length)) return [3 /*break*/, 20];
                         return [4 /*yield*/, payload.find({
                                 collection: "message",
                                 where: {
@@ -193,7 +231,7 @@ exports.appRouter = (0, trpc_1.router)({
                                     ],
                                 },
                             })];
-                    case 19:
+                    case 17:
                         messagesfromuser = (_b.sent()).docs;
                         messages = messages + messagesfromuser.length;
                         return [4 /*yield*/, payload.find({
@@ -210,26 +248,21 @@ exports.appRouter = (0, trpc_1.router)({
                                     },
                                 },
                             })];
-                    case 20:
+                    case 18:
                         repliesfromvendor = (_b.sent()).docs;
                         replies = replies + repliesfromvendor.length;
+                        _b.label = 19;
+                    case 19:
+                        x++;
+                        return [3 /*break*/, 16];
+                    case 20:
+                        newData = __assign(__assign({}, allVendors[i]), { enquiries: messages, replies: replies });
+                        results.push(newData);
                         _b.label = 21;
                     case 21:
-                        x++;
-                        return [3 /*break*/, 18];
-                    case 22:
-                        newData = __assign(__assign({}, allVendors[i]), { likes: likesforthem.length, enquiries: messages, replies: replies });
-                        results.push(newData);
-                        _b.label = 23;
-                    case 23:
                         i++;
-                        return [3 /*break*/, 15];
-                    case 24:
-                        results.sort(function (a, b) {
-                            return b.likes - a.likes;
-                        });
-                        top10 = results.slice(0, 10);
-                        return [2 /*return*/, top10];
+                        return [3 /*break*/, 14];
+                    case 22: return [2 /*return*/, results];
                 }
             });
         });
@@ -2826,6 +2859,62 @@ exports.appRouter = (0, trpc_1.router)({
             });
         });
     }),
+    transferAllLikes: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        blank: zod_1.z.string(),
+    }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, allVendors, i, initLikes;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                pagination: false,
+                            })];
+                    case 2:
+                        allVendors = _b.sent();
+                        console.log("We have collated all vendors. We are doing it now");
+                        i = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(i < allVendors.docs.length)) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.find({
+                                collection: "likes",
+                                where: {
+                                    vendor: { equals: allVendors.docs[i].id },
+                                },
+                                pagination: false,
+                            })];
+                    case 4:
+                        initLikes = _b.sent();
+                        console.log("We are on: " + allVendors.docs[i].name);
+                        return [4 /*yield*/, payload.update({
+                                collection: "vendors",
+                                where: {
+                                    id: { equals: allVendors.docs[i].id },
+                                },
+                                data: {
+                                    likes: initLikes.docs.length,
+                                },
+                            })];
+                    case 5:
+                        _b.sent();
+                        _b.label = 6;
+                    case 6:
+                        i++;
+                        return [3 /*break*/, 3];
+                    case 7:
+                        console.log("Alhamdulillah we are done. We are going home.");
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }),
     addLike: trpc_1.publicProcedure
         .input(zod_1.z.object({
         vendorId: zod_1.z.string(),
@@ -2834,7 +2923,7 @@ exports.appRouter = (0, trpc_1.router)({
         .mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, alreadyLikedBefore;
+            var payload, vendor, alreadyLikedBefore;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -2850,15 +2939,48 @@ exports.appRouter = (0, trpc_1.router)({
                     case 2:
                         _b.sent();
                         return [4 /*yield*/, payload.find({
-                                collection: "likesArchive",
+                                collection: "vendors",
                                 where: {
-                                    vendor: { equals: input.vendorId },
-                                    user: { equals: input.userId },
+                                    id: { equals: input.vendorId },
                                 },
                             })];
                     case 3:
+                        vendor = _b.sent();
+                        if (!vendor.docs[0].likes) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "vendors",
+                                where: {
+                                    id: { equals: input.vendorId },
+                                },
+                                data: {
+                                    likes: vendor.docs[0].likes + 1,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 7];
+                    case 5: return [4 /*yield*/, payload.update({
+                            collection: "vendors",
+                            where: {
+                                id: { equals: input.vendorId },
+                            },
+                            data: {
+                                likes: 1,
+                            },
+                        })];
+                    case 6:
+                        _b.sent();
+                        _b.label = 7;
+                    case 7: return [4 /*yield*/, payload.find({
+                            collection: "likesArchive",
+                            where: {
+                                vendor: { equals: input.vendorId },
+                                user: { equals: input.userId },
+                            },
+                        })];
+                    case 8:
                         alreadyLikedBefore = _b.sent();
-                        if (!(alreadyLikedBefore.docs.length === 0)) return [3 /*break*/, 5];
+                        if (!(alreadyLikedBefore.docs.length === 0)) return [3 /*break*/, 10];
                         return [4 /*yield*/, payload.create({
                                 collection: "likesArchive",
                                 data: {
@@ -2866,10 +2988,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     user: input.userId,
                                 },
                             })];
-                    case 4:
+                    case 9:
                         _b.sent();
-                        _b.label = 5;
-                    case 5: return [2 /*return*/];
+                        _b.label = 10;
+                    case 10: return [2 /*return*/];
                 }
             });
         });

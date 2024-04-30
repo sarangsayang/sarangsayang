@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { ArrowUpAZ, ArrowDownAZ } from "lucide-react";
+import { ArrowUpAZ, ArrowDownAZ, ArrowDownWideNarrow } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface FilterProps {
@@ -36,6 +36,14 @@ const Filter = ({ sort, category }: FilterProps) => {
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
       <SelectContent>
+        <SelectItem value="-likes">
+          <p className="flex flex-row gap-3">
+            <span>
+              <ArrowDownWideNarrow className="w-5 h-5" />
+            </span>
+            Most Popular
+          </p>
+        </SelectItem>
         <SelectItem value="name">
           <p className="flex flex-row gap-3">
             <span>

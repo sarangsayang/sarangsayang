@@ -124,7 +124,13 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
             category,
             search,
             limit: 1000,
-            sort: sort === "-name" || sort === "name" ? sort : undefined,
+            sort:
+              sort === "-name" ||
+              sort === "name" ||
+              sort === "likes" ||
+              sort === "-likes"
+                ? sort
+                : undefined,
           }}
         />
       </MaxWidthWrapper>

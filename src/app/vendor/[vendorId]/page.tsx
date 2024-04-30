@@ -30,6 +30,7 @@ import DirectChat from "@/components/chat/DirectChat";
 import { User } from "@/payload-types";
 import { Button } from "@/components/ui/button";
 import ClaimVendor from "@/components/ClaimVendor";
+import SimilarVendors from "@/components/SimilarVendors";
 
 interface PageProps {
   params: {
@@ -328,15 +329,17 @@ const Page = async ({ params }: PageProps) => {
                     </TableCell>
                     <TableCell>
                       {packageItem.services ? (
-                        packageItem.services.map((service: string) => (
-                          <div
-                            key={service}
-                            className="flex gap-3 items-center"
-                          >
-                            <CheckCheck className="w-4 h-4 text-lime-500" />
-                            <p>{vendCatLabel(service)}</p>
-                          </div>
-                        ))
+                        packageItem.services.map((service: string) =>
+                          vendCatLabel(service) ? (
+                            <div
+                              key={service}
+                              className="flex gap-3 items-center"
+                            >
+                              <CheckCheck className="w-4 h-4 text-lime-500" />
+                              <p>{vendCatLabel(service)}</p>
+                            </div>
+                          ) : null
+                        )
                       ) : (
                         <p className="text-slate-400 italic">
                           Package Services not disclosed
@@ -367,13 +370,14 @@ const Page = async ({ params }: PageProps) => {
             </Table>
           ) : null}
 
-          <ProductReel
+          {/* <ProductReel
             user={user?.id}
             query={{ category: product.category, limit: 4 }}
             title={`Browse other vendors`}
             subtitle={`While you are here, check out these other ${smallCapsLabel.toLowerCase()} too!`}
             vendorName={product.name}
-          />
+          /> */}
+          <SimilarVendors vendor={product} loggedUser={user} />
         </MaxWidthWrapper>
       </>
     );

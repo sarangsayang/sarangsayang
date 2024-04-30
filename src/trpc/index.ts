@@ -15,6 +15,45 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  getSimilarVendors: publicProcedure
+    .input(z.object({ vendorId: z.string(), category: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+      let results = [];
+      let rank = -1;
+
+      const { docs: allVendors } = await payload.find({
+        collection: "vendors",
+        where: { category: { equals: input.category } },
+        pagination: false,
+      });
+
+      for (let i = 0; i < allVendors.length; i++) {
+        if (allVendors[i].id === input.vendorId) {
+          rank = i;
+
+          if (rank === 0) {
+            results.push(allVendors[1]);
+            results.push(allVendors[2]);
+            results.push(allVendors[3]);
+            results.push(allVendors[4]);
+          } else if (rank === 1) {
+            results.push(allVendors[0]);
+            results.push(allVendors[2]);
+            results.push(allVendors[3]);
+            results.push(allVendors[4]);
+          } else {
+            results.push(allVendors[rank - 2]);
+            results.push(allVendors[rank - 1]);
+            results.push(allVendors[rank + 1]);
+            results.push(allVendors[rank + 2]);
+          }
+        }
+      }
+
+      return results;
+    }),
+
   getAllVendorLikes: publicProcedure
     .input(z.object({ category: z.string().optional() }))
     .query(async ({ input }) => {
@@ -25,15 +64,11 @@ export const appRouter = router({
         const { docs: allVendors } = await payload.find({
           collection: "vendors",
           where: { category: { equals: input.category } },
-          pagination: false,
+          sort: "-likes",
+          limit: 10,
         });
 
         for (let i = 0; i < allVendors.length; i++) {
-          const { docs: likesforthem } = await payload.find({
-            collection: "likes",
-            where: { vendor: { equals: allVendors[i].id } },
-          });
-
           const { docs: enquiriesforthem } = await payload.find({
             collection: "chats",
             where: { vendor: { equals: allVendors[i].id } },
@@ -78,7 +113,6 @@ export const appRouter = router({
 
           const newData = {
             ...allVendors[i],
-            likes: likesforthem.length,
             enquiries: messages,
             replies: replies,
           };
@@ -88,15 +122,11 @@ export const appRouter = router({
       } else {
         const { docs: allVendors } = await payload.find({
           collection: "vendors",
-          pagination: false,
+          sort: "-likes",
+          limit: 10,
         });
 
         for (let i = 0; i < allVendors.length; i++) {
-          const { docs: likesforthem } = await payload.find({
-            collection: "likes",
-            where: { vendor: { equals: allVendors[i].id } },
-          });
-
           const { docs: enquiriesforthem } = await payload.find({
             collection: "chats",
             where: { vendor: { equals: allVendors[i].id } },
@@ -141,7 +171,6 @@ export const appRouter = router({
 
           const newData = {
             ...allVendors[i],
-            likes: likesforthem.length,
             enquiries: messages,
             replies: replies,
           };
@@ -150,13 +179,7 @@ export const appRouter = router({
         }
       }
 
-      results.sort(function (a, b) {
-        return b.likes - a.likes;
-      });
-
-      const top10 = results.slice(0, 10);
-
-      return top10;
+      return results;
     }),
 
   getClicks: publicProcedure
@@ -2134,6 +2157,47 @@ export const appRouter = router({
       });
     }),
 
+  transferAllLikes: publicProcedure
+    .input(
+      z.object({
+        blank: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const allVendors = await payload.find({
+        collection: "vendors",
+        pagination: false,
+      });
+
+      console.log("We have collated all vendors. We are doing it now");
+
+      for (let i = 0; i < allVendors.docs.length; i++) {
+        const initLikes = await payload.find({
+          collection: "likes",
+          where: {
+            vendor: { equals: allVendors.docs[i].id },
+          },
+          pagination: false,
+        });
+
+        console.log("We are on: " + allVendors.docs[i].name);
+
+        await payload.update({
+          collection: "vendors",
+          where: {
+            id: { equals: allVendors.docs[i].id },
+          },
+          data: {
+            likes: initLikes.docs.length,
+          },
+        });
+      }
+
+      console.log("Alhamdulillah we are done. We are going home.");
+    }),
+
   addLike: publicProcedure
     .input(
       z.object({
@@ -2151,6 +2215,35 @@ export const appRouter = router({
           user: input.userId,
         },
       });
+
+      const vendor = await payload.find({
+        collection: "vendors",
+        where: {
+          id: { equals: input.vendorId },
+        },
+      });
+
+      if (vendor.docs[0].likes) {
+        await payload.update({
+          collection: "vendors",
+          where: {
+            id: { equals: input.vendorId },
+          },
+          data: {
+            likes: vendor.docs[0].likes + 1,
+          },
+        });
+      } else {
+        await payload.update({
+          collection: "vendors",
+          where: {
+            id: { equals: input.vendorId },
+          },
+          data: {
+            likes: 1,
+          },
+        });
+      }
 
       const alreadyLikedBefore = await payload.find({
         collection: "likesArchive",

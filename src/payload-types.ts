@@ -70,6 +70,7 @@ export interface Vendor {
     id?: string | null;
   }[];
   clicks?: number | null;
+  likes?: number | null;
   updatedAt: string;
   createdAt: string;
 }

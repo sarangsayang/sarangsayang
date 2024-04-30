@@ -126,5 +126,13 @@ export const Vendors: CollectionConfig = {
         condition: () => false,
       },
     },
+    {
+      name: "likes",
+      type: "number",
+      required: false,
+      admin: {
+        condition: () => false,
+      },
+    },
   ],
 };

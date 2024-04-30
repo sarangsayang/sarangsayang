@@ -7,6 +7,7 @@ import Image from "next/image";
 import LikeBook from "@/components/admin/LikeBook";
 import { VENDOR_CATEGORIES } from "@/config";
 import LikeBookCat from "@/components/admin/LikeBookCategories";
+import LikesTransfer from "@/components/LikesTransfer";
 
 const kylokloud = async () => {
   const nextCookies = cookies();
@@ -46,16 +47,19 @@ const kylokloud = async () => {
       </div>
 
       {user && user.role === "admin" ? (
-        <div className="flex flex-col gap-6">
-          <LikeBook />
-          {VENDOR_CATEGORIES.map((label) => (
-            <LikeBookCat
-              category={label.value}
-              label={label.label}
-              key={label.value}
-            />
-          ))}
-        </div>
+        <>
+          {/* <LikesTransfer /> */}
+          <div className="flex flex-col gap-6">
+            <LikeBook />
+            {VENDOR_CATEGORIES.map((label) => (
+              <LikeBookCat
+                category={label.value}
+                label={label.label}
+                key={label.value}
+              />
+            ))}
+          </div>
+        </>
       ) : (
         <MaxWidthWrapper>
           <div className="w-full rounded-lg p-7 bg-red-300 flex flex-row items-center justify-between">
