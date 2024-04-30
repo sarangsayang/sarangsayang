@@ -9,6 +9,7 @@ import Search from "@/components/Search";
 import FeaturedReel from "@/components/FeaturedReel";
 import { BadgeCheck, Heart } from "lucide-react";
 import Link from "next/link";
+import PhotoVideoBanner from "@/components/PhotoVideoBanner";
 
 type Param = string | string[] | undefined;
 
@@ -46,16 +47,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
         </MaxWidthWrapper>bg-[url('/begonia-test.jpg')]
       </div> */}
 
-      {/* <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg p-5">
-        <MaxWidthWrapper>
-          <div className="bg-[url('/begonia-test.jpg')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
-            <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
-              <h1 className="text-lg font-bold">Begonia Ballroom</h1>
-              <p className="text-slate-500 text-sm">Featured Venue</p>
-            </div>
-          </div>
-        </MaxWidthWrapper>
-      </div> */}
+      {category === "photovideo" ? <PhotoVideoBanner /> : null}
 
       <MaxWidthWrapper>
         <div className="py-6 grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">

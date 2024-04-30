@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { Pagination } from "swiper/modules";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Skeleton } from "./ui/skeleton";
 
 interface ImageSliderProps {
   urls: string[];
@@ -92,7 +91,7 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
               className="-z-10 h-full w-full object-cover object-center"
               src={url}
               alt="Product image"
-              unoptimized={false}
+              unoptimized={true}
             />
           </SwiperSlide>
         ))}
