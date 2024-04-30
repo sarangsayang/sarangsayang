@@ -31,6 +31,7 @@ import { User } from "@/payload-types";
 import { Button } from "@/components/ui/button";
 import ClaimVendor from "@/components/ClaimVendor";
 import SimilarVendors from "@/components/SimilarVendors";
+import IndvImageSlider from "@/components/IndvImageSlider";
 
 interface PageProps {
   params: {
@@ -181,7 +182,7 @@ const Page = async ({ params }: PageProps) => {
           <MaxWidthWrapper>
             <div className="grid grid-cols-1 md:grid-cols-2 py-3 items-center">
               <div className="aspect-square rounded-lg">
-                <ImageSlider urls={validUrls} />
+                <IndvImageSlider urls={validUrls} />
                 <p className="bg-white text-sm italic font-semibold p-4 mt-3 rounded-md shadow-md mx-4">
                   Photo Credits: {product.name}&apos;s
                   Instagram/Facebook/Website

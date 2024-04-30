@@ -14,7 +14,7 @@ interface ImageSliderProps {
   urls: string[];
 }
 
-const ImageSlider = ({ urls }: ImageSliderProps) => {
+const IndvImageSlider = ({ urls }: ImageSliderProps) => {
   const [swiper, setSwiper] = useState<null | SwiperType>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -91,7 +91,7 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
               className="-z-10 h-full w-full object-cover object-center"
               src={url}
               alt="Product image"
-              unoptimized={false}
+              unoptimized={true}
             />
           </SwiperSlide>
         ))}
@@ -100,4 +100,4 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
   );
 };
 
-export default ImageSlider;
+export default IndvImageSlider;
