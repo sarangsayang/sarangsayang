@@ -20,7 +20,7 @@ const Supervendor500 = () => {
         </h1>
       </div>
 
-      <MaxWidthWrapper className="py-4 lg:w-[1000px]">
+      {/* <MaxWidthWrapper className="py-4 lg:w-[1000px]">
         <Image
           width={1280}
           height={360}
@@ -28,7 +28,7 @@ const Supervendor500 = () => {
           alt="ad1"
           unoptimized={true}
         />
-      </MaxWidthWrapper>
+      </MaxWidthWrapper> */}
 
       <div className="flex flex-col items-center justify-center mt-5 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
         <div className="flex flex-col items-center gap-2">
@@ -117,30 +117,30 @@ const Supervendor500 = () => {
             <div className="flex-shrink-0">
               {!sixmth ? (
                 <>
-                  <span className="text-2xl font-medium tracking-tight line-through">
+                  {/* <span className="text-2xl font-medium tracking-tight line-through">
                     $500
-                  </span>
+                  </span> */}
                   <div>
                     <span className="text-4xl font-medium tracking-tight">
-                      $250
+                      $500
                     </span>
                     <span className="text-gray-400">/month</span>
                   </div>
                 </>
               ) : (
                 <>
-                  <span className="text-2xl font-medium tracking-tight line-through">
+                  {/* <span className="text-2xl font-medium tracking-tight line-through">
                     $4800
-                  </span>
+                  </span> */}
                   <div>
                     <span className="text-4xl font-medium tracking-tight">
-                      $2400
+                      $4800
                     </span>
                     <span className="text-gray-400">/year</span>
                   </div>
                 </>
               )}
-              <Badge variant="outline">One Year Plan</Badge>
+              {/* <Badge variant="outline">One Year Plan</Badge> */}
             </div>
 
             {/* Name and DESC */}

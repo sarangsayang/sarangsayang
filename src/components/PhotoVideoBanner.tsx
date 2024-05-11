@@ -29,7 +29,7 @@ const PhotoVideoBanner = () => {
                 />
               </div>
               <p className="text-slate-500 text-sm">
-                Check out this Photo & Video vendor now!
+                Sarang Sayang Featured Vendor
               </p>
             </div>
           </div>
