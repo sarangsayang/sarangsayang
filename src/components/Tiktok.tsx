@@ -7,7 +7,7 @@ const Tiktok = () => {
       <MaxWidthWrapper>
         <div className="w-full h-[800px] flex flex-row items-center">
           <iframe
-            src="https://www.tiktok.com/embed/7340614540448550152"
+            src="https://www.tiktok.com/embed/7371436905285668104"
             allow="encrypted-media;"
             className="w-full md:w-[50%] lg:w-[33%] h-full border-0 bg-transparent"
           ></iframe>
