@@ -97,15 +97,15 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
         </h1>
       </div>
 
-      {/* <MaxWidthWrapper className="py-4 lg:w-[1000px]">
+      <MaxWidthWrapper className="py-4 lg:w-[1000px]">
         <Image
           width={1280}
           height={360}
-          src="/ads/rayaslash.jpg"
+          src="/ads/ssmyp.jpg"
           alt="ad1"
           unoptimized={true}
         />
-      </MaxWidthWrapper> */}
+      </MaxWidthWrapper>
 
       <Tabs
         defaultValue="plans"
@@ -231,7 +231,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                   {/* <span className="text-4xl font-medium tracking-tight">$</span> */}
                   {!sixmth ? (
                     <>
-                      {/* <span className="text-2xl font-medium tracking-tight line-through">
+                      <span className="text-2xl font-medium tracking-tight line-through">
                         $
                         {vendor.data && vendor.data.docs[0].category ? (
                           isFirst6Price(vendor.data.docs[0].category, {
@@ -241,14 +241,14 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         ) : (
                           <Loader2 className="animate-spin text-blue-500" />
                         )}
-                      </span> */}
+                      </span>
                       <div>
                         <span className="text-4xl font-medium tracking-tight">
                           $
                           {vendor.data && vendor.data.docs[0].category ? (
                             isFirst6Price(vendor.data.docs[0].category, {
-                              monthly: 500,
-                              monthly5: 200,
+                              monthly: 300,
+                              monthly5: 120,
                             })
                           ) : (
                             <Loader2 className="animate-spin text-blue-500" />
@@ -259,7 +259,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                     </>
                   ) : (
                     <>
-                      {/* <span className="text-2xl font-medium tracking-tight line-through">
+                      <span className="text-2xl font-medium tracking-tight line-through">
                         $
                         {vendor.data && vendor.data.docs[0].category ? (
                           isFirst6Price(vendor.data.docs[0].category, {
@@ -269,14 +269,14 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         ) : (
                           <Loader2 className="animate-spin text-blue-500" />
                         )}
-                      </span> */}
+                      </span>
                       <div>
                         <span className="text-4xl font-medium tracking-tight">
                           $
                           {vendor.data && vendor.data.docs[0].category ? (
                             isFirst6Price(vendor.data.docs[0].category, {
-                              monthly: 4800,
-                              monthly5: 1920,
+                              monthly: 2880,
+                              monthly5: 1152,
                             })
                           ) : (
                             <Loader2 className="animate-spin text-blue-500" />
@@ -286,7 +286,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       </div>
                     </>
                   )}
-                  {/* <Badge variant="outline">One Year Plan</Badge> */}
+                  <Badge variant="outline">One Year Plan</Badge>
                 </div>
 
                 {/* Name and DESC */}
@@ -423,9 +423,9 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         vendor.data && vendor.data.docs[0].category
                           ? isFirst6Link(vendor.data.docs[0].category, {
                               monthly:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-7WL47776PJ9973641MY7XYGY",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3F979231P1636913GMZMYFKY",
                               monthly5:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-6NG50660E61244843MY7XYQQ",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-88Y08545BF3266141MZMYFCY",
                             })
                           : "#"
                       }
@@ -440,9 +440,9 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         vendor.data && vendor.data.docs[0].category
                           ? isFirst6Link(vendor.data.docs[0].category, {
                               monthly:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-7T622914J1988522MMYAEGFY",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5622976628691122EMZMYESY",
                               monthly5:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-04908742FN804964UMY7XZDY",
+                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9VD114324H6016127MZMYEJA",
                             })
                           : "#"
                       }
