@@ -134,7 +134,7 @@ const Supervendor200 = () => {
                   </span>
                   <div>
                     <span className="text-4xl font-medium tracking-tight">
-                      $1152
+                      $1150
                     </span>
                     <span className="text-gray-400">/year</span>
                   </div>

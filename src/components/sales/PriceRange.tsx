@@ -276,7 +276,7 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                           {vendor.data && vendor.data.docs[0].category ? (
                             isFirst6Price(vendor.data.docs[0].category, {
                               monthly: 2880,
-                              monthly5: 1152,
+                              monthly5: 1150,
                             })
                           ) : (
                             <Loader2 className="animate-spin text-blue-500" />
