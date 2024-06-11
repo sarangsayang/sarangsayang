@@ -163,6 +163,7 @@ const BudgetPullCont = ({ budget }: BudgetPullContProps) => {
         </div>
       </TableCell>
       <TableCell>
+        {/* <p>This?</p> */}
         <div className="flex w-full items-center space-x-1">
           <Input
             type="number"

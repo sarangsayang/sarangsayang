@@ -912,12 +912,14 @@ export const appRouter = router({
       let dates = [];
 
       for (let i = 0; i < results.docs.length; i++) {
-        dates.push(results.docs[i].date);
-      }
-
-      for (let i = 0; i < dates.length; i++) {
-        if (dates[i] === dates[i + 1]) {
-          dates.splice(i + 1, 1);
+        if (dates.length === 0) {
+          dates.push(results.docs[i].date);
+        } else if (dates.length > 0) {
+          for (let i = 0; i < dates.length; i++) {
+            if (dates[i] === dates[i + 1]) {
+              dates.splice(i + 1, 1);
+            }
+          }
         }
       }
 

@@ -1247,7 +1247,7 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, results, dates, i, i;
+            var payload, results, dates, i, i_3;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -1263,11 +1263,15 @@ exports.appRouter = (0, trpc_1.router)({
                         results = _b.sent();
                         dates = [];
                         for (i = 0; i < results.docs.length; i++) {
-                            dates.push(results.docs[i].date);
-                        }
-                        for (i = 0; i < dates.length; i++) {
-                            if (dates[i] === dates[i + 1]) {
-                                dates.splice(i + 1, 1);
+                            if (dates.length === 0) {
+                                dates.push(results.docs[i].date);
+                            }
+                            else if (dates.length > 0) {
+                                for (i_3 = 0; i_3 < dates.length; i_3++) {
+                                    if (dates[i_3] === dates[i_3 + 1]) {
+                                        dates.splice(i_3 + 1, 1);
+                                    }
+                                }
                             }
                         }
                         return [2 /*return*/, dates];
