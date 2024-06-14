@@ -45,7 +45,7 @@ const GuestPull = ({ planId }: GuestPullProps) => {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-[400px]">Guest(s)</TableHead>
-                    <TableHead className="w-[100px]">Number of Pax</TableHead>
+                    <TableHead className="w-[150px]">Number of Pax</TableHead>
                     <TableHead className="w-[100px]">Invitation Sent</TableHead>
                     <TableHead className="w-[300px]">Attendance</TableHead>
                     <TableHead className="w-[70px]"></TableHead>
