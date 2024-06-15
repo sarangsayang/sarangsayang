@@ -55,7 +55,7 @@ const GuestScoreboard = ({ guests }: GuestScoreboardProps) => {
 
   return (
     <>
-      <div className="w-full grid grid-cols-2 lg:grid-cols-4 justify-center lg:gap-10 pb-6">
+      <div className="w-full grid grid-cols-2 justify-items-center gap-4 lg:grid-cols-4 lg:gap-10 pb-6">
         <div className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-lg shadow-lg border-2 flex flex-col justify-center items-center">
           <div className="flex flex-col items-center">
             <h1 className="text-xl">{invited}</h1>
@@ -82,8 +82,8 @@ const GuestScoreboard = ({ guests }: GuestScoreboardProps) => {
         </div>
       </div>
 
-      <div className="w-full hidden lg:flex flex-row justify-center gap-10 pb-6">
-        <div className="bg-pink-100 w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-lg shadow-lg border-2 flex flex-col justify-center items-center">
+      <div className="w-full flex flex-row justify-center gap-4 lg:gap-10 pb-6">
+        <div className="bg-gradient-to-t from-pink-100 to-white w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-lg shadow-lg border-2 flex flex-col justify-center items-center">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Bride&apos;s Side</h1>
             <h1 className="text-xl">{bride + " Pax"}</h1>
@@ -97,7 +97,7 @@ const GuestScoreboard = ({ guests }: GuestScoreboardProps) => {
           </div>
           <p className="italic text-slate-400">{actPercent(others)}</p>
         </div>
-        <div className="bg-cyan-100 w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-lg shadow-lg border-2 flex flex-col justify-center items-center">
+        <div className="bg-gradient-to-t from-cyan-100 to-white w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-lg shadow-lg border-2 flex flex-col justify-center items-center">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Groom&apos;s Side</h1>
             <h1 className="text-xl">{groom + " Pax"}</h1>

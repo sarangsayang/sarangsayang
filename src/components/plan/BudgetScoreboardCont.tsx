@@ -5,17 +5,22 @@ import BudgetScoreboard from "./BudgetScoreboard";
 
 interface BudgetScoreboardContProps {
   planId: string;
+  version: number;
 }
 
-const BudgetScoreboardCont = ({ planId }: BudgetScoreboardContProps) => {
+const BudgetScoreboardCont = ({
+  planId,
+  version,
+}: BudgetScoreboardContProps) => {
   const budgets = trpc.getBudget.useQuery({
     planId: planId,
+    version: version,
   });
 
   const results = budgets.data?.docs;
 
   return (
-    <>
+    <div className="py-4">
       {results ? (
         <BudgetScoreboard budgets={results} />
       ) : (
@@ -40,7 +45,7 @@ const BudgetScoreboardCont = ({ planId }: BudgetScoreboardContProps) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

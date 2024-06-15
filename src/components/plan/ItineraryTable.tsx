@@ -30,10 +30,14 @@ const ItineraryTable = ({ title, planId }: ItineraryTableProps) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="md:w-[140px]">Time</TableHead>
-            <TableHead className="md:w-[300px]">Event</TableHead>
-            <TableHead className="md:w-[240px]">Location</TableHead>
-            <TableHead className="md:w-[350px]">Details</TableHead>
+            <TableHead className="min-w-[150px] md:w-[140px]">Time</TableHead>
+            <TableHead className="min-w-[300px] md:w-[300px]">Event</TableHead>
+            <TableHead className="min-w-[240px] md:w-[240px]">
+              Location
+            </TableHead>
+            <TableHead className="min-w-[350px] md:w-[350px]">
+              Details
+            </TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>

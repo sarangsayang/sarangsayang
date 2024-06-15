@@ -19,7 +19,7 @@ const GuestScoreboardCont = ({ planId }: GuestScoreboardProps) => {
       {results ? (
         <GuestScoreboard guests={results} />
       ) : (
-        <div className="w-full grid grid-cols-2 lg:grid-cols-4 justify-center lg:gap-10 pb-6">
+        <div className="w-full grid grid-cols-2 justify-items-center gap-4 lg:grid-cols-4 lg:gap-10 pb-6">
           <div className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-lg shadow-lg border-2 flex flex-col justify-center items-center">
             <div className="flex flex-col items-center">
               <h1 className="text-xl">0</h1>

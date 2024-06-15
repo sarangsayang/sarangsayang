@@ -1,11 +1,10 @@
-import { date, z } from "zod";
+import { z } from "zod";
 import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
 import { Package, User, Vendor } from "@/payload-types";
-import { format } from "date-fns";
-import { sendMessageUpdateFromUser } from "@/actions/sendMessageUpdateFromUser";
+import { version } from "os";
 import { equal } from "assert";
 
 function formatWithLeadingZero(num: number) {
@@ -14,6 +13,56 @@ function formatWithLeadingZero(num: number) {
 
 export const appRouter = router({
   auth: authRouter,
+
+  removeItemsFromPlan: publicProcedure
+    .input(z.object({ planId: z.string(), version: z.number() }))
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      if (input.version === 1) {
+        await payload.delete({
+          collection: "budget",
+          where: {
+            plan: { equals: input.planId },
+            and: [{ ver: { exists: false } }],
+          },
+        });
+      } else {
+        await payload.delete({
+          collection: "budget",
+          where: {
+            plan: { equals: input.planId },
+            and: [{ ver: { equals: input.version } }],
+          },
+        });
+      }
+    }),
+
+  addNewBudgetVersion: publicProcedure
+    .input(z.object({ planId: z.string() }))
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const { docs: plan } = await payload.find({
+        collection: "plans",
+        where: { id: { equals: input.planId } },
+        pagination: false,
+      });
+
+      if (!plan[0].totalVer || plan[0].totalVer === 0) {
+        await payload.update({
+          collection: "plans",
+          where: { id: { equals: input.planId } },
+          data: { totalVer: 2 },
+        });
+      } else {
+        await payload.update({
+          collection: "plans",
+          where: { id: { equals: input.planId } },
+          data: { totalVer: plan[0].totalVer + 1 },
+        });
+      }
+    }),
 
   getSimilarVendors: publicProcedure
     .input(z.object({ vendorId: z.string(), category: z.string() }))
@@ -1159,6 +1208,7 @@ export const appRouter = router({
         details: z.string().optional(),
         plannedCost: z.number().optional(),
         actualCost: z.number().optional(),
+        ver: z.number().optional(),
       })
     )
     .mutation(async ({ input }) => {
@@ -1180,35 +1230,67 @@ export const appRouter = router({
         actualCost = 0;
       }
 
-      await payload.create({
-        collection: "budget",
-        data: {
-          plan: input.planId,
-          for: input.for,
-          cat: input.cat,
-          details: details || "-",
-          plannedCost: plannedCost,
-          actualCost: actualCost,
-          amountPaid: 0,
-        },
-      });
+      if (!input.ver) {
+        await payload.create({
+          collection: "budget",
+          data: {
+            plan: input.planId,
+            for: input.for,
+            cat: input.cat,
+            details: details || "-",
+            plannedCost: plannedCost,
+            actualCost: actualCost,
+            amountPaid: 0,
+          },
+        });
+      } else {
+        await payload.create({
+          collection: "budget",
+          data: {
+            plan: input.planId,
+            for: input.for,
+            cat: input.cat,
+            details: details || "-",
+            plannedCost: plannedCost,
+            actualCost: actualCost,
+            amountPaid: 0,
+            ver: input.ver,
+          },
+        });
+      }
     }),
 
   getBudget: publicProcedure
     .input(
       z.object({
         planId: z.string(),
+        version: z.number().optional(),
       })
     )
     .query(async ({ input }) => {
       const payload = await getPayloadClient();
 
-      return await payload.find({
-        collection: "budget",
-        where: { plan: { equals: input.planId } },
-        pagination: false,
-        sort: "createdAt",
-      });
+      if (input.version && input.version === 1) {
+        return await payload.find({
+          collection: "budget",
+          where: {
+            plan: { equals: input.planId },
+            and: [{ ver: { exists: false } }],
+          },
+          pagination: false,
+          sort: "-plannedCost",
+        });
+      } else {
+        return await payload.find({
+          collection: "budget",
+          where: {
+            plan: { equals: input.planId },
+            and: [{ ver: { equals: input.version } }],
+          },
+          pagination: false,
+          sort: "-plannedCost",
+        });
+      }
     }),
 
   removeTodo: publicProcedure

@@ -188,7 +188,7 @@ const Page = async ({ params }: PageProps) => {
                   Instagram/Facebook/Website
                 </p>
               </div>
-              <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:gap-x-8 lg:px-14">
+              <div className="mx-auto max-w-2xl px-4 py-4 lg:py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:gap-x-8 lg:px-14">
                 {/* Product Details */}
                 <div className="lg:max-w-lg lg:self-end lg:min-w-96">
                   <ol className="hidden md:flex items-center space-x-2 pb-10">

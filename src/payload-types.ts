@@ -166,6 +166,7 @@ export interface LikesArchive {
 export interface Plan {
   id: string;
   user: (string | User)[];
+  totalVer?: number | null;
   brideName?: string | null;
   groomName?: string | null;
   weddingDate?: string | null;
@@ -255,6 +256,7 @@ export interface Todo {
 export interface Budget {
   id: string;
   plan: string | Plan;
+  ver?: number | null;
   for: string;
   cat: string;
   details: string;

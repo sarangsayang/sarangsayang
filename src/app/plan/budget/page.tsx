@@ -1,7 +1,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { getServerSideUser } from "@/lib/payload-utils";
 import { cookies } from "next/headers";
-import { Check, Loader } from "lucide-react";
+import { Check } from "lucide-react";
 import BudgetCont from "@/components/plan/BudgetCont";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

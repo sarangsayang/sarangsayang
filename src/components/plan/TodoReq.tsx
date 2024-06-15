@@ -44,7 +44,7 @@ const TodoReq = ({ id, Todo }: TodoReqProps) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-2 md:grid-cols-10 md:gap-0">
+    <div className="p-3 lg:p-0 grid grid-cols-3 gap-2 md:grid-cols-10 md:gap-0 bg-slate-200 shadow-md lg:shadow-none lg:bg-white">
       <div className="col-span-3 md:px-4 flex flex-row items-center">
         <p className="px-2 font-medium">{Todo}</p>
       </div>

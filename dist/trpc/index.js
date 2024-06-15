@@ -69,6 +69,83 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    removeItemsFromPlan: trpc_1.publicProcedure
+        .input(zod_1.z.object({ planId: zod_1.z.string(), version: zod_1.z.number() }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!(input.version === 1)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.delete({
+                                collection: "budget",
+                                where: {
+                                    plan: { equals: input.planId },
+                                    and: [{ ver: { exists: false } }],
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, payload.delete({
+                            collection: "budget",
+                            where: {
+                                plan: { equals: input.planId },
+                                and: [{ ver: { equals: input.version } }],
+                            },
+                        })];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    addNewBudgetVersion: trpc_1.publicProcedure
+        .input(zod_1.z.object({ planId: zod_1.z.string() }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, plan;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "plans",
+                                where: { id: { equals: input.planId } },
+                                pagination: false,
+                            })];
+                    case 2:
+                        plan = (_b.sent()).docs;
+                        if (!(!plan[0].totalVer || plan[0].totalVer === 0)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, payload.update({
+                                collection: "plans",
+                                where: { id: { equals: input.planId } },
+                                data: { totalVer: 2 },
+                            })];
+                    case 3:
+                        _b.sent();
+                        return [3 /*break*/, 6];
+                    case 4: return [4 /*yield*/, payload.update({
+                            collection: "plans",
+                            where: { id: { equals: input.planId } },
+                            data: { totalVer: plan[0].totalVer + 1 },
+                        })];
+                    case 5:
+                        _b.sent();
+                        _b.label = 6;
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    }),
     getSimilarVendors: trpc_1.publicProcedure
         .input(zod_1.z.object({ vendorId: zod_1.z.string(), category: zod_1.z.string() }))
         .query(function (_a) {
@@ -1608,6 +1685,7 @@ exports.appRouter = (0, trpc_1.router)({
         details: zod_1.z.string().optional(),
         plannedCost: zod_1.z.number().optional(),
         actualCost: zod_1.z.number().optional(),
+        ver: zod_1.z.number().optional(),
     }))
         .mutation(function (_a) {
         var input = _a.input;
@@ -1630,6 +1708,7 @@ exports.appRouter = (0, trpc_1.router)({
                         if (!input.actualCost) {
                             actualCost = 0;
                         }
+                        if (!!input.ver) return [3 /*break*/, 3];
                         return [4 /*yield*/, payload.create({
                                 collection: "budget",
                                 data: {
@@ -1644,7 +1723,24 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         _b.sent();
-                        return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, payload.create({
+                            collection: "budget",
+                            data: {
+                                plan: input.planId,
+                                for: input.for,
+                                cat: input.cat,
+                                details: details || "-",
+                                plannedCost: plannedCost,
+                                actualCost: actualCost,
+                                amountPaid: 0,
+                                ver: input.ver,
+                            },
+                        })];
+                    case 4:
+                        _b.sent();
+                        _b.label = 5;
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -1652,6 +1748,7 @@ exports.appRouter = (0, trpc_1.router)({
     getBudget: trpc_1.publicProcedure
         .input(zod_1.z.object({
         planId: zod_1.z.string(),
+        version: zod_1.z.number().optional(),
     }))
         .query(function (_a) {
         var input = _a.input;
@@ -1662,13 +1759,27 @@ exports.appRouter = (0, trpc_1.router)({
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
+                        if (!(input.version && input.version === 1)) return [3 /*break*/, 3];
                         return [4 /*yield*/, payload.find({
                                 collection: "budget",
-                                where: { plan: { equals: input.planId } },
+                                where: {
+                                    plan: { equals: input.planId },
+                                    and: [{ ver: { exists: false } }],
+                                },
                                 pagination: false,
-                                sort: "createdAt",
+                                sort: "-plannedCost",
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
+                    case 3: return [4 /*yield*/, payload.find({
+                            collection: "budget",
+                            where: {
+                                plan: { equals: input.planId },
+                                and: [{ ver: { equals: input.version } }],
+                            },
+                            pagination: false,
+                            sort: "-plannedCost",
+                        })];
+                    case 4: return [2 /*return*/, _b.sent()];
                 }
             });
         });

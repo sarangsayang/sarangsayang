@@ -20,6 +20,11 @@ export const Budget: CollectionConfig = {
       hasMany: false,
     },
     {
+      name: "ver",
+      type: "number",
+      required: false,
+    },
+    {
       name: "for",
       type: "text",
       required: true,

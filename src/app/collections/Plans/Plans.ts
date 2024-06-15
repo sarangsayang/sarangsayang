@@ -19,6 +19,12 @@ export const Plans: CollectionConfig = {
       hasMany: true,
     },
     {
+      name: "totalVer",
+      type: "number",
+      required: false,
+      defaultValue: 0,
+    },
+    {
       name: "brideName",
       label: "Bride Name",
       type: "text",

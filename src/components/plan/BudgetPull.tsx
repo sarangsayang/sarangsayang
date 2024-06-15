@@ -15,11 +15,13 @@ import BudgetTotal from "./BudgetTotal";
 
 interface BudgetPullProps {
   planId: string;
+  version: number;
 }
 
-const BudgetPull = ({ planId }: BudgetPullProps) => {
+const BudgetPull = ({ planId, version }: BudgetPullProps) => {
   const budgets = trpc.getBudget.useQuery({
     planId: planId,
+    version: version,
   });
 
   const results = budgets.data?.docs as Budget[];
@@ -50,14 +52,20 @@ const BudgetPull = ({ planId }: BudgetPullProps) => {
               <Table className="border-2 rounded-md">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[300px]">For</TableHead>
-                    <TableHead className="w-[150px]">Planned Cost</TableHead>
+                    <TableHead className="min-w-[300px] lg:w-[300px]">
+                      For
+                    </TableHead>
+                    <TableHead className="min-w-[150px] lg:w-[150px]">
+                      Planned Cost
+                    </TableHead>
                     <TableHead className="w-[150px]">Actual Cost</TableHead>
-                    <TableHead className="bg-slate-200 w-[150px]">
+                    <TableHead className="bg-slate-200 min-w-[150px] lg:w-[150px]">
                       Difference
                     </TableHead>
-                    <TableHead className="w-[150px]">Amount Paid</TableHead>
-                    <TableHead className="bg-slate-200 w-[150px]">
+                    <TableHead className="min-w-[150px] lg:w-[150px]">
+                      Amount Paid
+                    </TableHead>
+                    <TableHead className="bg-slate-200 min-w-[150px] lg:w-[150px]">
                       Amount Outstanding
                     </TableHead>
                     <TableHead className="w-[70px]"></TableHead>
