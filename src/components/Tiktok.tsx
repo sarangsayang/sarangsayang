@@ -17,7 +17,7 @@ const Tiktok = () => {
             className="w-[50%] lg:w-[33%] h-full border-0 bg-transparent hidden md:block"
           ></iframe>
           <iframe
-            src="https://www.tiktok.com/embed/7351017804654497032"
+            src="https://www.tiktok.com/embed/7382878868832521480"
             allow="encrypted-media;"
             className="w-[33%] h-full border-0 bg-transparent hidden lg:block"
           ></iframe>
