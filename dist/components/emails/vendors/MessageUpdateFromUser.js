@@ -48,7 +48,7 @@ var MessageUpdateFromUserEmail = function (_a) {
         React.createElement(components_1.Body, { style: main },
             React.createElement(components_1.Container, { style: container },
                 React.createElement(components_1.Section, { style: box },
-                    React.createElement(components_1.Img, { src: "https://sarangsayang.up.railway.app/logopng.png", width: "60", height: "60", alt: "SarangSayang" }),
+                    React.createElement(components_1.Img, { src: "https://www.sarangsayang.com/logopng.png", width: "60", height: "60", alt: "SarangSayang" }),
                     React.createElement(components_1.Hr, { style: hr }),
                     React.createElement(components_1.Section, { style: { paddingBottom: "20px" } },
                         React.createElement(components_1.Text, { style: paragraph },

@@ -19,7 +19,7 @@ export const sendMessageUpdateFromUser = async ({
   resend.emails.send({
     from: "Sarang Sayang <admin@sarangsayang.com>",
     to: [`${vendorEmail}`],
-    subject: `Message From ${userName} on Sarang Sayang!`,
+    subject: `You have a new enquiry from ${userName} on Sarang Sayang!`,
     react: React.createElement(MessageUpdateFromUserEmail, {
       userName: userName,
       vendorName: vendorName,

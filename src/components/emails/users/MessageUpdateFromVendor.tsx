@@ -48,17 +48,15 @@ export const MessageUpdateFromVendorEmail = ({
             </Section>
             <Section style={{ paddingBottom: "20px" }}>
               <Text style={review}>{message}</Text>
-              <Button
-                style={button}
-                href={"https://sarangsayang.up.railway.app/"}
-              >
+              <Button style={button} href={"https://www.sarangsayang.com/"}>
                 View Message on Sarang Sayang
               </Button>
             </Section>
             <Hr style={hr} />
             <Text style={footer}>
-              This is an automated e-mail. Please use our chat function on
-              Sarang Sayang to send messages directly to vendors.
+              This is an auto-generated e-mail, please do not reply and only
+              reply directly through our Sarang Sayang portal. All replies to
+              this e-mail will be voided.
             </Text>
           </Section>
         </Container>
