@@ -210,7 +210,7 @@ exports.appRouter = (0, trpc_1.router)({
                         return [4 /*yield*/, payload.find({
                                 collection: "vendors",
                                 where: { category: { equals: input.category } },
-                                sort: "-likes",
+                                sort: "-clicks",
                                 limit: 10,
                             })];
                     case 2:

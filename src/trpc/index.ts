@@ -113,7 +113,7 @@ export const appRouter = router({
         const { docs: allVendors } = await payload.find({
           collection: "vendors",
           where: { category: { equals: input.category } },
-          sort: "-likes",
+          sort: "-clicks",
           limit: 10,
         });
 
