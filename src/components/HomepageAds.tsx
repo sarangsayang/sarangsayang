@@ -57,7 +57,6 @@ const HomepageAds = () => {
               href={`https://www.glistengrandeur.com/`}
               target="_blank"
               onClick={() => {
-                //console.log(vendor.id);
                 addClick.mutate({
                   vendorId: "656b22ee0eaa6fb36a30a312",
                 });
