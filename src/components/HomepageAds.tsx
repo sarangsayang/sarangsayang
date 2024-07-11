@@ -40,6 +40,8 @@ const HomepageAds = () => {
     email: contactData.email,
   });
 
+  const addClick = trpc.addClick.useMutation();
+
   return (
     <section>
       <Carousel
@@ -52,8 +54,14 @@ const HomepageAds = () => {
         <CarouselContent>
           <CarouselItem className="flex flex-col items-center justify-center p-6">
             <Link
-              href={`https://open.spotify.com/show/3k1f239b4o0ais2Yt5OID2`}
+              href={`https://www.glistengrandeur.com/`}
               target="_blank"
+              onClick={() => {
+                //console.log(vendor.id);
+                addClick.mutate({
+                  vendorId: "656b22ee0eaa6fb36a30a312",
+                });
+              }}
             >
               <Image
                 width={1100}
