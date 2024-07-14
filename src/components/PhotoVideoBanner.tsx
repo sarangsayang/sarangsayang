@@ -19,7 +19,7 @@ const PhotoVideoBanner = () => {
     >
       <MaxWidthWrapper>
         <Link href={"/vendor/65d0103e1ee37d026fce4b94"} target="_blank">
-          <div className="bg-[url('/aefWeddings.jpg')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
+          <div className="bg-[url('/aefWeddings.png')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
             <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
                 <h1 className="text-lg font-bold">aef.weddings</h1>

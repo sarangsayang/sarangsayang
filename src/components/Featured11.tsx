@@ -20,16 +20,16 @@ const VENDOR_CATEGORIES1 = [
     value: "venues",
   },
   {
-    label: "Agents",
-    value: "agents",
+    label: "Photo & Video",
+    value: "photovideo",
   },
   {
     label: "Bridals",
     value: "bridals",
   },
   {
-    label: "Photo & Video",
-    value: "photovideo",
+    label: "Misc",
+    value: "misc",
   },
 ];
 
@@ -47,8 +47,8 @@ const VENDOR_CATEGORIES2 = [
     value: "emceesperformers",
   },
   {
-    label: "Misc",
-    value: "misc",
+    label: "Agents",
+    value: "agents",
   },
 ];
 

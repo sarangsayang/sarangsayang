@@ -1,5 +1,6 @@
 import FeaturedReel from "@/components/FeaturedReel";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import MiscBanner from "@/components/MiscBanner";
 import MiscPull from "@/components/MiscPull";
 import { getServerSideUser } from "@/lib/payload-utils";
 import { BadgeCheck } from "lucide-react";
@@ -21,11 +22,7 @@ const Misc = async () => {
 
   return (
     <>
-      {/* <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
-        <MaxWidthWrapper>
-          <FeaturedReel title="Misc" category="misc" user={user?.id} />
-        </MaxWidthWrapper>
-      </div> */}
+      <MiscBanner />
       <MaxWidthWrapper>
         <div className="py-6 grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
           <div className="text-center md:flex md:items-start md:text-left lg:block lg:text-center">
