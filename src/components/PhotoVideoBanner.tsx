@@ -29,7 +29,7 @@ const PhotoVideoBanner = () => {
                 />
               </div>
               <p className="text-slate-500 text-sm">
-                Quote &quot;SARANGSAYANG&quot; and get 10% off all packages!
+                Quote &quot;SARANGSAYANG&quot; and get 20% off all packages!
               </p>
             </div>
           </div>
