@@ -65,7 +65,7 @@ const HomepageAds = () => {
               <Image
                 width={1100}
                 height={220}
-                src="/ads/2.png"
+                src="/ads/1.png"
                 alt="ad1"
                 unoptimized={true}
               />
