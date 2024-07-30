@@ -26,7 +26,7 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Wedding Stylist",
         value: "stylist",
-        href: "/vendors?category=stylist",
+        href: "/vendors/stylist",
         imageSrc: "https://placehold.co/600x600",
       },
       {
@@ -44,7 +44,7 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Berkat & Gubahan",
         value: "berkatgubahan",
-        href: "/vendors?category=berkatgubahan",
+        href: "/vendors/berkatgubahan",
         imageSrc: "https://placehold.co/600x600",
       },
       {

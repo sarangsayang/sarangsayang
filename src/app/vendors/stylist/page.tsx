@@ -1,26 +1,23 @@
 import FeaturedReel from "@/components/FeaturedReel";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import MiscBanner from "@/components/MiscBanner";
 import MiscPull from "@/components/MiscPull";
+import StylistBanner from "@/components/StylistBanner";
 import { getServerSideUser } from "@/lib/payload-utils";
 import { BadgeCheck } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
-const Misc = async () => {
+const Stylist = async () => {
   const nextCookies = cookies();
   const { user } = await getServerSideUser(nextCookies);
 
   const subC = [
-    { title: "Henna", value: "henna" },
-    { title: "Wedding Cake", value: "cake" },
-    { title: "Live Stations", value: "liveStation" },
-    { title: "Catering", value: "catering" },
+    { title: "Decor", value: "decor" },
+    { title: "Agents", value: "agent" },
   ];
-
   return (
     <>
-      {/* <MiscBanner /> */}
+      <StylistBanner />
       <MaxWidthWrapper>
         <div className="py-6 grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
           <div className="text-center md:flex md:items-start md:text-left lg:block lg:text-center">
@@ -87,4 +84,4 @@ const Misc = async () => {
   );
 };
 
-export default Misc;
+export default Stylist;

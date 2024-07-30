@@ -47,18 +47,18 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
     userId: userId,
   });
 
-  const vendorAsVendor = vendor.data?.docs[0] as Vendor;
+  const vendorAsVendor = vendor.data?.docs[0] as unknown as Vendor;
 
   function isFirst6Price(category: string, price: PriceObject) {
     if (category === "venues") {
       return price.monthly;
-    } else if (category === "agents") {
-      return price.monthly;
+    } else if (category === "stylist") {
+      return price.monthly5;
     } else if (category === "bridals") {
       return price.monthly5;
     } else if (category === "photovideo") {
       return price.monthly5;
-    } else if (category === "henna") {
+    } else if (category === "berkatgubahan") {
       return price.monthly5;
     } else if (category === "mua") {
       return price.monthly5;
@@ -234,10 +234,13 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       <span className="text-2xl font-medium tracking-tight line-through">
                         $
                         {vendor.data && vendor.data.docs[0].category ? (
-                          isFirst6Price(vendor.data.docs[0].category, {
-                            monthly: 500,
-                            monthly5: 200,
-                          })
+                          isFirst6Price(
+                            vendor.data.docs[0].category as string,
+                            {
+                              monthly: 500,
+                              monthly5: 200,
+                            }
+                          )
                         ) : (
                           <Loader2 className="animate-spin text-blue-500" />
                         )}
@@ -246,10 +249,13 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         <span className="text-4xl font-medium tracking-tight">
                           $
                           {vendor.data && vendor.data.docs[0].category ? (
-                            isFirst6Price(vendor.data.docs[0].category, {
-                              monthly: 300,
-                              monthly5: 120,
-                            })
+                            isFirst6Price(
+                              vendor.data.docs[0].category as string,
+                              {
+                                monthly: 300,
+                                monthly5: 120,
+                              }
+                            )
                           ) : (
                             <Loader2 className="animate-spin text-blue-500" />
                           )}
@@ -262,10 +268,13 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       <span className="text-2xl font-medium tracking-tight line-through">
                         $
                         {vendor.data && vendor.data.docs[0].category ? (
-                          isFirst6Price(vendor.data.docs[0].category, {
-                            monthly: 4800,
-                            monthly5: 1920,
-                          })
+                          isFirst6Price(
+                            vendor.data.docs[0].category as string,
+                            {
+                              monthly: 4800,
+                              monthly5: 1920,
+                            }
+                          )
                         ) : (
                           <Loader2 className="animate-spin text-blue-500" />
                         )}
@@ -274,10 +283,13 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                         <span className="text-4xl font-medium tracking-tight">
                           $
                           {vendor.data && vendor.data.docs[0].category ? (
-                            isFirst6Price(vendor.data.docs[0].category, {
-                              monthly: 2880,
-                              monthly5: 1150,
-                            })
+                            isFirst6Price(
+                              vendor.data.docs[0].category as string,
+                              {
+                                monthly: 2880,
+                                monthly5: 1150,
+                              }
+                            )
                           ) : (
                             <Loader2 className="animate-spin text-blue-500" />
                           )}
@@ -421,12 +433,15 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       // @ts-ignore
                       href={
                         vendor.data && vendor.data.docs[0].category
-                          ? isFirst6Link(vendor.data.docs[0].category, {
-                              monthly:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3F979231P1636913GMZMYFKY",
-                              monthly5:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-88Y08545BF3266141MZMYFCY",
-                            })
+                          ? isFirst6Link(
+                              vendor.data.docs[0].category as string,
+                              {
+                                monthly:
+                                  "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-3F979231P1636913GMZMYFKY",
+                                monthly5:
+                                  "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-88Y08545BF3266141MZMYFCY",
+                              }
+                            )
                           : "#"
                       }
                       target="_blank"
@@ -438,12 +453,15 @@ const PriceRange = ({ userRole, userId, hasSub }: PriceRangeProps) => {
                       // @ts-ignore
                       href={
                         vendor.data && vendor.data.docs[0].category
-                          ? isFirst6Link(vendor.data.docs[0].category, {
-                              monthly:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5622976628691122EMZMYESY",
-                              monthly5:
-                                "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9VD114324H6016127MZMYEJA",
-                            })
+                          ? isFirst6Link(
+                              vendor.data.docs[0].category as string,
+                              {
+                                monthly:
+                                  "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5622976628691122EMZMYESY",
+                                monthly5:
+                                  "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9VD114324H6016127MZMYEJA",
+                              }
+                            )
                           : "#"
                       }
                       target="_blank"

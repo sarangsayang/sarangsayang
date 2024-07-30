@@ -378,6 +378,8 @@ export const appRouter = router({
         return results.docs[0].berkat;
       } else if (input.category === "decor") {
         return results.docs[0].decor;
+      } else if (input.category === "agent") {
+        return results.docs[0].agent;
       } else if (input.category === "dulang") {
         return results.docs[0].dulang;
       } else if (input.category === "liveStation") {
@@ -388,6 +390,8 @@ export const appRouter = router({
         return results.docs[0].catering;
       } else if (input.category === "pakandam") {
         return results.docs[0].pakandam;
+      } else if (input.category === "henna") {
+        return results.docs[0].henna;
       } else if (input.category === "mua") {
         let pakandamid = [];
         const misclist = results.docs[0].pakandam as Vendor[];

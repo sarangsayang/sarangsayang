@@ -24,8 +24,8 @@ export interface Config {
     chats: Chat;
     message: Message;
     misc: Misc;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   globals: {};
 }
@@ -35,7 +35,7 @@ export interface User {
   packages?: (string | Package)[] | null;
   stripe_customer_id?: string | null;
   name: string;
-  role: "admin" | "user" | "vendor" | "supervendor";
+  role: 'admin' | 'user' | 'vendor' | 'supervendor';
   userFirstLog?: boolean | null;
   vendorFirstLog?: boolean | null;
   updatedAt: string;
@@ -55,15 +55,7 @@ export interface Vendor {
   id: string;
   venduserid: string | User;
   name: string;
-  category:
-    | "venues"
-    | "stylist"
-    | "bridals"
-    | "photovideo"
-    | "berkatgubahan"
-    | "mua"
-    | "emceesperformers"
-    | "misc";
+  category: 'venues' | 'stylist' | 'bridals' | 'photovideo' | 'berkatgubahan' | 'mua' | 'emceesperformers' | 'misc';
   details?:
     | {
         [k: string]: unknown;
@@ -87,16 +79,7 @@ export interface Package {
   vendor: string | Vendor;
   name: string;
   services?:
-    | (
-        | "venues"
-        | "stylist"
-        | "bridals"
-        | "photovideo"
-        | "berkatgubahan"
-        | "mua"
-        | "emceesperformers"
-        | "misc"
-      )[]
+    | ('venues' | 'stylist' | 'bridals' | 'photovideo' | 'berkatgubahan' | 'mua' | 'emceesperformers' | 'misc')[]
     | null;
   packageDetails?:
     | {
@@ -334,7 +317,7 @@ export interface Misc {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: string | User;
   };
   key?: string | null;
@@ -358,6 +341,7 @@ export interface PayloadMigration {
   createdAt: string;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }

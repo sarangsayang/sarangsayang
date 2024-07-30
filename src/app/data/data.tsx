@@ -17,6 +17,8 @@ import {
   Search,
   Shirt,
   SprayCan,
+  Flower2,
+  Gift,
 } from "lucide-react";
 
 export const statuses = [
@@ -92,9 +94,9 @@ export const categories = [
     icon: <Hotel />,
   },
   {
-    label: "Agents",
-    value: "agents",
-    icon: <Search />,
+    label: "Wedding Stylist",
+    value: "stylist",
+    icon: <Flower2 />,
   },
   {
     label: "Bridals",
@@ -107,14 +109,14 @@ export const categories = [
     icon: <Camera />,
   },
   {
+    label: "Berkat & Gubahan",
+    value: "berkatgubahan",
+    icon: <Gift />,
+  },
+  {
     label: "Make Up Artists",
     value: "mua",
     icon: <SprayCan />,
-  },
-  {
-    label: "Henna",
-    value: "henna",
-    icon: <Hand />,
   },
   {
     label: "Emcees & Performers",

@@ -543,22 +543,28 @@ exports.appRouter = (0, trpc_1.router)({
                         if (!(input.category === "decor")) return [3 /*break*/, 4];
                         return [2 /*return*/, results.docs[0].decor];
                     case 4:
-                        if (!(input.category === "dulang")) return [3 /*break*/, 5];
-                        return [2 /*return*/, results.docs[0].dulang];
+                        if (!(input.category === "agent")) return [3 /*break*/, 5];
+                        return [2 /*return*/, results.docs[0].agent];
                     case 5:
-                        if (!(input.category === "liveStation")) return [3 /*break*/, 6];
-                        return [2 /*return*/, results.docs[0].liveStation];
+                        if (!(input.category === "dulang")) return [3 /*break*/, 6];
+                        return [2 /*return*/, results.docs[0].dulang];
                     case 6:
-                        if (!(input.category === "cake")) return [3 /*break*/, 7];
-                        return [2 /*return*/, results.docs[0].cake];
+                        if (!(input.category === "liveStation")) return [3 /*break*/, 7];
+                        return [2 /*return*/, results.docs[0].liveStation];
                     case 7:
-                        if (!(input.category === "catering")) return [3 /*break*/, 8];
-                        return [2 /*return*/, results.docs[0].catering];
+                        if (!(input.category === "cake")) return [3 /*break*/, 8];
+                        return [2 /*return*/, results.docs[0].cake];
                     case 8:
-                        if (!(input.category === "pakandam")) return [3 /*break*/, 9];
-                        return [2 /*return*/, results.docs[0].pakandam];
+                        if (!(input.category === "catering")) return [3 /*break*/, 9];
+                        return [2 /*return*/, results.docs[0].catering];
                     case 9:
-                        if (!(input.category === "mua")) return [3 /*break*/, 11];
+                        if (!(input.category === "pakandam")) return [3 /*break*/, 10];
+                        return [2 /*return*/, results.docs[0].pakandam];
+                    case 10:
+                        if (!(input.category === "henna")) return [3 /*break*/, 11];
+                        return [2 /*return*/, results.docs[0].henna];
+                    case 11:
+                        if (!(input.category === "mua")) return [3 /*break*/, 13];
                         pakandamid = [];
                         misclist = results.docs[0].pakandam;
                         for (i = 0; i < misclist.length; i++) {
@@ -572,10 +578,10 @@ exports.appRouter = (0, trpc_1.router)({
                                 },
                                 pagination: false,
                             })];
-                    case 10:
+                    case 12:
                         results2 = _b.sent();
                         return [2 /*return*/, results2.docs];
-                    case 11: return [2 /*return*/];
+                    case 13: return [2 /*return*/];
                 }
             });
         });

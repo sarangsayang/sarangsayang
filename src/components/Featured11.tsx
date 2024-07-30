@@ -24,12 +24,12 @@ const VENDOR_CATEGORIES1 = [
     value: "stylist",
   },
   {
-    label: "Photo & Video",
-    value: "photovideo",
-  },
-  {
     label: "Berkat & Gubahan",
     value: "berkatgubahan",
+  },
+  {
+    label: "Photo & Video",
+    value: "photovideo",
   },
 ];
 
