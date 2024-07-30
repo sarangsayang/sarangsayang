@@ -3162,10 +3162,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     top4: results.docs[0].top4Venues,
                                 }];
                         }
-                        else if (input.category === "agents") {
+                        else if (input.category === "stylist") {
                             return [2 /*return*/, {
-                                    top: results.docs[0].top1Agent,
-                                    top4: results.docs[0].top4Agents,
+                                    top: results.docs[0].top1Stylist,
+                                    top4: results.docs[0].top4Stylist,
                                 }];
                         }
                         else if (input.category === "bridals") {
@@ -3180,10 +3180,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     top4: results.docs[0].top4Photovideo,
                                 }];
                         }
-                        else if (input.category === "henna") {
+                        else if (input.category === "berkatgubahan") {
                             return [2 /*return*/, {
-                                    top: results.docs[0].top1Henna,
-                                    top4: results.docs[0].top4Henna,
+                                    top: results.docs[0].top1Berkat,
+                                    top4: results.docs[0].top4Berkat,
                                 }];
                         }
                         else if (input.category === "mua") {

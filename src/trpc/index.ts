@@ -59,7 +59,7 @@ export const appRouter = router({
         await payload.update({
           collection: "plans",
           where: { id: { equals: input.planId } },
-          data: { totalVer: plan[0].totalVer + 1 },
+          data: { totalVer: (plan[0].totalVer as number) + 1 },
         });
       }
     }),
@@ -274,7 +274,7 @@ export const appRouter = router({
       });
 
       if (vendor.docs[0].clicks) {
-        clicks = vendor.docs[0].clicks + 1;
+        clicks = (vendor.docs[0].clicks as number) + 1;
       } else {
         clicks = 1;
       }
@@ -781,7 +781,7 @@ export const appRouter = router({
             priority: "high",
             remarks: "-",
             vendor: input.vendorId,
-            chat: getChat.docs[0].id,
+            chat: getChat.docs[0].id as string,
           },
         });
       }
@@ -2314,7 +2314,7 @@ export const appRouter = router({
             id: { equals: input.vendorId },
           },
           data: {
-            likes: vendor.docs[0].likes + 1,
+            likes: (vendor.docs[0].likes as number) + 1,
           },
         });
       } else {
@@ -2384,10 +2384,10 @@ export const appRouter = router({
           top: results.docs[0].top1Venue,
           top4: results.docs[0].top4Venues,
         };
-      } else if (input.category === "agents") {
+      } else if (input.category === "stylist") {
         return {
-          top: results.docs[0].top1Agent,
-          top4: results.docs[0].top4Agents,
+          top: results.docs[0].top1Stylist,
+          top4: results.docs[0].top4Stylist,
         };
       } else if (input.category === "bridals") {
         return {
@@ -2399,10 +2399,10 @@ export const appRouter = router({
           top: results.docs[0].top1Photovideo,
           top4: results.docs[0].top4Photovideo,
         };
-      } else if (input.category === "henna") {
+      } else if (input.category === "berkatgubahan") {
         return {
-          top: results.docs[0].top1Henna,
-          top4: results.docs[0].top4Henna,
+          top: results.docs[0].top1Berkat,
+          top4: results.docs[0].top4Berkat,
         };
       } else if (input.category === "mua") {
         return {

@@ -103,9 +103,9 @@ exports.VENDOR_CATEGORIES = [
         icon: lucide_react_1.Hotel,
     },
     {
-        label: "Agents",
-        value: "agents",
-        icon: lucide_react_1.Search,
+        label: "Wedding Stylist",
+        value: "stylist",
+        icon: lucide_react_1.Flower2,
     },
     {
         label: "Bridals",
@@ -118,14 +118,14 @@ exports.VENDOR_CATEGORIES = [
         icon: lucide_react_1.Camera,
     },
     {
+        label: "Berkat & Gubahan",
+        value: "berkatgubahan",
+        icon: lucide_react_1.Gift,
+    },
+    {
         label: "Make Up Artist",
         value: "mua",
         icon: lucide_react_1.SprayCan,
-    },
-    {
-        label: "Henna",
-        value: "henna",
-        icon: lucide_react_1.Hand,
     },
     {
         label: "Emcees & Performers",
@@ -136,15 +136,5 @@ exports.VENDOR_CATEGORIES = [
         label: "Misc",
         value: "misc",
         icon: lucide_react_1.CakeSlice,
-    },
-    {
-        label: "Wedding Stylist",
-        value: "stylist",
-        icon: lucide_react_1.Flower2,
-    },
-    {
-        label: "Berkat & Gubahan",
-        value: "berkatgubahan",
-        icon: lucide_react_1.Gift,
     },
 ];

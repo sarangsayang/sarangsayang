@@ -24,8 +24,8 @@ export interface Config {
     chats: Chat;
     message: Message;
     misc: Misc;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
+    "payload-preferences": PayloadPreference;
+    "payload-migrations": PayloadMigration;
   };
   globals: {};
 }
@@ -35,7 +35,7 @@ export interface User {
   packages?: (string | Package)[] | null;
   stripe_customer_id?: string | null;
   name: string;
-  role: 'admin' | 'user' | 'vendor' | 'supervendor';
+  role: "admin" | "user" | "vendor" | "supervendor";
   userFirstLog?: boolean | null;
   vendorFirstLog?: boolean | null;
   updatedAt: string;
@@ -55,7 +55,15 @@ export interface Vendor {
   id: string;
   venduserid: string | User;
   name: string;
-  category: 'venues' | 'agents' | 'bridals' | 'photovideo' | 'mua' | 'henna' | 'emceesperformers' | 'misc';
+  category:
+    | "venues"
+    | "stylist"
+    | "bridals"
+    | "photovideo"
+    | "berkatgubahan"
+    | "mua"
+    | "emceesperformers"
+    | "misc";
   details?:
     | {
         [k: string]: unknown;
@@ -78,7 +86,18 @@ export interface Package {
   id: string;
   vendor: string | Vendor;
   name: string;
-  services?: ('venues' | 'agents' | 'bridals' | 'photovideo' | 'mua' | 'henna' | 'emceesperformers' | 'misc')[] | null;
+  services?:
+    | (
+        | "venues"
+        | "stylist"
+        | "bridals"
+        | "photovideo"
+        | "berkatgubahan"
+        | "mua"
+        | "emceesperformers"
+        | "misc"
+      )[]
+    | null;
   packageDetails?:
     | {
         [k: string]: unknown;
@@ -191,8 +210,8 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Agent?: (string | null) | Vendor;
-  top4Agents?:
+  top1Stylist?: (string | null) | Vendor;
+  top4Stylist?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
@@ -219,8 +238,8 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Henna?: (string | null) | Vendor;
-  top4Henna?:
+  top1Berkat?: (string | null) | Vendor;
+  top4Berkat?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
@@ -302,18 +321,20 @@ export interface Misc {
   id: string;
   berkat?: (string | Vendor)[] | null;
   decor?: (string | Vendor)[] | null;
+  agent?: (string | Vendor)[] | null;
   dulang?: (string | Vendor)[] | null;
   liveStation?: (string | Vendor)[] | null;
   cake?: (string | Vendor)[] | null;
   catering?: (string | Vendor)[] | null;
   pakandam?: (string | Vendor)[] | null;
+  henna?: (string | Vendor)[] | null;
   updatedAt: string;
   createdAt: string;
 }
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: string | User;
   };
   key?: string | null;
@@ -337,7 +358,6 @@ export interface PayloadMigration {
   createdAt: string;
 }
 
-
-declare module 'payload' {
+declare module "payload" {
   export interface GeneratedTypes extends Config {}
 }

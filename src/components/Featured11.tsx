@@ -20,35 +20,36 @@ const VENDOR_CATEGORIES1 = [
     value: "venues",
   },
   {
+    label: "Wedding Stylist",
+    value: "stylist",
+  },
+  {
     label: "Photo & Video",
     value: "photovideo",
   },
   {
-    label: "Bridals",
-    value: "bridals",
-  },
-  {
-    label: "Misc",
-    value: "misc",
+    label: "Berkat & Gubahan",
+    value: "berkatgubahan",
   },
 ];
 
 const VENDOR_CATEGORIES2 = [
   {
+    label: "Bridals",
+    value: "bridals",
+  },
+  {
     label: "Make Up Artist",
     value: "mua",
   },
-  {
-    label: "Henna",
-    value: "henna",
-  },
+
   {
     label: "Emcees & Performers",
     value: "emceesperformers",
   },
   {
-    label: "Agents",
-    value: "agents",
+    label: "Misc",
+    value: "misc",
   },
 ];
 

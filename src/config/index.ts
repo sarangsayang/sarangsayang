@@ -113,9 +113,9 @@ export const VENDOR_CATEGORIES = [
     icon: Hotel,
   },
   {
-    label: "Agents",
-    value: "agents",
-    icon: Search,
+    label: "Wedding Stylist",
+    value: "stylist",
+    icon: Flower2,
   },
   {
     label: "Bridals",
@@ -128,14 +128,14 @@ export const VENDOR_CATEGORIES = [
     icon: Camera,
   },
   {
+    label: "Berkat & Gubahan",
+    value: "berkatgubahan",
+    icon: Gift,
+  },
+  {
     label: "Make Up Artist",
     value: "mua",
     icon: SprayCan,
-  },
-  {
-    label: "Henna",
-    value: "henna",
-    icon: Hand,
   },
   {
     label: "Emcees & Performers",
@@ -146,15 +146,5 @@ export const VENDOR_CATEGORIES = [
     label: "Misc",
     value: "misc",
     icon: CakeSlice,
-  },
-  {
-    label: "Wedding Stylist",
-    value: "stylist",
-    icon: Flower2,
-  },
-  {
-    label: "Berkat & Gubahan",
-    value: "berkatgubahan",
-    icon: Gift,
   },
 ];
