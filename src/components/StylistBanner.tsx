@@ -19,7 +19,7 @@ const StylistBanner = () => {
     >
       <MaxWidthWrapper>
         <Link href={"/vendor/65b70a77ff74f55af1012aad"} target="_blank">
-          <div className="bg-[url('/omt.png')] bg-cover bg-[center_bottom_3045rem] relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
+          <div className="bg-[url('/omt.png')] bg-cover md:bg-center lg:bg-[center_bottom_3045rem] relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
             <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
                 <h1 className="text-lg font-bold">Our Midas Touch</h1>
