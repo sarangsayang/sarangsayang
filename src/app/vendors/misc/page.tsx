@@ -22,7 +22,7 @@ const Misc = async () => {
     <>
       {/* <MiscBanner /> */}
       <MaxWidthWrapper>
-        <div className="py-6 grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
+        <div className="hidden py-6 lg:grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
           <div className="text-center md:flex md:items-start md:text-left lg:block lg:text-center">
             <div className="mt-6 md:ml-4 md:mt-0 lg:ml-0 lg:mt-6">
               <Link href={"/faq"} target="_blank">
