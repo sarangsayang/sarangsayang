@@ -29,8 +29,8 @@ const BerkatBanner = () => {
                 />
               </div>
               <p className="text-slate-500 text-sm">
-                Enquire now for Bunga Rampai, Berkat, Sireh Dara, Bunga Pahar
-                and more!
+                Quote &quot;SARANGSAYANG&quot; to get $50 off with a minimum
+                spend of $400! (Promo valid till August 31st 2024)
               </p>
             </div>
           </div>
