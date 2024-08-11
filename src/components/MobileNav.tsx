@@ -75,6 +75,97 @@ const MobileNav = ({ signedIn, user }: MobileNavProps) => {
               </button>
             </div>
 
+            {signedIn ? (
+              <div className="space-y-2 border-gray-200 px-4 py-6">
+                {user &&
+                user.role !== "user" &&
+                user.role !== "admin" &&
+                vendor &&
+                vendor.isSuccess &&
+                vendor.data ? (
+                  <>
+                    <div className="flow-root py-2 border-b border-gray-200">
+                      <Link
+                        onClick={() =>
+                          closeOnCurrent(`/vendor/${vendor.data.docs[0].id}`)
+                        }
+                        href={`/vendor/${vendor.data.docs[0].id}`}
+                        //href={"#"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        {vendor.data.docs[0].name as string}
+                      </Link>
+                    </div>
+                    <div className="flow-root py-2 border-b border-gray-200">
+                      <Link
+                        onClick={() =>
+                          closeOnCurrent(
+                            `/backstage/collections/vendors/${vendor.data.docs[0].id}`
+                          )
+                        }
+                        href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Update Vendor Profile
+                      </Link>
+                    </div>
+                    <div className="flow-root py-2 border-b border-gray-200">
+                      <Link
+                        onClick={() => closeOnCurrent("/dashboard")}
+                        href="/dashboard"
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Vendor Dashboard
+                      </Link>
+                    </div>
+                  </>
+                ) : null}
+
+                {user && user.role === "admin" ? (
+                  <div className="flow-root py-2 border-b border-gray-200">
+                    <Link
+                      onClick={() => closeOnCurrent("/backstage")}
+                      href={"/backstage"}
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Backstage
+                    </Link>
+                  </div>
+                ) : null}
+
+                <div className="flow-root py-2 border-b border-gray-200">
+                  <Link
+                    onClick={signOut}
+                    href="/sign-in"
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
+                    Log out
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-2 px-4 py-6">
+                <div className="flow-root py-2 border-b border-gray-200">
+                  <Link
+                    onClick={() => closeOnCurrent("/sign-in")}
+                    href="/sign-in"
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
+                    Sign in
+                  </Link>
+                </div>
+                <div className="flow-root py-2 border-b border-gray-200">
+                  <Link
+                    onClick={() => closeOnCurrent("/sign-up")}
+                    href="/sign-up"
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
+                    Sign up
+                  </Link>
+                </div>
+              </div>
+            )}
+
             <div className="mt-2">
               <ul>
                 {PRODUCT_CATEGORIES.map((category) =>
@@ -150,97 +241,6 @@ const MobileNav = ({ signedIn, user }: MobileNavProps) => {
                 )}
               </ul>
             </div>
-
-            {signedIn ? (
-              <div className="space-y-2 border-gray-200 px-4 py-6 mt-10">
-                {user &&
-                user.role !== "user" &&
-                user.role !== "admin" &&
-                vendor &&
-                vendor.isSuccess &&
-                vendor.data ? (
-                  <>
-                    <div className="flow-root py-2 border-b border-gray-200">
-                      <Link
-                        onClick={() =>
-                          closeOnCurrent(`/vendor/${vendor.data.docs[0].id}`)
-                        }
-                        href={`/vendor/${vendor.data.docs[0].id}`}
-                        //href={"#"}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        {vendor.data.docs[0].name}
-                      </Link>
-                    </div>
-                    <div className="flow-root py-2 border-b border-gray-200">
-                      <Link
-                        onClick={() =>
-                          closeOnCurrent(
-                            `/backstage/collections/vendors/${vendor.data.docs[0].id}`
-                          )
-                        }
-                        href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        Update Vendor Profile
-                      </Link>
-                    </div>
-                    <div className="flow-root py-2 border-b border-gray-200">
-                      <Link
-                        onClick={() => closeOnCurrent("/dashboard")}
-                        href="/dashboard"
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        Vendor Dashboard
-                      </Link>
-                    </div>
-                  </>
-                ) : null}
-
-                {user && user.role === "admin" ? (
-                  <div className="flow-root py-2 border-b border-gray-200">
-                    <Link
-                      onClick={() => closeOnCurrent("/backstage")}
-                      href={"/backstage"}
-                      className="-m-2 block p-2 font-medium text-gray-900"
-                    >
-                      Backstage
-                    </Link>
-                  </div>
-                ) : null}
-
-                <div className="flow-root py-2 border-b border-gray-200">
-                  <Link
-                    onClick={signOut}
-                    href="/sign-in"
-                    className="-m-2 block p-2 font-medium text-gray-900"
-                  >
-                    Log out
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-2 px-4 py-6 mt-10">
-                <div className="flow-root py-2 border-b border-gray-200">
-                  <Link
-                    onClick={() => closeOnCurrent("/sign-in")}
-                    href="/sign-in"
-                    className="-m-2 block p-2 font-medium text-gray-900"
-                  >
-                    Sign in
-                  </Link>
-                </div>
-                <div className="flow-root py-2 border-b border-gray-200">
-                  <Link
-                    onClick={() => closeOnCurrent("/sign-up")}
-                    href="/sign-up"
-                    className="-m-2 block p-2 font-medium text-gray-900"
-                  >
-                    Sign up
-                  </Link>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
