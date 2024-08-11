@@ -54,7 +54,7 @@ const HomepageAds = () => {
         <CarouselContent>
           <CarouselItem className="flex flex-col items-center justify-center p-6">
             <Link
-              href={`https://www.glistengrandeur.com/`}
+              href={`https://www.instagram.com/agent.naimsalim?igsh=MW8xaHpzdGxmbXY2dA==`}
               target="_blank"
               onClick={() => {
                 addClick.mutate({
@@ -65,7 +65,7 @@ const HomepageAds = () => {
               <Image
                 width={1100}
                 height={220}
-                src="/ads/1.png"
+                src="/ads/ANSBanner2.jpg"
                 alt="ad1"
                 unoptimized={true}
               />
