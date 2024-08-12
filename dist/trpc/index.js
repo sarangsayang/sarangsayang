@@ -522,7 +522,7 @@ exports.appRouter = (0, trpc_1.router)({
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, results, pakandamid, misclist, i, results2;
+            var payload, results, heelsid, misclist, i, results2, pakandamid, misclist, i, results2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
@@ -564,7 +564,28 @@ exports.appRouter = (0, trpc_1.router)({
                         if (!(input.category === "henna")) return [3 /*break*/, 11];
                         return [2 /*return*/, results.docs[0].henna];
                     case 11:
-                        if (!(input.category === "mua")) return [3 /*break*/, 13];
+                        if (!(input.category === "heels")) return [3 /*break*/, 12];
+                        return [2 /*return*/, results.docs[0].heels];
+                    case 12:
+                        if (!(input.category === "bridal")) return [3 /*break*/, 14];
+                        heelsid = [];
+                        misclist = results.docs[0].heels;
+                        for (i = 0; i < misclist.length; i++) {
+                            heelsid.push(misclist[i].id);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                where: {
+                                    id: { not_in: heelsid },
+                                    category: { equals: "bridals" },
+                                },
+                                pagination: false,
+                            })];
+                    case 13:
+                        results2 = _b.sent();
+                        return [2 /*return*/, results2.docs];
+                    case 14:
+                        if (!(input.category === "mua")) return [3 /*break*/, 16];
                         pakandamid = [];
                         misclist = results.docs[0].pakandam;
                         for (i = 0; i < misclist.length; i++) {
@@ -578,10 +599,10 @@ exports.appRouter = (0, trpc_1.router)({
                                 },
                                 pagination: false,
                             })];
-                    case 12:
+                    case 15:
                         results2 = _b.sent();
                         return [2 /*return*/, results2.docs];
-                    case 13: return [2 /*return*/];
+                    case 16: return [2 /*return*/];
                 }
             });
         });

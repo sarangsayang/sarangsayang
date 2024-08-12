@@ -88,5 +88,13 @@ exports.MiscVendors = {
             filterOptions: { category: { equals: "misc" } },
             hasMany: true,
         },
+        {
+            name: "heels",
+            type: "relationship",
+            label: "Bridal Heels Vendors",
+            relationTo: "vendors",
+            filterOptions: { category: { equals: "bridals" } },
+            hasMany: true,
+        },
     ],
 };

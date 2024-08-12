@@ -392,6 +392,26 @@ export const appRouter = router({
         return results.docs[0].pakandam;
       } else if (input.category === "henna") {
         return results.docs[0].henna;
+      } else if (input.category === "heels") {
+        return results.docs[0].heels;
+      } else if (input.category === "bridal") {
+        let heelsid = [];
+        const misclist = results.docs[0].heels as Vendor[];
+
+        for (let i = 0; i < misclist.length; i++) {
+          heelsid.push(misclist[i].id);
+        }
+
+        const results2 = await payload.find({
+          collection: "vendors",
+          where: {
+            id: { not_in: heelsid },
+            category: { equals: "bridals" },
+          },
+          pagination: false,
+        });
+
+        return results2.docs;
       } else if (input.category === "mua") {
         let pakandamid = [];
         const misclist = results.docs[0].pakandam as Vendor[];

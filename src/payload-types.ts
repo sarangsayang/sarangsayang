@@ -311,6 +311,7 @@ export interface Misc {
   catering?: (string | Vendor)[] | null;
   pakandam?: (string | Vendor)[] | null;
   henna?: (string | Vendor)[] | null;
+  heels?: (string | Vendor)[] | null;
   updatedAt: string;
   createdAt: string;
 }
