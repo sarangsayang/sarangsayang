@@ -13,7 +13,9 @@ const Trending = async () => {
       {categories.map((category) => (
         <div key={category.value} className="bg-sky-100">
           <MaxWidthWrapper>
-            {category.value != "mua" && category.value != "misc" ? (
+            {category.value != "mua" &&
+            category.value != "misc" &&
+            category.value != "bridals" ? (
               <FeaturedReel
                 title={category.label}
                 category={category.value}

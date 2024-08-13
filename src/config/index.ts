@@ -32,7 +32,7 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Bridals",
         value: "bridals",
-        href: "/vendors/bridal",
+        href: "/vendors/bridals",
         imageSrc: "https://placehold.co/600x600",
       },
       {
