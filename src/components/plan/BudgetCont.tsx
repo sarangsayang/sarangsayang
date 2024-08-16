@@ -28,42 +28,52 @@ const BudgetCont = ({ userId }: BudgetProps) => {
             <TabsTrigger value="overview">Overview</TabsTrigger>
 
             {identifiedPlan[0].totalVer ? (
-              Array.from({ length: identifiedPlan[0].totalVer }).map((_, i) => (
-                <TabsTrigger value={i + 1 + ""} key={i}>
-                  Plan {i + 1}
-                </TabsTrigger>
-              ))
+              Array.from({ length: identifiedPlan[0].totalVer as number }).map(
+                (_, i) => (
+                  <TabsTrigger value={i + 1 + ""} key={i}>
+                    Plan {i + 1}
+                  </TabsTrigger>
+                )
+              )
             ) : (
               <TabsTrigger value="1">Plan 1</TabsTrigger>
             )}
-            <BudgetNewButton planId={identifiedPlan[0].id} />
+            <BudgetNewButton planId={identifiedPlan[0].id as string} />
           </TabsList>
 
           <TabsContent value="overview">
             {identifiedPlan[0].totalVer ? (
               <BudgetOverview
-                planId={identifiedPlan[0].id}
-                totalVer={identifiedPlan[0].totalVer}
+                planId={identifiedPlan[0].id as string}
+                totalVer={identifiedPlan[0].totalVer as number}
               />
             ) : (
-              <BudgetOverview planId={identifiedPlan[0].id} totalVer={1} />
+              <BudgetOverview
+                planId={identifiedPlan[0].id as string}
+                totalVer={1}
+              />
             )}
           </TabsContent>
 
           {identifiedPlan[0].totalVer ? (
-            Array.from({ length: identifiedPlan[0].totalVer }).map((_, i) => (
-              <TabsContent value={i + 1 + ""} key={i}>
-                <BudgetVersion planId={identifiedPlan[0].id} version={i + 1} />
-              </TabsContent>
-            ))
+            Array.from({ length: identifiedPlan[0].totalVer as number }).map(
+              (_, i) => (
+                <TabsContent value={i + 1 + ""} key={i}>
+                  <BudgetVersion
+                    planId={identifiedPlan[0].id as string}
+                    version={i + 1}
+                  />
+                </TabsContent>
+              )
+            )
           ) : (
             <TabsContent value="1">
-              <BudgetVersion planId={identifiedPlan[0].id} />
+              <BudgetVersion planId={identifiedPlan[0].id as string} />
             </TabsContent>
           )}
         </Tabs>
       ) : identifiedPlan ? (
-        <WantToSync plans={identifiedPlan} userId={userId} />
+        <WantToSync plans={identifiedPlan as []} userId={userId} />
       ) : (
         <Loader className="animate-spin" />
       )}

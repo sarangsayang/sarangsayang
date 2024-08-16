@@ -18,6 +18,8 @@ import { Button } from "../ui/button";
 import { PlusCircle } from "lucide-react";
 import BudgetPull from "./BudgetPull";
 import { trpc } from "@/trpc/client";
+import MaxWidthWrapper from "../MaxWidthWrapper";
+import HomepageAds from "../HomepageAds";
 
 interface BudgetVersionProps {
   planId: string;
@@ -56,6 +58,11 @@ const BudgetVersion = ({ planId, version }: BudgetVersionProps) => {
       ) : (
         <BudgetScoreboardCont planId={planId} version={1} />
       )}
+
+      <MaxWidthWrapper>
+        <HomepageAds />
+      </MaxWidthWrapper>
+
       <div className="w-full flex flex-row justify-center items-center p-4 rounded-lg shadow-md bg-gradient-to-r from-pink-100 to-cyan-100">
         <Image
           src="https://i.giphy.com/media/26nfp8HGGHLPGY2KQ/giphy.gif"
@@ -185,6 +192,7 @@ const BudgetVersion = ({ planId, version }: BudgetVersionProps) => {
           )}
         </div>
       </div>
+
       {version ? (
         <BudgetPull planId={planId} version={version} />
       ) : (
