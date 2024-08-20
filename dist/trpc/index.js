@@ -564,10 +564,13 @@ exports.appRouter = (0, trpc_1.router)({
                         if (!(input.category === "henna")) return [3 /*break*/, 11];
                         return [2 /*return*/, results.docs[0].henna];
                     case 11:
-                        if (!(input.category === "heels")) return [3 /*break*/, 12];
-                        return [2 /*return*/, results.docs[0].heels];
+                        if (!(input.category === "stationery")) return [3 /*break*/, 12];
+                        return [2 /*return*/, results.docs[0].stationery];
                     case 12:
-                        if (!(input.category === "bridal")) return [3 /*break*/, 14];
+                        if (!(input.category === "heels")) return [3 /*break*/, 13];
+                        return [2 /*return*/, results.docs[0].heels];
+                    case 13:
+                        if (!(input.category === "bridal")) return [3 /*break*/, 15];
                         heelsid = [];
                         misclist = results.docs[0].heels;
                         for (i = 0; i < misclist.length; i++) {
@@ -581,11 +584,11 @@ exports.appRouter = (0, trpc_1.router)({
                                 },
                                 pagination: false,
                             })];
-                    case 13:
+                    case 14:
                         results2 = _b.sent();
                         return [2 /*return*/, results2.docs];
-                    case 14:
-                        if (!(input.category === "mua")) return [3 /*break*/, 16];
+                    case 15:
+                        if (!(input.category === "mua")) return [3 /*break*/, 17];
                         pakandamid = [];
                         misclist = results.docs[0].pakandam;
                         for (i = 0; i < misclist.length; i++) {
@@ -599,10 +602,10 @@ exports.appRouter = (0, trpc_1.router)({
                                 },
                                 pagination: false,
                             })];
-                    case 15:
+                    case 16:
                         results2 = _b.sent();
                         return [2 /*return*/, results2.docs];
-                    case 16: return [2 /*return*/];
+                    case 17: return [2 /*return*/];
                 }
             });
         });

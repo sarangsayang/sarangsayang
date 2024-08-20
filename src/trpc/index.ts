@@ -392,6 +392,8 @@ export const appRouter = router({
         return results.docs[0].pakandam;
       } else if (input.category === "henna") {
         return results.docs[0].henna;
+      } else if (input.category === "stationery") {
+        return results.docs[0].stationery;
       } else if (input.category === "heels") {
         return results.docs[0].heels;
       } else if (input.category === "bridal") {
