@@ -31,8 +31,11 @@ const StylistBanner = () => {
                 />
               </div>
               <p className="text-slate-500 text-xs md:text-sm">
+                Quote &quot;SARANGSAYANG&quot; to get 10% off all packages!
+              </p>
+              <p className="text-slate-500 text-xs md:text-sm">
                 Enquire now for Intimate Wedding Dais, Bridal Room Decorations
-                and Gubahan Hantaran!
+                and Gubahan Hantaran.
               </p>
             </div>
           </div>
