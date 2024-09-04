@@ -35,19 +35,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 
   return (
     <>
-      {/* <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg">
-        <MaxWidthWrapper>
-          {category ? (
-            <FeaturedReel
-              title={label ?? "Vendors"}
-              category={category}
-              user={user?.id}
-            />
-          ) : null}
-        </MaxWidthWrapper>bg-[url('/begonia-test.jpg')]
-      </div> */}
-
-      {category === "photovideo" ? <PhotoVideoBanner /> : null}
+      {/* {category === "photovideo" ? <PhotoVideoBanner /> : null} */}
 
       <MaxWidthWrapper>
         <div className="hidden py-6 lg:grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">

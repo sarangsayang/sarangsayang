@@ -17,7 +17,7 @@ const Berkat = async () => {
   ];
   return (
     <>
-      <BerkatBanner />
+      {/* <BerkatBanner /> */}
       <MaxWidthWrapper>
         <div className="hidden py-6 lg:grid grid-cols-1 gap-y-12 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
           <div className="text-center md:flex md:items-start md:text-left lg:block lg:text-center">

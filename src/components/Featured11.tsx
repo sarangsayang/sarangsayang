@@ -28,8 +28,8 @@ const VENDOR_CATEGORIES1 = [
     value: "berkatgubahan",
   },
   {
-    label: "Photo & Video",
-    value: "photovideo",
+    label: "Make Up Artist",
+    value: "mua",
   },
 ];
 
@@ -39,10 +39,9 @@ const VENDOR_CATEGORIES2 = [
     value: "bridals",
   },
   {
-    label: "Make Up Artist",
-    value: "mua",
+    label: "Photo & Video",
+    value: "photovideo",
   },
-
   {
     label: "Emcees & Performers",
     value: "emceesperformers",
