@@ -18,7 +18,7 @@ const MUABanner = () => {
       }}
     >
       <MaxWidthWrapper>
-        <Link href={"/vendor/66934cd2db99f4d8562f341e"} target="_blank">
+        <Link href={"/vendor/66d835a8177d5c0343a66ee1"} target="_blank">
           <div className="bg-[url('/ads/Raihan.png')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
             <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
