@@ -55,6 +55,10 @@ const ProductReel = (props: ProductReelProps) => {
     email: "",
   });
 
+  const checkUser = trpc.checkUserExist.useQuery({
+    email: dsvData.email,
+  });
+
   const [ctvData, setCTVData] = useState({
     vendor: vendorName,
     name: "",
@@ -77,7 +81,7 @@ const ProductReel = (props: ProductReelProps) => {
 
   let map: (Vendor | null)[] = [];
   if (products && products.length) {
-    map = products;
+    map = products as [];
   } else if (isLoading) {
     map = new Array<null>(query.limit ?? FALLBACK_LIMIT).fill(null);
   }
@@ -123,7 +127,9 @@ const ProductReel = (props: ProductReelProps) => {
                 <div className="flex items-center space-x-2 pb-4">
                   <div className="grid flex-1 gap-3">
                     <div>
-                      <Label htmlFor="name">Vendor Name</Label>
+                      <Label htmlFor="name">
+                        Vendor Name <span className="text-red-400">*</span>
+                      </Label>
                       <Input
                         id="vendorName"
                         name="vendorName"
@@ -171,7 +177,9 @@ const ProductReel = (props: ProductReelProps) => {
                     </div>
 
                     <div>
-                      <Label htmlFor="name">Name</Label>
+                      <Label htmlFor="name">
+                        Name <span className="text-red-400">*</span>
+                      </Label>
                       <Input
                         id="name"
                         name="name"
@@ -186,7 +194,9 @@ const ProductReel = (props: ProductReelProps) => {
                     </div>
 
                     <div>
-                      <Label htmlFor="contact">Contact Number</Label>
+                      <Label htmlFor="contact">
+                        Contact Number <span className="text-red-400">*</span>
+                      </Label>
                       <Input
                         id="contact"
                         name="contact"
@@ -201,7 +211,10 @@ const ProductReel = (props: ProductReelProps) => {
                     </div>
 
                     <div>
-                      <Label htmlFor="email">Vendor Email</Label>
+                      <Label htmlFor="email">
+                        Registered Sarang Sayang Email{" "}
+                        <span className="text-red-400">*</span>
+                      </Label>
                       <Input
                         id="email"
                         name="email"
@@ -218,20 +231,36 @@ const ProductReel = (props: ProductReelProps) => {
                 </div>
                 <DialogFooter className="sm:justify-start">
                   <DialogClose asChild>
-                    <Button
-                      type="submit"
-                      variant="secondary"
-                      className="w-full"
-                      onClick={() =>
-                        toast({
-                          title: "We'll get right on it!",
-                          description:
-                            "Verifications and authentications can take up to 1-2 working days.",
-                        })
-                      }
-                    >
-                      Submit
-                    </Button>
+                    {checkUser.data &&
+                    checkUser.data.totalDocs === 1 &&
+                    dsvData.email != "" &&
+                    dsvData.contact != "" &&
+                    dsvData.name != "" &&
+                    dsvData.vendorName != "" ? (
+                      <Button
+                        type="submit"
+                        variant="secondary"
+                        className="w-full"
+                        onClick={() =>
+                          toast({
+                            title: "We'll get right on it!",
+                            description:
+                              "Verifications and authentications can take up to 1-2 working days.",
+                          })
+                        }
+                      >
+                        Submit
+                      </Button>
+                    ) : (
+                      <Button
+                        type="submit"
+                        variant="secondary"
+                        className="w-full"
+                        disabled
+                      >
+                        Submit
+                      </Button>
+                    )}
                   </DialogClose>
                 </DialogFooter>
               </form>

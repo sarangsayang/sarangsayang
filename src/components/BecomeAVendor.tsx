@@ -63,7 +63,9 @@ const BecomeAVendor = () => {
           <div className="flex items-center space-x-2 pb-4">
             <div className="grid flex-1 gap-3">
               <div>
-                <Label htmlFor="name">Vendor Name</Label>
+                <Label htmlFor="name">
+                  Vendor Name <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   id="vendorName"
                   name="vendorName"
@@ -108,7 +110,9 @@ const BecomeAVendor = () => {
               </div>
 
               <div>
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">
+                  Name <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   id="name"
                   name="name"
@@ -123,7 +127,9 @@ const BecomeAVendor = () => {
               </div>
 
               <div>
-                <Label htmlFor="contact">Contact Number</Label>
+                <Label htmlFor="contact">
+                  Contact Number <span className="text-red-400">*</span>
+                </Label>
                 <Input
                   id="contact"
                   name="contact"
@@ -160,7 +166,10 @@ const BecomeAVendor = () => {
             <DialogClose asChild>
               {checkUser.data &&
               checkUser.data.totalDocs === 1 &&
-              dsvData.email != "" ? (
+              dsvData.email != "" &&
+              dsvData.contact != "" &&
+              dsvData.name != "" &&
+              dsvData.vendorName != "" ? (
                 <Button
                   type="submit"
                   variant="secondary"

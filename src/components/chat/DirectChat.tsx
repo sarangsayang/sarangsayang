@@ -41,7 +41,7 @@ const DirectChat = ({
     vendorId: vendor.id,
   });
 
-  const identifiedChat = chat.data?.docs[0] as Chat;
+  const identifiedChat = chat.data?.docs[0] as unknown as Chat;
 
   const createChat = trpc.createChat.useMutation();
 
