@@ -45,13 +45,35 @@ const HomepageAds = () => {
   return (
     <section>
       <Carousel
-      // plugins={[
-      //   Autoplay({
-      //     delay: 3000,
-      //   }),
-      // ]}
+        plugins={[
+          Autoplay({
+            delay: 3000,
+          }),
+        ]}
       >
         <CarouselContent>
+          <CarouselItem className="flex flex-col items-center justify-center p-6">
+            <Link
+              href={`https://www.instagram.com/agent.naimsalim/`}
+              target="_blank"
+              onClick={() => {
+                addClick.mutate({
+                  vendorId: "656b22ee0eaa6fb36a30a312",
+                });
+              }}
+            >
+              <Image
+                width={1100}
+                height={220}
+                src="/ads/ANSBanner2.jpg"
+                alt="ad1"
+                unoptimized={true}
+              />
+            </Link>
+            <div className="w-full flex justify-end">
+              <Badge variant="outline">Ad</Badge>
+            </div>
+          </CarouselItem>
           <CarouselItem className="flex flex-col items-center justify-center p-6">
             <Link
               href={`https://www.glistengrandeur.com/`}
@@ -66,7 +88,7 @@ const HomepageAds = () => {
                 width={1100}
                 height={220}
                 src="/ads/1.png"
-                alt="ad1"
+                alt="ad2"
                 unoptimized={true}
               />
             </Link>
