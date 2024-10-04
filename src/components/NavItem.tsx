@@ -89,8 +89,8 @@ const NavItem = ({
           />
 
           <div className="relative bg-white">
-            <div className="w-full px-8  flex items-center">
-              <div className="overflow-scroll flex flex-row">
+            <div className="w-full px-8 flex items-center">
+              <div className="w-full overflow-x-scroll flex flex-row">
                 <div className="flex">
                   {category.featured.map((item) => (
                     <div
