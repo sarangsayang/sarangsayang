@@ -20,7 +20,7 @@ const Chats = ({ user }: { user: User }) => {
     userId: user.id,
   });
 
-  const chats = (getChats.data?.docs as Chat[]) || [];
+  const chats = (getChats.data?.docs as unknown as Chat[]) || [];
 
   const itemCount = chats.length;
 

@@ -14,6 +14,79 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  getAllVendorEnq: publicProcedure.query(async () => {
+    const payload = await getPayloadClient();
+    let results = [];
+    let totalSSC = 0;
+    let totalSSE = 0;
+
+    const { docs: allVendors } = await payload.find({
+      collection: "vendors",
+      pagination: false,
+    });
+
+    for (let i = 0; i < allVendors.length; i++) {
+      let totalC = 0;
+      let totalE = 0;
+
+      const { docs: queries } = await payload.find({
+        collection: "chats",
+        where: {
+          vendor: { equals: allVendors[i].id },
+        },
+        pagination: false,
+      });
+
+      console.log("We are on: " + allVendors[i].name);
+
+      if (queries.length > 0) {
+        console.log("Found Queries");
+        for (let q = 0; q < queries.length; q++) {
+          totalC++;
+
+          const { docs: msg } = await payload.find({
+            collection: "message",
+            where: {
+              chat: { equals: queries[q].id },
+            },
+            pagination: false,
+          });
+
+          if (msg.length > 0) {
+            console.log("Found Messages");
+            let breakCondition = false;
+
+            for (let m = 0; m < msg.length; m++) {
+              if (msg[m].from == "user" && !breakCondition) {
+                console.log("Found Message from User");
+                totalE++;
+                breakCondition = true;
+              }
+              console.log("Broke Condition");
+            }
+          }
+        }
+      }
+
+      totalSSC = totalSSC + totalC;
+      totalSSE = totalSSE + totalE;
+
+      results.push({
+        vendor: allVendors[i].name,
+        cat: allVendors[i].category,
+        chat: totalC,
+        queries: totalE,
+      });
+    }
+    results.push({
+      vendor: "Sarang Sayang",
+      cat: "The Website Itself duh",
+      chat: totalSSC,
+      queries: totalSSE,
+    });
+    return results;
+  }),
+
   removeItemsFromPlan: publicProcedure
     .input(z.object({ planId: z.string(), version: z.number() }))
     .mutation(async ({ input }) => {

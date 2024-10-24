@@ -37,14 +37,14 @@ const ChatInput = ({ vendor, chat, userName }: ChatInputProps) => {
         chatId: chat.id,
         from: "vendor",
         message:
-          "This vendor might take a while to reply you! If you need their response urgently, reach out to them directly and let them know you found them through sarangsayang.com 🩵",
+          "This vendor has not claimed their profile, please expect a delay in their response. If you need their response urgently, reach out to them directly and let them know you found them through sarangsayang.com 🩵",
       });
     } else if (vendorUser.role === "vendor") {
       add.mutate({
         chatId: chat.id,
         from: "vendor",
         message:
-          "This vendor has not claimed their profile, please expect a delay in their response. If you need their response urgently, reach out to them directly and let them know you found them through sarangsayang.com 🩵",
+          "This vendor might take a while to reply you! If you need their response urgently, reach out to them directly and let them know you found them through sarangsayang.com 🩵",
       });
     }
   };
