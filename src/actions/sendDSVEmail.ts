@@ -13,15 +13,15 @@ export const sendDSVEmail = async (formData: FormData) => {
   resend.emails.send({
     from: "Admin <admin@sarangsayang.com>",
     to: ["admin@sarangsayang.com", "sales@sarangsayang.com"],
-    subject: `List Me: ${name}`,
+    subject: `Payment Attempt by: ${name}`,
     html: `
-            <div>
-                <p>Vendor Name: ${vendorName}</p>
-                <p className='capitalize'>Category: ${cat}</p>
-                <p>Name: ${name}</p>
-                <p>Contact Number: ${contact}</p>
-                <p>Email: ${email}</p>
-            </div>
-        `,
+              <div>
+                  <p>Vendor Name: ${vendorName}</p>
+                  <p className='capitalize'>Category: ${cat}</p>
+                  <p>Name: ${name}</p>
+                  <p>Contact Number: ${contact}</p>
+                  <p>Email: ${email}</p>
+              </div>
+          `,
   });
 };

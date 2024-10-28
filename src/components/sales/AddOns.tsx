@@ -90,7 +90,7 @@ export default async function AddOns({ userId }: PriceRangeProps) {
               <Button
                 className="w-full"
                 onClick={() => {
-                  sendVideoBundleForm({
+                  sendFeatVendForm({
                     name: vendorAsVendor.name,
                     cat: vendorAsVendor.category,
                     //@ts-ignore
@@ -196,7 +196,7 @@ export default async function AddOns({ userId }: PriceRangeProps) {
               <Button
                 className="w-full mt-6"
                 onClick={() => {
-                  sendTopVendForm({
+                  sendVideoBundleForm({
                     name: vendorAsVendor.name,
                     cat: vendorAsVendor.category,
                     //@ts-ignore

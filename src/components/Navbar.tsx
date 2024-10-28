@@ -12,7 +12,6 @@ import { BookHeart, MessageCircle } from "lucide-react";
 import Enquiries from "./Enquiries";
 import MobileNav from "./MobileNav";
 import NormalUserAccountNav from "./NormalUserAccountNav";
-import BecomeAVendor from "./BecomeAVendor";
 import Chats from "./Chats";
 
 const Navbar = async () => {
@@ -54,7 +53,11 @@ const Navbar = async () => {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <BecomeAVendor />
+                  <Link href={"/become-a-vendor"}>
+                    <p className="text-sm font-light text-slate-600 hover:text-slate-800 hover:underline cursor-pointer">
+                      Become a vendor
+                    </p>
+                  </Link>
 
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
 

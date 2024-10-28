@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 
-export default async function AddOns() {
+export default function AddOns() {
   return (
     <>
       <MaxWidthWrapper className="space-y-4 pt-6 py-10">

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { sendDSVEmail } from "@/actions/sendDSVEmail";
 import { useState } from "react";
 import {
@@ -25,8 +26,16 @@ import { categories } from "@/app/data/data";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import { trpc } from "@/trpc/client";
+import { useRouter } from "next/navigation";
 
-const BecomeAVendor = () => {
+interface BecomeAVendorProps {
+  desc: string;
+  yearly: string;
+}
+
+const BecomeAVendor = ({ desc, yearly }: BecomeAVendorProps) => {
+  const router = useRouter();
+
   const [dsvData, setDSVData] = useState({
     vendorName: "",
     category: "",
@@ -42,17 +51,14 @@ const BecomeAVendor = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <p className="text-sm font-light text-slate-600 hover:text-slate-800 hover:underline cursor-pointer">
-          Become a vendor
-        </p>
+        <Button className="w-full my-6">
+          <p>Become a Vendor Now</p>
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader className="mb-3">
-          <DialogTitle>Don&apos;t see your vendor?</DialogTitle>
-          <DialogDescription className="text-balance">
-            It&#39;s free! Be a part of the Sarang Sayang family. Submit your
-            vendor info and our team will contact you shortly.
-          </DialogDescription>
+          <DialogTitle>Become a Vendor</DialogTitle>
+          <DialogDescription className="text-pretty">{desc}</DialogDescription>
         </DialogHeader>
 
         <form
@@ -170,20 +176,59 @@ const BecomeAVendor = () => {
               dsvData.contact != "" &&
               dsvData.name != "" &&
               dsvData.vendorName != "" ? (
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  className="w-full"
-                  onClick={() =>
-                    toast({
-                      title: "We'll get right on it!",
-                      description:
-                        "Verifications and authentications can take up to 1-2 working days.",
-                    })
-                  }
-                >
-                  Submit
-                </Button>
+                <>
+                  {yearly ? (
+                    <Button
+                      type="submit"
+                      variant="default"
+                      className="w-full"
+                      onClick={() => {
+                        toast({
+                          title: "We'll get right on it!",
+                          description:
+                            "Verifications and authentications can take up to 1-2 working days.",
+                        });
+                        router.push(
+                          "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-20G56480KN739210AM4LDVAI"
+                        );
+                      }}
+                    >
+                      {/* <Link
+                        href={
+                          "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-20G56480KN739210AM4LDVAI"
+                        }
+                        target="_blank"
+                      > */}
+                      Make Payment
+                      {/* </Link> */}
+                    </Button>
+                  ) : (
+                    <Button
+                      type="submit"
+                      variant="default"
+                      className="w-full"
+                      onClick={() => {
+                        toast({
+                          title: "We'll get right on it!",
+                          description:
+                            "Verifications and authentications can take up to 1-2 working days.",
+                        });
+                        router.push(
+                          "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1K953383AM916294WM4LDUBY"
+                        );
+                      }}
+                    >
+                      {/* <Link
+                        href={
+                          "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1K953383AM916294WM4LDUBY"
+                        }
+                        target="_blank"
+                      > */}
+                      Make Payment
+                      {/* </Link> */}
+                    </Button>
+                  )}
+                </>
               ) : (
                 <Button
                   type="submit"
@@ -191,7 +236,7 @@ const BecomeAVendor = () => {
                   className="w-full"
                   disabled
                 >
-                  Submit
+                  Make Payment
                 </Button>
               )}
             </DialogClose>

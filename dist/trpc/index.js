@@ -69,6 +69,94 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    getAllVendorEnq: trpc_1.publicProcedure.query(function () { return __awaiter(void 0, void 0, void 0, function () {
+        var payload, results, totalSSC, totalSSE, allVendors, i, totalC, totalE, queries, q, msg, breakCondition, m;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                case 1:
+                    payload = _a.sent();
+                    results = [];
+                    totalSSC = 0;
+                    totalSSE = 0;
+                    return [4 /*yield*/, payload.find({
+                            collection: "vendors",
+                            pagination: false,
+                        })];
+                case 2:
+                    allVendors = (_a.sent()).docs;
+                    i = 0;
+                    _a.label = 3;
+                case 3:
+                    if (!(i < allVendors.length)) return [3 /*break*/, 10];
+                    totalC = 0;
+                    totalE = 0;
+                    return [4 /*yield*/, payload.find({
+                            collection: "chats",
+                            where: {
+                                vendor: { equals: allVendors[i].id },
+                            },
+                            pagination: false,
+                        })];
+                case 4:
+                    queries = (_a.sent()).docs;
+                    console.log("We are on: " + allVendors[i].name);
+                    if (!(queries.length > 0)) return [3 /*break*/, 8];
+                    console.log("Found Queries");
+                    q = 0;
+                    _a.label = 5;
+                case 5:
+                    if (!(q < queries.length)) return [3 /*break*/, 8];
+                    totalC++;
+                    return [4 /*yield*/, payload.find({
+                            collection: "message",
+                            where: {
+                                chat: { equals: queries[q].id },
+                            },
+                            pagination: false,
+                        })];
+                case 6:
+                    msg = (_a.sent()).docs;
+                    if (msg.length > 0) {
+                        console.log("Found Messages");
+                        breakCondition = false;
+                        for (m = 0; m < msg.length; m++) {
+                            if (msg[m].from == "user" && !breakCondition) {
+                                console.log("Found Message from User");
+                                totalE++;
+                                breakCondition = true;
+                            }
+                            console.log("Broke Condition");
+                        }
+                    }
+                    _a.label = 7;
+                case 7:
+                    q++;
+                    return [3 /*break*/, 5];
+                case 8:
+                    totalSSC = totalSSC + totalC;
+                    totalSSE = totalSSE + totalE;
+                    results.push({
+                        vendor: allVendors[i].name,
+                        cat: allVendors[i].category,
+                        chat: totalC,
+                        queries: totalE,
+                    });
+                    _a.label = 9;
+                case 9:
+                    i++;
+                    return [3 /*break*/, 3];
+                case 10:
+                    results.push({
+                        vendor: "Sarang Sayang",
+                        cat: "The Website Itself duh",
+                        chat: totalSSC,
+                        queries: totalSSE,
+                    });
+                    return [2 /*return*/, results];
+            }
+        });
+    }); }),
     removeItemsFromPlan: trpc_1.publicProcedure
         .input(zod_1.z.object({ planId: zod_1.z.string(), version: zod_1.z.number() }))
         .mutation(function (_a) {

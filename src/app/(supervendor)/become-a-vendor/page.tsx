@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { BadgeCheck, CheckCircle } from "lucide-react";
-import Link from "next/link";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { setYear } from "date-fns";
+import BecomeAVendor from "@/components/BecomeAVendor";
 
 const Supervendor200 = () => {
   const [yearly, setYearly] = useState(false);
@@ -17,8 +13,8 @@ const Supervendor200 = () => {
     <main className="mx-4 my-12">
       <div className="text-center text-balance">
         <h1 className="mb-4 text-2xl font-normal py-6 md:text-3xl lg:text-4xl">
-          Hey there! Presenting the{" "}
-          <span className="font-bold">Sarang Sayang Vendor Plan</span>
+          Become a <span className="font-bold">Sarang Sayang Vendor </span>
+          Today!
         </h1>
       </div>
 
@@ -63,27 +59,35 @@ const Supervendor200 = () => {
               <p className="text-sm font-light">Yearly</p>
             </div>
             {!yearly ? (
-              <Button className="w-full my-6" asChild>
-                <Link
-                  href={
-                    "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1K953383AM916294WM4LDUBY"
-                  }
-                  target="_blank"
-                >
-                  Become a Vendor Now
-                </Link>
-              </Button>
+              // <Button className="w-full my-6" asChild>
+              //   <Link
+              //     href={
+              //       "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1K953383AM916294WM4LDUBY"
+              //     }
+              //     target="_blank"
+              //   >
+              //     Become a Vendor Now
+              //   </Link>
+              // </Button>
+              <BecomeAVendor
+                yearly="Monthly"
+                desc="Be a part of the Sarang Sayang family for $25 per month! Submit your vendor info and our team will contact you shortly."
+              />
             ) : (
-              <Button className="w-full my-6" asChild>
-                <Link
-                  href={
-                    "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-20G56480KN739210AM4LDVAI"
-                  }
-                  target="_blank"
-                >
-                  Become a Vendor Now
-                </Link>
-              </Button>
+              // <Button className="w-full my-6" asChild>
+              //   <Link
+              //     href={
+              //       "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-20G56480KN739210AM4LDVAI"
+              //     }
+              //     target="_blank"
+              //   >
+              //     Become a Vendor Now
+              //   </Link>
+              // </Button>
+              <BecomeAVendor
+                yearly="Yearly"
+                desc="Smart choice! Enjoy 15% off for being with us for a year- Be a part of the Sarang Sayang family for $255 a year! Submit your vendor info and our team will contact you shortly."
+              />
             )}
           </div>
 
@@ -151,6 +155,12 @@ const Supervendor200 = () => {
                   </div>
                 </li>
               </ul>
+            </div>
+            <div className="text-center">
+              <p className="text-sm italic text-slate-400">
+                Subcriptions can be cancelled anytime by dropping us an e-mail
+                at <span className="font-semibold">sales@sarangsayang.com</span>
+              </p>
             </div>
           </div>
         </div>
