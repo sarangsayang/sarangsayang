@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation";
 
 interface BecomeAVendorProps {
   desc: string;
-  yearly: string;
+  yearly: boolean;
 }
 
 const BecomeAVendor = ({ desc, yearly }: BecomeAVendorProps) => {
@@ -199,7 +199,7 @@ const BecomeAVendor = ({ desc, yearly }: BecomeAVendorProps) => {
                         }
                         target="_blank"
                       > */}
-                      Make Payment
+                      Make Payment (Yearly)
                       {/* </Link> */}
                     </Button>
                   ) : (
@@ -224,7 +224,7 @@ const BecomeAVendor = ({ desc, yearly }: BecomeAVendorProps) => {
                         }
                         target="_blank"
                       > */}
-                      Make Payment
+                      Make Payment (Monthly)
                       {/* </Link> */}
                     </Button>
                   )}

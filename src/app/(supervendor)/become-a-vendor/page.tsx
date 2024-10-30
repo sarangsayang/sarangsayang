@@ -70,7 +70,7 @@ const Supervendor200 = () => {
               //   </Link>
               // </Button>
               <BecomeAVendor
-                yearly="Monthly"
+                yearly={false}
                 desc="Be a part of the Sarang Sayang family for $25 per month! Submit your vendor info and our team will contact you shortly."
               />
             ) : (
@@ -85,7 +85,7 @@ const Supervendor200 = () => {
               //   </Link>
               // </Button>
               <BecomeAVendor
-                yearly="Yearly"
+                yearly={true}
                 desc="Smart choice! Enjoy 15% off for being with us for a year- Be a part of the Sarang Sayang family for $255 a year! Submit your vendor info and our team will contact you shortly."
               />
             )}
