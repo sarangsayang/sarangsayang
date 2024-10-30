@@ -239,7 +239,12 @@ const Page = async ({ params }: PageProps) => {
                     {/* Claim */}
                     {VendUser.email === "sales@sarangsayang.com" ? (
                       <div className="mt-4">
-                        <ClaimVendor vendorName={product.name} />
+                        {/* <ClaimVendor vendorName={product.name} /> */}
+                        <Button variant={"outline"} className="w-full" asChild>
+                          <Link href={"/become-a-vendor"}>
+                            Claim This Vendor
+                          </Link>
+                        </Button>
                       </div>
                     ) : null}
 
