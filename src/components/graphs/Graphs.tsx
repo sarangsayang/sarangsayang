@@ -12,7 +12,7 @@ const Graphs = () => {
       <TabsList className="w-full bg-sky-200">
         <TabsTrigger value="webactivity">Website Activity</TabsTrigger>
         <TabsTrigger value="tiktok">TikTok</TabsTrigger>
-        <TabsTrigger value="ig">Instagram</TabsTrigger>
+        <TabsTrigger value="ig">IG</TabsTrigger>
       </TabsList>
       <div className="mt-6">
         <MaxWidthWrapper>
