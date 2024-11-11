@@ -4,6 +4,7 @@ import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { trpc } from "@/trpc/client";
 import { BookHeart } from "lucide-react";
 import TVLDataPull from "./TVLDataPull";
+import { Vendor } from "@/payload-types";
 
 interface TotalVendorLikesProps {
   userId: string;
@@ -13,7 +14,7 @@ const TotalVendorLikes = ({ userId }: TotalVendorLikesProps) => {
   const getVendorId = trpc.getVendorId.useQuery({
     userId: userId,
   });
-  const vendorId = getVendorId.data?.docs[0].id;
+  const vendor = getVendorId.data?.docs[0] as unknown as Vendor;
 
   return (
     <>
@@ -24,7 +25,7 @@ const TotalVendorLikes = ({ userId }: TotalVendorLikesProps) => {
         <BookHeart />
       </CardHeader>
       <CardContent>
-        {vendorId ? <TVLDataPull vendorId={vendorId} /> : null}
+        {vendor ? <TVLDataPull vendor={vendor} /> : null}
       </CardContent>
     </>
   );

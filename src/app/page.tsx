@@ -16,6 +16,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import Tiktok from "@/components/Tiktok";
+import HomepageVendors from "@/components/HomepageVendors";
 
 export default async function Home() {
   const nextCookies = cookies();
@@ -60,7 +61,8 @@ export default async function Home() {
         </MaxWidthWrapper>
       </div>
       <MaxWidthWrapper>
-        <Featured11 user={user?.id} />
+        {/* <Featured11 user={user?.id} /> */}
+        <HomepageVendors user={user?.id} />
         <HomepageAds />
       </MaxWidthWrapper>
 

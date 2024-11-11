@@ -22,6 +22,7 @@ import { Itinerary } from "./app/collections/Plans/Itinerary";
 import { Chats } from "./app/collections/Chat/Chats";
 import { Message } from "./app/collections/Chat/Message";
 import { MiscVendors } from "./app/collections/MiscVendors";
+import { HomepageVendors } from "./app/collections/HomepageVendors";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env"),
@@ -58,6 +59,7 @@ export default buildConfig({
     Chats,
     Message,
     MiscVendors,
+    HomepageVendors,
   ],
   routes: {
     admin: "/backstage",

@@ -30,18 +30,17 @@ export default async function Dashboard() {
             </p>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
           {/* Total Vendor Likes */}
           <Card>{user ? <TVCCont userId={user.id} /> : null}</Card>
-
-          {/* Total Vendor Likes */}
-          <Card>{user ? <TVLCont userId={user.id} /> : null}</Card>
 
           {/* Total Enquiries */}
           <Card>{user ? <TECont userId={user.id} /> : null}</Card>
 
-          {/* Enquiries From Sarang Sayang */}
-          <Card>{user ? <SSCont userId={user.id} /> : null}</Card>
+          {/* Total Vendor Likes */}
+          <Card className="col-span-2">
+            {user ? <TVLCont userId={user.id} /> : null}
+          </Card>
         </div>
       </MaxWidthWrapper>
       {user ? (

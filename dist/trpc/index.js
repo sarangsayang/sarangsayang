@@ -69,6 +69,31 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    checkChat: trpc_1.publicProcedure
+        .input(zod_1.z.object({ userId: zod_1.z.string(), vendorId: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, chat;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "chats",
+                                where: {
+                                    user: { equals: input.userId },
+                                    and: [{ vendor: { equals: input.vendorId } }],
+                                },
+                            })];
+                    case 2:
+                        chat = (_b.sent()).docs;
+                        return [2 /*return*/, chat];
+                }
+            });
+        });
+    }),
     getAllVendorEnq: trpc_1.publicProcedure.query(function () { return __awaiter(void 0, void 0, void 0, function () {
         var payload, results, totalSSC, totalSSE, allVendors, i, totalC, totalE, queries, q, msg, breakCondition, m;
         return __generator(this, function (_a) {
@@ -1150,6 +1175,7 @@ exports.appRouter = (0, trpc_1.router)({
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
+                        console.log("Clicked");
                         return [4 /*yield*/, payload.find({
                                 collection: "chats",
                                 where: {
@@ -3323,6 +3349,325 @@ exports.appRouter = (0, trpc_1.router)({
                                 }];
                         }
                         return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    setHomepageVendor: trpc_1.publicProcedure
+        .input(zod_1.z.object({ slot: zod_1.z.number(), vendorId: zod_1.z.string() }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!(input.slot == 1)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot1: input.vendorId,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 3:
+                        if (!(input.slot == 2)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot2: input.vendorId,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 5:
+                        if (!(input.slot == 3)) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot3: input.vendorId,
+                                },
+                            })];
+                    case 6:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 7:
+                        if (!(input.slot == 4)) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot4: input.vendorId,
+                                },
+                            })];
+                    case 8:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 9:
+                        if (!(input.slot == 5)) return [3 /*break*/, 11];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot5: input.vendorId,
+                                },
+                            })];
+                    case 10:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 11:
+                        if (!(input.slot == 6)) return [3 /*break*/, 13];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot6: input.vendorId,
+                                },
+                            })];
+                    case 12:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 13:
+                        if (!(input.slot == 7)) return [3 /*break*/, 15];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot7: input.vendorId,
+                                },
+                            })];
+                    case 14:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 15:
+                        if (!(input.slot == 8)) return [3 /*break*/, 17];
+                        return [4 /*yield*/, payload.update({
+                                collection: "homepage",
+                                where: {
+                                    id: { equals: "6731fa30466109cc5693fa69" },
+                                },
+                                data: {
+                                    slot8: input.vendorId,
+                                },
+                            })];
+                    case 16:
+                        _b.sent();
+                        _b.label = 17;
+                    case 17: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    setTopVendors: trpc_1.publicProcedure
+        .input(zod_1.z.object({ cat: zod_1.z.string(), vendorId: zod_1.z.string() }))
+        .mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        if (!(input.cat == "venues")) return [3 /*break*/, 3];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Venue: input.vendorId,
+                                },
+                            })];
+                    case 2:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 3:
+                        if (!(input.cat == "stylist")) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Stylist: input.vendorId,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 5:
+                        if (!(input.cat == "bridals")) return [3 /*break*/, 7];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Bridal: input.vendorId,
+                                },
+                            })];
+                    case 6:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 7:
+                        if (!(input.cat == "photovideo")) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Photovideo: input.vendorId,
+                                },
+                            })];
+                    case 8:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 9:
+                        if (!(input.cat == "mua")) return [3 /*break*/, 11];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Mua: input.vendorId,
+                                },
+                            })];
+                    case 10:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 11:
+                        if (!(input.cat == "berkatgubahan")) return [3 /*break*/, 13];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Berkat: input.vendorId,
+                                },
+                            })];
+                    case 12:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 13:
+                        if (!(input.cat == "emceesperformers")) return [3 /*break*/, 15];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Emcee: input.vendorId,
+                                },
+                            })];
+                    case 14:
+                        _b.sent();
+                        return [3 /*break*/, 17];
+                    case 15:
+                        if (!(input.cat == "misc")) return [3 /*break*/, 17];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Misc: input.vendorId,
+                                },
+                            })];
+                    case 16:
+                        _b.sent();
+                        _b.label = 17;
+                    case 17: return [2 /*return*/];
+                }
+            });
+        });
+    }),
+    getSlotVendor: trpc_1.publicProcedure.query(function () { return __awaiter(void 0, void 0, void 0, function () {
+        var payload, vendor;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                case 1:
+                    payload = _a.sent();
+                    return [4 /*yield*/, payload.find({
+                            collection: "homepage",
+                            where: {
+                                id: { equals: "6731fa30466109cc5693fa69" },
+                            },
+                            pagination: false,
+                        })];
+                case 2:
+                    vendor = (_a.sent()).docs;
+                    return [2 /*return*/, vendor];
+            }
+        });
+    }); }),
+    getPagelessInfiniteProducts: trpc_1.publicProcedure
+        .input(zod_1.z.object({ cat: zod_1.z.string() }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, items;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                where: {
+                                    category: { equals: input.cat },
+                                },
+                                pagination: false,
+                            })];
+                    case 2:
+                        items = (_b.sent()).docs;
+                        return [2 /*return*/, items];
+                }
+            });
+        });
+    }),
+    getAllPagelessInfiniteProducts: trpc_1.publicProcedure.query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, items;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "vendors",
+                                pagination: false,
+                            })];
+                    case 2:
+                        items = (_b.sent()).docs;
+                        return [2 /*return*/, items];
                 }
             });
         });

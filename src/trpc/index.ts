@@ -6,6 +6,7 @@ import { publicProcedure, router } from "./trpc";
 import { Package, User, Vendor } from "@/payload-types";
 import { version } from "os";
 import { equal } from "assert";
+import { query } from "express";
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
@@ -13,6 +14,22 @@ function formatWithLeadingZero(num: number) {
 
 export const appRouter = router({
   auth: authRouter,
+
+  checkChat: publicProcedure
+    .input(z.object({ userId: z.string(), vendorId: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const { docs: chat } = await payload.find({
+        collection: "chats",
+        where: {
+          user: { equals: input.userId },
+          and: [{ vendor: { equals: input.vendorId } }],
+        },
+      });
+
+      return chat;
+    }),
 
   getAllVendorEnq: publicProcedure.query(async () => {
     const payload = await getPayloadClient();
@@ -831,6 +848,7 @@ export const appRouter = router({
     )
     .mutation(async ({ input }) => {
       const payload = await getPayloadClient();
+      console.log("Clicked");
 
       // Find out if chat exist
       const doesChatExist = await payload.find({
@@ -2520,6 +2538,223 @@ export const appRouter = router({
         };
       }
     }),
+
+  setHomepageVendor: publicProcedure
+    .input(z.object({ slot: z.number(), vendorId: z.string() }))
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      if (input.slot == 1) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot1: input.vendorId,
+          },
+        });
+      } else if (input.slot == 2) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot2: input.vendorId,
+          },
+        });
+      } else if (input.slot == 3) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot3: input.vendorId,
+          },
+        });
+      } else if (input.slot == 4) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot4: input.vendorId,
+          },
+        });
+      } else if (input.slot == 5) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot5: input.vendorId,
+          },
+        });
+      } else if (input.slot == 6) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot6: input.vendorId,
+          },
+        });
+      } else if (input.slot == 7) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot7: input.vendorId,
+          },
+        });
+      } else if (input.slot == 8) {
+        await payload.update({
+          collection: "homepage",
+          where: {
+            id: { equals: "6731fa30466109cc5693fa69" },
+          },
+          data: {
+            slot8: input.vendorId,
+          },
+        });
+      }
+    }),
+
+  setTopVendors: publicProcedure
+    .input(z.object({ cat: z.string(), vendorId: z.string() }))
+    .mutation(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      if (input.cat == "venues") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Venue: input.vendorId,
+          },
+        });
+      } else if (input.cat == "stylist") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Stylist: input.vendorId,
+          },
+        });
+      } else if (input.cat == "bridals") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Bridal: input.vendorId,
+          },
+        });
+      } else if (input.cat == "photovideo") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Photovideo: input.vendorId,
+          },
+        });
+      } else if (input.cat == "mua") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Mua: input.vendorId,
+          },
+        });
+      } else if (input.cat == "berkatgubahan") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Berkat: input.vendorId,
+          },
+        });
+      } else if (input.cat == "emceesperformers") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Emcee: input.vendorId,
+          },
+        });
+      } else if (input.cat == "misc") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Misc: input.vendorId,
+          },
+        });
+      }
+    }),
+
+  getSlotVendor: publicProcedure.query(async () => {
+    const payload = await getPayloadClient();
+
+    const { docs: vendor } = await payload.find({
+      collection: "homepage",
+      where: {
+        id: { equals: "6731fa30466109cc5693fa69" },
+      },
+      pagination: false,
+    });
+
+    return vendor;
+  }),
+
+  getPagelessInfiniteProducts: publicProcedure
+    .input(z.object({ cat: z.string() }))
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const { docs: items } = await payload.find({
+        collection: "vendors",
+        where: {
+          category: { equals: input.cat },
+        },
+        pagination: false,
+      });
+
+      return items;
+    }),
+
+  getAllPagelessInfiniteProducts: publicProcedure.query(async ({ input }) => {
+    const payload = await getPayloadClient();
+
+    const { docs: items } = await payload.find({
+      collection: "vendors",
+      pagination: false,
+    });
+
+    return items;
+  }),
 
   getInfiniteProducts: publicProcedure
     .input(

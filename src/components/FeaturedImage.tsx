@@ -9,7 +9,6 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { Vendor } from "@/payload-types";
-import { Skeleton } from "./ui/skeleton";
 
 interface FeaturedImageProps {
   category: string;
@@ -28,8 +27,8 @@ const FeaturedImage = ({ category }: FeaturedImageProps) => {
           <Tooltip>
             <TooltipTrigger>
               <Image
-                width={900}
-                height={900}
+                width={197}
+                height={197}
                 //@ts-ignore
                 src={top.images[1].image.sizes?.thumbnail?.url}
                 alt="product category image"
@@ -42,13 +41,7 @@ const FeaturedImage = ({ category }: FeaturedImageProps) => {
           </Tooltip>
         </TooltipProvider>
       ) : (
-        <Image
-          width={900}
-          height={900}
-          src="https://placehold.co/600x600"
-          alt="product category image"
-          className="aspect-square rounded-2xl"
-        />
+        <div className="bg-slate-200 animate-pulse w-full h-full aspect-square rounded-2xl"></div>
       )}
     </>
   );

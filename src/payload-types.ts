@@ -24,6 +24,7 @@ export interface Config {
     chats: Chat;
     message: Message;
     misc: Misc;
+    homepage: Homepage;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -313,6 +314,19 @@ export interface Misc {
   henna?: (string | Vendor)[] | null;
   stationery?: (string | Vendor)[] | null;
   heels?: (string | Vendor)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Homepage {
+  id: string;
+  slot1?: (string | null) | Vendor;
+  slot2?: (string | null) | Vendor;
+  slot3?: (string | null) | Vendor;
+  slot4?: (string | null) | Vendor;
+  slot5?: (string | null) | Vendor;
+  slot6?: (string | null) | Vendor;
+  slot7?: (string | null) | Vendor;
+  slot8?: (string | null) | Vendor;
   updatedAt: string;
   createdAt: string;
 }
