@@ -11,10 +11,7 @@ const Stylist = async () => {
   const nextCookies = cookies();
   const { user } = await getServerSideUser(nextCookies);
 
-  const subC = [
-    { title: "Decor", value: "decor" },
-    { title: "Agents", value: "agent" },
-  ];
+  const subC = [{ title: "Decor", value: "decor" }];
   return (
     <>
       <StylistBanner />

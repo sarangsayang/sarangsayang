@@ -21,7 +21,7 @@ exports.MiscVendors = {
             type: "relationship",
             label: "Berkat Vendors",
             relationTo: "vendors",
-            filterOptions: { category: { equals: "berkatgubahan" } },
+            filterOptions: { category: { equals: "misc" } },
             hasMany: true,
         },
         {
@@ -45,7 +45,7 @@ exports.MiscVendors = {
             type: "relationship",
             label: "Dulang Vendors",
             relationTo: "vendors",
-            filterOptions: { category: { equals: "berkatgubahan" } },
+            filterOptions: { category: { equals: "misc" } },
             hasMany: true,
         },
         {

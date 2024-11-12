@@ -26,7 +26,13 @@ export const PRODUCT_CATEGORIES = [
       {
         name: "Wedding Stylist",
         value: "stylist",
-        href: "/vendors/stylist",
+        href: "/vendors?category=stylist",
+        imageSrc: "https://placehold.co/600x600",
+      },
+      {
+        name: "Wedding Coordinators",
+        value: "coordinators",
+        href: "/vendors?category=coordinators",
         imageSrc: "https://placehold.co/600x600",
       },
       {
@@ -39,12 +45,6 @@ export const PRODUCT_CATEGORIES = [
         name: "Photo & Video",
         value: "photovideo",
         href: `/vendors?category=photovideo`,
-        imageSrc: "https://placehold.co/600x600",
-      },
-      {
-        name: "Berkat & Gubahan",
-        value: "berkatgubahan",
-        href: "/vendors/berkatgubahan",
         imageSrc: "https://placehold.co/600x600",
       },
       {
@@ -118,6 +118,11 @@ export const VENDOR_CATEGORIES = [
     icon: Flower2,
   },
   {
+    label: "Wedding Coordinators",
+    value: "coordinators",
+    icon: Gift,
+  },
+  {
     label: "Bridals",
     value: "bridals",
     icon: Shirt,
@@ -126,11 +131,6 @@ export const VENDOR_CATEGORIES = [
     label: "Photo & Video",
     value: "photovideo",
     icon: Camera,
-  },
-  {
-    label: "Berkat & Gubahan",
-    value: "berkatgubahan",
-    icon: Gift,
   },
   {
     label: "Make Up Artist",

@@ -17,7 +17,13 @@ exports.PRODUCT_CATEGORIES = [
             {
                 name: "Wedding Stylist",
                 value: "stylist",
-                href: "/vendors/stylist",
+                href: "/vendors?category=stylist",
+                imageSrc: "https://placehold.co/600x600",
+            },
+            {
+                name: "Wedding Coordinators",
+                value: "coordinators",
+                href: "/vendors?category=coordinators",
                 imageSrc: "https://placehold.co/600x600",
             },
             {
@@ -30,12 +36,6 @@ exports.PRODUCT_CATEGORIES = [
                 name: "Photo & Video",
                 value: "photovideo",
                 href: "/vendors?category=photovideo",
-                imageSrc: "https://placehold.co/600x600",
-            },
-            {
-                name: "Berkat & Gubahan",
-                value: "berkatgubahan",
-                href: "/vendors/berkatgubahan",
                 imageSrc: "https://placehold.co/600x600",
             },
             {
@@ -108,6 +108,11 @@ exports.VENDOR_CATEGORIES = [
         icon: lucide_react_1.Flower2,
     },
     {
+        label: "Wedding Coordinators",
+        value: "coordinators",
+        icon: lucide_react_1.Gift,
+    },
+    {
         label: "Bridals",
         value: "bridals",
         icon: lucide_react_1.Shirt,
@@ -116,11 +121,6 @@ exports.VENDOR_CATEGORIES = [
         label: "Photo & Video",
         value: "photovideo",
         icon: lucide_react_1.Camera,
-    },
-    {
-        label: "Berkat & Gubahan",
-        value: "berkatgubahan",
-        icon: lucide_react_1.Gift,
     },
     {
         label: "Make Up Artist",

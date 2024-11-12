@@ -69,6 +69,53 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    transitiona3: trpc_1.publicProcedure.mutation(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, miscVendors, A_Misc, x;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        console.log("Getting vendors from Misc_Agents");
+                        return [4 /*yield*/, payload.find({
+                                collection: "misc",
+                                where: {
+                                    id: { equals: "65b7aee5c17286ca4dd3e2ed" },
+                                },
+                                pagination: false,
+                            })];
+                    case 2:
+                        miscVendors = (_b.sent()).docs;
+                        console.log("Found all Misc Vendors");
+                        A_Misc = miscVendors[0].agent;
+                        x = 0;
+                        _b.label = 3;
+                    case 3:
+                        if (!(x < A_Misc.length)) return [3 /*break*/, 6];
+                        console.log("Updating " + A_Misc[x].name);
+                        return [4 /*yield*/, payload.update({
+                                collection: "vendors",
+                                where: {
+                                    id: { equals: A_Misc[x].id },
+                                },
+                                data: {
+                                    category: "coordinators",
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        console.log("Changed " + A_Misc[x].name + " to Wedding Coordinators");
+                        _b.label = 5;
+                    case 5:
+                        x++;
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    }),
     checkChat: trpc_1.publicProcedure
         .input(zod_1.z.object({ userId: zod_1.z.string(), vendorId: zod_1.z.string() }))
         .query(function (_a) {
@@ -3324,10 +3371,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     top4: results.docs[0].top4Photovideo,
                                 }];
                         }
-                        else if (input.category === "berkatgubahan") {
+                        else if (input.category === "coordinators") {
                             return [2 /*return*/, {
-                                    top: results.docs[0].top1Berkat,
-                                    top4: results.docs[0].top4Berkat,
+                                    top: results.docs[0].top1Coordinator,
+                                    top4: results.docs[0].top4Coordinator,
                                 }];
                         }
                         else if (input.category === "mua") {
@@ -3561,14 +3608,14 @@ exports.appRouter = (0, trpc_1.router)({
                         _b.sent();
                         return [3 /*break*/, 17];
                     case 11:
-                        if (!(input.cat == "berkatgubahan")) return [3 /*break*/, 13];
+                        if (!(input.cat == "coordinators")) return [3 /*break*/, 13];
                         return [4 /*yield*/, payload.update({
                                 collection: "featured",
                                 where: {
                                     id: { equals: "65a3e090f66a58e7b5eb9542" },
                                 },
                                 data: {
-                                    top1Berkat: input.vendorId,
+                                    top1Coordinator: input.vendorId,
                                 },
                             })];
                     case 12:

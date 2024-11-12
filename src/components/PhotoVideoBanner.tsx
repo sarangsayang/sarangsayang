@@ -4,36 +4,39 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 import Link from "next/link";
 import { BadgeCheck } from "lucide-react";
 import { trpc } from "@/trpc/client";
+import VendorBannerCard from "./VendorBannerCard";
+import { Vendor } from "@/payload-types";
 
 const PhotoVideoBanner = () => {
-  const addClick = trpc.addClick.useMutation();
+  const results = trpc.getTopVendor.useQuery({
+    category: "photovideo",
+  });
+
+  const top = results.data?.top as Vendor;
+  const top4 = results.data?.top4 as unknown;
 
   return (
-    <div
-      className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg p-5"
-      onClick={() => {
-        addClick.mutate({
-          vendorId: "65d0103e1ee37d026fce4b94",
-        });
-      }}
-    >
-      <MaxWidthWrapper>
-        <Link href={"/vendor/65d0103e1ee37d026fce4b94"} target="_blank">
-          <div className="bg-[url('/aefWeddings.png')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
-            <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
-              <div className="flex flex-row items-center gap-1">
-                <h1 className="text-lg font-bold">aef.weddings</h1>
-                <BadgeCheck
-                  aria-hidden="true"
-                  className="h-6 w-6 flex-shrink-0 text-yellow-400"
-                />
-              </div>
-              <p className="text-slate-500 text-sm">
-                Quote &quot;SARANGSAYANG&quot; and get 20% off all packages!
-              </p>
+    <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-md p-5">
+      <MaxWidthWrapper className="pb-6">
+        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+          Featured Photo & Video
+        </h1>
+      </MaxWidthWrapper>
+      <MaxWidthWrapper className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="w-full col-span-2">
+          {results.data && top4 ? (
+            <div className="grid grid-cols-2 gap-3">
+              {/* @ts-ignore */}
+              <VendorBannerCard vendor={top} />
+              {/* @ts-ignore */}
+              <VendorBannerCard vendor={top4[0].vendor as Vendor} />
+              {/* <p>{JSON.stringify(top4[1].vendor as Vendor)}</p>
+              <p>{JSON.stringify(top4[2].vendor as Vendor)}</p> */}
             </div>
-          </div>
-        </Link>
+          ) : (
+            <></>
+          )}
+        </div>
       </MaxWidthWrapper>
     </div>
   );

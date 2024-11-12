@@ -58,6 +58,29 @@ export const FeaturedVendors: CollectionConfig = {
       ],
     },
     {
+      name: "top1Coordinator",
+      type: "relationship",
+      label: "Top Featured Coordinator",
+      relationTo: "vendors",
+      filterOptions: { category: { equals: "coordinators" } },
+      hasMany: false,
+    },
+    {
+      name: "top4Coordinator",
+      type: "array",
+      label: "3 Featured Coordinators",
+      maxRows: 3,
+      fields: [
+        {
+          name: "vendor",
+          type: "relationship",
+          relationTo: "vendors",
+          filterOptions: { category: { equals: "coordinators" } },
+          hasMany: false,
+        },
+      ],
+    },
+    {
       name: "top1Bridal",
       type: "relationship",
       label: "Top Featured Bridal",
@@ -126,30 +149,6 @@ export const FeaturedVendors: CollectionConfig = {
         },
       ],
     },
-    {
-      name: "top1Berkat",
-      type: "relationship",
-      label: "Top Featured Berkat",
-      relationTo: "vendors",
-      filterOptions: { category: { equals: "berkatgubahan" } },
-      hasMany: false,
-    },
-    {
-      name: "top4Berkat",
-      type: "array",
-      label: "3 Featured Berkat",
-      maxRows: 3,
-      fields: [
-        {
-          name: "vendor",
-          type: "relationship",
-          relationTo: "vendors",
-          filterOptions: { category: { equals: "berkatgubahan" } },
-          hasMany: false,
-        },
-      ],
-    },
-
     {
       name: "top1Emcee",
       type: "relationship",

@@ -56,7 +56,7 @@ export interface Vendor {
   id: string;
   venduserid: string | User;
   name: string;
-  category: 'venues' | 'stylist' | 'bridals' | 'photovideo' | 'berkatgubahan' | 'mua' | 'emceesperformers' | 'misc';
+  category: 'venues' | 'stylist' | 'coordinators' | 'bridals' | 'photovideo' | 'mua' | 'emceesperformers' | 'misc';
   details?:
     | {
         [k: string]: unknown;
@@ -80,7 +80,7 @@ export interface Package {
   vendor: string | Vendor;
   name: string;
   services?:
-    | ('venues' | 'stylist' | 'bridals' | 'photovideo' | 'berkatgubahan' | 'mua' | 'emceesperformers' | 'misc')[]
+    | ('venues' | 'stylist' | 'coordinators' | 'bridals' | 'photovideo' | 'mua' | 'emceesperformers' | 'misc')[]
     | null;
   packageDetails?:
     | {
@@ -201,6 +201,13 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
+  top1Coordinator?: (string | null) | Vendor;
+  top4Coordinator?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
   top1Bridal?: (string | null) | Vendor;
   top4Bridals?:
     | {
@@ -217,13 +224,6 @@ export interface Featured {
     | null;
   top1Mua?: (string | null) | Vendor;
   top4Mua?:
-    | {
-        vendor?: (string | null) | Vendor;
-        id?: string | null;
-      }[]
-    | null;
-  top1Berkat?: (string | null) | Vendor;
-  top4Berkat?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;

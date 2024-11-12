@@ -10,6 +10,7 @@ import FeaturedReel from "@/components/FeaturedReel";
 import { BadgeCheck, Heart } from "lucide-react";
 import Link from "next/link";
 import PhotoVideoBanner from "@/components/PhotoVideoBanner";
+import StylistBanner from "@/components/StylistBanner";
 
 type Param = string | string[] | undefined;
 
@@ -36,6 +37,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   return (
     <>
       {/* {category === "photovideo" ? <PhotoVideoBanner /> : null} */}
+      {category === "stylist" ? <StylistBanner /> : null}
 
       <MaxWidthWrapper>
         <div className="mt-6 flex items-center gap-3">

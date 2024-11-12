@@ -99,6 +99,11 @@ export const categories = [
     icon: <Flower2 />,
   },
   {
+    label: "Wedding Coordinators",
+    value: "coordinators",
+    icon: <Gift />,
+  },
+  {
     label: "Bridals",
     value: "bridals",
     icon: <Shirt />,
@@ -107,11 +112,6 @@ export const categories = [
     label: "Photo & Video",
     value: "photovideo",
     icon: <Camera />,
-  },
-  {
-    label: "Berkat & Gubahan",
-    value: "berkatgubahan",
-    icon: <Gift />,
   },
   {
     label: "Make Up Artists",

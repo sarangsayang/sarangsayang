@@ -17,7 +17,7 @@ export const MiscVendors: CollectionConfig = {
       type: "relationship",
       label: "Berkat Vendors",
       relationTo: "vendors",
-      filterOptions: { category: { equals: "berkatgubahan" } },
+      filterOptions: { category: { equals: "misc" } },
       hasMany: true,
     },
     {
@@ -41,7 +41,7 @@ export const MiscVendors: CollectionConfig = {
       type: "relationship",
       label: "Dulang Vendors",
       relationTo: "vendors",
-      filterOptions: { category: { equals: "berkatgubahan" } },
+      filterOptions: { category: { equals: "misc" } },
       hasMany: true,
     },
     {

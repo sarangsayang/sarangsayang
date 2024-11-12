@@ -15,6 +15,38 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
+  transitiona3: publicProcedure.mutation(async ({ input }) => {
+    const payload = await getPayloadClient();
+
+    console.log("Getting vendors from Misc_Agents");
+
+    const { docs: miscVendors } = await payload.find({
+      collection: "misc",
+      where: {
+        id: { equals: "65b7aee5c17286ca4dd3e2ed" },
+      },
+      pagination: false,
+    });
+
+    console.log("Found all Misc Vendors");
+
+    const A_Misc = miscVendors[0].agent as Vendor[];
+
+    for (let x = 0; x < A_Misc.length; x++) {
+      console.log("Updating " + A_Misc[x].name);
+      await payload.update({
+        collection: "vendors",
+        where: {
+          id: { equals: A_Misc[x].id },
+        },
+        data: {
+          category: "coordinators",
+        },
+      });
+      console.log("Changed " + A_Misc[x].name + " to Wedding Coordinators");
+    }
+  }),
+
   checkChat: publicProcedure
     .input(z.object({ userId: z.string(), vendorId: z.string() }))
     .query(async ({ input }) => {
@@ -2516,10 +2548,10 @@ export const appRouter = router({
           top: results.docs[0].top1Photovideo,
           top4: results.docs[0].top4Photovideo,
         };
-      } else if (input.category === "berkatgubahan") {
+      } else if (input.category === "coordinators") {
         return {
-          top: results.docs[0].top1Berkat,
-          top4: results.docs[0].top4Berkat,
+          top: results.docs[0].top1Coordinator,
+          top4: results.docs[0].top4Coordinator,
         };
       } else if (input.category === "mua") {
         return {
@@ -2682,14 +2714,14 @@ export const appRouter = router({
             top1Mua: input.vendorId,
           },
         });
-      } else if (input.cat == "berkatgubahan") {
+      } else if (input.cat == "coordinators") {
         await payload.update({
           collection: "featured",
           where: {
             id: { equals: "65a3e090f66a58e7b5eb9542" },
           },
           data: {
-            top1Berkat: input.vendorId,
+            top1Coordinator: input.vendorId,
           },
         });
       } else if (input.cat == "emceesperformers") {
