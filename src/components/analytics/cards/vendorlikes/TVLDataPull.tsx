@@ -14,7 +14,7 @@ import {
   TableCell,
   TableFooter,
 } from "@/components/ui/table";
-import { Like, Vendor } from "@/payload-types";
+import { Like, User, Vendor } from "@/payload-types";
 import { trpc } from "@/trpc/client";
 import { Loader2 } from "lucide-react";
 import TVLChat from "./TVLChat";
@@ -24,6 +24,9 @@ interface TotalVendorLikesProps {
 }
 
 const TVLDataPull = ({ vendor }: TotalVendorLikesProps) => {
+  const vendorUser = vendor.venduserid as User;
+  const role = vendorUser.role;
+
   const getLikes = trpc.getLikesFromVendId.useQuery({
     vendorId: vendor.id,
   });
@@ -55,7 +58,9 @@ const TVLDataPull = ({ vendor }: TotalVendorLikesProps) => {
                     <TableRow>
                       <TableHead>Name</TableHead>
                       <TableHead>Email</TableHead>
-                      {/* <TableHead>Chat</TableHead> */}
+                      {role === "supervendor" ? (
+                        <TableHead>Chat</TableHead>
+                      ) : null}
                       <TableHead className="text-right">Date</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -71,10 +76,12 @@ const TVLDataPull = ({ vendor }: TotalVendorLikesProps) => {
                           {/* @ts-ignore */}
                           {like.user.email}
                         </TableCell>
-                        {/* <TableCell>
-                         
-                          <TVLChat user={like.user.id} vendor={vendor} />
-                        </TableCell> */}
+                        {role === "supervendor" ? (
+                          <TableCell>
+                            {/* @ts-ignore */}
+                            <TVLChat user={like.user} vendor={vendor} />
+                          </TableCell>
+                        ) : null}
                         <TableCell className="text-right">
                           {formatDate(like.createdAt)}
                         </TableCell>

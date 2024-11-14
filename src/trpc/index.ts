@@ -15,35 +15,69 @@ function formatWithLeadingZero(num: number) {
 export const appRouter = router({
   auth: authRouter,
 
-  transitiona3: publicProcedure.mutation(async ({ input }) => {
+  transition: publicProcedure.mutation(async ({ input }) => {
     const payload = await getPayloadClient();
 
-    console.log("Getting vendors from Misc_Agents");
+    console.log("Getting all likes..");
 
-    const { docs: miscVendors } = await payload.find({
-      collection: "misc",
-      where: {
-        id: { equals: "65b7aee5c17286ca4dd3e2ed" },
-      },
+    const { docs: AllLikes } = await payload.find({
+      collection: "likes",
       pagination: false,
     });
 
-    console.log("Found all Misc Vendors");
+    console.log("Found all likes");
 
-    const A_Misc = miscVendors[0].agent as Vendor[];
+    for (let x = 0; x < AllLikes.length; x++) {
+      let currentUser = AllLikes[x].user as User;
 
-    for (let x = 0; x < A_Misc.length; x++) {
-      console.log("Updating " + A_Misc[x].name);
-      await payload.update({
-        collection: "vendors",
+      console.log("Working on " + currentUser.email);
+      console.log("Getting all likes by " + currentUser.email);
+
+      const { docs: UserLikes } = await payload.find({
+        collection: "likes",
         where: {
-          id: { equals: A_Misc[x].id },
+          user: { equals: currentUser.id },
         },
-        data: {
-          category: "coordinators",
-        },
+        pagination: false,
       });
-      console.log("Changed " + A_Misc[x].name + " to Wedding Coordinators");
+
+      console.log("Found all likes by " + currentUser.email);
+
+      for (let y = 0; y < UserLikes.length; y++) {
+        let newVendor = UserLikes[y].vendor as Vendor;
+        console.log(
+          "Working on likes by " + currentUser.email + " and " + newVendor.name
+        );
+
+        for (let z = y + 1; z < UserLikes.length; z++) {
+          let comparison = UserLikes[z].vendor as Vendor;
+
+          if (newVendor.id === comparison.id) {
+            console.log(
+              "Found Similarities with " +
+                newVendor.name +
+                " and " +
+                comparison.name
+            );
+            console.log(
+              "newVendor.id: " +
+                newVendor.id +
+                ". comparison.id: " +
+                comparison.id +
+                "."
+            );
+            await payload.delete({
+              collection: "likes",
+              where: {
+                user: { equals: currentUser.id },
+                and: [{ vendor: { equals: comparison.id } }],
+              },
+            });
+
+            console.log("Duplicate deleted.");
+          }
+        }
+      }
     }
   }),
 
@@ -880,7 +914,6 @@ export const appRouter = router({
     )
     .mutation(async ({ input }) => {
       const payload = await getPayloadClient();
-      console.log("Clicked");
 
       // Find out if chat exist
       const doesChatExist = await payload.find({
