@@ -69,49 +69,82 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
-    transitiona3: trpc_1.publicProcedure.mutation(function (_a) {
+    transition: trpc_1.publicProcedure.mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload, miscVendors, A_Misc, x;
+            var payload, AllLikes, x, currentUser, UserLikes, y, newVendor, z_1, comparison;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
-                        console.log("Getting vendors from Misc_Agents");
+                        console.log("Getting all likes..");
                         return [4 /*yield*/, payload.find({
-                                collection: "misc",
-                                where: {
-                                    id: { equals: "65b7aee5c17286ca4dd3e2ed" },
-                                },
+                                collection: "likes",
                                 pagination: false,
                             })];
                     case 2:
-                        miscVendors = (_b.sent()).docs;
-                        console.log("Found all Misc Vendors");
-                        A_Misc = miscVendors[0].agent;
+                        AllLikes = (_b.sent()).docs;
+                        console.log("Found all likes");
                         x = 0;
                         _b.label = 3;
                     case 3:
-                        if (!(x < A_Misc.length)) return [3 /*break*/, 6];
-                        console.log("Updating " + A_Misc[x].name);
-                        return [4 /*yield*/, payload.update({
-                                collection: "vendors",
+                        if (!(x < AllLikes.length)) return [3 /*break*/, 11];
+                        currentUser = AllLikes[x].user;
+                        console.log("Working on " + currentUser.email);
+                        console.log("Getting all likes by " + currentUser.email);
+                        return [4 /*yield*/, payload.find({
+                                collection: "likes",
                                 where: {
-                                    id: { equals: A_Misc[x].id },
+                                    user: { equals: currentUser.id },
                                 },
-                                data: {
-                                    category: "coordinators",
-                                },
+                                pagination: false,
                             })];
                     case 4:
-                        _b.sent();
-                        console.log("Changed " + A_Misc[x].name + " to Wedding Coordinators");
+                        UserLikes = (_b.sent()).docs;
+                        console.log("Found all likes by " + currentUser.email);
+                        y = 0;
                         _b.label = 5;
                     case 5:
+                        if (!(y < UserLikes.length)) return [3 /*break*/, 10];
+                        newVendor = UserLikes[y].vendor;
+                        console.log("Working on likes by " + currentUser.email + " and " + newVendor.name);
+                        z_1 = y + 1;
+                        _b.label = 6;
+                    case 6:
+                        if (!(z_1 < UserLikes.length)) return [3 /*break*/, 9];
+                        comparison = UserLikes[z_1].vendor;
+                        if (!(newVendor.id === comparison.id)) return [3 /*break*/, 8];
+                        console.log("Found Similarities with " +
+                            newVendor.name +
+                            " and " +
+                            comparison.name);
+                        console.log("newVendor.id: " +
+                            newVendor.id +
+                            ". comparison.id: " +
+                            comparison.id +
+                            ".");
+                        return [4 /*yield*/, payload.delete({
+                                collection: "likes",
+                                where: {
+                                    user: { equals: currentUser.id },
+                                    and: [{ vendor: { equals: comparison.id } }],
+                                },
+                            })];
+                    case 7:
+                        _b.sent();
+                        console.log("Duplicate deleted.");
+                        _b.label = 8;
+                    case 8:
+                        z_1++;
+                        return [3 /*break*/, 6];
+                    case 9:
+                        y++;
+                        return [3 /*break*/, 5];
+                    case 10:
                         x++;
                         return [3 /*break*/, 3];
-                    case 6: return [2 /*return*/];
+                    case 11: return [2 /*return*/];
                 }
             });
         });
@@ -1222,7 +1255,6 @@ exports.appRouter = (0, trpc_1.router)({
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
-                        console.log("Clicked");
                         return [4 /*yield*/, payload.find({
                                 collection: "chats",
                                 where: {

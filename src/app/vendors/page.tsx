@@ -36,7 +36,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
 
   return (
     <>
-      {/* {category === "photovideo" ? <PhotoVideoBanner /> : null} */}
+      {category === "photovideo" ? <PhotoVideoBanner /> : null}
       {category === "stylist" ? <StylistBanner /> : null}
 
       <MaxWidthWrapper>

@@ -64,7 +64,7 @@ exports.FeaturedVendors = {
         {
             name: "top1Coordinator",
             type: "relationship",
-            label: "Top Featured Berkat",
+            label: "Top Featured Coordinator",
             relationTo: "vendors",
             filterOptions: { category: { equals: "coordinators" } },
             hasMany: false,
@@ -72,7 +72,7 @@ exports.FeaturedVendors = {
         {
             name: "top4Coordinator",
             type: "array",
-            label: "3 Featured Berkat",
+            label: "3 Featured Coordinators",
             maxRows: 3,
             fields: [
                 {
