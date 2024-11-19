@@ -22,7 +22,7 @@ const TECont = ({ userId }: TEContProps) => {
         <FolderSearch />
       </CardHeader>
       <CardContent>
-        {vendorId ? <TEDataPull vendorId={vendorId} /> : null}
+        {vendorId ? <TEDataPull vendorId={vendorId as string} /> : null}
       </CardContent>
     </>
   );

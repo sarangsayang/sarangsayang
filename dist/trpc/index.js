@@ -2894,16 +2894,29 @@ exports.appRouter = (0, trpc_1.router)({
     getLeads: trpc_1.publicProcedure
         .input(zod_1.z.object({
         vendorId: zod_1.z.string(),
+        sort: zod_1.z.string().optional(),
+        high: zod_1.z.boolean(),
+        medium: zod_1.z.boolean(),
+        low: zod_1.z.boolean(),
+        cs: zod_1.z.boolean(),
+        ni: zod_1.z.boolean(),
+        lnr: zod_1.z.boolean(),
+        cold: zod_1.z.boolean(),
+        hot: zod_1.z.boolean(),
+        warm: zod_1.z.boolean(),
+        nc: zod_1.z.boolean(),
     }))
         .query(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var payload;
+            var payload, results, preResults, x, preResults, x, high, h, medium, m, low, l, cs, a, ni, a, lnr, a, cold, a, hot, a, warm, a, nc, a, endResults, tweaked, a, current, a, a, a, current, a, a, a, current, a, a, a, current, a, a, a, current, a, a, a, current, a, a, a, current, a, a, a, current, a, a, a, current, a, a, a, current, a, a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
+                        results = [];
+                        if (!!input.sort) return [3 /*break*/, 3];
                         return [4 /*yield*/, payload.find({
                                 collection: "leads",
                                 where: {
@@ -2912,9 +2925,468 @@ exports.appRouter = (0, trpc_1.router)({
                                     },
                                 },
                                 pagination: false,
-                                sort: "createdAt",
+                                sort: "-createdAt",
                             })];
-                    case 2: return [2 /*return*/, _b.sent()];
+                    case 2:
+                        preResults = (_b.sent()).docs;
+                        for (x = 0; x < preResults.length; x++) {
+                            results.push(preResults[x]);
+                        }
+                        return [3 /*break*/, 17];
+                    case 3:
+                        if (!(input.sort === "source")) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                },
+                                pagination: false,
+                                sort: "source",
+                            })];
+                    case 4:
+                        preResults = (_b.sent()).docs;
+                        for (x = 0; x < preResults.length; x++) {
+                            results.push(preResults[x]);
+                        }
+                        return [3 /*break*/, 17];
+                    case 5:
+                        if (!(input.sort === "priority")) return [3 /*break*/, 9];
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            priority: { equals: "high" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 6:
+                        high = (_b.sent()).docs;
+                        for (h = 0; h < high.length; h++) {
+                            results.push(high[h]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            priority: { equals: "medium" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 7:
+                        medium = (_b.sent()).docs;
+                        for (m = 0; m < medium.length; m++) {
+                            results.push(medium[m]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            priority: { equals: "low" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 8:
+                        low = (_b.sent()).docs;
+                        for (l = 0; l < low.length; l++) {
+                            results.push(low[l]);
+                        }
+                        return [3 /*break*/, 17];
+                    case 9:
+                        if (!(input.sort === "status")) return [3 /*break*/, 17];
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            status: { equals: "contract signed" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 10:
+                        cs = (_b.sent()).docs;
+                        for (a = 0; a < cs.length; a++) {
+                            results.push(cs[a]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            status: { equals: "not interested" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 11:
+                        ni = (_b.sent()).docs;
+                        for (a = 0; a < ni.length; a++) {
+                            results.push(ni[a]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            status: { equals: "lnr" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 12:
+                        lnr = (_b.sent()).docs;
+                        for (a = 0; a < lnr.length; a++) {
+                            results.push(lnr[a]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            status: { equals: "cold" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 13:
+                        cold = (_b.sent()).docs;
+                        for (a = 0; a < cold.length; a++) {
+                            results.push(cold[a]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            status: { equals: "hot" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 14:
+                        hot = (_b.sent()).docs;
+                        for (a = 0; a < hot.length; a++) {
+                            results.push(hot[a]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            status: { equals: "warm" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 15:
+                        warm = (_b.sent()).docs;
+                        for (a = 0; a < warm.length; a++) {
+                            results.push(warm[a]);
+                        }
+                        return [4 /*yield*/, payload.find({
+                                collection: "leads",
+                                where: {
+                                    vendor: {
+                                        equals: input.vendorId,
+                                    },
+                                    and: [
+                                        {
+                                            status: { equals: "not contacted" },
+                                        },
+                                    ],
+                                },
+                                pagination: false,
+                                sort: "-createdAt",
+                            })];
+                    case 16:
+                        nc = (_b.sent()).docs;
+                        for (a = 0; a < nc.length; a++) {
+                            results.push(nc[a]);
+                        }
+                        _b.label = 17;
+                    case 17:
+                        endResults = [];
+                        tweaked = false;
+                        if (input.high === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].priority != "high") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].priority != "high") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.medium === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].priority != "medium") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].priority != "medium") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.low === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].priority != "low") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].priority != "low") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.cs === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].status != "contract signed") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].status != "contract signed") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.ni === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].status != "not interested") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].status != "not interested") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.lnr === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].status != "lnr") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].status != "lnr") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.cold === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].status != "cold") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].status != "cold") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.hot === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].status != "hot") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].status != "hot") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.warm === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].status != "warm") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].status != "warm") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (input.nc === false) {
+                            if (!tweaked) {
+                                for (a = 0; a < results.length; a++) {
+                                    if (results[a].status != "not contacted") {
+                                        endResults.push(results[a]);
+                                        tweaked = true;
+                                    }
+                                }
+                            }
+                            else {
+                                current = [];
+                                for (a = 0; a < endResults.length; a++) {
+                                    if (endResults[a].status != "not contacted") {
+                                        current.push(endResults[a]);
+                                    }
+                                }
+                                endResults = [];
+                                for (a = 0; a < current.length; a++) {
+                                    endResults.push(current[a]);
+                                }
+                            }
+                        }
+                        if (!tweaked) {
+                            return [2 /*return*/, results];
+                        }
+                        else {
+                            return [2 /*return*/, endResults];
+                        }
+                        return [2 /*return*/];
                 }
             });
         });

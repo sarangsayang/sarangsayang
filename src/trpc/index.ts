@@ -2197,21 +2197,495 @@ export const appRouter = router({
     .input(
       z.object({
         vendorId: z.string(),
+        sort: z.string().optional(),
+        high: z.boolean(),
+        medium: z.boolean(),
+        low: z.boolean(),
+        cs: z.boolean(),
+        ni: z.boolean(),
+        lnr: z.boolean(),
+        cold: z.boolean(),
+        hot: z.boolean(),
+        warm: z.boolean(),
+        nc: z.boolean(),
       })
     )
     .query(async ({ input }) => {
       const payload = await getPayloadClient();
+      let results = [];
 
-      return await payload.find({
-        collection: "leads",
-        where: {
-          vendor: {
-            equals: input.vendorId,
+      if (!input.sort) {
+        const { docs: preResults } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
           },
-        },
-        pagination: false,
-        sort: "createdAt",
-      });
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let x = 0; x < preResults.length; x++) {
+          results.push(preResults[x]);
+        }
+      } else if (input.sort === "source") {
+        const { docs: preResults } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+          },
+          pagination: false,
+          sort: "source",
+        });
+
+        for (let x = 0; x < preResults.length; x++) {
+          results.push(preResults[x]);
+        }
+      } else if (input.sort === "priority") {
+        const { docs: high } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                priority: { equals: "high" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let h = 0; h < high.length; h++) {
+          results.push(high[h]);
+        }
+
+        const { docs: medium } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                priority: { equals: "medium" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let m = 0; m < medium.length; m++) {
+          results.push(medium[m]);
+        }
+
+        const { docs: low } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                priority: { equals: "low" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let l = 0; l < low.length; l++) {
+          results.push(low[l]);
+        }
+      } else if (input.sort === "status") {
+        const { docs: cs } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                status: { equals: "contract signed" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let a = 0; a < cs.length; a++) {
+          results.push(cs[a]);
+        }
+
+        const { docs: ni } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                status: { equals: "not interested" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let a = 0; a < ni.length; a++) {
+          results.push(ni[a]);
+        }
+
+        const { docs: lnr } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                status: { equals: "lnr" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let a = 0; a < lnr.length; a++) {
+          results.push(lnr[a]);
+        }
+
+        const { docs: cold } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                status: { equals: "cold" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let a = 0; a < cold.length; a++) {
+          results.push(cold[a]);
+        }
+
+        const { docs: hot } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                status: { equals: "hot" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let a = 0; a < hot.length; a++) {
+          results.push(hot[a]);
+        }
+
+        const { docs: warm } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                status: { equals: "warm" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let a = 0; a < warm.length; a++) {
+          results.push(warm[a]);
+        }
+
+        const { docs: nc } = await payload.find({
+          collection: "leads",
+          where: {
+            vendor: {
+              equals: input.vendorId,
+            },
+            and: [
+              {
+                status: { equals: "not contacted" },
+              },
+            ],
+          },
+          pagination: false,
+          sort: "-createdAt",
+        });
+
+        for (let a = 0; a < nc.length; a++) {
+          results.push(nc[a]);
+        }
+      }
+
+      let endResults: any[] | PromiseLike<any[]> = [];
+      let tweaked = false;
+
+      if (input.high === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].priority != "high") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].priority != "high") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+
+      if (input.medium === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].priority != "medium") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].priority != "medium") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.low === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].priority != "low") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].priority != "low") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.cs === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].status != "contract signed") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].status != "contract signed") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.ni === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].status != "not interested") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].status != "not interested") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.lnr === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].status != "lnr") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].status != "lnr") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.cold === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].status != "cold") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].status != "cold") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.hot === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].status != "hot") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].status != "hot") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.warm === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].status != "warm") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].status != "warm") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+      if (input.nc === false) {
+        if (!tweaked) {
+          for (let a = 0; a < results.length; a++) {
+            if (results[a].status != "not contacted") {
+              endResults.push(results[a]);
+              tweaked = true;
+            }
+          }
+        } else {
+          let current = [];
+          for (let a = 0; a < endResults.length; a++) {
+            if (endResults[a].status != "not contacted") {
+              current.push(endResults[a]);
+            }
+          }
+
+          endResults = [];
+
+          for (let a = 0; a < current.length; a++) {
+            endResults.push(current[a]);
+          }
+        }
+      }
+
+      if (!tweaked) {
+        return results;
+      } else {
+        return endResults;
+      }
     }),
 
   getSSLeads: publicProcedure
