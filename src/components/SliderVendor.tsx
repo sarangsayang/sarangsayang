@@ -10,6 +10,7 @@ const SliderVendor = ({ vendor }: SliderVendorProps) => {
   return (
     <div className="h-full">
       <Image
+        //@ts-ignore
         src={vendor.images[0].image.sizes.thumbnail.url}
         width={400}
         height={300}
