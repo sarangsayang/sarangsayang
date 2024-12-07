@@ -1,22 +1,24 @@
 "use client";
 
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import PopularSlider from "@/components/PopularSlider";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/trpc/client";
 
 const Transition = () => {
-  const transition = trpc.transition.useMutation();
+  // const transition = trpc.transition.useMutation();
 
-  function handleClick1() {
-    transition.mutate();
-  }
+  // function handleClick1() {
+  //   transition.mutate();
+  // }
 
   return (
     <MaxWidthWrapper className="w-full h-full flex justify-center items-center justify-items-center py-10">
-      <div className="flex-row justify-center items-center justify-items-center">
+      {/* <div className="flex-row justify-center items-center justify-items-center">
         <h1>REMOVE DUPLICATED LIKES</h1>
         <Button onClick={handleClick1}>Initiate</Button>
-      </div>
+      </div> */}
+      <PopularSlider />
     </MaxWidthWrapper>
   );
 };

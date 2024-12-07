@@ -11,6 +11,7 @@ import { BadgeCheck, Heart } from "lucide-react";
 import Link from "next/link";
 import PhotoVideoBanner from "@/components/PhotoVideoBanner";
 import StylistBanner from "@/components/StylistBanner";
+import CoordinatorBanner from "@/components/CoordinatorBanner";
 
 type Param = string | string[] | undefined;
 
@@ -38,6 +39,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
     <>
       {category === "photovideo" ? <PhotoVideoBanner /> : null}
       {category === "stylist" ? <StylistBanner /> : null}
+      {category === "coordinators" ? <CoordinatorBanner /> : null}
 
       <MaxWidthWrapper>
         <div className="mt-6 flex items-center gap-3">

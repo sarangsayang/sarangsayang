@@ -168,6 +168,11 @@ const BecomeAVendor = ({ desc, yearly }: BecomeAVendorProps) => {
               </div>
             </div>
           </div>
+          <div className="text-center mb-4">
+            <p className="text-sm italic text-slate-400">
+              User registration is required before proceeding to make payment.
+            </p>
+          </div>
           <DialogFooter className="sm:justify-start">
             <DialogClose asChild>
               {checkUser.data &&
