@@ -45,10 +45,13 @@ const PopularSlider = () => {
   if (vendors) {
     const list = vendors[0];
     return (
-      <div className="w-full h-[300px]">
-        <div className="overflow-x-auto flex">
+      <div className="w-full h-[300px] bg-black shadow-lg">
+        <div className="overflow-x-hidden flex">
           {numbers.map((n) => (
-            <div key={n} className="h-[300px]">
+            <div
+              key={n}
+              className="w-[400px] h-[300px] flex-1 transition-all duration-200 hover:flex-none opacity-55 hover:opacity-100"
+            >
               {/* @ts-ignore */}
               <SliderVendor vendor={whichSlot(n, list) as Vendor} />
             </div>

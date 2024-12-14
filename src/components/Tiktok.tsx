@@ -7,7 +7,7 @@ const Tiktok = () => {
       <MaxWidthWrapper>
         <div className="w-full h-[800px] flex flex-row items-center">
           <iframe
-            src="https://www.tiktok.com/embed/7444889029419502855"
+            src="https://www.tiktok.com/embed/7448128435286756615"
             allow="encrypted-media;"
             className="w-full md:w-[50%] lg:w-[33%] h-full border-0 bg-transparent"
           ></iframe>
@@ -17,7 +17,7 @@ const Tiktok = () => {
             className="w-[50%] lg:w-[33%] h-full border-0 bg-transparent hidden md:block"
           ></iframe>
           <iframe
-            src="https://www.tiktok.com/embed/7439696941165874450"
+            src="https://www.tiktok.com/embed/7444889029419502855"
             allow="encrypted-media;"
             className="w-[33%] h-full border-0 bg-transparent hidden lg:block"
           ></iframe>
