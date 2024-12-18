@@ -19,7 +19,7 @@ const PhotoVideoBanner = () => {
     >
       <MaxWidthWrapper>
         <Link href={"/vendor/65a07bbf9cd6475e4b367c27"} target="_blank">
-          <div className="bg-[url('/wolf.png')] bg-cover lg:bg-center bg-bottom relative h-[350px] w-full rounded-3xl cursor-pointer shadow-lg">
+          <div className="bg-[url('/wolf.jpg')] bg-cover lg:bg-center bg-bottom relative h-[350px] w-full rounded-3xl cursor-pointer shadow-lg">
             <div className="absolute bottom-0 left-0 p-3 md:p-5 bg-white/75 rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
                 <h1 className="text-base md:text-lg font-bold">
@@ -31,13 +31,12 @@ const PhotoVideoBanner = () => {
                 />
               </div>
               <p className="text-slate-500 text-xs md:text-sm">
-                Check out Wolfpac Weddings vendor profile &amp; enquire for your
-                wedding photography/video services today.
+                Quote "SARANGSAYANG" to get 10% off Wolfpac&apos;s photography
               </p>
-              {/* <p className="text-slate-500 text-xs md:text-sm">
-                Enquire now for Intimate Wedding Dais, Bridal Room Decorations
-                and Gubahan Hantaran.
-              </p> */}
+              <p className="text-slate-500 text-xs md:text-sm">
+                packages and an additional Preppy Magazine into selected
+                packages.
+              </p>
             </div>
           </div>
         </Link>

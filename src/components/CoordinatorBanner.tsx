@@ -19,7 +19,7 @@ const CoordinatorBanner = () => {
     >
       <MaxWidthWrapper>
         <Link href={"/vendor/65a80cdedd4b315ab0a03267"} target="_blank">
-          <div className="bg-[url('/rw.png')] bg-cover lg:bg-center bg-bottom relative h-[350px] w-full rounded-3xl cursor-pointer shadow-lg">
+          <div className="bg-[url('/rw.jpg')] bg-cover lg:bg-center bg-bottom relative h-[350px] w-full rounded-3xl cursor-pointer shadow-lg">
             <div className="absolute bottom-0 left-0 p-3 md:p-5 bg-white/75 rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
                 <h1 className="text-base md:text-lg font-bold">
