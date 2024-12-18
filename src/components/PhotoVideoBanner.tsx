@@ -31,7 +31,8 @@ const PhotoVideoBanner = () => {
                 />
               </div>
               <p className="text-slate-500 text-xs md:text-sm">
-                Quote "SARANGSAYANG" to get 10% off Wolfpac&apos;s photography
+                Quote &quot;SARANGSAYANG&quot; to get 10% off Wolfpac&apos;s
+                photography
               </p>
               <p className="text-slate-500 text-xs md:text-sm">
                 packages and an additional Preppy Magazine into selected
