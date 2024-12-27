@@ -22,11 +22,11 @@ import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 
 interface CRMContProps {
-  userId: string;
+  vendorId: string;
   role: string;
 }
 
-const CRMCont = ({ userId, role }: CRMContProps) => {
+const CRMCont = ({ vendorId, role }: CRMContProps) => {
   const [sort, setSort] = useState("");
 
   const [high, setHigh] = useState(true);
@@ -39,12 +39,6 @@ const CRMCont = ({ userId, role }: CRMContProps) => {
   const [hot, setHot] = useState(true);
   const [warm, setWarm] = useState(true);
   const [nc, setNC] = useState(true);
-
-  const getVendorId = trpc.getVendorId.useQuery({
-    userId: userId,
-  });
-
-  const vendorId = getVendorId.data?.docs[0].id;
 
   return (
     <div className="lg:px-16">

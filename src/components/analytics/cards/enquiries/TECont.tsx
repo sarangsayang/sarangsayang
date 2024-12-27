@@ -6,24 +6,38 @@ import { FolderSearch } from "lucide-react";
 import TEDataPull from "./TEDataPull";
 
 interface TEContProps {
-  userId: string;
+  vendorId: string;
+  blank?: boolean;
 }
 
-const TECont = ({ userId }: TEContProps) => {
-  const getVendorId = trpc.getVendorId.useQuery({
-    userId: userId,
-  });
-
-  const vendorId = getVendorId.data?.docs[0].id;
+const TECont = ({ vendorId, blank }: TEContProps) => {
   return (
     <>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 h-20">
-        <CardTitle className="text-sm font-medium">Total Enquiries</CardTitle>
-        <FolderSearch />
-      </CardHeader>
-      <CardContent>
-        {vendorId ? <TEDataPull vendorId={vendorId as string} /> : null}
-      </CardContent>
+      {blank ? (
+        <>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 h-20">
+            <CardTitle className="text-sm font-medium">
+              Total Enquiries
+            </CardTitle>
+            <FolderSearch />
+          </CardHeader>
+          <CardContent>
+            {/* {vendorId ? <TEDataPull vendorId={vendorId as string} /> : null} */}
+          </CardContent>
+        </>
+      ) : (
+        <>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 h-20">
+            <CardTitle className="text-sm font-medium">
+              Total Enquiries
+            </CardTitle>
+            <FolderSearch />
+          </CardHeader>
+          <CardContent>
+            {vendorId ? <TEDataPull vendorId={vendorId as string} /> : null}
+          </CardContent>
+        </>
+      )}
     </>
   );
 };

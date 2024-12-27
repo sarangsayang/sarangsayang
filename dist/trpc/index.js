@@ -2884,7 +2884,7 @@ exports.appRouter = (0, trpc_1.router)({
                                         equals: input.userId,
                                     },
                                 },
-                                limit: 1,
+                                pagination: false,
                             })];
                     case 2: return [2 /*return*/, _b.sent()];
                 }

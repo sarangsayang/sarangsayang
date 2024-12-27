@@ -21,12 +21,10 @@ import TVLChat from "./TVLChat";
 
 interface TotalVendorLikesProps {
   vendor: Vendor;
+  role: string;
 }
 
-const TVLDataPull = ({ vendor }: TotalVendorLikesProps) => {
-  const vendorUser = vendor.venduserid as User;
-  const role = vendorUser.role;
-
+const TVLDataPull = ({ vendor, role }: TotalVendorLikesProps) => {
   const getLikes = trpc.getLikesFromVendId.useQuery({
     vendorId: vendor.id,
   });

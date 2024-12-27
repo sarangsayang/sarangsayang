@@ -51,19 +51,35 @@ const UserAccountNav = ({ user }: { user: User }) => {
 
         {isVendor && vendor.data ? (
           <>
-            <DropdownMenuItem asChild>
+            {vendor.data.docs.map((vendor) => (
+              <DropdownMenuItem key={vendor.id} asChild>
+                <Link href={`/vendor/${vendor.id}`}>
+                  {vendor.name as string}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+
+            {/* <DropdownMenuItem asChild>
               <Link href={`/vendor/${vendor.data.docs[0].id}`}>
                 {vendor.data.docs[0].name as string}
               </Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
 
-            <DropdownMenuItem asChild>
-              <Link
-                href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}
-              >
-                Update Vendor Profile
-              </Link>
-            </DropdownMenuItem>
+            {vendor.data.docs.length > 1 ? (
+              <DropdownMenuItem asChild>
+                <Link href={`/backstage/collections/vendors`}>
+                  Update Vendor Profiles
+                </Link>
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem asChild>
+                <Link
+                  href={`/backstage/collections/vendors/${vendor.data.docs[0].id}`}
+                >
+                  Update Vendor Profile
+                </Link>
+              </DropdownMenuItem>
+            )}
 
             <DropdownMenuItem asChild>
               <Link href="/dashboard">Vendor Dashboard</Link>

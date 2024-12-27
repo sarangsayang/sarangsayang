@@ -9,6 +9,7 @@ import SSCont from "@/components/analytics/cards/enquiries/SSCont";
 import TVCCont from "@/components/analytics/cards/vendorClicks/TVCCont";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import ScoreboardCont from "@/components/analytics/ScoreboardCont";
 
 export default async function Dashboard() {
   const nextCookies = cookies();
@@ -16,7 +17,7 @@ export default async function Dashboard() {
 
   return (
     <>
-      <MaxWidthWrapper className="space-y-4 pt-6 py-10">
+      <MaxWidthWrapper className="space-y-4 pt-6 pt-10">
         <div className="flex items-center justify-between space-y-2 pb-8">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
@@ -25,26 +26,16 @@ export default async function Dashboard() {
             <p className="text-muted-foreground text-balance">
               Here&apos;s the most important part of Sarang Sayang for all our
               vendors- keeping track of your leads! All the users who have
-              chatted with you will appear in our very own CRM. You can input
-              your own leads here too for easier reference too.
+              chatted with you will appear in our very own CRM. Select Vendor
+              Profile to start.
             </p>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
-          {/* Total Vendor Likes */}
-          <Card>{user ? <TVCCont userId={user.id} /> : null}</Card>
-
-          {/* Total Enquiries */}
-          <Card>{user ? <TECont userId={user.id} /> : null}</Card>
-
-          {/* Total Vendor Likes */}
-          <Card className="col-span-2">
-            {user ? <TVLCont userId={user.id} /> : null}
-          </Card>
-        </div>
       </MaxWidthWrapper>
       {user ? (
-        <CRMCont userId={user.id} role={user.role} />
+        <>
+          <ScoreboardCont userId={user.id} role={user.role} />
+        </>
       ) : (
         <MaxWidthWrapper>
           <div className="w-full rounded-lg p-7 bg-red-300 flex flex-row items-center justify-between">

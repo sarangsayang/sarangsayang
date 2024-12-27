@@ -2189,7 +2189,7 @@ export const appRouter = router({
             equals: input.userId,
           },
         },
-        limit: 1,
+        pagination: false,
       });
     }),
 
