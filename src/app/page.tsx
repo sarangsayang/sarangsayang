@@ -27,11 +27,15 @@ export default async function Home() {
       <div className="mx-auto py-6 bg-[url('/hero.png')] bg-cover bg-center shadow-md">
         <MaxWidthWrapper className="text-center flex flex-col items-center">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-            Singapore&apos;s largest online{" "}
-            <span className="text-blue-400">malay wedding directory</span>.
+            A <span className="text-blue-400">Platform</span> For All Things{" "}
           </h1>
-          <p className="mt-4 text-lg max-w-prose text-muted-foreground">
-            Welcome to Sarang Sayang, a platform for all things malay weddings.
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            <span className="text-blue-400">Malay Weddings</span> in{" "}
+            <span className="text-blue-400">Singapore</span>.
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Don&apos;t know where to start? Discover over 100 vendors or start
+            wedding planning!
           </p>
           {/* <AngelSearch /> */}
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
