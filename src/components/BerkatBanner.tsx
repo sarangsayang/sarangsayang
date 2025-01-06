@@ -2,7 +2,6 @@
 
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Link from "next/link";
-import { BadgeCheck } from "lucide-react";
 import { trpc } from "@/trpc/client";
 
 const BerkatBanner = () => {
@@ -13,24 +12,20 @@ const BerkatBanner = () => {
       className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg p-5"
       onClick={() => {
         addClick.mutate({
-          vendorId: "66934cd2db99f4d8562f341e",
+          vendorId: "66ffa7d04a70670487fcdaa3",
         });
       }}
     >
       <MaxWidthWrapper>
-        <Link href={"/vendor/66934cd2db99f4d8562f341e"} target="_blank">
-          <div className="bg-[url('/theknot.jpeg')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
-            <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
+        <Link href={"/vendor/66ffa7d04a70670487fcdaa3"} target="_blank">
+          <div className="bg-[url('/qs.jpg')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
+            <div className="absolute bottom-0 left-0 p-5 bg-white rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
-                <h1 className="text-lg font-bold">the knot.</h1>
-                <BadgeCheck
-                  aria-hidden="true"
-                  className="h-6 w-6 flex-shrink-0 text-yellow-400"
-                />
+                <h1 className="text-lg font-bold">Qandle Sense</h1>
               </div>
               <p className="text-slate-500 text-sm">
-                Quote &quot;SARANGSAYANG&quot; to get $50 off with a minimum
-                spend of $400! (Promo valid till August 31st 2024)
+                Check out Qandle Sense&apos;s vendor profile & enquire for your
+                wedding berkat today.
               </p>
             </div>
           </div>

@@ -12,6 +12,10 @@ import Link from "next/link";
 import PhotoVideoBanner from "@/components/PhotoVideoBanner";
 import StylistBanner from "@/components/StylistBanner";
 import CoordinatorBanner from "@/components/CoordinatorBanner";
+import VenueBanner from "@/components/VenueBanner";
+import BerkatBanner from "@/components/BerkatBanner";
+import BridalBanner from "@/components/BridalBanner";
+import VendorBanner from "@/components/VendorBanner";
 
 type Param = string | string[] | undefined;
 
@@ -40,6 +44,9 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
       {category === "photovideo" ? <PhotoVideoBanner /> : null}
       {category === "stylist" ? <StylistBanner /> : null}
       {category === "coordinators" ? <CoordinatorBanner /> : null}
+      {category === "venues" ? <VenueBanner /> : null}
+      {category === "berkat" ? <BerkatBanner /> : null}
+      {category === "bridals" ? <VendorBanner cat="bridals" /> : null}
 
       <MaxWidthWrapper>
         <div className="mt-6 flex items-center gap-3">
