@@ -30,7 +30,8 @@ const CoordinatorBanner = () => {
                 wedding coordinator services today.
               </p>
               <p className="text-slate-500 text-xs md:text-sm">
-                Quote "Sarang Sayang" and get $1300 off your wedding packages.
+                Quote &apos;Sarang Sayang&apos; and get $1300 off your wedding
+                packages.
               </p>
             </div>
           </div>
