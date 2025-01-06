@@ -39,7 +39,7 @@ const EnquiriesContentCont = ({
           <Loader2 className="animate-spin text-blue-400" />
         )}
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg bg-gradient-to-b from-cyan-100 bg-transparent">
+      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg bg-gradient-to-b from-cyan-100 to-white">
         {results ? (
           <EnquiriesDataPull
             chats={results}

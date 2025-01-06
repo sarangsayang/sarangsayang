@@ -23,10 +23,10 @@ const MiscBanner = () => {
             <div className="absolute bottom-0 left-0 p-5 bg-white/75 rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
                 <h1 className="text-lg font-bold">the knot.</h1>
-                <BadgeCheck
+                {/* <BadgeCheck
                   aria-hidden="true"
                   className="h-6 w-6 flex-shrink-0 text-yellow-400"
-                />
+                /> */}
               </div>
               <p className="text-slate-500 text-sm">
                 Enquire now for Bunga Rampai, Berkat, Sireh Dara, Bunga Pahar

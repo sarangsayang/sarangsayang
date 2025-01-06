@@ -25,6 +25,7 @@ export interface Config {
     message: Message;
     misc: Misc;
     homepage: Homepage;
+    coupons: Coupon;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -56,7 +57,24 @@ export interface Vendor {
   id: string;
   venduserid: string | User;
   name: string;
-  category: 'venues' | 'stylist' | 'coordinators' | 'bridals' | 'photovideo' | 'mua' | 'emceesperformers' | 'misc';
+  category:
+    | 'venues'
+    | 'coordinators'
+    | 'stylist'
+    | 'photovideo'
+    | 'bridals'
+    | 'mua'
+    | 'pakandam'
+    | 'berkat'
+    | 'dulang'
+    | 'live'
+    | 'henna'
+    | 'emcees'
+    | 'performers'
+    | 'prep'
+    | 'stationery'
+    | 'cake'
+    | 'catering';
   details?:
     | {
         [k: string]: unknown;
@@ -80,7 +98,25 @@ export interface Package {
   vendor: string | Vendor;
   name: string;
   services?:
-    | ('venues' | 'stylist' | 'coordinators' | 'bridals' | 'photovideo' | 'mua' | 'emceesperformers' | 'misc')[]
+    | (
+        | 'venues'
+        | 'coordinators'
+        | 'stylist'
+        | 'photovideo'
+        | 'bridals'
+        | 'mua'
+        | 'pakandam'
+        | 'berkat'
+        | 'dulang'
+        | 'live'
+        | 'henna'
+        | 'emcees'
+        | 'performers'
+        | 'prep'
+        | 'stationery'
+        | 'cake'
+        | 'catering'
+      )[]
     | null;
   packageDetails?:
     | {
@@ -194,13 +230,6 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Stylist?: (string | null) | Vendor;
-  top4Stylist?:
-    | {
-        vendor?: (string | null) | Vendor;
-        id?: string | null;
-      }[]
-    | null;
   top1Coordinator?: (string | null) | Vendor;
   top4Coordinator?:
     | {
@@ -208,8 +237,8 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Bridal?: (string | null) | Vendor;
-  top4Bridals?:
+  top1Stylist?: (string | null) | Vendor;
+  top4Stylist?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
@@ -222,8 +251,50 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
+  top1Bridal?: (string | null) | Vendor;
+  top4Bridals?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
   top1Mua?: (string | null) | Vendor;
   top4Mua?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Pakandam?: (string | null) | Vendor;
+  top4Pakandam?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Berkat?: (string | null) | Vendor;
+  top4Berkat?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Dulang?: (string | null) | Vendor;
+  top4Dulang?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Live?: (string | null) | Vendor;
+  top4Live?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Henna?: (string | null) | Vendor;
+  top4Henna?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
@@ -236,8 +307,36 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Misc?: (string | null) | Vendor;
-  top4Misc?:
+  top1Performers?: (string | null) | Vendor;
+  top4Performers?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Prep?: (string | null) | Vendor;
+  top4Prep?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Stationery?: (string | null) | Vendor;
+  top4Stationery?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Cake?: (string | null) | Vendor;
+  top4Cake?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Catering?: (string | null) | Vendor;
+  top4Catering?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
@@ -327,6 +426,16 @@ export interface Homepage {
   slot6?: (string | null) | Vendor;
   slot7?: (string | null) | Vendor;
   slot8?: (string | null) | Vendor;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Coupon {
+  id: string;
+  vendor: string | Vendor;
+  method: 'Percentage' | 'Amount';
+  amount: number;
+  min?: number | null;
+  expiry?: string | null;
   updatedAt: string;
   createdAt: string;
 }

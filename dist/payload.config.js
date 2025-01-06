@@ -28,6 +28,7 @@ var Chats_1 = require("./app/collections/Chat/Chats");
 var Message_1 = require("./app/collections/Chat/Message");
 var MiscVendors_1 = require("./app/collections/MiscVendors");
 var HomepageVendors_1 = require("./app/collections/HomepageVendors");
+var Coupons_1 = require("./app/collections/Coupons");
 dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, "../.env"),
 });
@@ -62,6 +63,7 @@ exports.default = (0, config_1.buildConfig)({
         Message_1.Message,
         MiscVendors_1.MiscVendors,
         HomepageVendors_1.HomepageVendors,
+        Coupons_1.Coupons,
     ],
     routes: {
         admin: "/backstage",

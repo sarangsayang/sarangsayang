@@ -69,6 +69,35 @@ function formatWithLeadingZero(num) {
 }
 exports.appRouter = (0, trpc_1.router)({
     auth: auth_router_1.authRouter,
+    // getCategorizedVendors: publicProcedure.query(async () => {
+    //   const payload = await getPayloadClient();
+    //   var results = [];
+    //   for (let x = 0; x < VENDOR_CATEGORIES.length; x++) {
+    //     const { docs: vendorInCat } = await payload.find({
+    //       collection: "vendors",
+    //       pagination: false,
+    //       sort: "",
+    //     });
+    //   }
+    // }),
+    getAllCoupons: trpc_1.publicProcedure.query(function () { return __awaiter(void 0, void 0, void 0, function () {
+        var payload, AllCoupons;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                case 1:
+                    payload = _a.sent();
+                    return [4 /*yield*/, payload.find({
+                            collection: "coupons",
+                            pagination: false,
+                            sort: "expiry",
+                        })];
+                case 2:
+                    AllCoupons = (_a.sent()).docs;
+                    return [2 /*return*/, AllCoupons];
+            }
+        });
+    }); }),
     transition: trpc_1.publicProcedure.mutation(function (_a) {
         var input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
@@ -354,7 +383,10 @@ exports.appRouter = (0, trpc_1.router)({
                         rank = -1;
                         return [4 /*yield*/, payload.find({
                                 collection: "vendors",
-                                where: { category: { equals: input.category } },
+                                where: {
+                                    category: { equals: input.category },
+                                    and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
+                                },
                                 pagination: false,
                             })];
                     case 2:
@@ -774,6 +806,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 where: {
                                     id: { not_in: heelsid },
                                     category: { equals: "bridals" },
+                                    and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
                                 },
                                 pagination: false,
                             })];
@@ -792,6 +825,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 where: {
                                     id: { not_in: pakandamid },
                                     category: { equals: "mua" },
+                                    and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
                                 },
                                 pagination: false,
                             })];
@@ -3752,7 +3786,9 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "vendors",
                                 where: {
                                     id: { equals: input.vendorId },
+                                    and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
                                 },
+                                pagination: false,
                             })];
                     case 3:
                         vendor = _b.sent();
@@ -3887,16 +3923,70 @@ exports.appRouter = (0, trpc_1.router)({
                                     top4: results.docs[0].top4Mua,
                                 }];
                         }
-                        else if (input.category === "emceesperformers") {
+                        else if (input.category === "berkat") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Berkat,
+                                    top4: results.docs[0].top4Berkat,
+                                }];
+                        }
+                        else if (input.category === "pakandam") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Pakandam,
+                                    top4: results.docs[0].top4Pakandam,
+                                }];
+                        }
+                        else if (input.category === "dulang") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Dulang,
+                                    top4: results.docs[0].top4Dulang,
+                                }];
+                        }
+                        else if (input.category === "live") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Live,
+                                    top4: results.docs[0].top4Live,
+                                }];
+                        }
+                        else if (input.category === "henna") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Henna,
+                                    top4: results.docs[0].top4Henna,
+                                }];
+                        }
+                        else if (input.category === "emcees") {
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Emcee,
                                     top4: results.docs[0].top4Emcees,
                                 }];
                         }
-                        else if (input.category === "misc") {
+                        else if (input.category === "performers") {
                             return [2 /*return*/, {
-                                    top: results.docs[0].top1Misc,
-                                    top4: results.docs[0].top4Misc,
+                                    top: results.docs[0].top1Performers,
+                                    top4: results.docs[0].top4Performers,
+                                }];
+                        }
+                        else if (input.category === "prep") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Prep,
+                                    top4: results.docs[0].top4Prep,
+                                }];
+                        }
+                        else if (input.category === "stationery") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Stationery,
+                                    top4: results.docs[0].top4Stationery,
+                                }];
+                        }
+                        else if (input.category === "cake") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Cake,
+                                    top4: results.docs[0].top4Cake,
+                                }];
+                        }
+                        else if (input.category === "catering") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Catering,
+                                    top4: results.docs[0].top4Catering,
                                 }];
                         }
                         return [2 /*return*/];
@@ -4054,9 +4144,23 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         _b.sent();
-                        return [3 /*break*/, 17];
+                        return [3 /*break*/, 35];
                     case 3:
-                        if (!(input.cat == "stylist")) return [3 /*break*/, 5];
+                        if (!(input.cat == "coordinators")) return [3 /*break*/, 5];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Coordinator: input.vendorId,
+                                },
+                            })];
+                    case 4:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 5:
+                        if (!(input.cat == "stylist")) return [3 /*break*/, 7];
                         return [4 /*yield*/, payload.update({
                                 collection: "featured",
                                 where: {
@@ -4066,23 +4170,9 @@ exports.appRouter = (0, trpc_1.router)({
                                     top1Stylist: input.vendorId,
                                 },
                             })];
-                    case 4:
-                        _b.sent();
-                        return [3 /*break*/, 17];
-                    case 5:
-                        if (!(input.cat == "bridals")) return [3 /*break*/, 7];
-                        return [4 /*yield*/, payload.update({
-                                collection: "featured",
-                                where: {
-                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
-                                },
-                                data: {
-                                    top1Bridal: input.vendorId,
-                                },
-                            })];
                     case 6:
                         _b.sent();
-                        return [3 /*break*/, 17];
+                        return [3 /*break*/, 35];
                     case 7:
                         if (!(input.cat == "photovideo")) return [3 /*break*/, 9];
                         return [4 /*yield*/, payload.update({
@@ -4096,9 +4186,23 @@ exports.appRouter = (0, trpc_1.router)({
                             })];
                     case 8:
                         _b.sent();
-                        return [3 /*break*/, 17];
+                        return [3 /*break*/, 35];
                     case 9:
-                        if (!(input.cat == "mua")) return [3 /*break*/, 11];
+                        if (!(input.cat == "bridals")) return [3 /*break*/, 11];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Bridal: input.vendorId,
+                                },
+                            })];
+                    case 10:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 11:
+                        if (!(input.cat == "mua")) return [3 /*break*/, 13];
                         return [4 /*yield*/, payload.update({
                                 collection: "featured",
                                 where: {
@@ -4108,25 +4212,81 @@ exports.appRouter = (0, trpc_1.router)({
                                     top1Mua: input.vendorId,
                                 },
                             })];
-                    case 10:
+                    case 12:
                         _b.sent();
-                        return [3 /*break*/, 17];
-                    case 11:
-                        if (!(input.cat == "coordinators")) return [3 /*break*/, 13];
+                        return [3 /*break*/, 35];
+                    case 13:
+                        if (!(input.cat == "pakandam")) return [3 /*break*/, 15];
                         return [4 /*yield*/, payload.update({
                                 collection: "featured",
                                 where: {
                                     id: { equals: "65a3e090f66a58e7b5eb9542" },
                                 },
                                 data: {
-                                    top1Coordinator: input.vendorId,
+                                    top1Pakandam: input.vendorId,
                                 },
                             })];
-                    case 12:
+                    case 14:
                         _b.sent();
-                        return [3 /*break*/, 17];
-                    case 13:
-                        if (!(input.cat == "emceesperformers")) return [3 /*break*/, 15];
+                        return [3 /*break*/, 35];
+                    case 15:
+                        if (!(input.cat == "berkat")) return [3 /*break*/, 17];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Berkat: input.vendorId,
+                                },
+                            })];
+                    case 16:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 17:
+                        if (!(input.cat == "dulang")) return [3 /*break*/, 19];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Dulang: input.vendorId,
+                                },
+                            })];
+                    case 18:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 19:
+                        if (!(input.cat == "live")) return [3 /*break*/, 21];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Live: input.vendorId,
+                                },
+                            })];
+                    case 20:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 21:
+                        if (!(input.cat == "henna")) return [3 /*break*/, 23];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Henna: input.vendorId,
+                                },
+                            })];
+                    case 22:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 23:
+                        if (!(input.cat == "emcees")) return [3 /*break*/, 25];
                         return [4 /*yield*/, payload.update({
                                 collection: "featured",
                                 where: {
@@ -4136,24 +4296,80 @@ exports.appRouter = (0, trpc_1.router)({
                                     top1Emcee: input.vendorId,
                                 },
                             })];
-                    case 14:
+                    case 24:
                         _b.sent();
-                        return [3 /*break*/, 17];
-                    case 15:
-                        if (!(input.cat == "misc")) return [3 /*break*/, 17];
+                        return [3 /*break*/, 35];
+                    case 25:
+                        if (!(input.cat == "performers")) return [3 /*break*/, 27];
                         return [4 /*yield*/, payload.update({
                                 collection: "featured",
                                 where: {
                                     id: { equals: "65a3e090f66a58e7b5eb9542" },
                                 },
                                 data: {
-                                    top1Misc: input.vendorId,
+                                    top1Performers: input.vendorId,
                                 },
                             })];
-                    case 16:
+                    case 26:
                         _b.sent();
-                        _b.label = 17;
-                    case 17: return [2 /*return*/];
+                        return [3 /*break*/, 35];
+                    case 27:
+                        if (!(input.cat == "prep")) return [3 /*break*/, 29];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Prep: input.vendorId,
+                                },
+                            })];
+                    case 28:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 29:
+                        if (!(input.cat == "stationery")) return [3 /*break*/, 31];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Stationery: input.vendorId,
+                                },
+                            })];
+                    case 30:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 31:
+                        if (!(input.cat == "cake")) return [3 /*break*/, 33];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Cake: input.vendorId,
+                                },
+                            })];
+                    case 32:
+                        _b.sent();
+                        return [3 /*break*/, 35];
+                    case 33:
+                        if (!(input.cat == "catering")) return [3 /*break*/, 35];
+                        return [4 /*yield*/, payload.update({
+                                collection: "featured",
+                                where: {
+                                    id: { equals: "65a3e090f66a58e7b5eb9542" },
+                                },
+                                data: {
+                                    top1Catering: input.vendorId,
+                                },
+                            })];
+                    case 34:
+                        _b.sent();
+                        _b.label = 35;
+                    case 35: return [2 /*return*/];
                 }
             });
         });
@@ -4193,6 +4409,7 @@ exports.appRouter = (0, trpc_1.router)({
                                 collection: "vendors",
                                 where: {
                                     category: { equals: input.cat },
+                                    and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
                                 },
                                 pagination: false,
                             })];
@@ -4215,6 +4432,9 @@ exports.appRouter = (0, trpc_1.router)({
                         return [4 /*yield*/, payload.find({
                                 collection: "vendors",
                                 pagination: false,
+                                where: {
+                                    venduserid: { not_in: "658fdba885aa3665781e567a" },
+                                },
                             })];
                     case 2:
                         items = (_b.sent()).docs;
@@ -4258,7 +4478,7 @@ exports.appRouter = (0, trpc_1.router)({
                         page = cursor || 1;
                         return [4 /*yield*/, payload.find({
                                 collection: "vendors",
-                                where: __assign({}, parsedQueryOpts),
+                                where: __assign(__assign({}, parsedQueryOpts), { and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }] }),
                                 sort: sort,
                                 depth: 1,
                                 limit: limit,

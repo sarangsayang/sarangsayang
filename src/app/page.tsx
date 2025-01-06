@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/tooltip";
 import Tiktok from "@/components/Tiktok";
 import HomepageVendors from "@/components/HomepageVendors";
+import AngelSearch from "@/components/AngelSearch";
 
 export default async function Home() {
   const nextCookies = cookies();
@@ -38,7 +39,7 @@ export default async function Home() {
             wedding planning!
           </p>
           {/* <AngelSearch /> */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          {/* <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link href="/featuredvendors" className={buttonVariants()}>
               Start Browsing
             </Link>
@@ -61,7 +62,7 @@ export default async function Home() {
                 <CreatePlanButton userId={user.id} />
               )}
             </div>
-          </div>
+          </div> */}
         </MaxWidthWrapper>
       </div>
       <MaxWidthWrapper>

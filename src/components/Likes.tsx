@@ -39,7 +39,7 @@ const Likes = ({ user }: { user: User }) => {
           className="h-6 w-6 flex-shrink-0 text-blue-400 group-hover:text-blue-500"
         />
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg bg-gradient-to-b from-cyan-100 bg-transparent">
+      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg bg-gradient-to-b from-cyan-100 to-white">
         <SheetHeader className="space-y-2.5 pr-6">
           <SheetTitle>Wishlist ({itemCount})</SheetTitle>
         </SheetHeader>

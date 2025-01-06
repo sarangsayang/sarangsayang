@@ -25,10 +25,10 @@ const PhotoVideoBanner = () => {
                 <h1 className="text-base md:text-lg font-bold">
                   Wolfpac Weddings
                 </h1>
-                <BadgeCheck
+                {/* <BadgeCheck
                   aria-hidden="true"
                   className="h-6 w-6 flex-shrink-0 text-yellow-400"
-                />
+                /> */}
               </div>
               <p className="text-slate-500 text-xs md:text-sm">
                 Quote &quot;SARANGSAYANG&quot; to get 10% off Wolfpac&apos;s

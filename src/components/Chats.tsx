@@ -42,7 +42,7 @@ const Chats = ({ user }: { user: User }) => {
           )}
         />
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg bg-gradient-to-b from-cyan-100 bg-transparent">
+      <SheetContent className="flex w-full flex-col pr-2 sm:max-w-lg bg-gradient-to-b from-cyan-100 to-white">
         <SheetHeader className="space-y-2.5 pr-6">
           <SheetTitle>Chats</SheetTitle>
         </SheetHeader>

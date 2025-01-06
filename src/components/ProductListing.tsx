@@ -25,8 +25,6 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
 
   const addClick = trpc.addClick.useMutation();
 
-  const vendorUser = vendor?.venduserid as User;
-
   const getVendorRole = (vendUser: User) => {
     return vendUser.role;
   };
@@ -96,11 +94,11 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
               <ImageSlider urls={validUrls} />
               <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
                 {vendor.name}
-                <span>
+                {/* <span>
                   <Badge
                     vendorRole={getVendorRole(vendor.venduserid as User)}
                   />
-                </span>
+                </span> */}
               </h3>
             </Link>
           ) : (
@@ -125,11 +123,11 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
               <ImageSlider urls={validUrls} />
               <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
                 {vendor.name}
-                <span>
+                {/* <span>
                   <Badge
                     vendorRole={getVendorRole(vendor.venduserid as User)}
                   />
-                </span>
+                </span> */}
               </h3>
             </Link>
           )}

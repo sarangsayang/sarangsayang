@@ -7,6 +7,7 @@ import { Package, User, Vendor } from "@/payload-types";
 import { version } from "os";
 import { equal } from "assert";
 import { query } from "express";
+import { VENDOR_CATEGORIES } from "@/config";
 
 function formatWithLeadingZero(num: number) {
   return num < 10 ? "0" + num : num;
@@ -14,6 +15,31 @@ function formatWithLeadingZero(num: number) {
 
 export const appRouter = router({
   auth: authRouter,
+
+  // getCategorizedVendors: publicProcedure.query(async () => {
+  //   const payload = await getPayloadClient();
+  //   var results = [];
+
+  //   for (let x = 0; x < VENDOR_CATEGORIES.length; x++) {
+  //     const { docs: vendorInCat } = await payload.find({
+  //       collection: "vendors",
+  //       pagination: false,
+  //       sort: "",
+  //     });
+  //   }
+  // }),
+
+  getAllCoupons: publicProcedure.query(async () => {
+    const payload = await getPayloadClient();
+
+    const { docs: AllCoupons } = await payload.find({
+      collection: "coupons",
+      pagination: false,
+      sort: "expiry",
+    });
+
+    return AllCoupons;
+  }),
 
   transition: publicProcedure.mutation(async ({ input }) => {
     const payload = await getPayloadClient();
@@ -229,7 +255,10 @@ export const appRouter = router({
 
       const { docs: allVendors } = await payload.find({
         collection: "vendors",
-        where: { category: { equals: input.category } },
+        where: {
+          category: { equals: input.category },
+          and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
+        },
         pagination: false,
       });
 
@@ -565,6 +594,7 @@ export const appRouter = router({
           where: {
             id: { not_in: heelsid },
             category: { equals: "bridals" },
+            and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
           },
           pagination: false,
         });
@@ -583,6 +613,7 @@ export const appRouter = router({
           where: {
             id: { not_in: pakandamid },
             category: { equals: "mua" },
+            and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
           },
           pagination: false,
         });
@@ -2960,7 +2991,9 @@ export const appRouter = router({
         collection: "vendors",
         where: {
           id: { equals: input.vendorId },
+          and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
         },
+        pagination: false,
       });
 
       if (vendor.docs[0].likes) {
@@ -3065,15 +3098,60 @@ export const appRouter = router({
           top: results.docs[0].top1Mua,
           top4: results.docs[0].top4Mua,
         };
-      } else if (input.category === "emceesperformers") {
+      } else if (input.category === "berkat") {
+        return {
+          top: results.docs[0].top1Berkat,
+          top4: results.docs[0].top4Berkat,
+        };
+      } else if (input.category === "pakandam") {
+        return {
+          top: results.docs[0].top1Pakandam,
+          top4: results.docs[0].top4Pakandam,
+        };
+      } else if (input.category === "dulang") {
+        return {
+          top: results.docs[0].top1Dulang,
+          top4: results.docs[0].top4Dulang,
+        };
+      } else if (input.category === "live") {
+        return {
+          top: results.docs[0].top1Live,
+          top4: results.docs[0].top4Live,
+        };
+      } else if (input.category === "henna") {
+        return {
+          top: results.docs[0].top1Henna,
+          top4: results.docs[0].top4Henna,
+        };
+      } else if (input.category === "emcees") {
         return {
           top: results.docs[0].top1Emcee,
           top4: results.docs[0].top4Emcees,
         };
-      } else if (input.category === "misc") {
+      } else if (input.category === "performers") {
         return {
-          top: results.docs[0].top1Misc,
-          top4: results.docs[0].top4Misc,
+          top: results.docs[0].top1Performers,
+          top4: results.docs[0].top4Performers,
+        };
+      } else if (input.category === "prep") {
+        return {
+          top: results.docs[0].top1Prep,
+          top4: results.docs[0].top4Prep,
+        };
+      } else if (input.category === "stationery") {
+        return {
+          top: results.docs[0].top1Stationery,
+          top4: results.docs[0].top4Stationery,
+        };
+      } else if (input.category === "cake") {
+        return {
+          top: results.docs[0].top1Cake,
+          top4: results.docs[0].top4Cake,
+        };
+      } else if (input.category === "catering") {
+        return {
+          top: results.docs[0].top1Catering,
+          top4: results.docs[0].top4Catering,
         };
       }
     }),
@@ -3181,6 +3259,16 @@ export const appRouter = router({
             top1Venue: input.vendorId,
           },
         });
+      } else if (input.cat == "coordinators") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Coordinator: input.vendorId,
+          },
+        });
       } else if (input.cat == "stylist") {
         await payload.update({
           collection: "featured",
@@ -3189,16 +3277,6 @@ export const appRouter = router({
           },
           data: {
             top1Stylist: input.vendorId,
-          },
-        });
-      } else if (input.cat == "bridals") {
-        await payload.update({
-          collection: "featured",
-          where: {
-            id: { equals: "65a3e090f66a58e7b5eb9542" },
-          },
-          data: {
-            top1Bridal: input.vendorId,
           },
         });
       } else if (input.cat == "photovideo") {
@@ -3211,6 +3289,16 @@ export const appRouter = router({
             top1Photovideo: input.vendorId,
           },
         });
+      } else if (input.cat == "bridals") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Bridal: input.vendorId,
+          },
+        });
       } else if (input.cat == "mua") {
         await payload.update({
           collection: "featured",
@@ -3221,17 +3309,57 @@ export const appRouter = router({
             top1Mua: input.vendorId,
           },
         });
-      } else if (input.cat == "coordinators") {
+      } else if (input.cat == "pakandam") {
         await payload.update({
           collection: "featured",
           where: {
             id: { equals: "65a3e090f66a58e7b5eb9542" },
           },
           data: {
-            top1Coordinator: input.vendorId,
+            top1Pakandam: input.vendorId,
           },
         });
-      } else if (input.cat == "emceesperformers") {
+      } else if (input.cat == "berkat") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Berkat: input.vendorId,
+          },
+        });
+      } else if (input.cat == "dulang") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Dulang: input.vendorId,
+          },
+        });
+      } else if (input.cat == "live") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Live: input.vendorId,
+          },
+        });
+      } else if (input.cat == "henna") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Henna: input.vendorId,
+          },
+        });
+      } else if (input.cat == "emcees") {
         await payload.update({
           collection: "featured",
           where: {
@@ -3241,14 +3369,54 @@ export const appRouter = router({
             top1Emcee: input.vendorId,
           },
         });
-      } else if (input.cat == "misc") {
+      } else if (input.cat == "performers") {
         await payload.update({
           collection: "featured",
           where: {
             id: { equals: "65a3e090f66a58e7b5eb9542" },
           },
           data: {
-            top1Misc: input.vendorId,
+            top1Performers: input.vendorId,
+          },
+        });
+      } else if (input.cat == "prep") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Prep: input.vendorId,
+          },
+        });
+      } else if (input.cat == "stationery") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Stationery: input.vendorId,
+          },
+        });
+      } else if (input.cat == "cake") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Cake: input.vendorId,
+          },
+        });
+      } else if (input.cat == "catering") {
+        await payload.update({
+          collection: "featured",
+          where: {
+            id: { equals: "65a3e090f66a58e7b5eb9542" },
+          },
+          data: {
+            top1Catering: input.vendorId,
           },
         });
       }
@@ -3277,6 +3445,7 @@ export const appRouter = router({
         collection: "vendors",
         where: {
           category: { equals: input.cat },
+          and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
         },
         pagination: false,
       });
@@ -3290,6 +3459,9 @@ export const appRouter = router({
     const { docs: items } = await payload.find({
       collection: "vendors",
       pagination: false,
+      where: {
+        venduserid: { not_in: "658fdba885aa3665781e567a" },
+      },
     });
 
     return items;
@@ -3336,6 +3508,7 @@ export const appRouter = router({
         collection: "vendors",
         where: {
           ...parsedQueryOpts,
+          and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
         },
         sort,
         depth: 1,

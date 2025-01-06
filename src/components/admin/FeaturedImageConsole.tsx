@@ -37,14 +37,20 @@ const FeaturedImageConsole = ({ category }: FeaturedImageConsoleProps) => {
         {top ? (
           <Dialog>
             <DialogTrigger>
-              <Image
-                width={900}
-                height={900}
-                //@ts-ignore
-                src={top.images[1].image.sizes?.thumbnail?.url}
-                alt="product category image"
-                className="aspect-square rounded-2xl object-cover object-center hover:opacity-50 cursor-pointer"
-              />
+              {top.images[1] ? (
+                <Image
+                  width={900}
+                  height={900}
+                  //@ts-ignore
+                  src={top.images[1].image.sizes?.thumbnail?.url}
+                  alt="product category image"
+                  className="aspect-square rounded-2xl object-cover object-center hover:opacity-50 cursor-pointer"
+                />
+              ) : (
+                <div className="rounded-2xl bg-black/50 hover:bg-black/20 w-900 h-900 aspect-square flex justify-center items-center">
+                  <p>Does not have a second photo</p>
+                </div>
+              )}
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>

@@ -27,7 +27,7 @@ import React, { Fragment } from "react";
 import escapeHtml from "escape-html";
 import { Text } from "slate";
 import DirectChat from "@/components/chat/DirectChat";
-import { User } from "@/payload-types";
+import { User, Vendor } from "@/payload-types";
 import { Button } from "@/components/ui/button";
 import ClaimVendor from "@/components/ClaimVendor";
 import SimilarVendors from "@/components/SimilarVendors";
@@ -57,7 +57,7 @@ const Page = async ({ params }: PageProps) => {
     },
   });
 
-  const [product] = vendors;
+  const [product] = vendors as unknown as Vendor[];
 
   if (!product) return notFound();
 
@@ -65,12 +65,12 @@ const Page = async ({ params }: PageProps) => {
     ({ value }) => value === product.category
   )?.label;
 
-  // @ts-ignore
-  const smallCapsLabel = label.toLowerCase();
+  // // @ts-ignore
+  // const smallCapsLabel = label.toLowerCase();
 
-  const value = VENDOR_CATEGORIES.find(
-    ({ value }) => value === product.category
-  )?.label;
+  // const value = VENDOR_CATEGORIES.find(
+  //   ({ value }) => value === product.category
+  // )?.label;
 
   const vendCatLabel = (string: string) => {
     const category = VENDOR_CATEGORIES.find((cat) => cat.value === string);
@@ -83,12 +83,6 @@ const Page = async ({ params }: PageProps) => {
   };
 
   let categoryhref = `/vendors?category=${product.category}`;
-
-  if (product.category === "mua") {
-    categoryhref = `/vendors/mua`;
-  } else if (product.category === "misc") {
-    categoryhref = `/vendors/misc`;
-  }
 
   const BREADCRUMBS = [
     { id: 1, name: "Home", href: "/" },
@@ -218,11 +212,11 @@ const Page = async ({ params }: PageProps) => {
 
                   <div className="bg-white p-6 rounded-sm shadow-md">
                     <div className="mt-4">
-                      <h1 className="flex items-baseline gap-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                      <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                         {product.name}
-                        <span>
+                        {/* <span>
                           <Badge vendorRole={VendUser.role} />
-                        </span>
+                        </span> */}
                       </h1>
                       <p className="text-balance text-muted-foreground mt-3 flex gap-2 items-center">
                         <MapPin className="h-6 w-6 text-gray-400" />
@@ -329,12 +323,14 @@ const Page = async ({ params }: PageProps) => {
               <TableBody>
                 {/* @ts-ignore */}
                 {packages.map((packageItem) => (
-                  <TableRow key={packageItem.name}>
+                  <TableRow key={packageItem.id}>
                     <TableCell className="font-semibold">
+                      {/* @ts-ignore */}
                       {packageItem.name}
                     </TableCell>
                     <TableCell>
                       {packageItem.services ? (
+                        //@ts-ignore
                         packageItem.services.map((service: string) =>
                           vendCatLabel(service) ? (
                             <div
@@ -363,6 +359,7 @@ const Page = async ({ params }: PageProps) => {
                     </TableCell>
                     <TableCell className="text-right">
                       {packageItem.price ? (
+                        //@ts-ignore
                         formatPrice(packageItem.price)
                       ) : (
                         <p className="text-slate-400 italic">

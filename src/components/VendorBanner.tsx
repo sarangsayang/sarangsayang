@@ -53,10 +53,10 @@ const VendorBanner = ({ cat, user }: VendorBannerProps) => {
                         <h1 className="text-base md:text-lg font-bold">
                           Sha De Couture
                         </h1>
-                        <BadgeCheck
+                        {/* <BadgeCheck
                           aria-hidden="true"
                           className="h-6 w-6 flex-shrink-0 text-yellow-400"
-                        />
+                        /> */}
                       </div>
                       <p className="text-slate-500 text-xs md:text-sm">
                         Check out Sha De Couture&apos;s vendor profile and

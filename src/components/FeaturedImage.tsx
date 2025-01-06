@@ -26,14 +26,25 @@ const FeaturedImage = ({ category }: FeaturedImageProps) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <Image
-                width={197}
-                height={197}
-                //@ts-ignore
-                src={top.images[1].image.sizes?.thumbnail?.url}
-                alt="product category image"
-                className="aspect-square rounded-2xl object-cover object-center"
-              />
+              {top.images[1] ? (
+                <Image
+                  width={197}
+                  height={197}
+                  //@ts-ignore
+                  src={top.images[1].image.sizes?.thumbnail?.url}
+                  alt="product category image"
+                  className="aspect-square rounded-2xl object-cover object-center"
+                />
+              ) : (
+                <Image
+                  width={197}
+                  height={197}
+                  //@ts-ignore
+                  src={top.images[0].image.sizes?.thumbnail?.url}
+                  alt="product category image"
+                  className="aspect-square rounded-2xl object-cover object-center"
+                />
+              )}
             </TooltipTrigger>
             <TooltipContent>
               <p>{top.name}</p>
