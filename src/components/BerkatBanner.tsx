@@ -18,7 +18,7 @@ const BerkatBanner = () => {
     >
       <MaxWidthWrapper>
         <Link href={"/vendor/66ffa7d04a70670487fcdaa3"} target="_blank">
-          <div className="bg-[url('/qs.jpg')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
+          <div className="bg-[url('/qs.JPG')] bg-cover bg-center relative h-[270px] w-full rounded-3xl cursor-pointer shadow-lg">
             <div className="absolute bottom-0 left-0 p-5 bg-white rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
                 <h1 className="text-lg font-bold">Qandle Sense</h1>
