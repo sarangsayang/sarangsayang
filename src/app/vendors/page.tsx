@@ -46,7 +46,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
       {category === "coordinators" ? <CoordinatorBanner /> : null}
       {category === "venues" ? <VenueBanner /> : null}
       {category === "berkat" ? <BerkatBanner /> : null}
-      {category === "bridals" ? <VendorBanner cat="bridals" /> : null}
+      {/* {category === "bridals" ? <VendorBanner cat="bridals" /> : null} */}
 
       <MaxWidthWrapper>
         <div className="mt-6 flex items-center gap-3">
