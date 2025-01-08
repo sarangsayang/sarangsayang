@@ -25,7 +25,7 @@ const BerkatBanner = () => {
               </div>
               <p className="text-slate-500 text-sm">
                 Check out Qandle Sense&apos;s vendor profile & enquire for your
-                wedding berkat today.
+                wedding berkat today
               </p>
             </div>
           </div>
