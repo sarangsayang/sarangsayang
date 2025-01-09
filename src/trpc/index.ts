@@ -3508,7 +3508,16 @@ export const appRouter = router({
         collection: "vendors",
         where: {
           ...parsedQueryOpts,
-          and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }],
+          and: [
+            {
+              venduserid: {
+                not_in: [
+                  "658fdba885aa3665781e567a",
+                  "65d23bde3d200459cb8a58b2",
+                ],
+              },
+            },
+          ],
         },
         sort,
         depth: 1,

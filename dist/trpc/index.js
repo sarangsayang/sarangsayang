@@ -4478,7 +4478,16 @@ exports.appRouter = (0, trpc_1.router)({
                         page = cursor || 1;
                         return [4 /*yield*/, payload.find({
                                 collection: "vendors",
-                                where: __assign(__assign({}, parsedQueryOpts), { and: [{ venduserid: { not_in: "658fdba885aa3665781e567a" } }] }),
+                                where: __assign(__assign({}, parsedQueryOpts), { and: [
+                                        {
+                                            venduserid: {
+                                                not_in: [
+                                                    "658fdba885aa3665781e567a",
+                                                    "65d23bde3d200459cb8a58b2",
+                                                ],
+                                            },
+                                        },
+                                    ] }),
                                 sort: sort,
                                 depth: 1,
                                 limit: limit,

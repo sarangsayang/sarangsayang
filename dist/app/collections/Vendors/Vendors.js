@@ -120,10 +120,16 @@ exports.Vendors = {
             }),
             required: true,
         },
+        // {
+        //   name: "details",
+        //   type: "richText",
+        //   label: "Vendor Details",
+        //   required: false,
+        // },
         {
-            name: "details",
-            type: "richText",
-            label: "Vendor Details",
+            name: "bio",
+            label: "Bio",
+            type: "textarea",
             required: false,
         },
         {
@@ -185,6 +191,18 @@ exports.Vendors = {
             required: false,
             admin: {
                 condition: function () { return false; },
+            },
+        },
+        {
+            name: "visible",
+            defaultValue: false,
+            required: false,
+            type: "checkbox",
+            access: {
+                update: function (_a) {
+                    var req = _a.req;
+                    return req.user.role === "admin";
+                },
             },
         },
     ],

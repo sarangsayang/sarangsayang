@@ -75,11 +75,7 @@ export interface Vendor {
     | 'stationery'
     | 'cake'
     | 'catering';
-  details?:
-    | {
-        [k: string]: unknown;
-      }[]
-    | null;
+  bio?: string | null;
   location?: string | null;
   facebook?: string | null;
   instagram?: string | null;
@@ -90,6 +86,7 @@ export interface Vendor {
   }[];
   clicks?: number | null;
   likes?: number | null;
+  visible?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }

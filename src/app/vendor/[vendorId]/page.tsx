@@ -169,6 +169,45 @@ const Page = async ({ params }: PageProps) => {
           return <p key={i}>{serialize(node.children)}</p>;
       }
     });
+
+  //@ts-ignore
+  const renderRichText = (data) => {
+    // Function to recursively process JSON structure and return JSX
+    // if (!data || !data.children) return null;
+
+    //@ts-ignore
+    return data.root.children.map((child, index) => {
+      switch (child.type) {
+        case "heading":
+          return (
+            <h3 key={index}>
+              {/* @ts-ignore */}
+              {child.children.map((text, textIndex) => (
+                <span key={textIndex}>{text.text}</span>
+              ))}
+            </h3>
+          );
+
+        case "paragraph":
+          return (
+            <p key={index}>
+              {/* @ts-ignore */}
+              {child.children.map((text, textIndex) => (
+                <span key={textIndex}>{text.text}</span>
+              ))}
+            </p>
+          );
+
+        case "text":
+          // Just render the text inside a span (or other tag if needed)
+          return <span key={index}>{child.text}</span>;
+
+        default:
+          return null;
+      }
+    });
+  };
+
   if (user) {
     return (
       <>
@@ -255,9 +294,20 @@ const Page = async ({ params }: PageProps) => {
                           </Link>
                         ) : null}
                       </div>
-                      {product.details ? (
+
+                      {product.bio ? (
+                        <p className="mt-4 space-y-6 text-base text-muted-foreground">
+                          {product.bio}
+                        </p>
+                      ) : //@ts-ignore
+                      product.details ? (
                         <div className="mt-4 space-y-6 text-base text-muted-foreground">
-                          {serialize(product.details)}
+                          {/* @ts-ignore */}
+                          {product.details.root
+                            ? //@ts-ignore
+                              renderRichText(product.details)
+                            : //@ts-ignore
+                              serialize(product.details)}
                         </div>
                       ) : (
                         <div className="mt-4 space-y-6 text-base text-muted-foreground">

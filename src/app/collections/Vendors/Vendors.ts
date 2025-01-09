@@ -67,10 +67,16 @@ export const Vendors: CollectionConfig = {
       options: VENDOR_CATEGORIES.map(({ label, value }) => ({ label, value })),
       required: true,
     },
+    // {
+    //   name: "details",
+    //   type: "richText",
+    //   label: "Vendor Details",
+    //   required: false,
+    // },
     {
-      name: "details",
-      type: "richText",
-      label: "Vendor Details",
+      name: "bio",
+      label: "Bio",
+      type: "textarea",
       required: false,
     },
     {
@@ -132,6 +138,15 @@ export const Vendors: CollectionConfig = {
       required: false,
       admin: {
         condition: () => false,
+      },
+    },
+    {
+      name: "visible",
+      defaultValue: false,
+      required: false,
+      type: "checkbox",
+      access: {
+        update: ({ req }) => req.user.role === "admin",
       },
     },
   ],
