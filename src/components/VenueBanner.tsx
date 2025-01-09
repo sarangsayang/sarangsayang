@@ -22,7 +22,7 @@ const VenueBanner = () => {
             <div className="absolute bottom-0 left-0 p-3 md:p-5 bg-white rounded-2xl m-5">
               <div className="flex flex-row items-center gap-1">
                 <h1 className="text-base md:text-lg font-bold">
-                  Singapore Flyer Event Hall
+                  Singapore Flyer Grand Ballroom
                 </h1>
                 {/* <BadgeCheck
                   aria-hidden="true"
