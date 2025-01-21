@@ -15,9 +15,10 @@ import { VENDOR_CATEGORIES } from "@/config";
 interface VendorBannerProps {
   cat: string;
   user?: string;
+  noTitle?: boolean;
 }
 
-const VendorBanner = ({ cat, user }: VendorBannerProps) => {
+const VendorBanner = ({ cat, user, noTitle }: VendorBannerProps) => {
   const addClick = trpc.addClick.useMutation();
 
   const results = trpc.getTopVendor.useQuery({
@@ -30,11 +31,13 @@ const VendorBanner = ({ cat, user }: VendorBannerProps) => {
 
   return (
     <div className="bg-[url('/hero.png')] bg-cover bg-center shadow-md p-5">
-      <MaxWidthWrapper className="pb-6">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Featured {label}
-        </h1>
-      </MaxWidthWrapper>
+      {!noTitle ? (
+        <MaxWidthWrapper className="pb-6">
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+            Featured {label}
+          </h1>
+        </MaxWidthWrapper>
+      ) : null}
       <MaxWidthWrapper className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <div className="w-full col-span-2">
           {cat == "bridals" ? (

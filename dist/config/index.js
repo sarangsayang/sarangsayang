@@ -92,12 +92,12 @@ exports.PRODUCT_CATEGORIES = [
                 href: "/vendors?category=prep",
                 imageSrc: "https://placehold.co/600x600",
             },
-            {
-                name: "Wedding Stationery",
-                value: "stationery",
-                href: "/vendors?category=stationery",
-                imageSrc: "https://placehold.co/600x600",
-            },
+            // {
+            //   name: "Wedding Stationery",
+            //   value: "stationery",
+            //   href: "/vendors?category=stationery",
+            //   imageSrc: "https://placehold.co/600x600",
+            // },
             {
                 name: "Wedding Cake",
                 value: "cake",
@@ -221,11 +221,11 @@ exports.VENDOR_CATEGORIES = [
         value: "prep",
         icon: lucide_react_1.HandHeart,
     },
-    {
-        label: "Wedding Stationery",
-        value: "stationery",
-        icon: lucide_react_1.Album,
-    },
+    // {
+    //   label: "Wedding Stationery",
+    //   value: "stationery",
+    //   icon: Album,
+    // },
     {
         label: "Wedding Cake",
         value: "cake",
