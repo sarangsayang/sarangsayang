@@ -5,6 +5,8 @@ import { BadgeCheck, CheckCircle } from "lucide-react";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import BecomeAVendor from "@/components/BecomeAVendor";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import Image from "next/image";
 
 const Supervendor200 = () => {
   const [yearly, setYearly] = useState(false);
@@ -17,16 +19,17 @@ const Supervendor200 = () => {
           Today!
         </h1>
       </div>
-
-      {/* <MaxWidthWrapper className="py-4 lg:w-[1000px]">
-        <Image
-          width={1280}
-          height={360}
-          src="/ads/ssmyp.jpg"
-          alt="ad1"
-          unoptimized={true}
-        />
-      </MaxWidthWrapper> */}
+      <div className="w-full flex justify-center items-center">
+        <div className="w-[80%] lg:w-[60%] p-10">
+          <Image
+            width={6912}
+            height={3456}
+            src="/ads/sscny.jpg"
+            alt="ad1"
+            unoptimized={true}
+          />
+        </div>
+      </div>
       <div className="bg-sky-200 w-full flex justify-center items-center">
         <div className="w-[80%] lg:w-[60%] bg-white rounded-md p-10 shadow-lg flex flex-col lg:grid lg:grid-cols-2 m-10">
           <div className="col-span-1 flex flex-col justify-center items-center shadow-md py-4 lg:py-12 px-4 lg:px-12 rounded-md">
@@ -34,8 +37,11 @@ const Supervendor200 = () => {
               {!yearly ? (
                 <>
                   <div>
-                    <span className="text-4xl font-medium tracking-tight">
+                    <span className="text-2xl tracking-tight line-through">
                       $25
+                    </span>
+                    <span className="text-4xl font-medium tracking-tight">
+                      $18
                     </span>
                     <span className="text-gray-500">/month</span>
                   </div>
@@ -44,12 +50,15 @@ const Supervendor200 = () => {
                 <div className="flex justify-center items-center gap-2">
                   <div className="w-full flex justify-center bg-red-200"></div>
                   <div>
-                    <span className="text-4xl font-medium tracking-tight">
+                    <span className="text-2xl tracking-tight line-through">
                       $255
+                    </span>
+                    <span className="text-4xl font-medium tracking-tight">
+                      $208
                     </span>
                     <span className="text-gray-500">/year</span>
                   </div>
-                  <Badge variant="default">15% Off</Badge>
+                  {/* <Badge variant="default">15% Off</Badge> */}
                 </div>
               )}
             </div>

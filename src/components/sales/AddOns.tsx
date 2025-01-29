@@ -9,6 +9,7 @@ import { Vendor } from "@/payload-types";
 import { toast } from "@/components/ui/use-toast";
 import { sendTopVendForm } from "@/actions/sendTopVendForm";
 import { sendVideoBundleForm } from "@/actions/sendVideoBundleForm";
+import Image from "next/image";
 
 interface PriceRangeProps {
   userId: string;
@@ -24,6 +25,15 @@ export default async function AddOns({ userId }: PriceRangeProps) {
   return (
     <>
       <MaxWidthWrapper className="space-y-4 pt-6 py-10">
+        <div className="p-10">
+          <Image
+            width={6912}
+            height={3456}
+            src="/ads/sscny.jpg"
+            alt="ad1"
+            unoptimized={true}
+          />
+        </div>
         <div className="flex items-center justify-between space-y-2 pb-8">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
@@ -113,9 +123,14 @@ export default async function AddOns({ userId }: PriceRangeProps) {
               {/* Price */}
               <div className="flex-shrink-0 flex items-center gap-2">
                 <span className="text-2xl text-gray-400 drop-shadow-md">+</span>
-                <span className="text-4xl font-semibold tracking-tight drop-shadow-md">
-                  $500
-                </span>
+                <div className="">
+                  <span className="text-2xl font-semibold tracking-tight line-through">
+                    $500
+                  </span>
+                  <span className="text-4xl font-semibold tracking-tight drop-shadow-md">
+                    $488
+                  </span>
+                </div>
               </div>
 
               {/* Name and DESC */}
