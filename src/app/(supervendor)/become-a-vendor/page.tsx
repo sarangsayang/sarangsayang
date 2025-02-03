@@ -19,7 +19,7 @@ const Supervendor200 = () => {
           Today!
         </h1>
       </div>
-      <div className="w-full flex justify-center items-center">
+      {/* <div className="w-full flex justify-center items-center">
         <div className="w-[80%] lg:w-[60%] p-10">
           <Image
             width={6912}
@@ -29,7 +29,7 @@ const Supervendor200 = () => {
             unoptimized={true}
           />
         </div>
-      </div>
+      </div> */}
       <div className="bg-sky-200 w-full flex justify-center items-center">
         <div className="w-[80%] lg:w-[60%] bg-white rounded-md p-10 shadow-lg flex flex-col lg:grid lg:grid-cols-2 m-10">
           <div className="col-span-1 flex flex-col justify-center items-center shadow-md py-4 lg:py-12 px-4 lg:px-12 rounded-md">
@@ -37,11 +37,11 @@ const Supervendor200 = () => {
               {!yearly ? (
                 <>
                   <div>
-                    <span className="text-2xl tracking-tight line-through">
+                    {/* <span className="text-2xl tracking-tight line-through">
                       $25
-                    </span>
+                    </span> */}
                     <span className="text-4xl font-medium tracking-tight">
-                      $18
+                      $25
                     </span>
                     <span className="text-gray-500">/month</span>
                   </div>
@@ -166,7 +166,7 @@ const Supervendor200 = () => {
               </ul>
             </div>
             <div className="text-center">
-              <p className="text-sm italic text-slate-400">
+              <p className="text-sm italic text-slate-400 text-pretty">
                 Subcriptions can be cancelled anytime by dropping us an e-mail
                 at <span className="font-semibold">sales@sarangsayang.com</span>
               </p>
