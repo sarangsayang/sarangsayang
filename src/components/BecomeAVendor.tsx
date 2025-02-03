@@ -219,7 +219,7 @@ const BecomeAVendor = ({ desc, yearly }: BecomeAVendorProps) => {
                             "Verifications and authentications can take up to 1-2 working days.",
                         });
                         router.push(
-                          "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5X030448RG8583539M6NAC4I"
+                          "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1K953383AM916294WM4LDUBY"
                         );
                       }}
                     >
