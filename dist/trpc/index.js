@@ -80,6 +80,34 @@ exports.appRouter = (0, trpc_1.router)({
     //     });
     //   }
     // }),
+    getPackageTable: trpc_1.publicProcedure
+        .input(zod_1.z.object({
+        packageId: zod_1.z.string(),
+    }))
+        .query(function (_a) {
+        var input = _a.input;
+        return __awaiter(void 0, void 0, void 0, function () {
+            var payload, PackageList;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
+                    case 1:
+                        payload = _b.sent();
+                        return [4 /*yield*/, payload.find({
+                                collection: "ExPackages",
+                                pagination: false,
+                                where: {
+                                    vendor: { equals: input.packageId },
+                                },
+                                sort: "order",
+                            })];
+                    case 2:
+                        PackageList = (_b.sent()).docs;
+                        return [2 /*return*/, PackageList];
+                }
+            });
+        });
+    }),
     getAllCoupons: trpc_1.publicProcedure.query(function () { return __awaiter(void 0, void 0, void 0, function () {
         var payload, AllCoupons;
         return __generator(this, function (_a) {
@@ -3897,6 +3925,12 @@ exports.appRouter = (0, trpc_1.router)({
                             return [2 /*return*/, {
                                     top: results.docs[0].top1Stylist,
                                     top4: results.docs[0].top4Stylist,
+                                }];
+                        }
+                        else if (input.category === "packages") {
+                            return [2 /*return*/, {
+                                    top: results.docs[0].top1Packages,
+                                    top4: results.docs[0].top4Packages,
                                 }];
                         }
                         else if (input.category === "bridals") {

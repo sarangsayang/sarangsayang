@@ -75,20 +75,19 @@ var syncUser = function (_a) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, req.payload.findByID({
-                        collection: 'users',
+                        collection: "users",
                         id: req.user.id,
                     })];
                 case 1:
                     fullUser = _b.sent();
-                    if (!(fullUser && typeof fullUser === 'object')) return [3 /*break*/, 3];
+                    if (!(fullUser && typeof fullUser === "object")) return [3 /*break*/, 3];
                     packages = fullUser.packages;
-                    allIDs_1 = __spreadArray([], ((packages === null || packages === void 0 ? void 0 : packages.map(function (pkg) {
-                        return typeof pkg === 'object' ? pkg.id : pkg;
-                    })) || []), true);
+                    allIDs_1 = __spreadArray([], ((packages === null || packages === void 0 ? void 0 : packages.map(function (pkg) { return (typeof pkg === "object" ? pkg.id : pkg); })) ||
+                        []), true);
                     createdProductIDs = allIDs_1.filter(function (id, index) { return allIDs_1.indexOf(id) === index; });
                     dataToUpdate = __spreadArray(__spreadArray([], createdProductIDs, true), [doc.id], false);
                     return [4 /*yield*/, req.payload.update({
-                            collection: 'users',
+                            collection: "users",
                             id: fullUser.id,
                             data: {
                                 packages: dataToUpdate,
@@ -108,12 +107,12 @@ var isAdminOrHasAccess = function () {
         var user = _user;
         if (!user)
             return false;
-        if (user.role === 'admin')
+        if (user.role === "admin")
             return true;
         var userPkgIDs = (user.packages || []).reduce(function (acc, pkg) {
             if (!pkg)
                 return acc;
-            if (typeof pkg === 'string') {
+            if (typeof pkg === "string") {
                 acc.push(pkg);
             }
             else {
@@ -129,12 +128,12 @@ var isAdminOrHasAccess = function () {
     };
 };
 exports.Packages = {
-    slug: 'packages',
+    slug: "packages",
     admin: {
-        useAsTitle: 'name',
+        useAsTitle: "name",
         hidden: function (_a) {
             var user = _a.user;
-            return user.role !== 'admin';
+            return user.role !== "admin";
         },
     },
     access: {
@@ -148,22 +147,22 @@ exports.Packages = {
     },
     fields: [
         {
-            name: 'vendor',
-            type: 'relationship',
-            relationTo: 'vendors',
+            name: "vendor",
+            type: "relationship",
+            relationTo: "vendors",
             required: true,
             hasMany: false,
         },
         {
-            name: 'name',
-            label: 'Package Name',
-            type: 'text',
+            name: "name",
+            label: "Package Name",
+            type: "text",
             required: true,
         },
         {
-            name: 'services',
-            label: 'Offered Services',
-            type: 'select',
+            name: "services",
+            label: "Offered Services",
+            type: "select",
             hasMany: true,
             admin: {
                 isClearable: true,
@@ -175,21 +174,21 @@ exports.Packages = {
             }),
         },
         {
-            name: 'packageDetails',
-            label: 'Package Details',
-            type: 'richText',
+            name: "packageDetails",
+            label: "Package Details",
+            type: "richText",
         },
         {
-            name: 'pax',
-            label: 'Number of Pax',
-            type: 'number',
+            name: "pax",
+            label: "Number of Pax",
+            type: "number",
         },
         {
-            name: 'price',
-            label: 'Price in SGD',
+            name: "price",
+            label: "Price in SGD",
             min: 0,
             max: 100000,
-            type: 'number',
-        }
-    ]
+            type: "number",
+        },
+    ],
 };

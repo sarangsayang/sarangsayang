@@ -24,6 +24,7 @@ import { Message } from "./app/collections/Chat/Message";
 import { MiscVendors } from "./app/collections/MiscVendors";
 import { HomepageVendors } from "./app/collections/HomepageVendors";
 import { Coupons } from "./app/collections/Coupons";
+import { ExPackages } from "./app/collections/ExclusivePackages/ExPackages";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env"),
@@ -46,6 +47,7 @@ export default buildConfig({
   collections: [
     Users,
     Vendors,
+    ExPackages,
     Packages,
     Media,
     Likes,

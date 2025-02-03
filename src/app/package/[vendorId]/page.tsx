@@ -20,6 +20,7 @@ import { getServerSideUser } from "@/lib/payload-utils";
 import { cookies } from "next/headers";
 import LikeButton from "@/components/LikeButton";
 import { toast } from "@/components/ui/use-toast";
+import Badge from "@/components/Badge";
 
 import React, { Fragment } from "react";
 //@ts-ignore
@@ -31,8 +32,7 @@ import { Button } from "@/components/ui/button";
 import ClaimVendor from "@/components/ClaimVendor";
 import SimilarVendors from "@/components/SimilarVendors";
 import IndvImageSlider from "@/components/IndvImageSlider";
-import { Badge } from "@/components/ui/badge";
-import { Link as LinkLogo } from "lucide-react";
+import ExPackageTable from "@/components/ExPackageTable";
 
 interface PageProps {
   params: {
@@ -62,17 +62,6 @@ const Page = async ({ params }: PageProps) => {
 
   if (!product) return notFound();
 
-  const label = VENDOR_CATEGORIES.find(
-    ({ value }) => value === product.category
-  )?.label;
-
-  // // @ts-ignore
-  // const smallCapsLabel = label.toLowerCase();
-
-  // const value = VENDOR_CATEGORIES.find(
-  //   ({ value }) => value === product.category
-  // )?.label;
-
   const vendCatLabel = (string: string) => {
     const category = VENDOR_CATEGORIES.find((cat) => cat.value === string);
 
@@ -83,12 +72,9 @@ const Page = async ({ params }: PageProps) => {
     return category.label;
   };
 
-  let categoryhref = `/vendors?category=${product.category}`;
-
   const BREADCRUMBS = [
     { id: 1, name: "Home", href: "/" },
-    { id: 2, name: "Vendors", href: "/vendors" },
-    { id: 3, name: label, href: categoryhref },
+    { id: 2, name: "Packages", href: "/packages" },
   ];
 
   const validUrls = product.images
@@ -217,10 +203,10 @@ const Page = async ({ params }: PageProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 py-3 items-center">
               <div className="aspect-square rounded-lg">
                 <IndvImageSlider urls={validUrls} />
-                <p className="bg-white text-sm italic font-semibold p-4 mt-3 rounded-md shadow-md mx-4">
+                {/* <p className="bg-white text-sm italic font-semibold p-4 mt-3 rounded-md shadow-md mx-4">
                   Photo Credits: {product.name}&apos;s
                   Instagram/Facebook/Website
-                </p>
+                </p> */}
               </div>
               <div className="mx-auto max-w-2xl px-4 py-4 lg:py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:gap-x-8 lg:px-14">
                 {/* Product Details */}
@@ -254,20 +240,7 @@ const Page = async ({ params }: PageProps) => {
                     <div className="mt-4">
                       <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                         {product.name}
-                        {/* <span>
-                          <Badge vendorRole={VendUser.role} />
-                        </span> */}
                       </h1>
-                      <p className="text-balance text-muted-foreground mt-3 flex gap-2 items-center">
-                        <MapPin className="h-6 w-6 text-gray-400" />
-                        {product.location ? (
-                          product.location
-                        ) : (
-                          <span className="text-slate-400 italic">
-                            Vendor location not disclosed
-                          </span>
-                        )}
-                      </p>
                     </div>
 
                     {/* Claim */}
@@ -318,21 +291,6 @@ const Page = async ({ params }: PageProps) => {
                         </div>
                       )}
 
-                      {product.link ? (
-                        <div className="mt-4 flex flex-row gap-2 items-center">
-                          <Badge variant="outline" className="aspect-square">
-                            <LinkLogo size={10} />
-                          </Badge>
-                          <Link
-                            href={product.link}
-                            target="_blank"
-                            className="text-base text-blue-400 no-underline hover:underline"
-                          >
-                            {product.link}
-                          </Link>
-                        </div>
-                      ) : null}
-
                       {/* Enquire */}
                       <div className="group flex items-center gap-8 text-sm text-medium mt-10">
                         {user ? (
@@ -376,77 +334,7 @@ const Page = async ({ params }: PageProps) => {
         </div>
 
         <MaxWidthWrapper className="bg-white">
-          {packages.length > 0 ? (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[250px]">Packages</TableHead>
-                  <TableHead className="w-[200px]">Services</TableHead>
-                  <TableHead>Details</TableHead>
-                  <TableHead className="text-right">Price</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {/* @ts-ignore */}
-                {packages.map((packageItem) => (
-                  <TableRow key={packageItem.id}>
-                    <TableCell className="font-semibold">
-                      {/* @ts-ignore */}
-                      {packageItem.name}
-                    </TableCell>
-                    <TableCell>
-                      {packageItem.services ? (
-                        //@ts-ignore
-                        packageItem.services.map((service: string) =>
-                          vendCatLabel(service) ? (
-                            <div
-                              key={service}
-                              className="flex gap-3 items-center"
-                            >
-                              <CheckCheck className="w-4 h-4 text-lime-500" />
-                              <p>{vendCatLabel(service)}</p>
-                            </div>
-                          ) : null
-                        )
-                      ) : (
-                        <p className="text-slate-400 italic">
-                          Package Services not disclosed
-                        </p>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {packageItem.packageDetails ? (
-                        serialize(packageItem.packageDetails)
-                      ) : (
-                        <p className="text-slate-400 italic">
-                          Package details not disclosed
-                        </p>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {packageItem.price ? (
-                        //@ts-ignore
-                        formatPrice(packageItem.price)
-                      ) : (
-                        <p className="text-slate-400 italic">
-                          Price not disclosed
-                        </p>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          ) : null}
-
-          {/* <ProductReel
-            user={user?.id}
-            query={{ category: product.category, limit: 4 }}
-            title={`Browse other vendors`}
-            subtitle={`While you are here, check out these other ${smallCapsLabel.toLowerCase()} too!`}
-            vendorName={product.name}
-          /> */}
-          <SimilarVendors vendor={product} loggedUser={user} />
+          <ExPackageTable pkg={product} user={user} />
         </MaxWidthWrapper>
       </>
     );

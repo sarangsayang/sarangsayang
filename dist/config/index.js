@@ -21,6 +21,12 @@ exports.PRODUCT_CATEGORIES = [
                 imageSrc: "https://placehold.co/600x600",
             },
             {
+                name: "Exclusive Packages",
+                value: "packages",
+                href: "/packages",
+                imageSrc: "https://placehold.co/600x600",
+            },
+            {
                 name: "Wedding Stylist",
                 value: "stylist",
                 href: "/vendors?category=stylist",
@@ -160,6 +166,11 @@ exports.VENDOR_CATEGORIES = [
         label: "Wedding Coordinators",
         value: "coordinators",
         icon: lucide_react_1.Gift,
+    },
+    {
+        label: "Exclusive Packages",
+        value: "packages",
+        icon: lucide_react_1.Package,
     },
     {
         label: "Wedding Stylist",

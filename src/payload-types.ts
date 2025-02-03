@@ -10,6 +10,7 @@ export interface Config {
   collections: {
     users: User;
     vendors: Vendor;
+    ExPackages: ExPackage;
     packages: Package;
     media: Media;
     likes: Like;
@@ -60,6 +61,7 @@ export interface Vendor {
   category:
     | 'venues'
     | 'coordinators'
+    | 'packages'
     | 'stylist'
     | 'photovideo'
     | 'bridals'
@@ -72,7 +74,6 @@ export interface Vendor {
     | 'emcees'
     | 'performers'
     | 'prep'
-    | 'stationery'
     | 'cake'
     | 'catering';
   bio?: string | null;
@@ -85,6 +86,7 @@ export interface Vendor {
     id?: string | null;
   }[];
   clicks?: number | null;
+  link?: string | null;
   likes?: number | null;
   visible?: boolean | null;
   updatedAt: string;
@@ -98,6 +100,7 @@ export interface Package {
     | (
         | 'venues'
         | 'coordinators'
+        | 'packages'
         | 'stylist'
         | 'photovideo'
         | 'bridals'
@@ -110,7 +113,6 @@ export interface Package {
         | 'emcees'
         | 'performers'
         | 'prep'
-        | 'stationery'
         | 'cake'
         | 'catering'
       )[]
@@ -162,6 +164,36 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+export interface ExPackage {
+  id: string;
+  vendor: string | Vendor;
+  PVendor: string | Vendor;
+  services?:
+    | (
+        | 'venues'
+        | 'coordinators'
+        | 'packages'
+        | 'stylist'
+        | 'photovideo'
+        | 'bridals'
+        | 'mua'
+        | 'pakandam'
+        | 'berkat'
+        | 'dulang'
+        | 'live'
+        | 'henna'
+        | 'emcees'
+        | 'performers'
+        | 'prep'
+        | 'cake'
+        | 'catering'
+      )[]
+    | null;
+  packageDetails?: string | null;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Like {
   id: string;
@@ -229,6 +261,13 @@ export interface Featured {
     | null;
   top1Coordinator?: (string | null) | Vendor;
   top4Coordinator?:
+    | {
+        vendor?: (string | null) | Vendor;
+        id?: string | null;
+      }[]
+    | null;
+  top1Packages?: (string | null) | Vendor;
+  top4Packages?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;

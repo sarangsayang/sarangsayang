@@ -29,6 +29,27 @@ export const appRouter = router({
   //   }
   // }),
 
+  getPackageTable: publicProcedure
+    .input(
+      z.object({
+        packageId: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const payload = await getPayloadClient();
+
+      const { docs: PackageList } = await payload.find({
+        collection: "ExPackages",
+        pagination: false,
+        where: {
+          vendor: { equals: input.packageId },
+        },
+        sort: "order",
+      });
+
+      return PackageList;
+    }),
+
   getAllCoupons: publicProcedure.query(async () => {
     const payload = await getPayloadClient();
 
@@ -3077,6 +3098,11 @@ export const appRouter = router({
         return {
           top: results.docs[0].top1Stylist,
           top4: results.docs[0].top4Stylist,
+        };
+      } else if (input.category === "packages") {
+        return {
+          top: results.docs[0].top1Packages,
+          top4: results.docs[0].top4Packages,
         };
       } else if (input.category === "bridals") {
         return {

@@ -58,6 +58,29 @@ export const FeaturedVendors: CollectionConfig = {
       ],
     },
     {
+      name: "top1Packages",
+      type: "relationship",
+      label: "Top Featured Packages",
+      relationTo: "vendors",
+      filterOptions: { category: { equals: "packages" } },
+      hasMany: false,
+    },
+    {
+      name: "top4Packages",
+      type: "array",
+      label: "3 Featured Packages",
+      maxRows: 3,
+      fields: [
+        {
+          name: "vendor",
+          type: "relationship",
+          relationTo: "vendors",
+          filterOptions: { category: { equals: "packages" } },
+          hasMany: false,
+        },
+      ],
+    },
+    {
       name: "top1Stylist",
       type: "relationship",
       label: "Top Featured Stylist",

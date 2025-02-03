@@ -16,6 +16,7 @@ import {
   HandHeart,
   Album,
   HandPlatter,
+  Package,
 } from "lucide-react";
 
 export const PRODUCT_CATEGORIES = [
@@ -34,6 +35,12 @@ export const PRODUCT_CATEGORIES = [
         name: "Wedding Coordinators",
         value: "coordinators",
         href: "/vendors?category=coordinators",
+        imageSrc: "https://placehold.co/600x600",
+      },
+      {
+        name: "Exclusive Packages",
+        value: "packages",
+        href: "/packages",
         imageSrc: "https://placehold.co/600x600",
       },
       {
@@ -177,6 +184,11 @@ export const VENDOR_CATEGORIES = [
     label: "Wedding Coordinators",
     value: "coordinators",
     icon: Gift,
+  },
+  {
+    label: "Exclusive Packages",
+    value: "packages",
+    icon: Package,
   },
   {
     label: "Wedding Stylist",

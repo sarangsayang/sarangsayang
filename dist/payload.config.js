@@ -29,6 +29,7 @@ var Message_1 = require("./app/collections/Chat/Message");
 var MiscVendors_1 = require("./app/collections/MiscVendors");
 var HomepageVendors_1 = require("./app/collections/HomepageVendors");
 var Coupons_1 = require("./app/collections/Coupons");
+var ExPackages_1 = require("./app/collections/ExclusivePackages/ExPackages");
 dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, "../.env"),
 });
@@ -48,6 +49,7 @@ exports.default = (0, config_1.buildConfig)({
     collections: [
         Users_1.Users,
         Vendors_1.Vendors,
+        ExPackages_1.ExPackages,
         Packages_1.Packages,
         Media_1.Media,
         Likes_1.Likes,

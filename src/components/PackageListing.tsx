@@ -20,14 +20,10 @@ interface ProductListingProps {
   user?: string;
 }
 
-const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
+const PackageListing = ({ vendor, index, user }: ProductListingProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const addClick = trpc.addClick.useMutation();
-
-  const getVendorRole = (vendUser: User) => {
-    return vendUser.role;
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -74,7 +70,6 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
         <div
           className="flex flex-col w-full"
           onClick={() => {
-            //console.log(vendor.id);
             addClick.mutate({
               vendorId: vendor.id,
             });
@@ -82,7 +77,7 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
         >
           {user ? (
             <Link
-              href={`/vendor/${vendor.id}`}
+              href={`/package/${vendor.id}`}
               target="_blank"
               className={cn(
                 "invisible h-full w-full cursor-pointer group/main",
@@ -94,11 +89,6 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
               <ImageSlider urls={validUrls} />
               <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
                 {vendor.name}
-                {/* <span>
-                  <Badge
-                    vendorRole={getVendorRole(vendor.venduserid as User)}
-                  />
-                </span> */}
               </h3>
             </Link>
           ) : (
@@ -123,23 +113,12 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
               <ImageSlider urls={validUrls} />
               <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
                 {vendor.name}
-                {/* <span>
-                  <Badge
-                    vendorRole={getVendorRole(vendor.venduserid as User)}
-                  />
-                </span> */}
               </h3>
             </Link>
           )}
-          {vendor.category === "packages" ? (
-            <Link href={`/packages`}>
-              <p className="mt-1 text-sm text-gray-500">{label}</p>
-            </Link>
-          ) : (
-            <Link href={`/vendors?category=${vendor.category}`}>
-              <p className="mt-1 text-sm text-gray-500">{label}</p>
-            </Link>
-          )}
+          <Link href={`/packages`}>
+            <p className="mt-1 text-sm text-gray-500">{label}</p>
+          </Link>
         </div>
         <div className="mt-1">
           {user ? (
@@ -171,4 +150,4 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
   }
 };
 
-export default ProductListing;
+export default PackageListing;

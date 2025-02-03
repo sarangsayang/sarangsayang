@@ -159,6 +159,12 @@ exports.Vendors = {
             hasMany: true,
         },
         {
+            name: "link",
+            type: "text",
+            required: false,
+            label: "Showcase Link",
+        },
+        {
             name: "images",
             type: "array",
             label: "Product images",
