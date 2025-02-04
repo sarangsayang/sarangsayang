@@ -54,7 +54,7 @@ const ExPackageTable = ({ pkg, user }: ExPackageTableProps) => {
             ? list.map((list) => (
                 <Card
                   key={list.id}
-                  className="shadow-md flex flex-row p-5 hover:bg-slate-50"
+                  className="w-full shadow-md flex flex-col md:flex-row items-center gap-3 p-5 hover:bg-slate-50"
                 >
                   <div className="flex-1 max-w-[300px]">
                     <ProductListing
@@ -73,7 +73,9 @@ const ExPackageTable = ({ pkg, user }: ExPackageTableProps) => {
                               className="flex gap-3 items-center justify-center"
                             >
                               <CheckCheck className="w-4 h-4 text-lime-500" />
-                              <p>{vendCatLabel(service)}</p>
+                              <p className="font-semibold">
+                                {vendCatLabel(service)}
+                              </p>
                             </div>
                           ) : null
                         )
@@ -86,7 +88,7 @@ const ExPackageTable = ({ pkg, user }: ExPackageTableProps) => {
                   </div>
                   <div className="flex-1 flex justify-center items-center">
                     {list.packageDetails ? (
-                      <p className=" text-muted-foreground">
+                      <p className=" text-muted-foreground text-center">
                         {list.packageDetails}
                       </p>
                     ) : (
