@@ -25,11 +25,7 @@ const Transition = () => {
     <div>
       <div
         className="bg-[url('/hero.png')] bg-cover bg-center shadow-lg p-5 mb-10"
-        // onClick={() => {
-        //   addClick.mutate({
-        //     vendorId: "65a07bbf9cd6475e4b367c27",
-        //   });
-        // }}
+        onClick={() => {}}
       >
         <MaxWidthWrapper>
           <h1 className="text-3xl mb-3 font-bold tracking-tight">
