@@ -80,7 +80,7 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
             });
           }}
         >
-          {user ? (
+          {user && vendor.category != "packages" ? (
             <Link
               href={`/vendor/${vendor.id}`}
               target="_blank"
@@ -131,6 +131,59 @@ const ProductListing = ({ vendor, index, user }: ProductListingProps) => {
               </h3>
             </Link>
           )}
+
+          {user && vendor.category === "packages" ? (
+            <Link
+              href={`/package/${vendor.id}`}
+              target="_blank"
+              className={cn(
+                "invisible h-full w-full cursor-pointer group/main",
+                {
+                  "visible animate-in fade-in-5": isVisible,
+                }
+              )}
+            >
+              <ImageSlider urls={validUrls} />
+              <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
+                {vendor.name}
+                {/* <span>
+                  <Badge
+                    vendorRole={getVendorRole(vendor.venduserid as User)}
+                  />
+                </span> */}
+              </h3>
+            </Link>
+          ) : (
+            <Link
+              href="/sign-in"
+              onClick={() => {
+                toast({
+                  title: "You gotta sign in first",
+                  variant: "destructive",
+                  action: (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="text-slate-900"
+                    >
+                      <Link href={"/sign-in"}>Sign in!</Link>
+                    </Button>
+                  ),
+                });
+              }}
+            >
+              <ImageSlider urls={validUrls} />
+              <h3 className="flex items-center gap-2 mt-4 font-medium text-sm text-gray-700">
+                {vendor.name}
+                {/* <span>
+                  <Badge
+                    vendorRole={getVendorRole(vendor.venduserid as User)}
+                  />
+                </span> */}
+              </h3>
+            </Link>
+          )}
+
           {vendor.category === "packages" ? (
             <Link href={`/packages`}>
               <p className="mt-1 text-sm text-gray-500">{label}</p>
