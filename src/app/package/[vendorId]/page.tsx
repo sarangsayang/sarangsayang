@@ -350,7 +350,7 @@ const Page = async ({ params }: PageProps) => {
             </div>
 
             <Button asChild variant={"secondary"}>
-              <Link href={`/sign-in?origin=vendor/${vendorId}`}>Sign In</Link>
+              <Link href={`/sign-in?origin=package/${vendorId}`}>Sign In</Link>
             </Button>
           </div>
         </MaxWidthWrapper>
