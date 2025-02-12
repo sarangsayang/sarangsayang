@@ -49,7 +49,7 @@ const VendorBanner = ({ cat, user, noTitle }: VendorBannerProps) => {
                   });
                 }}
               >
-                <Link href={"/vendor/65a0a4029cd6475e4b36b4e4"} target="_blank">
+                <Link href={"/vendor/677b9be524ae4fe86eef292e"} target="_blank">
                   <div className="bg-[url('/flyer.png')] bg-cover bg-center relative h-[350px] w-full rounded-3xl cursor-pointer shadow-lg">
                     <div className="absolute bottom-0 left-0 p-3 md:p-5 bg-white/75 rounded-2xl m-5">
                       <div className="flex flex-row items-center gap-1">
