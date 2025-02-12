@@ -44,7 +44,7 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
       {category === "photovideo" ? <PhotoVideoBanner /> : null}
       {category === "stylist" ? <StylistBanner /> : null}
       {category === "coordinators" ? <CoordinatorBanner /> : null}
-      {category === "venues" ? <VenueBanner /> : null}
+      {category === "venues" ? <VendorBanner cat="venues" /> : null}
       {category === "berkat" ? <BerkatBanner /> : null}
       {/* {category === "bridals" ? <VendorBanner cat="bridals" /> : null} */}
 
