@@ -50,11 +50,8 @@ const Supervendor200 = () => {
                 <div className="flex justify-center items-center gap-2">
                   <div className="w-full flex justify-center bg-red-200"></div>
                   <div>
-                    <span className="text-2xl tracking-tight line-through">
-                      $255
-                    </span>
                     <span className="text-4xl font-medium tracking-tight">
-                      $208
+                      $255
                     </span>
                     <span className="text-gray-500">/year</span>
                   </div>
