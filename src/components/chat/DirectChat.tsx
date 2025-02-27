@@ -20,6 +20,7 @@ import MaxWidthWrapper from "../MaxWidthWrapper";
 import { trpc } from "@/trpc/client";
 import Badge from "../Badge";
 import { cn } from "@/lib/utils";
+import { sendOpenChat } from "@/actions/sendOpenChat";
 
 interface DirectChatProps {
   vendor: Vendor;
@@ -47,10 +48,12 @@ const DirectChat = ({
 
   const read = trpc.userRead.useMutation();
 
+  const vendUser = vendor.venduserid as User;
+
   return (
     <Drawer>
       <DrawerTrigger>
-        {identifiedChat ? (
+        {identifiedChat && chat.isSuccess ? (
           <Button
             className={cn(
               unread && unread > 0 ? "bg-red-500 hover:bg-red-400" : null
@@ -65,12 +68,17 @@ const DirectChat = ({
           </Button>
         ) : (
           <Button
-            onClick={() =>
+            onClick={() => {
               createChat.mutate({
                 userId: user.id,
                 vendorId: vendor.id,
-              })
-            }
+              });
+              sendOpenChat({
+                userName: user.name,
+                vendorEmail: vendUser.email,
+                vendorName: vendor.name,
+              });
+            }}
           >
             <MessageCircle className="mr-2 h-4 w-4" /> Chat Now
           </Button>

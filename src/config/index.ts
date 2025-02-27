@@ -17,6 +17,7 @@ import {
   Album,
   HandPlatter,
   Package,
+  Users,
 } from "lucide-react";
 
 export const PRODUCT_CATEGORIES = [
@@ -115,12 +116,12 @@ export const PRODUCT_CATEGORIES = [
         href: "/vendors?category=prep",
         imageSrc: "https://placehold.co/600x600",
       },
-      // {
-      //   name: "Wedding Stationery",
-      //   value: "stationery",
-      //   href: "/vendors?category=stationery",
-      //   imageSrc: "https://placehold.co/600x600",
-      // },
+      {
+        name: "Bridesmaids & Groomsmen",
+        value: "bng",
+        href: "/vendors?category=bng",
+        imageSrc: "https://placehold.co/600x600",
+      },
       {
         name: "Wedding Cake",
         value: "cake",
@@ -250,11 +251,11 @@ export const VENDOR_CATEGORIES = [
     value: "prep",
     icon: HandHeart,
   },
-  // {
-  //   label: "Wedding Stationery",
-  //   value: "stationery",
-  //   icon: Album,
-  // },
+  {
+    label: "Bridesmaids & Groomsmen",
+    value: "bng",
+    icon: Users,
+  },
   {
     label: "Wedding Cake",
     value: "cake",

@@ -14,7 +14,7 @@ const Messages = ({ chat }: MessagesProps) => {
     chatId: chat.id,
   });
 
-  const results = messages.data?.docs as Message[];
+  const results = messages.data?.docs as unknown as Message[];
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -46,8 +46,8 @@ const Messages = ({ chat }: MessagesProps) => {
             </div>
           ) : (
             <div className="flex items-end justify-start" key={message.id}>
-              <div className="flex flex-col space-y-2 text-base max-w-md mx-2 order-2 items-start">
-                <p className="px-4 py-2 rounded-lg inline-block bg-green-400 text-white">
+              <div className="flex flex-col space-y-2 text-base max-w-md mx-2 order-1 items-end">
+                <p className="px-4 py-2 rounded-lg inline-block bg-green-400 text-white select-text">
                   {message.message}
                   <span className="ml-2 text-xs text-gray-500">
                     {format(message.createdAt, "EEEE") + ","}

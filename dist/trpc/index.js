@@ -4005,10 +4005,10 @@ exports.appRouter = (0, trpc_1.router)({
                                     top4: results.docs[0].top4Prep,
                                 }];
                         }
-                        else if (input.category === "stationery") {
+                        else if (input.category === "bng") {
                             return [2 /*return*/, {
-                                    top: results.docs[0].top1Stationery,
-                                    top4: results.docs[0].top4Stationery,
+                                    top: results.docs[0].top1BnG,
+                                    top4: results.docs[0].top4BnG,
                                 }];
                         }
                         else if (input.category === "cake") {
@@ -4362,14 +4362,14 @@ exports.appRouter = (0, trpc_1.router)({
                         _b.sent();
                         return [3 /*break*/, 35];
                     case 29:
-                        if (!(input.cat == "stationery")) return [3 /*break*/, 31];
+                        if (!(input.cat == "bng")) return [3 /*break*/, 31];
                         return [4 /*yield*/, payload.update({
                                 collection: "featured",
                                 where: {
                                     id: { equals: "65a3e090f66a58e7b5eb9542" },
                                 },
                                 data: {
-                                    top1Stationery: input.vendorId,
+                                    top1BnG: input.vendorId,
                                 },
                             })];
                     case 30:

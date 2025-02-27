@@ -19,17 +19,17 @@ const Supervendor200 = () => {
           Today!
         </h1>
       </div>
-      {/* <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center">
         <div className="w-[80%] lg:w-[60%] p-10">
           <Image
             width={6912}
             height={3456}
-            src="/ads/sscny.jpg"
+            src="/ads/1ya.jpg"
             alt="ad1"
             unoptimized={true}
           />
         </div>
-      </div> */}
+      </div>
       <div className="bg-sky-200 w-full flex justify-center items-center">
         <div className="w-[80%] lg:w-[60%] bg-white rounded-md p-10 shadow-lg flex flex-col lg:grid lg:grid-cols-2 m-10">
           <div className="col-span-1 flex flex-col justify-center items-center shadow-md py-4 lg:py-12 px-4 lg:px-12 rounded-md">
@@ -50,8 +50,11 @@ const Supervendor200 = () => {
                 <div className="flex justify-center items-center gap-2">
                   <div className="w-full flex justify-center bg-red-200"></div>
                   <div>
-                    <span className="text-4xl font-medium tracking-tight">
+                    <span className="text-2xl tracking-tight line-through">
                       $255
+                    </span>
+                    <span className="text-4xl font-medium tracking-tight">
+                      $222
                     </span>
                     <span className="text-gray-500">/year</span>
                   </div>

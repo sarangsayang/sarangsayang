@@ -74,6 +74,7 @@ export interface Vendor {
     | 'emcees'
     | 'performers'
     | 'prep'
+    | 'bng'
     | 'cake'
     | 'catering';
   bio?: string | null;
@@ -81,12 +82,12 @@ export interface Vendor {
   facebook?: string | null;
   instagram?: string | null;
   packages?: (string | Package)[] | null;
+  link?: string | null;
   images: {
     image: string | Media;
     id?: string | null;
   }[];
   clicks?: number | null;
-  link?: string | null;
   likes?: number | null;
   visible?: boolean | null;
   updatedAt: string;
@@ -113,6 +114,7 @@ export interface Package {
         | 'emcees'
         | 'performers'
         | 'prep'
+        | 'bng'
         | 'cake'
         | 'catering'
       )[]
@@ -186,6 +188,7 @@ export interface ExPackage {
         | 'emcees'
         | 'performers'
         | 'prep'
+        | 'bng'
         | 'cake'
         | 'catering'
       )[]
@@ -357,8 +360,8 @@ export interface Featured {
         id?: string | null;
       }[]
     | null;
-  top1Stationery?: (string | null) | Vendor;
-  top4Stationery?:
+  top1BnG?: (string | null) | Vendor;
+  top4BnG?:
     | {
         vendor?: (string | null) | Vendor;
         id?: string | null;
